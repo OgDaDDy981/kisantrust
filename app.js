@@ -1,8 +1,8 @@
 /**
  * ============================================
  * KISAN TRUST - STATIC WEB APP ENGINE
- * Fully functional conversion from Streamlit + Azure
- * Runs entirely client-side for Netlify deployment
+ * Fully functional static web engine
+ * Runs entirely client-side
  * ============================================
  */
 
@@ -180,8 +180,7 @@ function showToast(message, type = 'info') {
 }
 
 // ===========================
-// DEMO AI ENGINE
-// (Replicates azure_utils.py logic)
+// SIMULATION ENGINE
 // ===========================
 const DemoAI = {
     analyzeVegetables(imageCount) {
@@ -722,8 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ===========================
-    // STAGGERED IMAGE GRID ANIMATION
-    // Each uploaded image enters with a delay
+    // IMAGE GRID ANIMATION
     // ===========================
     const origRender = renderUploadedFiles;
     renderUploadedFiles = function () {

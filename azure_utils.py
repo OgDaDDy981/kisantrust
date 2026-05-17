@@ -17,7 +17,7 @@ except ImportError:
 
 load_dotenv()
 
-# ENHANCED LANGUAGE MAPPING WITH BRAND NAMES
+# LANGUAGE MAPPING
 LANG_MAP = {
     "English": "en-US",
     "Hindi (हिंदी)": "hi-IN",
@@ -27,7 +27,7 @@ LANG_MAP = {
     "French (Français)": "fr-FR"
 }
 
-# BRAND NAME MAPPING FOR MULTILINGUAL BRANDING
+# BRAND NAME MAPPING
 BRAND_NAME_MAP = {
     "English": "Kisan Trust",
     "Hindi (हिंदी)": "किसान ट्रस्ट",
@@ -37,7 +37,7 @@ BRAND_NAME_MAP = {
     "French (Français)": "Confiance Kisan"
 }
 
-# VOICE PERSONALITIES WITH FARMER-FRIENDLY TONES
+# VOICE PERSONALITIES
 VOICE_MAP = {
     "en-US": "en-IN-NeerjaNeural",
     "hi-IN": "hi-IN-MadhurNeural",  # Changed to male voice for authority
@@ -106,7 +106,7 @@ class AzureServices:
 
     def analyze_vegetables_batch(self, image_list):
         """
-        Stage 1: Enhanced analysis with multiple features
+        Analyze images for vegetable features
         """
         if not image_list:
             return {"error": "No images provided"}
@@ -165,7 +165,7 @@ class AzureServices:
 
     def get_fair_price(self, vision_result, language_name):
         """
-        Stage 4: Enhanced reasoning with cultural context
+        Generate fair price based on quality logic
         """
         desc = vision_result.get("description", "")
         vegetable = vision_result.get("detected_vegetable", "vegetable")
@@ -209,7 +209,7 @@ class AzureServices:
                 api_version="2024-02-01"
             )
 
-            # Enhanced prompt with cultural context
+            # Generate prompt
             prompt = f"""
             Act as a friendly agricultural pricing expert from India. 
             
@@ -280,7 +280,7 @@ class AzureServices:
 
     def text_to_speech(self, text, language_name):
         """
-        Enhanced TTS with emotion and better audio quality
+        Text to speech generation
         """
         if self.is_demo_mode:
             return None

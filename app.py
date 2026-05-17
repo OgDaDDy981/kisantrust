@@ -4,7 +4,7 @@ import os
 import json
 from azure_utils import AzureServices, LANG_MAP, BRAND_NAME_MAP
 
-# 1. PAGE CONFIG with improved settings
+# Page Config
 st.set_page_config(
     page_title="Kisan Trust Global",
     page_icon="🌱",
@@ -12,7 +12,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# 2. LOAD ENHANCED CSS
+# Load CSS
 def local_css(file_name):
     if os.path.exists(file_name):
         with open(file_name, 'r', encoding='utf-8') as f:
@@ -22,7 +22,7 @@ def local_css(file_name):
 
 local_css("styles.css")
 
-# 3. ENHANCED SIDEBAR WITH LANGUAGE ANIMATION
+# Sidebar Setup
 st.sidebar.markdown("""
 <div class="language-selector-header">
     <div class="language-icon">🌍</div>
@@ -48,7 +48,7 @@ if selected_lang != st.session_state.prev_lang:
 else:
     st.session_state.lang_changed = False
 
-# 4. ENHANCED STATIC TEXT DICTIONARY WITH BRAND NAMES
+# UI Text Dictionary
 UI_TEXT = {
     "English": {
         "brand": BRAND_NAME_MAP["English"],
@@ -133,7 +133,7 @@ UI_TEXT = {
 # Fallback to English if key missing
 texts = UI_TEXT.get(selected_lang, UI_TEXT["English"])
 
-# 5. INITIALIZE AZURE
+# Initialize Azure
 azure = AzureServices()
 
 # Session State Management
@@ -146,7 +146,7 @@ if 'uploaded_files' not in st.session_state:
 if 'show_welcome' not in st.session_state:
     st.session_state.show_welcome = True
 
-# ANIMATED HEADER WITH LANGUAGE TRANSITION
+# Header Layout
 st.markdown(f"""
 <div class="header-container {'lang-change' if st.session_state.lang_changed else ''}">
     <div class="brand-name-animation">
@@ -197,7 +197,7 @@ if st.session_state.show_welcome and st.session_state.step > 1:
     st.session_state.show_welcome = False
 
 # =========================================================
-# STEP 1: ENHANCED IMAGE UPLOAD WITH ANIMATIONS
+# Image Upload
 # =========================================================
 if st.session_state.step == 1:
     st.markdown('<div class="custom-card upload-card">', unsafe_allow_html=True)
@@ -210,7 +210,7 @@ if st.session_state.step == 1:
     <p class="step-description">Upload 4 clear photos from different angles of your vegetable lot for accurate analysis.</p>
     """, unsafe_allow_html=True)
     
-    # Enhanced file uploader with drop zone
+    # File uploader
     uploaded_files = st.file_uploader(
         "Drag and drop or click to select 4 images",
         accept_multiple_files=True,
@@ -289,7 +289,7 @@ if st.session_state.step == 1:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================================================
-# STEP 2: ENHANCED LIVE CUT VERIFICATION
+# Live Verification
 # =========================================================
 elif st.session_state.step == 2:
     st.markdown('<div class="custom-card verification-card">', unsafe_allow_html=True)
@@ -373,7 +373,7 @@ elif st.session_state.step == 2:
     st.markdown('</div>', unsafe_allow_html=True)
 
 # =========================================================
-# STEP 3: ENHANCED PRICE & EXPLANATION
+# Price Generation
 # =========================================================
 elif st.session_state.step == 3:
     # Price calculation with loading animation
@@ -463,7 +463,7 @@ elif st.session_state.step == 3:
     </div>
     """, unsafe_allow_html=True)
     
-    # Audio player with enhanced UI
+    # Audio player
     audio_cols = st.columns([3, 1])
     with audio_cols[0]:
         if not azure.is_demo_mode:
