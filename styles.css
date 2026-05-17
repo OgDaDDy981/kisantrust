@@ -1,14 +1,12 @@
-/* ============================================
-   KISAN TRUST - IMPROVED DESIGN SYSTEM
-   ============================================ */
+/* KISAN TRUST - IMPROVED DESIGN SYSTEM */
 
-/* --- GOOGLE FONTS IMPORTS --- */
+/* GOOGLE FONTS IMPORTS */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap'); /* Latin */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600;700&display=swap'); /* Hindi, Marathi */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Tamil:wght@300;400;500;600;700&display=swap'); /* Tamil */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap'); /* Fallback */
 
-/* --- IMPROVED COLOR PALETTE --- */
+/* IMPROVED COLOR PALETTE */
 :root {
     /* Warm, earthy, farmer-friendly colors */
     --primary-earth: #2E7D32;      /* Deep green - growth, nature */
@@ -61,7 +59,7 @@
     --animation-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
-/* --- GLOBAL RESET & TYPOGRAPHY --- */
+/* GLOBAL RESET & TYPOGRAPHY */
 html, body, [class*="css"] {
     font-family: var(--font-latin) !important;
     color: var(--neutral-dark);
@@ -78,7 +76,7 @@ html, body, [class*="css"] {
     font-family: var(--font-tamil) !important;
 }
 
-/* --- IMPROVED BACKGROUND --- */
+/* IMPROVED BACKGROUND */
 [data-testid="stAppViewContainer"] {
     background: linear-gradient(135deg, 
         #FFF8F0 10%, 
@@ -104,7 +102,7 @@ html, body, [class*="css"] {
     z-index: -1;
 }
 
-/* --- HIDE DEFAULT STREAMLIT ELEMENTS --- */
+/* HIDE DEFAULT STREAMLIT ELEMENTS */
 [data-testid="stHeader"] {
     background-color: transparent !important;
     height: 0 !important;
@@ -113,7 +111,7 @@ html, body, [class*="css"] {
 footer { visibility: hidden !important; }
 #MainMenu { visibility: hidden !important; }
 
-/* --- ANIMATED HEADER --- */
+/* ANIMATED HEADER */
 .header-container {
     text-align: center;
     margin-bottom: var(--space-xl);
@@ -195,7 +193,7 @@ footer { visibility: hidden !important; }
     border: 2px solid white;
 }
 
-/* --- WELCOME MESSAGE --- */
+/* WELCOME MESSAGE */
 .welcome-message {
     text-align: center;
     padding: var(--space-xl);
@@ -227,7 +225,7 @@ footer { visibility: hidden !important; }
     line-height: 1.7;
 }
 
-/* --- PROGRESS BAR --- */
+/* PROGRESS BAR */
 .progress-step {
     text-align: center;
     padding: var(--space-md);
@@ -292,7 +290,7 @@ footer { visibility: hidden !important; }
     color: var(--neutral-dark);
 }
 
-/* --- ENHANCED CARDS --- */
+/* ENHANCED CARDS */
 .custom-card {
     background: linear-gradient(135deg, 
         rgba(255, 248, 240, 0.98) 0%, 
@@ -364,7 +362,7 @@ footer { visibility: hidden !important; }
     border-left: 3px solid var(--primary-earth-light);
 }
 
-/* --- UPLOAD AREA ENHANCEMENTS --- */
+/* UPLOAD AREA ENHANCEMENTS */
 .upload-area {
     border: 3px dashed var(--primary-earth-light);
     border-radius: var(--radius-lg);
@@ -461,7 +459,7 @@ footer { visibility: hidden !important; }
     border-left: 3px solid var(--accent-sun);
 }
 
-/* --- LOADING ANIMATIONS --- */
+/* LOADING ANIMATIONS */
 .loading-animation {
     width: 100%;
     height: 3px;
@@ -489,7 +487,7 @@ footer { visibility: hidden !important; }
     border-radius: var(--radius-full);
 }
 
-/* --- SUCCESS ANIMATIONS --- */
+/* SUCCESS ANIMATIONS */
 .success-animation {
     text-align: center;
     padding: var(--space-xl);
@@ -524,7 +522,7 @@ footer { visibility: hidden !important; }
     color: var(--success);
 }
 
-/* --- AI INSIGHT SECTION --- */
+/* AI INSIGHT SECTION */
 .ai-insight {
     background: linear-gradient(135deg, 
         rgba(255, 248, 240, 0.9) 0%, 
@@ -563,7 +561,7 @@ footer { visibility: hidden !important; }
     border: 1px solid var(--error);
 }
 
-/* --- SCANNING EFFECT --- */
+/* SCANNING EFFECT */
 .scanning-container {
     position: relative;
     overflow: hidden;
@@ -626,7 +624,7 @@ footer { visibility: hidden !important; }
     border: 1px solid rgba(46, 125, 50, 0.2);
 }
 
-/* --- INSTRUCTION BOX --- */
+/* INSTRUCTION BOX */
 .cut-instruction {
     background: linear-gradient(135deg, 
         rgba(255, 248, 240, 0.95) 0%, 
@@ -656,7 +654,7 @@ footer { visibility: hidden !important; }
     line-height: 1.6;
 }
 
-/* --- PRICE CARDS --- */
+/* PRICE CARDS */
 .price-card-market, .price-card-farmer {
     padding: var(--space-lg);
     border-radius: var(--radius-lg);
@@ -739,7 +737,7 @@ footer { visibility: hidden !important; }
     margin-top: var(--space-sm);
 }
 
-/* --- PRICE BREAKDOWN --- */
+/* PRICE BREAKDOWN */
 .price-breakdown {
     background: var(--neutral-white);
     padding: var(--space-lg);
@@ -777,7 +775,7 @@ footer { visibility: hidden !important; }
     color: var(--neutral-dark);
 }
 
-/* --- EXPLANATION SECTION --- */
+/* EXPLANATION SECTION */
 .explanation-section {
     background: linear-gradient(135deg, 
         rgba(255, 248, 240, 0.95) 0%, 
@@ -831,7 +829,7 @@ footer { visibility: hidden !important; }
     border-left: 4px solid var(--primary-earth);
 }
 
-/* --- AUDIO PLAYER --- */
+/* AUDIO PLAYER */
 .audio-player-container {
     background: linear-gradient(135deg, 
         rgba(255, 183, 77, 0.1) 0%, 
@@ -858,7 +856,7 @@ footer { visibility: hidden !important; }
     color: var(--accent-sun);
 }
 
-/* --- BUTTON ENHANCEMENTS --- */
+/* BUTTON ENHANCEMENTS */
 div.stButton > button {
     background: linear-gradient(45deg, 
         var(--primary-earth), 
@@ -925,7 +923,7 @@ div.stButton > button[kind="secondary"] {
     border: 2px solid var(--neutral-light) !important;
 }
 
-/* --- CELEBRATION ANIMATION --- */
+/* CELEBRATION ANIMATION */
 .celebration {
     position: fixed;
     top: 0;
@@ -947,7 +945,7 @@ div.stButton > button[kind="secondary"] {
 .celebration::before { top: 10%; left: 10%; animation-delay: 0.1s; }
 .celebration::after { top: 10%; right: 10%; animation-delay: 0.3s; }
 
-/* --- FOOTER --- */
+/* FOOTER */
 .footer {
     margin-top: var(--space-xxl);
     padding: var(--space-xl) 0;
@@ -997,7 +995,7 @@ div.stButton > button[kind="secondary"] {
     font-style: italic;
 }
 
-/* --- ANIMATION KEYFRAMES --- */
+/* ANIMATION KEYFRAMES */
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -1140,7 +1138,7 @@ div.stButton > button[kind="secondary"] {
     100% { opacity: 0; }
 }
 
-/* --- RESPONSIVE DESIGN --- */
+/* RESPONSIVE DESIGN */
 @media (max-width: 768px) {
     .brand-name {
         font-size: 2.2rem !important;
@@ -1175,13 +1173,13 @@ div.stButton > button[kind="secondary"] {
     }
 }
 
-/* --- ACCESSIBILITY FOCUS STATES --- */
+/* ACCESSIBILITY FOCUS STATES */
 *:focus {
     outline: 3px solid var(--primary-earth);
     outline-offset: 2px;
 }
 
-/* --- SCROLLBAR STYLING --- */
+/* SCROLLBAR STYLING */
 ::-webkit-scrollbar {
     width: 8px;
 }

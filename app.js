@@ -1,14 +1,10 @@
 /**
- * ============================================
  * KISAN TRUST - STATIC WEB APP ENGINE
  * Fully functional static web engine
  * Runs entirely client-side
- * ============================================
  */
 
-// ===========================
-// LANGUAGE & CONFIG DATA
-// ===========================
+// Language and Config Data
 const LANG_MAP = {
     "English": "en-US",
     "Hindi (हिंदी)": "hi-IN",
@@ -144,9 +140,7 @@ const VEGETABLE_NAMES = {
     "French (Français)": { tomato: "Tomate", potato: "Pomme de terre", onion: "Oignon", carrot: "Carotte", cabbage: "Chou", vegetable: "Légume" }
 };
 
-// ===========================
-// APPLICATION STATE
-// ===========================
+// Application State
 const AppState = {
     currentStep: 1,
     selectedLang: "Hindi (हिंदी)",
@@ -156,9 +150,7 @@ const AppState = {
     showWelcome: true
 };
 
-// ===========================
-// UTILITY FUNCTIONS
-// ===========================
+// Utility Functions
 function randomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -179,9 +171,7 @@ function showToast(message, type = 'info') {
     setTimeout(() => toast.remove(), 3000);
 }
 
-// ===========================
-// SIMULATION ENGINE
-// ===========================
+// Simulation Engine
 const DemoAI = {
     analyzeVegetables(imageCount) {
         const vegetableType = randomChoice(["tomato", "potato", "onion", "carrot"]);
@@ -242,9 +232,7 @@ const DemoAI = {
     }
 };
 
-// ===========================
-// UI UPDATE FUNCTIONS
-// ===========================
+// UI Update Functions
 function updateLanguage(lang) {
     const prevLang = AppState.selectedLang;
     AppState.selectedLang = lang;
@@ -361,9 +349,7 @@ function hideLoading() {
     document.getElementById('loadingOverlay').style.display = 'none';
 }
 
-// ===========================
-// FILE UPLOAD HANDLING
-// ===========================
+// File Upload Handling
 function handleFiles(files) {
     if (!files || files.length === 0) return;
 
@@ -426,9 +412,7 @@ function renderUploadedFiles() {
     }
 }
 
-// ===========================
-// AI ANALYSIS (DEMO)
-// ===========================
+// AI Analysis (Demo)
 function runAnalysis() {
     if (AppState.uploadedFiles.length < 4) {
         showToast('Please upload at least 4 photos', 'warning');
@@ -487,9 +471,7 @@ function updatePriceUI() {
     document.getElementById('txLanguage').textContent = AppState.selectedLang;
 }
 
-// ===========================
-// RESET / NEW TRANSACTION
-// ===========================
+// Reset / New Transaction
 function resetAll() {
     AppState.uploadedFiles = [];
     AppState.visionData = null;
@@ -513,9 +495,7 @@ function resetAll() {
     goToStep(1);
 }
 
-// ===========================
-// RECEIPT DOWNLOAD
-// ===========================
+// Receipt Download
 function downloadReceipt() {
     const receipt = {
         transaction_id: `KT${Date.now()}`,
@@ -534,9 +514,7 @@ function downloadReceipt() {
     URL.revokeObjectURL(url);
 }
 
-// ===========================
-// DRAG & DROP SUPPORT
-// ===========================
+// Drag and Drop Support
 function setupDragDrop() {
     const uploadArea = document.getElementById('uploadArea');
 
@@ -562,9 +540,7 @@ function setupDragDrop() {
     });
 }
 
-// ===========================
-// EVENT LISTENERS
-// ===========================
+// Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
     // Language Selection
     document.querySelectorAll('.lang-option').forEach(btn => {
@@ -660,10 +636,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ===========================
-    // SCROLL REVEAL OBSERVER
+    // Scroll Reveal Observer
     // Sections animate in when visible
-    // ===========================
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -681,10 +655,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('step1Section').classList.add('visible');
     }, 300);
 
-    // ===========================
-    // PARALLAX HEADER
+    // Parallax Header
     // Subtle depth effect on scroll
-    // ===========================
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
@@ -701,10 +673,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ===========================
-    // CURSOR GLOW (Desktop)
+    // Cursor Glow (Desktop)
     // A subtle green glow follows the cursor
-    // ===========================
     if (window.matchMedia('(pointer: fine)').matches) {
         const glow = document.createElement('div');
         glow.style.cssText = `
@@ -720,9 +690,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ===========================
-    // IMAGE GRID ANIMATION
-    // ===========================
+    // Image Grid Animation
     const origRender = renderUploadedFiles;
     renderUploadedFiles = function () {
         origRender();
@@ -740,9 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 50);
     };
 
-    // ===========================
-    // TYPEWRITER EFFECT for welcome text
-    // ===========================
+    // Typewriter effect for welcome text
     const welcomeText = document.getElementById('welcomeText');
     if (welcomeText) {
         const text = welcomeText.textContent;

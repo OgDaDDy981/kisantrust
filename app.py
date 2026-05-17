@@ -196,9 +196,7 @@ if azure.is_demo_mode:
 if st.session_state.show_welcome and st.session_state.step > 1:
     st.session_state.show_welcome = False
 
-# =========================================================
 # Image Upload
-# =========================================================
 if st.session_state.step == 1:
     st.markdown('<div class="custom-card upload-card">', unsafe_allow_html=True)
     
@@ -288,9 +286,7 @@ if st.session_state.step == 1:
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================================================
 # Live Verification
-# =========================================================
 elif st.session_state.step == 2:
     st.markdown('<div class="custom-card verification-card">', unsafe_allow_html=True)
     
@@ -372,9 +368,7 @@ elif st.session_state.step == 2:
     st.markdown('</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================================================
 # Price Generation
-# =========================================================
 elif st.session_state.step == 3:
     # Price calculation with loading animation
     with st.spinner(f"💭 Calculating best price in {selected_lang}..."):
@@ -544,9 +538,7 @@ elif st.session_state.step == 3:
     
     st.markdown('</div>', unsafe_allow_html=True)
 
-# =========================================================
-# FOOTER
-# =========================================================
+# Footer
 st.markdown("""
 <div class="footer">
     <div class="footer-content">

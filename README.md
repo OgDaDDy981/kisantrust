@@ -34,7 +34,7 @@
    AZURE_OPENAI_ENDPOINT=your_openai_endpoint
    AZURE_OPENAI_DEPLOYMENT_NAME=your_deployment_name
    ```
-   *(Note: If you do not provide these keys, the app will automatically run in **Demo Mode**, which simulates the AI responses perfectly for demonstration purposes!)*
+   *(Note: If you do not provide these keys, the app will automatically run in **Demo Mode**, which simulates the AI responses for demonstration purposes.)*
 
 3. **Run the App:**
    ```bash

@@ -1,7 +1,5 @@
-/* ============================================
-   KISAN TRUST — PREMIUM FARMING DESIGN v2
-   Rich, dynamic, harvest-inspired aesthetics
-   ============================================ */
+/* KISAN TRUST — PREMIUM FARMING DESIGN v2
+   Rich, dynamic, harvest-inspired aesthetics */
 
 :root {
     /* 🌾 Harvest-Inspired Palette */
@@ -68,7 +66,7 @@
     --sidebar-collapsed: 52px;
 }
 
-/* === RESET === */
+/* RESET */
 *,
 *::before,
 *::after {
@@ -109,7 +107,7 @@ button {
     font-family: inherit
 }
 
-/* === ANIMATED BACKGROUND === */
+/* ANIMATED BACKGROUND */
 body::before {
     content: '';
     position: fixed;
@@ -140,9 +138,7 @@ body::after {
     animation: floatDots 30s linear infinite;
 }
 
-/* ===========================
-   FLOATING LEAVES (decorative)
-   =========================== */
+/* FLOATING LEAVES (decorative) */
 .floating-leaf {
     position: fixed;
     pointer-events: none;
@@ -192,9 +188,7 @@ body::after {
     font-size: 1.2rem
 }
 
-/* ===========================
-   SIDEBAR
-   =========================== */
+/* SIDEBAR */
 .sidebar {
     position: fixed;
     top: 0;
@@ -346,9 +340,7 @@ body::after {
     line-height: 1.4
 }
 
-/* ===========================
-   MAIN CONTENT
-   =========================== */
+/* MAIN CONTENT */
 .main-content {
     margin-left: var(--sidebar-collapsed);
     padding: var(--s6) var(--s6) 0;
@@ -357,9 +349,7 @@ body::after {
     position: relative;
 }
 
-/* ===========================
-   HEADER — Glassmorphism hero
-   =========================== */
+/* HEADER — Glassmorphism hero */
 .header-container {
     text-align: center;
     padding: var(--s7) var(--s6);
@@ -441,9 +431,7 @@ body::after {
     animation: badgePulse 3s infinite;
 }
 
-/* ===========================
-   WELCOME
-   =========================== */
+/* WELCOME */
 .welcome-message {
     text-align: center;
     padding: var(--s6);
@@ -487,9 +475,7 @@ body::after {
     line-height: 1.7
 }
 
-/* ===========================
-   PROGRESS BAR
-   =========================== */
+/* PROGRESS BAR */
 .progress-bar {
     display: flex;
     align-items: center;
@@ -605,9 +591,7 @@ body::after {
     color: var(--info);
 }
 
-/* ===========================
-   CARDS — Glassmorphism + glow
-   =========================== */
+/* CARDS — Glassmorphism + glow */
 .custom-card {
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(232, 245, 233, 0.5) 100%);
     backdrop-filter: blur(20px);
@@ -710,9 +694,7 @@ body::after {
     border-left: 3px solid var(--leaf-soft);
 }
 
-/* ===========================
-   UPLOAD AREA
-   =========================== */
+/* UPLOAD AREA */
 .upload-area {
     border: 3px dashed var(--leaf-soft);
     border-radius: var(--r3);
@@ -891,9 +873,7 @@ body::after {
     margin-top: var(--s4);
 }
 
-/* ===========================
-   BUTTONS
-   =========================== */
+/* BUTTONS */
 .action-buttons {
     display: flex;
     gap: var(--s4);
@@ -974,9 +954,7 @@ body::after {
     font-size: 1.05rem
 }
 
-/* ===========================
-   STEP 2: VERIFICATION
-   =========================== */
+/* STEP 2: VERIFICATION */
 .success-animation {
     text-align: center;
     padding: var(--s6);
@@ -1147,9 +1125,7 @@ body::after {
     padding: var(--s6)
 }
 
-/* ===========================
-   STEP 3: PRICING
-   =========================== */
+/* STEP 3: PRICING */
 .price-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1500,9 +1476,7 @@ body::after {
     flex-wrap: wrap
 }
 
-/* ===========================
-   LOADING OVERLAY
-   =========================== */
+/* LOADING OVERLAY */
 .loading-overlay {
     position: fixed;
     inset: 0;
@@ -1563,9 +1537,7 @@ body::after {
     font-size: 1.05rem
 }
 
-/* ===========================
-   FOOTER
-   =========================== */
+/* FOOTER */
 .footer {
     margin-top: var(--s8);
     padding: var(--s6) 0;
@@ -1626,9 +1598,7 @@ body::after {
     font-style: italic
 }
 
-/* ===========================
-   SCROLL REVEAL (JS-triggered)
-   =========================== */
+/* SCROLL REVEAL (JS-triggered) */
 .reveal {
     opacity: 0;
     transform: translateY(40px);
@@ -1640,9 +1610,7 @@ body::after {
     transform: translateY(0)
 }
 
-/* ===========================
-   KEYFRAME ANIMATIONS
-   =========================== */
+/* KEYFRAME ANIMATIONS */
 @keyframes bgMesh {
     0% {
         background-position: 0% 50%
@@ -1957,9 +1925,7 @@ body::after {
     }
 }
 
-/* ===========================
-   RESPONSIVE
-   =========================== */
+/* RESPONSIVE */
 @media(max-width:768px) {
     :root {
         --sidebar-collapsed: 0px
