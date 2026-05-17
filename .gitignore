@@ -1,0 +1,12 @@
+# Python files (not needed for Netlify deployment)
+__pycache__/
+*.pyc
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

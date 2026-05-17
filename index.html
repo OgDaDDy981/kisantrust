@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Kisan Trust - AI-Powered Fair Pricing for Farmers. Upload vegetable photos, get quality analysis and fair price estimates in your language.">
+    <title>Kisan Trust Global 🌱 | AI-Powered Fair Pricing for Farmers</title>
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+    <!-- FLOATING LEAVES (Decorative Background Particles) -->
+    <div class="floating-leaf">🍃</div>
+    <div class="floating-leaf">🌿</div>
+    <div class="floating-leaf">🌾</div>
+    <div class="floating-leaf">🍂</div>
+    <div class="floating-leaf">🌱</div>
+    <div class="floating-leaf">🍃</div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Language Selector">
+            <span class="toggle-icon">🌍</span>
+        </div>
+        <div class="sidebar-content">
+            <div class="language-selector-header">
+                <div class="language-icon">🌍</div>
+                <h3>Choose Language</h3>
+            </div>
+            <div class="language-options" id="languageOptions">
+                <button class="lang-option" data-lang="English">
+                    <span class="lang-flag">🇬🇧</span>
+                    <span class="lang-name">English</span>
+                </button>
+                <button class="lang-option active" data-lang="Hindi (हिंदी)">
+                    <span class="lang-flag">🇮🇳</span>
+                    <span class="lang-name">हिंदी</span>
+                </button>
+                <button class="lang-option" data-lang="Marathi (मराठी)">
+                    <span class="lang-flag">🇮🇳</span>
+                    <span class="lang-name">मराठी</span>
+                </button>
+                <button class="lang-option" data-lang="Tamil (தமிழ்)">
+                    <span class="lang-flag">🇮🇳</span>
+                    <span class="lang-name">தமிழ்</span>
+                </button>
+                <button class="lang-option" data-lang="Spanish (Español)">
+                    <span class="lang-flag">🇪🇸</span>
+                    <span class="lang-name">Español</span>
+                </button>
+                <button class="lang-option" data-lang="French (Français)">
+                    <span class="lang-flag">🇫🇷</span>
+                    <span class="lang-name">Français</span>
+                </button>
+            </div>
+            <div class="sidebar-info">
+                <div class="demo-badge">
+                    <span class="demo-dot"></span>
+                    <span>Demo Mode Active</span>
+                </div>
+                <p class="sidebar-note">All features work with simulated AI analysis</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="mainContent">
+        <!-- HEADER -->
+        <header class="header-container" id="headerContainer">
+            <div class="brand-name-animation">
+                <h1 class="brand-name" id="brandName">किसान ट्रस्ट</h1>
+                <div class="tagline" id="tagline">सही दाम. सही वजन.</div>
+            </div>
+            <div class="language-indicator">
+                <span class="lang-badge" id="langBadge">Hindi (हिंदी)</span>
+            </div>
+        </header>
+
+        <!-- WELCOME MESSAGE -->
+        <div class="welcome-message" id="welcomeMessage">
+            <h2>👋 <span id="welcomeText">किसान ट्रस्ट में आपका स्वागत है</span></h2>
+            <p id="subtitleText">किसानों को AI-संचालित उचित मूल्यन से सशक्त बनाना</p>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="progress-bar">
+            <div class="progress-step active" id="progressStep1">
+                <div class="step-number">1</div>
+                <div class="step-label" id="step1Label">चरण 1: फोटो अपलोड करें</div>
+            </div>
+            <div class="progress-connector">
+                <div class="connector-line" id="connector1"></div>
+            </div>
+            <div class="progress-step" id="progressStep2">
+                <div class="step-number">2</div>
+                <div class="step-label" id="step2Label">चरण 2: गुणवत्ता जांच</div>
+            </div>
+            <div class="progress-connector">
+                <div class="connector-line" id="connector2"></div>
+            </div>
+            <div class="progress-step" id="progressStep3">
+                <div class="step-number">3</div>
+                <div class="step-label" id="step3Label">चरण 3: मूल्य प्राप्त करें</div>
+            </div>
+        </div>
+
+        <!-- DEMO MODE INDICATOR -->
+        <div class="demo-indicator" id="demoIndicator">
+            <span class="demo-icon">ℹ️</span>
+            <span>DEMO MODE | Selected Language: <strong id="demoLangDisplay">Hindi (हिंदी)</strong></span>
+        </div>
+
+        <!-- =========================================================
+             STEP 1: IMAGE UPLOAD
+             ========================================================= -->
+        <section class="step-section reveal" id="step1Section">
+            <div class="custom-card upload-card">
+                <div class="step-header">
+                    <div class="step-icon">📸</div>
+                    <h2 id="uploadTitle">4 फोटो अपलोड करें (लॉट)</h2>
+                </div>
+                <p class="step-description" id="uploadDesc">Upload 4 clear photos from different angles of your
+                    vegetable lot for accurate analysis.</p>
+
+                <div class="upload-area" id="uploadArea">
+                    <!-- File Input (Hidden) -->
+                    <input type="file" id="fileInput" multiple accept="image/png,image/jpg,image/jpeg"
+                        style="display:none">
+
+                    <!-- Empty State -->
+                    <div class="empty-state" id="emptyState">
+                        <div class="empty-icon">📷</div>
+                        <h3>No photos uploaded yet</h3>
+                        <p>Please upload 4 photos of your vegetable lot to begin analysis</p>
+                        <button class="upload-btn" id="selectPhotosBtn" type="button">
+                            <span>📁</span> Select Photos
+                        </button>
+                        <div class="upload-hint">
+                            <span>📱 Tip: Take photos in good lighting from different angles</span>
+                        </div>
+                    </div>
+
+                    <!-- Uploaded State -->
+                    <div class="uploaded-state" id="uploadedState" style="display:none">
+                        <div class="upload-count animated-count">
+                            <span class="count-number" id="photoCount">0</span>
+                            <span class="count-label">/ 4 photos uploaded</span>
+                        </div>
+                        <div class="image-grid" id="imageGrid"></div>
+                        <div class="upload-warning" id="uploadWarning" style="display:none">
+                            <span>⚠️</span> <span id="warningText">Please upload more photos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons" id="uploadActions" style="display:none">
+                    <button class="btn btn-secondary" id="resetBtn" type="button">🔄 Reset</button>
+                    <button class="btn btn-primary" id="analyzeBtn" type="button">
+                        <span>✨</span> <span id="analyzeBtnText">गुणवत्ता जांचें</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 2: QUALITY VERIFICATION
+             ========================================================= -->
+        <section class="step-section reveal" id="step2Section" style="display:none">
+            <div class="custom-card verification-card">
+                <!-- Success Animation -->
+                <div class="success-animation">
+                    <div class="checkmark">✓</div>
+                    <div class="success-text">Lot Verified Successfully!</div>
+                </div>
+
+                <!-- AI Insight -->
+                <div class="ai-insight" id="aiInsight">
+                    <h4>🤖 AI Insight</h4>
+                    <p id="aiDescription">Loading analysis...</p>
+                    <div class="quality-badge good" id="qualityBadge">Quality: Good</div>
+                </div>
+
+                <div class="step-header">
+                    <div class="step-icon">🔪</div>
+                    <h2 id="cutTitle">काट कर दिखाएं</h2>
+                </div>
+                <p class="step-description">Cut one vegetable in half to show internal quality for verification.</p>
+
+                <!-- Scanning Effect -->
+                <div class="scanning-container">
+                    <div class="scanning-effect">
+                        <div class="scan-line"></div>
+                        <div class="scan-content">
+                            <span class="scan-icon">🔍</span>
+                            <span class="scan-text">Live Quality Scan in Progress...</span>
+                            <span class="scan-language" id="scanLangDisplay">Language: Hindi (हिंदी)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instructions + Camera -->
+                <div class="verification-grid">
+                    <div class="cut-instruction">
+                        <div class="instruction-icon">📋</div>
+                        <h4>Instructions:</h4>
+                        <ol>
+                            <li>Take one vegetable from the lot</li>
+                            <li>Cut it in half vertically</li>
+                            <li>Show the internal view to camera</li>
+                            <li>Click capture below</li>
+                        </ol>
+                    </div>
+                    <div class="camera-actions">
+                        <button class="btn btn-primary btn-large" id="captureBtn" type="button">
+                            📸 Capture Internal View
+                        </button>
+                        <button class="btn btn-secondary" id="skipBtn" type="button">
+                            ⏭️ Skip & Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             STEP 3: PRICE & EXPLANATION
+             ========================================================= -->
+        <section class="step-section reveal" id="step3Section" style="display:none">
+            <div class="custom-card price-card">
+                <div class="step-header">
+                    <div class="step-icon">💰</div>
+                    <h2 id="offerTitle">अंतिम मूल्य प्रस्ताव</h2>
+                </div>
+                <p class="step-description">Your personalized price offer based on quality analysis</p>
+
+                <!-- Price Cards -->
+                <div class="price-grid">
+                    <div class="price-card-market">
+                        <div class="price-card-header">
+                            <div class="price-icon">🏪</div>
+                            <h4>Market Price</h4>
+                        </div>
+                        <div class="price-amount" id="marketPrice">₹ --</div>
+                        <div class="price-note">Average market rate</div>
+                    </div>
+                    <div class="price-card-farmer highlight-card">
+                        <div class="price-card-header">
+                            <div class="price-icon">👨‍🌾</div>
+                            <h4>You Receive</h4>
+                        </div>
+                        <div class="price-amount farmer-price" id="farmerPrice">₹ --</div>
+                        <div class="price-note">Direct to farmer price</div>
+                        <div class="price-savings" id="priceSavings">+15% better than market</div>
+                    </div>
+                </div>
+
+                <!-- Price Breakdown -->
+                <details class="breakdown-accordion">
+                    <summary>📊 See detailed price breakdown</summary>
+                    <div class="price-breakdown" id="priceBreakdown">
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Base Quality Value</span>
+                            <span class="breakdown-value" id="bdBase">₹ 35</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Freshness Bonus</span>
+                            <span class="breakdown-value" id="bdFreshness">+ ₹ 3</span>
+                        </div>
+                        <div class="breakdown-item">
+                            <span class="breakdown-label">Direct Farmer Discount</span>
+                            <span class="breakdown-value" id="bdDiscount">- ₹ 1</span>
+                        </div>
+                        <div class="breakdown-item total">
+                            <span class="breakdown-label">Final Price</span>
+                            <span class="breakdown-value" id="bdTotal">₹ 37</span>
+                        </div>
+                    </div>
+                </details>
+
+                <hr class="section-divider">
+
+                <!-- AI Explanation -->
+                <div class="explanation-section">
+                    <div class="explanation-header">
+                        <div class="explanation-icon">🗣️</div>
+                        <div>
+                            <h4>AI Explanation (<span id="explainLang">Hindi (हिंदी)</span>)</h4>
+                            <div class="language-badge-small" id="explainLangBadge">Hindi (हिंदी)</div>
+                        </div>
+                    </div>
+                    <div class="explanation-content" id="explanationContent">
+                        Loading explanation...
+                    </div>
+                </div>
+
+                <!-- Audio Indicator -->
+                <div class="audio-player-container">
+                    <div class="audio-header">
+                        <div class="audio-icon">🔊</div>
+                        <span>Audio explanation available with full Azure setup</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="price-actions">
+                    <button class="btn btn-secondary" id="negotiateBtn" type="button">📝 Negotiate</button>
+                    <button class="btn btn-secondary" id="newAnalysisBtn" type="button">🔄 New Analysis</button>
+                    <button class="btn btn-primary" id="acceptOfferBtn" type="button">
+                        <span>✅</span> <span id="acceptBtnText">अंतिम मूल्य प्रस्ताव</span>
+                    </button>
+                </div>
+
+                <!-- Transaction Complete (hidden initially) -->
+                <div class="transaction-complete" id="transactionComplete" style="display:none">
+                    <div class="celebration-container">
+                        <div class="confetti">🎉</div>
+                        <div class="confetti">🎊</div>
+                        <div class="confetti">✨</div>
+                        <div class="confetti">🌟</div>
+                    </div>
+                    <div class="transaction-success">
+                        <h3>🎉 Transaction Complete!</h3>
+                        <div class="transaction-details">
+                            <p><strong>Amount:</strong> <span id="txAmount">₹ --</span></p>
+                            <p><strong>Quality:</strong> <span id="txQuality">Good</span></p>
+                            <p><strong>Language:</strong> <span id="txLanguage">Hindi (हिंदी)</span></p>
+                        </div>
+                        <p class="tx-note">Payment will be processed within 24 hours.</p>
+                        <div class="tx-actions">
+                            <button class="btn btn-secondary" id="downloadReceiptBtn" type="button">📄 Download
+                                Receipt</button>
+                            <button class="btn btn-primary" id="newTransactionBtn" type="button">🌱 Start New
+                                Transaction</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LOADING OVERLAY -->
+        <div class="loading-overlay" id="loadingOverlay" style="display:none">
+            <div class="loading-card">
+                <div class="loading-spinner"></div>
+                <div class="loading-animation-bar"></div>
+                <p class="loading-text" id="loadingText">🔍 AI is analyzing your vegetables...</p>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-brand">🌱 Kisan Trust</div>
+                <div class="footer-links">
+                    <span>📞 Support: 1800-123-4567</span>
+                    <span>📧 Email: help@kisantrust.org</span>
+                    <span>📍 Available in 6 languages</span>
+                </div>
+                <div class="footer-note">
+                    Empowering farmers with transparent, AI-powered pricing since 2024
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
