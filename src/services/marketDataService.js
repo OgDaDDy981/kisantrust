@@ -1,17 +1,16 @@
 /**
  * KisanTrust - Market Data Service (Agmarknet & Open Data Normalization)
- * Integrates legitimate Open Government Data (data.gov.in / Agmarknet) with Firestore caching.
+ * Integrates legitimate Open Government Data (data.gov.in / Agmarknet) via secure serverless proxy.
  * Implements a strict fallback hierarchy: Live API -> Firestore Cache -> Structured Demo Data.
  * 
  * Strict Compliance:
  * - Never labels mock or benchmark data as live data.
  * - Always provides explicit dataStatus ('live' | 'cached' | 'demo') and data freshness metadata.
- * - Reads API keys securely from environment variables (Node: process.env, Browser: window / localStorage).
+ * - Routes through server-side Netlify Functions to keep API keys secure.
  */
 
 import { firebaseService } from './firebaseService.js';
 import { mockMandiBenchmarks } from '../data/mockMandis.js';
-import { ENV_CONFIG } from '../config/envConfig.js';
 
 export const DATA_STATUS = {
     LIVE: 'live',
@@ -28,27 +27,8 @@ export const DATA_STATUS_LABELS = {
 };
 
 export class MarketDataService {
-    // Official Open Government Data Platform India (data.gov.in) Agmarknet Resource ID
-    static AGMARKNET_RESOURCE_ID = "9ef84268-d588-465a-a308-a864a43d0070";
-    static API_BASE_URL = "https://api.data.gov.in/resource";
-
-    /**
-     * Retrieves the configured API key from environment variables or browser context
-     * @returns {string|null}
-     */
-    static getApiKey() {
-        return ENV_CONFIG.AGMARKNET_API_KEY ||
-               ENV_CONFIG.DATA_GOV_IN_API_KEY ||
-               (typeof process !== 'undefined' && (process.env.AGMARKNET_API_KEY || process.env.DATA_GOV_IN_API_KEY)) ||
-               (typeof window !== 'undefined' && (window.__ENV__?.AGMARKNET_API_KEY || window.__AGMARKNET_API_KEY__)) ||
-               null;
-    }
-
     /**
      * Calculates structured data freshness metadata
-     * @param {string|Date} timestamp
-     * @param {string} dataStatus 'live' | 'cached' | 'demo'
-     * @returns {Object} Freshness metadata
      */
     static getDataFreshness(timestamp, dataStatus = DATA_STATUS.DEMO) {
         const timeMs = new Date(timestamp || Date.now()).getTime();
@@ -81,9 +61,6 @@ export class MarketDataService {
 
     /**
      * Normalizes raw mandi data (whether from Agmarknet API, Firestore cache, or internal benchmark)
-     * @param {Object} raw
-     * @param {string} [dataStatus="demo"] 'live' | 'cached' | 'demo' | 'unavailable'
-     * @returns {Object} Normalized Mandi Price Record
      */
     static normalizeMandiRecord(raw, dataStatus = DATA_STATUS.DEMO) {
         // Agmarknet prices are in ₹/quintal (1 quintal = 100 kg); normalize to ₹/kg
@@ -126,38 +103,50 @@ export class MarketDataService {
 
     /**
      * Fetches Mandi Prices for a commodity with resilient fallback hierarchy:
-     * 1. Live Agmarknet/OGD API (if API Key configured and online)
+     * 1. Live Agmarknet/OGD API via Serverless Proxy
      * 2. Firestore Mandi Cache (if cached within 24h)
      * 3. Structured Authentic Demo Benchmarks (explicitly labeled as 'demo')
-     * 
-     * @param {string} commodity e.g. "Tomato", "Onion", "Potato"
-     * @param {string} [state="Maharashtra"]
-     * @param {string} [district="Nashik"]
-     * @returns {Promise<Array<Object>>} List of normalized market records
      */
     static async fetchMandiPrices(commodity = "Tomato", state = "Maharashtra", district = "Nashik") {
         await firebaseService.initializeData();
         const normalizedCrop = commodity.trim().toLowerCase();
 
-        // 1. Check for Configured API Key
-        const apiKey = this.getApiKey();
-
-        if (apiKey) {
+        // 1. Check Live API via Serverless Route
+        if (typeof fetch !== 'undefined') {
             try {
-                const url = `${this.API_BASE_URL}/${this.AGMARKNET_RESOURCE_ID}?api-key=${apiKey}&format=json&offset=0&limit=25&filters[state]=${encodeURIComponent(state)}&filters[commodity]=${encodeURIComponent(commodity)}`;
+                const url = `/api/agmarknet?commodity=${encodeURIComponent(commodity)}&state=${encodeURIComponent(state)}&district=${encodeURIComponent(district)}`;
                 const response = await fetch(url);
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.records && data.records.length > 0) {
+                    if (data && Array.isArray(data.records) && data.records.length > 0) {
                         const normalizedList = data.records.map(r => this.normalizeMandiRecord(r, DATA_STATUS.LIVE));
-                        // Update Firestore Cache in background
                         await this._cacheMandiPrices(normalizedCrop, normalizedList);
                         return normalizedList;
                     }
                 }
             } catch (err) {
-                console.warn("[MarketDataService] Live API fetch failed, falling back to cache/demo:", err.message);
+                // Fallback to cache/local
             }
+        }
+
+        // Direct Node test fallback
+        if (typeof process !== 'undefined' && process.env && (process.env.AGMARKNET_API_KEY || process.env.DATA_GOV_IN_API_KEY)) {
+            try {
+                const { handler } = await import('../../netlify/functions/agmarknet.js');
+                const event = {
+                    httpMethod: 'GET',
+                    queryStringParameters: { commodity, state, district }
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    const data = JSON.parse(result.body);
+                    if (data && Array.isArray(data.records) && data.records.length > 0) {
+                        const normalizedList = data.records.map(r => this.normalizeMandiRecord(r, DATA_STATUS.LIVE));
+                        await this._cacheMandiPrices(normalizedCrop, normalizedList);
+                        return normalizedList;
+                    }
+                }
+            } catch (nodeErr) {}
         }
 
         // 2. Check Firestore Cache
@@ -165,7 +154,6 @@ export class MarketDataService {
             const cacheDoc = await (await firebaseService.db.collection('mandiPricesCache')).doc(normalizedCrop).get();
             if (cacheDoc.exists) {
                 const cacheData = cacheDoc.data();
-                // Cache valid if within 24 hours
                 const ageMs = Date.now() - new Date(cacheData.cachedAt).getTime();
                 if (ageMs < 24 * 60 * 60 * 1000 && cacheData.records && cacheData.records.length > 0) {
                     return cacheData.records.map(r => this.normalizeMandiRecord(r, DATA_STATUS.CACHED));
@@ -186,14 +174,6 @@ export class MarketDataService {
 
     /**
      * Filters a list of normalized mandi records by user criteria
-     * @param {Array<Object>} records
-     * @param {Object} filters
-     * @param {string} [filters.commodity]
-     * @param {string} [filters.variety]
-     * @param {string} [filters.state]
-     * @param {string} [filters.district]
-     * @param {string} [filters.market]
-     * @returns {Array<Object>} Filtered mandi records
      */
     static filterMandiRecords(records = [], filters = {}) {
         if (!Array.isArray(records)) return [];

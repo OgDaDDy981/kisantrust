@@ -1,11 +1,64 @@
-# Netlify Configuration for Kisan Trust Global
-# This is a static site - no build command needed
+# Netlify Configuration for KisanTrust Platform
+# AI-Powered Market Intelligence & Trusted Farm-to-Buyer Network
 
 [build]
-  # No build command needed - pure HTML/CSS/JS
+  command = "node scripts/build_bundle.js"
   publish = "."
+  functions = "netlify/functions"
 
-# Headers for performance and security
+# Environment variables are managed via Netlify UI Settings:
+# GEMINI_API_KEY
+# AGMARKNET_API_KEY / DATA_GOV_IN_API_KEY
+# FIREBASE_API_KEY
+# FIREBASE_PROJECT_ID
+# FIREBASE_AUTH_DOMAIN
+# FIREBASE_STORAGE_BUCKET
+# FIREBASE_MESSAGING_SENDER_ID
+# FIREBASE_APP_ID
+# WEATHER_API_KEY
+
+# API Routes redirected to Netlify Functions
+[[redirects]]
+  from = "/api/gemini-vision"
+  to = "/.netlify/functions/gemini-vision"
+  status = 200
+
+[[redirects]]
+  from = "/api/gemini-advisory"
+  to = "/.netlify/functions/gemini-advisory"
+  status = 200
+
+[[redirects]]
+  from = "/api/agmarknet"
+  to = "/.netlify/functions/agmarknet"
+  status = 200
+
+[[redirects]]
+  from = "/api/keys-check"
+  to = "/.netlify/functions/keys-check"
+  status = 200
+
+[[redirects]]
+  from = "/api/firebase-check"
+  to = "/.netlify/functions/firebase-check"
+  status = 200
+
+[[redirects]]
+  from = "/api/telemetry"
+  to = "/.netlify/functions/telemetry"
+  status = 200
+
+[[redirects]]
+  from = "/api/status"
+  to = "/.netlify/functions/status"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Security and caching headers
 [[headers]]
   for = "/*"
   [headers.values]
@@ -14,7 +67,6 @@
     X-XSS-Protection = "1; mode=block"
     Referrer-Policy = "strict-origin-when-cross-origin"
 
-# Cache static assets aggressively
 [[headers]]
   for = "*.css"
   [headers.values]

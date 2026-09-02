@@ -752,12 +752,22 @@ async function runQualityAnalysis() {
     const quantity = parseFloat(document.getElementById('inputQuantity')?.value) || 500;
     const harvestDate = document.getElementById('inputHarvestDate')?.value || new Date().toISOString().split('T')[0];
 
-    showLoading('🔍 Google Gemini Vision AI द्वारे उत्पादनाची सत्यता व गुणवत्ता तपासत आहे...');
-    
-    // Auto load sample images if user hasn't selected any
+    const alertBox = document.getElementById('qualityRejectionAlert');
+    const alertMsg = document.getElementById('rejectionAlertMessage');
+
+    // 1. Enforce that farmer has uploaded or captured photos
     if (!AppState.uploadedFiles || AppState.uploadedFiles.length === 0) {
-        loadSampleCrop(cropType);
+        if (alertBox && alertMsg) {
+            alertMsg.textContent = `कृपया गुणवत्ता प्रमाणीकरणासाठी आपल्या ${cropType} शेतमालाचे ४ फोटो थेट कॅमेऱ्याने स्कॅन करा किंवा गॅलरीतून निवडा. (Please capture or upload 4 photos of your harvest.)`;
+            alertBox.style.display = 'block';
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        showToast(`⚠️ कृपया आधी शेतमालाचे ४ फोटो जोडा.`, 'warning');
+        return;
     }
+
+    if (alertBox) alertBox.style.display = 'none';
+    showLoading('🔍 Google Gemini Multimodal Vision द्वारे उत्पादनाची सत्यता व गुणवत्ता तपासत आहे...');
 
     let quality = null;
     try {
@@ -765,37 +775,54 @@ async function runQualityAnalysis() {
     } catch (err) {
         console.error('Quality assessment error:', err);
     }
-    
+
     hideLoading();
 
-    // STRICT MULTIMODAL COMMODITY VERIFICATION: Reject random objects or mismatch!
-    if (quality && quality.isCommodityMatch === false) {
-        const detected = quality.detectedProduce || 'Unrelated Object';
-        const reason = quality.rejectionReason || `The uploaded photo does not appear to be ${cropType} (AI detected: "${detected}"). Please upload clear photos of your actual ${cropType} harvest.`;
-        showToast(`⚠️ ${reason}`, 'error');
-        
+    // STRICT PRODUCE & COMMODITY VERIFICATION: Reject non-crops, mismatch, blur, or unverified items!
+    if (!quality || quality.isCommodityMatch === false || quality.isQualityVerified === false) {
+        AppState.currentQualityAnalysis = null;
+        const detected = quality?.detectedProduce || 'Unrelated / Unclear Object';
+        const reason = quality?.rejectionReason || `अपलोड केलेला फोटो ${cropType} शी जुळत नाही (AI द्वारे आढळले: "${detected}"). कृपया आपल्या प्रत्यक्ष शेतमालाचे स्पष्ट, पुरेसा प्रकाश असलेले फोटो काढून पुन्हा प्रयत्न करा.`;
+
+        if (alertBox && alertMsg) {
+            alertMsg.textContent = reason;
+            alertBox.style.display = 'block';
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         const uploadBox = document.getElementById('uploadedState');
         if (uploadBox) {
             uploadBox.style.border = '2px dashed #EF4444';
             uploadBox.style.background = '#FEF2F2';
         }
-        return; // Do NOT proceed to Step 2 with random/fake produce!
+
+        showToast(`⚠️ गुणवत्ता तपासणी नाकारली: ${detected}`, 'error');
+        return; // Strictly block progression to Step 2!
     }
 
-    AppState.currentQualityAnalysis = quality || { overallGrade: 'Grade A', freshnessScore: 92, shelfLifeDays: 8 };
-    
+    // Quality Successfully Verified
+    if (alertBox) alertBox.style.display = 'none';
+    AppState.currentQualityAnalysis = quality;
+
+    const uploadBox = document.getElementById('uploadedState');
+    if (uploadBox) {
+        uploadBox.style.border = '2px solid #22C55E';
+        uploadBox.style.background = '#F0FDF4';
+    }
+
     // Populate Step 2 AI Insight Screen
     const aiDesc = document.getElementById('aiDescription');
     const badge = document.getElementById('qualityBadge');
     if (aiDesc) {
         const defectsStr = (quality.defectsIdentified && quality.defectsIdentified.length > 0) ? `\n• AI निरीक्षण: ${quality.defectsIdentified.join(', ')}` : '';
-        aiDesc.textContent = `${cropType} (${variety}) — दर्जा: ${quality.overallGrade || 'Grade A'} | ताजेपणा: ${quality.freshnessScore || 92}% | पृष्ठभाग दोष: ${quality.surfaceDefectsPercent || 2}% | शेल्फ लाइफ: ${quality.shelfLifeDays || 8} दिवस.${defectsStr}\n${quality.description || ''}`;
+        aiDesc.textContent = `${cropType} (${variety}) — प्रमाणित दर्जा: ${quality.overallGrade || 'Grade A'} | ताजेपणा: ${quality.freshnessScore || 92}% | पृष्ठभाग दोष: ${quality.surfaceDefectsPercent || 2}% | शेल्फ लाइफ: ${quality.shelfLifeDays || 8} दिवस.${defectsStr}\n${quality.description || ''}`;
     }
     if (badge) {
         badge.textContent = `दर्जा: ${quality.overallGrade || 'Grade A'} (${quality.freshnessScore || 92}% ताजेपणा)`;
         badge.className = `quality-badge ${(quality.overallGrade || 'Grade A').toLowerCase().replace(' ', '-')}`;
     }
 
+    showToast(`✅ ${cropType} ची गुणवत्ता प्रमाणित: ${quality.overallGrade} (${quality.freshnessScore}% Fresh)`, 'success');
     goToLotStep(2);
 }
 
@@ -805,10 +832,17 @@ async function proceedToPricing() {
     const quantity = parseFloat(document.getElementById('inputQuantity')?.value) || 500;
     const harvestDate = document.getElementById('inputHarvestDate')?.value || new Date().toISOString().split('T')[0];
 
+    if (!AppState.currentQualityAnalysis || !AppState.currentQualityAnalysis.isQualityVerified) {
+        showToast('⚠️ शेतमालाची गुणवत्ता तपासणी पूर्ण केल्याशिवाय भाव निश्चित करता येत नाही.', 'error');
+        goToLotStep(1);
+        return;
+    }
+
     showLoading('📊 पारदर्शक भाव आणि बाजार शिफारस तयार करत आहे...');
 
-    const qualityGrade = AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.overallGrade : 'Grade A';
-    const freshnessScore = AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.freshnessScore : 94;
+    const qualityGrade = AppState.currentQualityAnalysis.overallGrade || 'Grade A';
+    const freshnessScore = AppState.currentQualityAnalysis.freshnessScore || 92;
+    const isCutVerified = Boolean(AppState.currentCutAnalysis && AppState.currentCutAnalysis.cutVerified);
 
     try {
         AppState.currentPriceEstimate = await PriceCalculationService.calculateTransparentPrice({
@@ -816,6 +850,7 @@ async function proceedToPricing() {
             quantityKg: quantity,
             qualityGrade,
             freshnessScore,
+            isCutVerified,
             originTaluka: 'Niphad'
         });
 
@@ -946,15 +981,24 @@ async function saveDigitalLot() {
     const harvestDate = document.getElementById('inputHarvestDate')?.value || new Date().toISOString().split('T')[0];
     const currentUser = AuthService.getCurrentUser();
 
+    if (!AppState.currentQualityAnalysis || !AppState.currentQualityAnalysis.isQualityVerified) {
+        showToast('⚠️ शेतमालाची गुणवत्ता प्रमाणीकरण आधी पूर्ण करणे आवश्यक आहे.', 'error');
+        goToLotStep(1);
+        return;
+    }
+
     showLoading('💾 डिजिटल शेती लॉट तपासणी व सादर करत आहे...');
 
     const netRate = AppState.currentPriceEstimate ? AppState.currentPriceEstimate.estimatedNetRealizationPerKg : 36.0;
     const totalVal = AppState.currentPriceEstimate ? AppState.currentPriceEstimate.totalLotValue : (netRate * quantity);
 
+    const farmerId = currentUser ? (currentUser.userId || currentUser.uid) : 'farmer_mh_001';
+    const farmerName = currentUser ? (currentUser.displayName || currentUser.name) : 'रमेश मारुती पाटील';
+
     const lot = new DigitalAgriculturalLot({
         lotId: `LOT-${Date.now().toString().slice(-6)}`,
-        farmerId: currentUser ? currentUser.userId : 'FARMER-NIPHAD-001',
-        farmerName: currentUser ? (currentUser.displayName || currentUser.name) : 'रमेश मारुती पाटील',
+        farmerId: farmerId,
+        farmerName: farmerName,
         farmerPhone: currentUser ? (currentUser.phone || '9822456789') : '9822456789',
         farmerTaluka: 'Niphad',
         farmerDistrict: 'Nashik',
@@ -962,12 +1006,21 @@ async function saveDigitalLot() {
         variety,
         quantity,
         harvestDate,
-        overallQualityGrade: AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.overallGrade : 'Grade A',
-        freshnessScore: AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.freshnessScore : 94,
-        exteriorPhotos: AppState.uploadedFiles.length > 0 ? AppState.uploadedFiles : [generateSampleProduceSvg(cropType, 'Angle 1', '#EF4444', '#FCA5A5')],
+        overallQualityGrade: AppState.currentQualityAnalysis.overallGrade,
+        freshnessScore: AppState.currentQualityAnalysis.freshnessScore,
+        estimatedShelfLifeDays: AppState.currentQualityAnalysis.shelfLifeDays || 7,
+        exteriorPhotos: AppState.uploadedFiles,
+        internalQualityAnalysis: AppState.currentCutAnalysis ? {
+            cutVerified: AppState.currentCutAnalysis.cutVerified,
+            internalFreshness: AppState.currentCutAnalysis.internalFreshness,
+            moistureContent: AppState.currentCutAnalysis.moistureContent,
+            coreDefectsPercent: AppState.currentCutAnalysis.coreDefectsPercent,
+            cutImageUrl: AppState.currentCutAnalysis.cutImageUrl
+        } : null,
         netPricePerKg: netRate,
         totalLotValue: totalVal,
-        status: 'LISTED'
+        status: LOT_STATUSES.PENDING_ADMIN_REVIEW,
+        moderationStatus: 'PENDING_ADMIN_REVIEW'
     });
 
     const preCheck = await LotModerationService.preCheckLot(lot);
@@ -2304,13 +2357,14 @@ window.inspectLot = async function(lotId) {
     const lots = await firebaseService.getLots();
     const lot = lots.find(l => l.lotId === lotId) || {
         lotId,
+        farmerId: 'farmer_mh_001',
+        farmerName: 'रमेश पाटील',
         cropType: 'Tomato',
         variety: 'Himsona',
         quantity: 1000,
         harvestDate: '2026-08-30',
         overallQualityGrade: 'Grade A',
         freshnessScore: 94,
-        farmerName: 'रमेश पाटील',
         exteriorPhotos: ['https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400']
     };
 
@@ -2474,20 +2528,21 @@ async function renderNotifications() {
         return;
     }
 
-    const notifs = await NotificationService.getUserNotifications(user.userId);
+    const userId = user.userId || user.uid || 'farmer_mh_001';
+    const notifs = await NotificationService.getUserNotifications(userId);
     if (notifs.length === 0) {
         container.innerHTML = `<div style="padding:20px; text-align:center; color:#777;">कोणतीही नवीन सूचना नाही.</div>`;
         return;
     }
 
     container.innerHTML = notifs.map(n => `
-        <div class="notification-item ${n.read ? '' : 'unread'} ${n.priority === 'HIGH' ? 'priority-high' : ''}" onclick="NotificationService.markAsRead('${n.notificationId}').then(() => renderNotifications())">
+        <div class="notification-item ${n.read ? '' : 'unread'} ${n.priority === 'HIGH' || n.type === 'LOT_REJECTED' ? 'priority-high' : ''}" onclick="NotificationService.markAsRead('${n.notificationId}').then(() => { renderNotifications(); syncAuthUI(); })">
             <div class="notification-item-title">
                 <span>${n.title}</span>
                 ${!n.read ? '<span style="font-size:0.7rem; color:#1B5E20; font-weight:800;">NEW</span>' : ''}
             </div>
-            <div class="notification-item-msg">${n.message}</div>
-            <div class="notification-item-time">${new Date(n.createdAt).toLocaleTimeString('mr-IN')}</div>
+            <div class="notification-item-msg" style="white-space: pre-line; line-height: 1.45; margin-top: 4px;">${n.message}</div>
+            <div class="notification-item-time">${new Date(n.createdAt).toLocaleTimeString('mr-IN', { hour: '2-digit', minute: '2-digit' })}</div>
         </div>
     `).join('');
 }
@@ -2706,6 +2761,7 @@ function attachAllEventListeners() {
             if (adminLotRejectModal) adminLotRejectModal.style.display = 'none';
             document.getElementById('adminLotModal').style.display = 'none';
             showToast('📩 शेतकऱ्याला शेरा पाठवला व लॉट नाकारण्यात आला (Notice Dispatched)', 'info');
+            syncAuthUI();
             renderAdminLots();
             renderDashboard();
         }
@@ -3040,15 +3096,174 @@ function attachAllEventListeners() {
         updateBeforePublishInsights(crop, qty);
     });
 
+    // =========================================================================
+    // LIVE MULTI-ANGLE CAMERA & UPLOAD CONTROLLER
+    // =========================================================================
+    let cameraMediaStream = null;
+    let currentCameraFacingMode = 'environment';
+    let currentAngleStep = 0;
+
+    const CAMERA_ANGLE_CONFIG = [
+        {
+            badge: "कोन १ / ४: वरून दृश्य (Angle 1: Top View)",
+            hint: "शेतमालाचे वरून संपूर्ण दृश्य कॅमेऱ्यात घ्या",
+            guide: "💡 कृपया शेतमाल वरून संपूर्ण दिसेल अशा रीतीने कॅमेऱ्यासमोर धरा"
+        },
+        {
+            badge: "कोन २ / ४: बाजूचे दृश्य (Angle 2: Side Profile)",
+            hint: "शेतमालाचा आकार व बाजूचे दृश्य कॅमेऱ्यात घ्या",
+            guide: "💡 बाजूने आकारमान व एकसारखेपणा दिसेल असा फोटो घ्या"
+        },
+        {
+            badge: "कोन ३ / ४: देठ व कळीचा भाग (Angle 3: Stem & Calyx)",
+            hint: "देठ, टोकाचा भाग व ताज्या कळ्या दाखवा",
+            guide: "💡 देठ व कळी जवळून दाखवून ताजेपणा स्पष्ट करा"
+        },
+        {
+            badge: "कोन ४ / ४: एकूण ढीग / क्रेट (Angle 4: Bulk Lot View)",
+            hint: "एकूण लॉट किंवा क्रेटमधील मालाचे दृश्य घ्या",
+            guide: "💡 संपूर्ण क्रेट अथवा ढिगाचा एकत्रित फोटो घ्या"
+        }
+    ];
+
+    function updateCameraStepUI() {
+        const badge = document.getElementById('cameraAngleBadge');
+        const hint = document.getElementById('cameraAngleHint');
+        const guide = document.getElementById('cameraGuideInstruction');
+        const btnDone = document.getElementById('btnDoneCamera');
+
+        const cfg = CAMERA_ANGLE_CONFIG[Math.min(currentAngleStep, 3)];
+        if (badge) badge.textContent = cfg.badge;
+        if (hint) hint.textContent = cfg.hint;
+        if (guide) guide.textContent = cfg.guide;
+
+        if (btnDone) {
+            btnDone.style.display = AppState.uploadedFiles.length >= 4 ? 'inline-block' : 'none';
+        }
+    }
+
+    async function openLiveCamera() {
+        const modal = document.getElementById('liveCameraModal');
+        const video = document.getElementById('liveCameraVideo');
+        if (!modal || !video) return;
+
+        modal.style.display = 'flex';
+        currentAngleStep = Math.min(AppState.uploadedFiles.length, 3);
+        updateCameraStepUI();
+
+        try {
+            if (cameraMediaStream) {
+                cameraMediaStream.getTracks().forEach(t => t.stop());
+            }
+            cameraMediaStream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: currentCameraFacingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
+                audio: false
+            });
+            video.srcObject = cameraMediaStream;
+        } catch (err) {
+            console.warn('Camera access error:', err.message);
+            showToast('कॅमेरा उघडता आला नाही. कृपया गॅलरीतून फोटो निवडा.', 'warning');
+        }
+    }
+
+    function closeLiveCamera() {
+        const modal = document.getElementById('liveCameraModal');
+        if (modal) modal.style.display = 'none';
+
+        if (cameraMediaStream) {
+            cameraMediaStream.getTracks().forEach(t => t.stop());
+            cameraMediaStream = null;
+        }
+    }
+
+    function snapCameraPhoto() {
+        const video = document.getElementById('liveCameraVideo');
+        const canvas = document.getElementById('cameraCaptureCanvas');
+        if (!video || !canvas) return;
+
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+        if (currentAngleStep < 4) {
+            AppState.uploadedFiles[currentAngleStep] = dataUrl;
+        } else {
+            AppState.uploadedFiles.push(dataUrl);
+        }
+
+        // Update thumbnail slot
+        const slot = document.getElementById(`thumbSlot${Math.min(currentAngleStep + 1, 4)}`);
+        if (slot) {
+            slot.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+            slot.style.border = '2px solid #22C55E';
+        }
+
+        currentAngleStep++;
+        showToast(`📸 कोन ${Math.min(currentAngleStep, 4)} चे छायाचित्र नोंदवले!`, 'success');
+
+        renderUploadedImagesGrid();
+
+        if (currentAngleStep < 4) {
+            updateCameraStepUI();
+        } else {
+            updateCameraStepUI();
+            const btnDone = document.getElementById('btnDoneCamera');
+            if (btnDone) btnDone.style.display = 'inline-block';
+        }
+    }
+
+    function renderUploadedImagesGrid() {
+        const emptyState = document.getElementById('emptyState');
+        const uploadedState = document.getElementById('uploadedState');
+        const uploadActions = document.getElementById('uploadActions');
+        const photoCount = document.getElementById('photoCount');
+        const imageGrid = document.getElementById('imageGrid');
+
+        if (AppState.uploadedFiles.length > 0) {
+            if (emptyState) emptyState.style.display = 'none';
+            if (uploadedState) uploadedState.style.display = 'block';
+            if (uploadActions) uploadActions.style.display = 'flex';
+            if (photoCount) photoCount.textContent = AppState.uploadedFiles.length;
+
+            if (imageGrid) {
+                imageGrid.innerHTML = AppState.uploadedFiles.map((src, i) => `
+                    <div class="image-preview" style="position:relative; border-radius:10px; overflow:hidden; border:2px solid #86EFAC; aspect-ratio:1;">
+                        <img src="${src}" alt="Angle ${i+1}" style="width:100%; height:100%; object-fit:cover;">
+                        <span style="position:absolute; bottom:4px; left:4px; background:rgba(0,0,0,0.75); color:#FFF; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px;">
+                            कोन ${i + 1}
+                        </span>
+                    </div>
+                `).join('');
+            }
+        } else {
+            if (emptyState) emptyState.style.display = 'block';
+            if (uploadedState) uploadedState.style.display = 'none';
+            if (uploadActions) uploadActions.style.display = 'none';
+            if (photoCount) photoCount.textContent = '0';
+            if (imageGrid) imageGrid.innerHTML = '';
+        }
+    }
+
+    // Attach Camera & Upload Handlers
+    document.getElementById('openLiveCameraBtn')?.addEventListener('click', openLiveCamera);
+    document.getElementById('btnReopenCamera')?.addEventListener('click', openLiveCamera);
+    document.getElementById('closeLiveCameraBtn')?.addEventListener('click', closeLiveCamera);
+    document.getElementById('btnSnapPhoto')?.addEventListener('click', snapCameraPhoto);
+    document.getElementById('btnDoneCamera')?.addEventListener('click', closeLiveCamera);
+
+    document.getElementById('btnSwitchCamera')?.addEventListener('click', async () => {
+        currentCameraFacingMode = currentCameraFacingMode === 'environment' ? 'user' : 'environment';
+        await openLiveCamera();
+        showToast('🔄 कॅमेरा स्विच केला.', 'info');
+    });
+
     // File Input Upload Handlers
     const fileInput = document.getElementById('fileInput');
     const selectPhotosBtn = document.getElementById('selectPhotosBtn');
     const resetBtn = document.getElementById('resetBtn');
-    const emptyState = document.getElementById('emptyState');
-    const uploadedState = document.getElementById('uploadedState');
-    const uploadActions = document.getElementById('uploadActions');
-    const photoCount = document.getElementById('photoCount');
-    const imageGrid = document.getElementById('imageGrid');
 
     selectPhotosBtn?.addEventListener('click', () => {
         fileInput?.click();
@@ -3065,20 +3280,7 @@ function attachAllEventListeners() {
                     AppState.uploadedFiles.push(re.target.result);
                     loadedCount++;
                     if (loadedCount === files.length) {
-                        if (photoCount) photoCount.textContent = AppState.uploadedFiles.length;
-                        if (emptyState) emptyState.style.display = 'none';
-                        if (uploadedState) uploadedState.style.display = 'block';
-                        if (uploadActions) uploadActions.style.display = 'flex';
-                        if (imageGrid) {
-                            imageGrid.innerHTML = AppState.uploadedFiles.map((src, i) => `
-                                <div class="image-preview" style="position:relative; border-radius:8px; overflow:hidden; border:2px solid #86EFAC;">
-                                    <img src="${src}" alt="Photo ${i+1}" style="width:100%; height:110px; object-fit:cover;">
-                                    <span style="position:absolute; bottom:4px; left:4px; background:rgba(0,0,0,0.7); color:#FFF; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px;">
-                                        कोन ${i + 1}
-                                    </span>
-                                </div>
-                            `).join('');
-                        }
+                        renderUploadedImagesGrid();
                     }
                 };
                 reader.readAsDataURL(file);
@@ -3089,11 +3291,14 @@ function attachAllEventListeners() {
     resetBtn?.addEventListener('click', () => {
         AppState.uploadedFiles = [];
         if (fileInput) fileInput.value = '';
-        if (emptyState) emptyState.style.display = 'block';
-        if (uploadedState) uploadedState.style.display = 'none';
-        if (uploadActions) uploadActions.style.display = 'none';
-        if (photoCount) photoCount.textContent = '0';
-        if (imageGrid) imageGrid.innerHTML = '';
+        for (let i = 1; i <= 4; i++) {
+            const slot = document.getElementById(`thumbSlot${i}`);
+            if (slot) {
+                slot.innerHTML = `${i}`;
+                slot.style.border = '1px dashed #475569';
+            }
+        }
+        renderUploadedImagesGrid();
         showToast('🔄 फोटो रीसेट केले.', 'info');
     });
 

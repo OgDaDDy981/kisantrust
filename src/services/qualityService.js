@@ -1,21 +1,13 @@
 /**
- * KisanTrust - Quality Grading & Verification Service (Multimodal Gemini Vision)
- * Integrates Google Gemini 2.5 Flash Multimodal Vision with AGMARKNET quality standards.
- * Inspects multi-angle harvest photos and internal cross-section cut views.
+ * KisanTrust - Quality Grading & Multimodal Produce Verification Service
+ * Strictly enforces AGMARKNET & NHB commercial produce standards via Gemini Multimodal Vision.
+ * Genuinely verifies claimed commodity, detects random/unrelated objects, analyzes multi-angle photos
+ * and internal cross-section cut slices.
  */
 
 import { ENV_CONFIG } from '../config/envConfig.js';
 
 export class QualityService {
-    /**
-     * Helper to get active Gemini API key from environment config
-     */
-    static getApiKey() {
-        return ENV_CONFIG.GEMINI_API_KEY ||
-               (typeof process !== 'undefined' && process.env && process.env.GEMINI_API_KEY) ||
-               (typeof window !== 'undefined' && (window.__ENV__?.GEMINI_API_KEY || window.__GEMINI_API_KEY__));
-    }
-
     /**
      * Extracts base64 payload from data URL, blob, or file string
      */
@@ -28,271 +20,209 @@ export class QualityService {
                     return { mimeType: match[1], data: match[2] };
                 }
             }
+            // If string is a mock filename or test reference
+            return {
+                mimeType: 'image/jpeg',
+                data: Buffer.from(imageInput).toString('base64'),
+                isMockRef: true,
+                rawRef: imageInput
+            };
+        } else if (imageInput && imageInput.data) {
+            return {
+                mimeType: imageInput.mimeType || 'image/jpeg',
+                data: imageInput.data
+            };
         }
         return null;
     }
 
     /**
-     * Analyze uploaded lot images via Gemini 2.5 Flash Multimodal Vision
-     * @param {Array} images Array of image data URLs or file objects
-     * @param {string} cropType Crop type e.g. "Tomato", "Onion", "Potato", "Carrot", "Cabbage"
-     * @param {string} [language="English"] Target language for descriptions
-     * @returns {Promise<Object>} Normalized quality analysis or commodity mismatch error
+     * Analyze uploaded lot images via Gemini Multimodal Vision API
+     * @param {Array} images Array of image data URLs or base64 objects
+     * @param {string} cropType Claimed crop type e.g. "Tomato", "Onion", "Potato", "Carrot", "Cabbage"
+     * @param {string} [language="English"] Target language for localized feedback
+     * @returns {Promise<Object>} Normalized quality verification and grading report
      */
     static async assessLotQuality(images, cropType = 'Tomato', language = 'English') {
-        const apiKey = this.getApiKey();
         const imageList = Array.isArray(images) ? images : (images ? [images] : []);
         const validImageParts = [];
 
         for (const img of imageList) {
             const parsed = this._parseImageData(img);
             if (parsed) {
-                validImageParts.push({
-                    inlineData: {
-                        mimeType: parsed.mimeType || 'image/jpeg',
-                        data: parsed.data
-                    }
-                });
+                validImageParts.push(parsed);
             }
         }
 
-        // If API key is available and images contain real base64 data, call Gemini Vision
-        if (apiKey && validImageParts.length > 0) {
-            try {
-                const geminiResult = await this._callGeminiVisionAssessment(validImageParts, cropType, language, apiKey);
-                if (geminiResult) {
-                    return geminiResult;
-                }
-            } catch (err) {
-                console.warn('[QualityService] Gemini Vision API call encountered error, using deterministic engine:', err.message);
-            }
+        if (validImageParts.length === 0) {
+            return {
+                analyzedAt: new Date().toISOString(),
+                isCommodityMatch: false,
+                isImageClear: false,
+                isQualityVerified: false,
+                detectedProduce: 'None',
+                confidenceScore: 0,
+                overallGrade: null,
+                visualGrade: null,
+                freshnessScore: 0,
+                rejectionReason: 'No valid harvest images provided for inspection. Please upload clear photos of your crop.',
+                source: 'VALIDATION_FAILED'
+            };
         }
 
-        // Resilient deterministic AGMARKNET standard fallback
-        return this._getDeterministicAssessment(imageList, cropType);
-    }
-
-    /**
-     * Calls Gemini 2.5 Flash Multimodal Vision API for harvest quality analysis
-     */
-    static async _callGeminiVisionAssessment(imageParts, cropType, language, apiKey) {
-        const promptText = `You are "KisanTrust AI Quality Inspector", an expert agricultural produce inspection system strictly adhering to Indian AGMARKNET and National Horticulture Board (NHB) commercial grading standards.
-
-The farmer has uploaded ${imageParts.length} photo(s) claiming this lot is: "${cropType}".
-
-Perform a rigorous visual and commercial evaluation:
-1. COMMODITY VERIFICATION: Check if the photo(s) genuinely contain "${cropType}".
-   - If the image contains a car, animal, human, document, screenshot, random object, or completely DIFFERENT crop, set "isCommodityMatch" to false.
-   - Set "detectedProduce" to what you actually see (e.g. "Automobile", "Human Face", "Onion instead of Tomato", "Random Paper").
-   - If isCommodityMatch is false, provide a courteous "rejectionReason" explaining that the uploaded photo is not ${cropType} and politely prompt the farmer to upload real photos of their ${cropType} harvest.
-2. QUALITY & DEFECT GRADING (only if isCommodityMatch is true):
-   - Freshness Score: integer from 0 to 100 based on skin gloss, turgidity, calyx freshness, and lack of shriveling.
-   - Surface Defects Percentage: estimate 0% to 100% (blemishes, sunburn, insect bites, mechanical bruising, fungal spots).
-   - Color Uniformity Score: integer 0 to 100 (ripeness uniformity and visual appeal).
-   - Size Uniformity: "Uniform Medium-Large (Export Grade)" | "Standard Commercial Grade" | "Mixed / Variable Size".
-   - Overall Visual Grade:
-     * "Grade A": Freshness >= 88%, Defects <= 5%, Uniform Shape & Color.
-     * "Grade B": Freshness 75-87%, Defects 5-10%, Minor Blemishes.
-     * "Grade C": Freshness < 75% or Defects > 10%, Significant Defects or Aging.
-   - Estimated Shelf Life: in days at normal ambient storage temperature.
-   - Specific defects identified: list of concise bullet points (e.g. "minor green shoulder", "slight skin blemish", "clean and defect-free").
-   - Description: 2-3 clear sentences summarizing visual grading for the farmer in ${language}.
-
-Respond strictly in JSON format with this exact structure:
-{
-  "isCommodityMatch": true,
-  "detectedProduce": "Tomato",
-  "confidence": 0.96,
-  "rejectionReason": null,
-  "visualGrade": "Grade A",
-  "freshnessScore": 92,
-  "surfaceDefectsPercent": 2.5,
-  "colorScore": 90,
-  "sizeUniformity": "Uniform Medium-Large (Export Grade)",
-  "estimatedShelfLifeDays": 8,
-  "defectsIdentified": ["Minor green shoulder on 2 fruits", "Zero fungal defects"],
-  "description": "High visual quality with vibrant color and firm skin texture.",
-  "aiVerificationNote": "Verified via Google Gemini 2.5 Flash Multimodal Vision"
-}`;
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        const parts = [{ text: promptText }, ...imageParts];
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts }],
-                generationConfig: { responseMimeType: "application/json" }
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Gemini HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!rawText) return null;
-
-        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-        const parsed = JSON.parse(rawText);
-
-        return {
-            analyzedAt: new Date().toISOString(),
-            isCommodityMatch: parsed.isCommodityMatch !== false,
-            detectedProduce: parsed.detectedProduce || cropType,
-            confidence: parsed.confidence || 0.95,
-            rejectionReason: parsed.rejectionReason || null,
-            visualGrade: parsed.visualGrade || 'Grade A',
-            overallGrade: parsed.visualGrade || 'Grade A',
-            colorScore: parsed.colorScore || 90,
-            sizeUniformity: parsed.sizeUniformity || "Standard Commercial Grade",
-            surfaceDefectsPercent: parsed.surfaceDefectsPercent || 2.0,
-            freshnessScore: parsed.freshnessScore || 92,
-            estimatedShelfLifeDays: parsed.estimatedShelfLifeDays || 7,
-            shelfLifeDays: parsed.estimatedShelfLifeDays || 7,
-            defectsIdentified: parsed.defectsIdentified || [],
-            description: parsed.description || `AI Quality Assessment confirmed ${parsed.visualGrade || 'Grade A'} grade for ${cropType}.`,
-            aiVerificationNote: parsed.aiVerificationNote || "Verified via Google Gemini 2.5 Flash Multimodal Vision",
-            source: 'GEMINI_VISION'
-        };
-    }
-
-    /**
-     * Assess internal cut cross-section verification
-     * @param {string} cutImageDataUrl Base64 data URL of the cut slice photo
-     * @param {string} cropType Crop type e.g. "Tomato", "Potato", "Onion"
-     * @param {string} [language="English"]
-     * @returns {Promise<Object>} Internal verification metrics
-     */
-    static async assessCutVerification(cutImageDataUrl, cropType = 'Tomato', language = 'English') {
-        const apiKey = this.getApiKey();
-        const parsedImage = this._parseImageData(cutImageDataUrl);
-
-        if (apiKey && parsedImage) {
+        // 1. Try calling Backend / Netlify Serverless API endpoint
+        if (typeof fetch !== 'undefined') {
             try {
-                const promptText = `You are "KisanTrust AI Internal Cut Inspector".
-The farmer has submitted a close-up photo of an internal half-cut cross-section slice of their harvest, claimed to be "${cropType}".
-
-Analyze the cross-section image:
-1. Is this photo genuinely a cut slice / cross-section of "${cropType}"?
-2. Is the image clear, properly illuminated, and focused on the internal flesh?
-   - If the photo is blurry, unrelated, not a cut slice, or a different object, set "cutVerified" to false and provide a helpful "rejectionReason" asking the farmer to slice one produce item in half and take a clear, well-lit photo.
-3. If it is a genuine slice:
-   - Check internal pulp, seed gel, hydration, core color, and firmness.
-   - Check for internal defects: hollow heart, blackrot, internal browning, core decay, or pest burrowing.
-   - Estimate core defects percentage (0% to 100%).
-   - Provide internal moisture content assessment (e.g. "92% Optimal Hydration").
-
-Respond strictly in JSON format:
-{
-  "cutVerified": true,
-  "isCommodityMatch": true,
-  "isImageClear": true,
-  "rejectionReason": null,
-  "internalFreshness": "Optimal Firmness & Hydration",
-  "moistureContent": "92% Standard",
-  "coreDefectsPercent": 0.5,
-  "internalDefectsIdentified": ["Healthy seed gel", "Zero hollow heart"],
-  "statusNotes": "Internal cross-section confirms healthy flesh with zero internal browning or core defects.",
-  "aiVerificationNote": "Internal Quality Certified via Google Gemini 2.5 Flash Vision"
-}`;
-
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                const response = await fetch(url, {
+                const apiUrl = '/api/gemini-vision';
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [
-                                { text: promptText },
-                                { inlineData: { mimeType: parsedImage.mimeType || 'image/jpeg', data: parsedImage.data } }
-                            ]
-                        }],
-                        generationConfig: { responseMimeType: "application/json" }
+                        images: validImageParts,
+                        cropType,
+                        language,
+                        verificationType: 'exterior'
                     })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (rawText) {
-                        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-                        const parsed = JSON.parse(rawText);
-                        return {
-                            cutVerified: parsed.cutVerified !== false,
-                            isCommodityMatch: parsed.isCommodityMatch !== false,
-                            isImageClear: parsed.isImageClear !== false,
-                            rejectionReason: parsed.rejectionReason || null,
-                            internalFreshness: parsed.internalFreshness || "Optimal Firmness & Hydration",
-                            moistureContent: parsed.moistureContent || "90% Standard",
-                            coreDefectsPercent: parsed.coreDefectsPercent || 0.5,
-                            internalDefectsIdentified: parsed.internalDefectsIdentified || [],
-                            cutImageUrl: cutImageDataUrl || null,
-                            verifiedAt: new Date().toISOString(),
-                            statusNotes: parsed.statusNotes || "Internal cross-section confirms healthy flesh.",
-                            aiVerificationNote: parsed.aiVerificationNote || "Internal Quality Certified via Google Gemini 2.5 Flash Vision",
-                            source: 'GEMINI_VISION'
-                        };
+                    if (data && typeof data.isCommodityMatch !== 'undefined') {
+                        return data;
                     }
                 }
             } catch (err) {
-                console.warn('[QualityService] Cut verification Gemini API call failed:', err.message);
+                // Fetch failed or running in standalone Node test environment
             }
         }
 
-        // Deterministic fallback
+        // 2. Direct Node.js handler fallback (for local unit tests or offline environments)
+        if (typeof process !== 'undefined' && process.env && (process.env.GEMINI_API_KEY || validImageParts.some(p => p.isMockRef))) {
+            try {
+                const { handler } = await import('../../netlify/functions/gemini-vision.js');
+                const event = {
+                    httpMethod: 'POST',
+                    body: JSON.stringify({
+                        images: validImageParts,
+                        cropType,
+                        language,
+                        verificationType: 'exterior'
+                    })
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    return JSON.parse(result.body);
+                }
+            } catch (nodeErr) {
+                console.warn('[QualityService] Direct Node execution failed:', nodeErr.message);
+            }
+        }
+
+        // 3. If no server or API key is accessible, return honest unverified error rather than false Grade A!
         return {
-            cutVerified: Boolean(cutImageDataUrl),
-            isCommodityMatch: true,
-            isImageClear: true,
-            rejectionReason: null,
-            internalFreshness: "Optimal Firmness & Hydration",
-            moistureContent: "91% Standard",
-            coreDefectsPercent: 0.5,
-            internalDefectsIdentified: ["Healthy core structure"],
-            cutImageUrl: cutImageDataUrl || null,
-            verifiedAt: new Date().toISOString(),
-            statusNotes: "Internal cross-section inspection confirms healthy flesh with zero hollow heart or blackrot.",
-            source: 'STRUCTURED_BENCHMARK'
+            analyzedAt: new Date().toISOString(),
+            isCommodityMatch: false,
+            isImageClear: false,
+            isQualityVerified: false,
+            detectedProduce: 'Unverified (Offline)',
+            confidenceScore: 0,
+            overallGrade: null,
+            visualGrade: null,
+            freshnessScore: 0,
+            rejectionReason: 'AI verification service is currently offline or unreachable. Please check your internet connection or verify GEMINI_API_KEY in settings.',
+            source: 'SERVICE_UNAVAILABLE'
         };
     }
 
     /**
-     * Deterministic AGMARKNET grading fallback
+     * Assess internal cross-section cut slice verification
+     * @param {string} cutImageDataUrl Base64 data URL of the cut slice photo
+     * @param {string} cropType Claimed crop type e.g. "Tomato", "Potato", "Onion"
+     * @param {string} [language="English"]
+     * @returns {Promise<Object>} Internal verification metrics
      */
-    static _getDeterministicAssessment(images, cropType) {
-        const count = images ? images.length : 0;
-        const freshnessScore = 92;
-        const defectPercent = 2.5;
-        const grade = 'Grade A';
+    static async assessCutVerification(cutImageDataUrl, cropType = 'Tomato', language = 'English') {
+        const parsedImage = this._parseImageData(cutImageDataUrl);
+        if (!parsedImage) {
+            return {
+                cutVerified: false,
+                isCommodityMatch: false,
+                isImageClear: false,
+                rejectionReason: 'No cut image provided. Please slice one vegetable in half and take a clear photo.',
+                internalFreshness: 'Unverified',
+                moistureContent: 'N/A',
+                coreDefectsPercent: 0,
+                statusNotes: 'No cut slice uploaded.',
+                source: 'VALIDATION_FAILED'
+            };
+        }
 
-        let baseShelfLifeDays = 7;
-        const cropLower = (cropType || '').toLowerCase();
-        if (cropLower.includes('onion')) baseShelfLifeDays = 45;
-        else if (cropLower.includes('potato')) baseShelfLifeDays = 30;
-        else if (cropLower.includes('tomato')) baseShelfLifeDays = 8;
-        else if (cropLower.includes('cabbage')) baseShelfLifeDays = 12;
+        // 1. Try Backend / Netlify Serverless API endpoint
+        if (typeof fetch !== 'undefined') {
+            try {
+                const response = await fetch('/api/gemini-vision', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        images: [parsedImage],
+                        cropType,
+                        language,
+                        verificationType: 'cut'
+                    })
+                });
 
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && typeof data.cutVerified !== 'undefined') {
+                        return {
+                            ...data,
+                            cutImageUrl: cutImageDataUrl,
+                            verifiedAt: new Date().toISOString()
+                        };
+                    }
+                }
+            } catch (err) {
+                // Fallback for node test environment
+            }
+        }
+
+        // 2. Direct Node.js handler fallback
+        if (typeof process !== 'undefined' && process.env && (process.env.GEMINI_API_KEY || parsedImage.isMockRef)) {
+            try {
+                const { handler } = await import('../../netlify/functions/gemini-vision.js');
+                const event = {
+                    httpMethod: 'POST',
+                    body: JSON.stringify({
+                        images: [parsedImage],
+                        cropType,
+                        language,
+                        verificationType: 'cut'
+                    })
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    const parsedResult = JSON.parse(result.body);
+                    return {
+                        ...parsedResult,
+                        cutImageUrl: cutImageDataUrl,
+                        verifiedAt: new Date().toISOString()
+                    };
+                }
+            } catch (nodeErr) {}
+        }
+
+        // 3. Honest unverified result
         return {
-            analyzedAt: new Date().toISOString(),
-            isCommodityMatch: true,
-            detectedProduce: cropType,
-            confidence: 0.95,
-            rejectionReason: null,
-            visualGrade: grade,
-            overallGrade: grade,
-            colorScore: 94,
-            sizeUniformity: "Uniform Medium-Large (Export Grade)",
-            surfaceDefectsPercent: defectPercent,
-            freshnessScore: freshnessScore,
-            estimatedShelfLifeDays: baseShelfLifeDays,
-            shelfLifeDays: baseShelfLifeDays,
-            defectsIdentified: ["Surface blemishes under 3% threshold"],
-            description: `Visual inspection of ${count} harvest angles indicates ${grade} quality: high skin gloss, consistent color tone, and low surface defect rate (${defectPercent}%).`,
-            aiVerificationNote: "Standard AGMARKNET Grade Certified",
-            source: 'STRUCTURED_BENCHMARK'
+            cutVerified: false,
+            isCommodityMatch: false,
+            isImageClear: false,
+            rejectionReason: 'Internal cut verification service is currently offline or unreachable.',
+            internalFreshness: 'Unverified',
+            moistureContent: 'N/A',
+            coreDefectsPercent: 0,
+            cutImageUrl: cutImageDataUrl,
+            statusNotes: 'Cut slice inspection unavailable offline.',
+            source: 'SERVICE_UNAVAILABLE'
         };
     }
 }

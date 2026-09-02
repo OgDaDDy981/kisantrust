@@ -441,28 +441,52 @@
                     <div class="upload-area" id="uploadArea">
                         <input type="file" id="fileInput" multiple accept="image/png,image/jpg,image/jpeg" style="display:none">
 
+                        <!-- Rejection Warning Alert Container -->
+                        <div id="qualityRejectionAlert" style="display:none; margin-bottom:14px; padding:14px; background:#FEF2F2; border:1px solid #FCA5A5; border-radius:12px; color:#991B1B;">
+                            <div style="display:flex; gap:10px; align-items:flex-start;">
+                                <span style="font-size:1.3rem;">⚠️</span>
+                                <div style="flex:1;">
+                                    <strong style="display:block; font-size:0.92rem;" id="rejectionAlertTitle">गुणवत्ता तपासणी अस्वीकृत (Produce Verification Failed)</strong>
+                                    <p style="font-size:0.85rem; margin:4px 0 8px; color:#7F1D1D;" id="rejectionAlertMessage"></p>
+                                    <div style="font-size:0.78rem; color:#991B1B; font-weight:700;">
+                                        💡 कृपया योग्य शेतमालाचे स्पष्ट, पुरेसा प्रकाश असलेले फोटो काढून पुन्हा प्रयत्न करा.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Empty State -->
                         <div class="empty-state" id="emptyState">
                             <div class="empty-icon">📷</div>
-                            <h3 id="noPhotosYetText">No photos selected yet</h3>
-                            <p id="uploadPromptText">Select 4 photos of your lot for quality analysis</p>
-                            <button class="upload-btn" id="selectPhotosBtn" type="button">
-                                <span>📁</span> <span id="selectPhotosBtnText">📁 Select Photos</span>
-                            </button>
+                            <h3 id="noPhotosYetText">४ कोनांतून शेतमालाचे फोटो निवडा / काढा</h3>
+                            <p id="uploadPromptText">अचूक AI गुणवत्ता प्रमाणीकरणासाठी ४ वेगवेगळ्या कोनांतून फोटो आवश्यक आहेत</p>
+                            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px;">
+                                <button class="upload-btn" id="openLiveCameraBtn" type="button" style="background:#16A34A; border-color:#16A34A; color:#FFFFFF;">
+                                    <span>📸</span> <span id="openLiveCameraBtnText">थेट कॅमेऱ्याने ४ कोन स्कॅन करा (Live Camera)</span>
+                                </button>
+                                <button class="upload-btn" id="selectPhotosBtn" type="button" style="background:#334155; border-color:#334155; color:#FFFFFF;">
+                                    <span>📁</span> <span id="selectPhotosBtnText">गॅलरीतून ४ फोटो निवडा (Upload Files)</span>
+                                </button>
+                            </div>
                             <div class="upload-hint">
-                                <span>📱 Tip: Capture photos in good lighting from different angles</span>
+                                <span>📱 टीप: चांगल्या प्रकाशात १. वरून, २. बाजूने, ३. देठ/कळी, ४. संपूर्ण ढीग असे ४ फोटो घ्या</span>
                             </div>
                         </div>
 
                         <!-- Uploaded State -->
                         <div class="uploaded-state" id="uploadedState" style="display:none">
-                            <div class="upload-count animated-count">
-                                <span class="count-number" id="photoCount">0</span>
-                                <span class="count-label" id="photoCountLabel">/ 4 photos selected</span>
+                            <div class="upload-count animated-count" style="display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <span class="count-number" id="photoCount">0</span>
+                                    <span class="count-label" id="photoCountLabel">/ 4 photos selected</span>
+                                </div>
+                                <button type="button" id="btnReopenCamera" style="background:transparent; border:1px solid #16A34A; color:#16A34A; font-size:0.75rem; padding:4px 10px; border-radius:15px; cursor:pointer; font-weight:700;">
+                                    📸 पुन्हा कॅमेरा उघडा
+                                </button>
                             </div>
                             <div class="image-grid" id="imageGrid"></div>
                             <div class="upload-warning" id="uploadWarning" style="display:none">
-                                <span>⚠️</span> <span id="warningText">Please select at least 4 photos</span>
+                                <span>⚠️</span> <span id="warningText">कृपया किमान ४ फोटो निवडा</span>
                             </div>
                         </div>
                     </div>
@@ -2335,6 +2359,72 @@
                 <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
                     <button type="button" class="btn btn-secondary" onclick="closeOfficialCertificate()">✕ बंद करा (Close)</button>
                     <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ प्रिंट / PDF डाउनलोड करा (Print Certificate)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LIVE CAMERA MULTI-ANGLE INSPECTION MODAL -->
+        <div id="liveCameraModal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.85); z-index:10050; align-items:center; justify-content:center; padding:12px;">
+            <div class="modal-content" style="background:#0F172A; color:#FFFFFF; border-radius:18px; max-width:540px; width:100%; overflow:hidden; border:1px solid rgba(255,255,255,0.15); box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);">
+                <!-- Modal Header -->
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 18px; background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.1);">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span style="font-size:1.2rem;">📸</span>
+                        <strong style="font-size:1rem;" id="cameraModalTitle">थेट कॅमेरा गुणवत्ता तपासणी (Live Camera Inspection)</strong>
+                    </div>
+                    <button type="button" id="closeLiveCameraBtn" style="background:transparent; border:none; color:#94A3B8; font-size:1.4rem; cursor:pointer; line-height:1;">✕</button>
+                </div>
+
+                <!-- Angle Step Indicator -->
+                <div style="padding:10px 16px; background:#1E293B; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(255,255,255,0.05);">
+                    <div id="cameraAngleBadge" style="background:#16A34A; color:#FFFFFF; font-weight:800; font-size:0.75rem; padding:3px 10px; border-radius:12px; text-transform:uppercase;">
+                        कोन १ / ४: वरून दृश्य (Angle 1: Top View)
+                    </div>
+                    <div style="font-size:0.75rem; color:#94A3B8;" id="cameraAngleHint">
+                        शेतमालाचे वरून संपूर्ण दृश्य कॅमेऱ्यात घ्या
+                    </div>
+                </div>
+
+                <!-- Live Camera Viewport with Framing Guide -->
+                <div style="position:relative; width:100%; height:320px; background:#000000; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                    <video id="liveCameraVideo" autoplay playsinline muted style="width:100%; height:100%; object-fit:cover;"></video>
+                    <canvas id="cameraCaptureCanvas" style="display:none;"></canvas>
+
+                    <!-- Visual Framing Box Overlay -->
+                    <div style="position:absolute; inset:24px; border:2px dashed rgba(34,197,94,0.8); border-radius:14px; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; padding:8px;">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="width:14px; height:14px; border-top:3px solid #22C55E; border-left:3px solid #22C55E;"></span>
+                            <span style="width:14px; height:14px; border-top:3px solid #22C55E; border-right:3px solid #22C55E;"></span>
+                        </div>
+                        <div style="text-align:center; background:rgba(0,0,0,0.6); color:#86EFAC; font-size:0.75rem; padding:4px 8px; border-radius:6px; align-self:center;" id="cameraGuideInstruction">
+                            💡 कृपया शेतमाल या चौकटीमध्ये व्यवस्थित ठेवा
+                        </div>
+                        <div style="display:flex; justify-content:space-between;">
+                            <span style="width:14px; height:14px; border-bottom:3px solid #22C55E; border-left:3px solid #22C55E;"></span>
+                            <span style="width:14px; height:14px; border-bottom:3px solid #22C55E; border-right:3px solid #22C55E;"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Captured Thumbnails Bar -->
+                <div style="padding:10px 16px; background:#0F172A; border-top:1px solid rgba(255,255,255,0.08); display:flex; gap:8px; justify-content:center;" id="cameraThumbnailStrip">
+                    <div class="cam-thumb-slot" id="thumbSlot1" style="width:54px; height:54px; border-radius:8px; border:1px dashed #475569; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#64748B; background:#1E293B; overflow:hidden;">१</div>
+                    <div class="cam-thumb-slot" id="thumbSlot2" style="width:54px; height:54px; border-radius:8px; border:1px dashed #475569; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#64748B; background:#1E293B; overflow:hidden;">२</div>
+                    <div class="cam-thumb-slot" id="thumbSlot3" style="width:54px; height:54px; border-radius:8px; border:1px dashed #475569; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#64748B; background:#1E293B; overflow:hidden;">३</div>
+                    <div class="cam-thumb-slot" id="thumbSlot4" style="width:54px; height:54px; border-radius:8px; border:1px dashed #475569; display:flex; align-items:center; justify-content:center; font-size:0.7rem; color:#64748B; background:#1E293B; overflow:hidden;">४</div>
+                </div>
+
+                <!-- Camera Controls -->
+                <div style="padding:14px 18px; background:#1E293B; display:flex; justify-content:space-between; align-items:center; gap:10px;">
+                    <button type="button" class="btn btn-secondary" id="btnSwitchCamera" style="padding:8px 12px; font-size:0.8rem; background:rgba(255,255,255,0.1); color:#FFFFFF; border:none;">
+                        🔄 कॅमेरा बदला
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btnSnapPhoto" style="padding:10px 24px; font-size:1rem; font-weight:800; background:#16A34A; border:none; border-radius:30px; box-shadow:0 0 15px rgba(34,197,94,0.4);">
+                        📸 फोटो घ्या (Capture)
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btnDoneCamera" style="padding:8px 14px; font-size:0.8rem; background:#334155; color:#FFFFFF; border:none; display:none;">
+                        ✅ पूर्ण झाले (Done)
+                    </button>
                 </div>
             </div>
         </div>

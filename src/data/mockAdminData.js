@@ -117,30 +117,42 @@ export const initialAuditLogs = [
 export const initialNotifications = [
   {
     notificationId: "NOT-001",
+    userId: "farmer_mh_001",
     recipientId: "farmer_mh_001",
+    title: "लॉट मंजूर (Lot Approved)",
     message: "Your Tomato lot has been approved and published",
     read: true,
+    isRead: true,
     createdAt: "2026-08-29T10:36:00Z"
   },
   {
     notificationId: "NOT-002",
+    userId: "buyer_sahyadri",
     recipientId: "buyer_sahyadri",
+    title: "मागणी जुळली (Demand Match)",
     message: "New Grade A Tomato lot available matching your demand",
     read: false,
+    isRead: false,
     createdAt: "2026-08-29T10:40:00Z"
   },
   {
     notificationId: "NOT-003",
+    userId: "farmer_mh_001",
     recipientId: "farmer_mh_001",
+    title: "पेमेंट जमा (Payment Received)",
     message: "Payment of ₹8,400 received for TXN-2026-981045",
     read: false,
+    isRead: false,
     createdAt: "2026-08-31T09:00:00Z"
   },
   {
     notificationId: "NOT-004",
-    recipientId: "admin",
+    userId: "admin_mh_001",
+    recipientId: "admin_mh_001",
+    title: "प्रशासकीय सूचना (Admin Alert)",
     message: "2 new farmer verifications pending review",
     read: false,
+    isRead: false,
     createdAt: "2026-09-02T08:00:00Z"
   }
 ];

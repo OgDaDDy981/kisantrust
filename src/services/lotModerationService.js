@@ -52,10 +52,10 @@ export class LotModerationService {
         }
 
         // 4. Quality Grade Assessment Validation
-        if (!lotData.overallQualityGrade || ['Grade A', 'Grade B', 'Grade C'].includes(lotData.overallQualityGrade)) {
+        if (lotData.overallQualityGrade && ['Grade A', 'Grade B', 'Grade C'].includes(lotData.overallQualityGrade)) {
             checks.push('QUALITY_GRADE_VALID');
         } else {
-            errors.push('Quality grading must produce a valid Grade A, B, or C assessment.');
+            errors.push('A verified quality grade (Grade A, B, or C) from produce analysis is required before submitting a listing.');
         }
 
         // 5. Automated Duplicate & Anomaly Detection
@@ -244,8 +244,9 @@ export class LotModerationService {
         const farmerName = lotData.farmerName || 'शेतकरी मित्र';
         const politeMessage = `प्रिय ${farmerName}, आपल्या ${lotData.cropType} (${lotData.quantity}kg) लॉटच्या नोंदणीबाबत प्रशासकीय पुनरावलोकन पूर्ण झाले आहे.\n\n📝 प्रशासकीय शेरा (Admin Remarks): "${rejectionReason}"\n\n💡 आपण आपल्या उत्पादनाचे नवीन/स्पष्ट फोटो किंवा सुधारित माहितीसह पुन्हा नोंदणी करू शकता. किसान ट्रस्ट आपल्या मदतीसाठी सदैव तयार आहे.`;
 
+        const farmerId = lotData.farmerId || 'farmer_mh_001';
         await NotificationService.sendNotification({
-            userId: lotData.farmerId,
+            userId: farmerId,
             type: NOTIFICATION_TYPES.LOT_REJECTED,
             title: `📋 लॉट नोंदणी पुनरावलोकन सूचना (${lotData.cropType})`,
             message: politeMessage,

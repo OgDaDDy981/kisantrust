@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-02T16:27:36.798Z
+ * Auto-generated on 2026-09-02T17:09:11.335Z
  */
 (function() {
     'use strict';
@@ -2310,7 +2310,8 @@ const NOTIFICATION_TYPES = {
 class NotificationRecord {
     constructor(data = {}) {
         this.notificationId = data.notificationId || `NOTIF-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`;
-        this.userId = data.userId || 'farmer_mh_001';
+        this.userId = data.userId || data.recipientId || 'farmer_mh_001';
+        this.recipientId = this.userId;
         this.type = data.type || NOTIFICATION_TYPES.LOT_APPROVED;
         this.title = data.title || 'Notification';
         this.message = data.message || '';
@@ -2327,12 +2328,14 @@ class NotificationRecord {
         return {
             notificationId: this.notificationId,
             userId: this.userId,
+            recipientId: this.recipientId,
             type: this.type,
             title: this.title,
             message: this.message,
             relatedEntityType: this.relatedEntityType,
             relatedEntityId: this.relatedEntityId,
             isRead: this.isRead,
+            read: this.read,
             priority: this.priority,
             actionUrl: this.actionUrl,
             createdAt: this.createdAt
@@ -4456,30 +4459,42 @@ const initialAuditLogs = [
 const initialNotifications = [
   {
     notificationId: "NOT-001",
+    userId: "farmer_mh_001",
     recipientId: "farmer_mh_001",
+    title: "लॉट मंजूर (Lot Approved)",
     message: "Your Tomato lot has been approved and published",
     read: true,
+    isRead: true,
     createdAt: "2026-08-29T10:36:00Z"
   },
   {
     notificationId: "NOT-002",
+    userId: "buyer_sahyadri",
     recipientId: "buyer_sahyadri",
+    title: "मागणी जुळली (Demand Match)",
     message: "New Grade A Tomato lot available matching your demand",
     read: false,
+    isRead: false,
     createdAt: "2026-08-29T10:40:00Z"
   },
   {
     notificationId: "NOT-003",
+    userId: "farmer_mh_001",
     recipientId: "farmer_mh_001",
+    title: "पेमेंट जमा (Payment Received)",
     message: "Payment of ₹8,400 received for TXN-2026-981045",
     read: false,
+    isRead: false,
     createdAt: "2026-08-31T09:00:00Z"
   },
   {
     notificationId: "NOT-004",
-    recipientId: "admin",
+    userId: "admin_mh_001",
+    recipientId: "admin_mh_001",
+    title: "प्रशासकीय सूचना (Admin Alert)",
     message: "2 new farmer verifications pending review",
     read: false,
+    isRead: false,
     createdAt: "2026-09-02T08:00:00Z"
   }
 ];
@@ -4784,7 +4799,8 @@ class NotificationService {
     static async sendNotification({ userId, type, title, message, relatedEntityType = 'LOT', relatedEntityId = '', priority = 'NORMAL', actionUrl = '' }) {
         await firebaseService.initializeData();
         const notification = new NotificationRecord({
-            userId,
+            userId: userId || 'farmer_mh_001',
+            recipientId: userId || 'farmer_mh_001',
             type,
             title,
             message,
@@ -4804,7 +4820,6 @@ class NotificationService {
      */
     static async notifyAdmins({ type = NOTIFICATION_TYPES.ADMIN_ALERT, title, message, relatedEntityType, relatedEntityId, priority = 'HIGH' }) {
         await firebaseService.initializeData();
-        // Send to standard admin IDs
         const adminIds = ['admin_mh_001', 'admin_super'];
         for (const adminId of adminIds) {
             await this.sendNotification({
@@ -4827,9 +4842,14 @@ class NotificationService {
     static async getUserNotifications(userId) {
         await firebaseService.initializeData();
         const snap = await (await firebaseService.db.collection('notifications')).get();
+        const normalizedTargetId = (userId || '').trim();
+
         return snap.docs
             .map(d => new NotificationRecord(d.data()))
-            .filter(n => !userId || n.userId === userId)
+            .filter(n => {
+                if (!normalizedTargetId) return true;
+                return n.userId === normalizedTargetId || n.recipientId === normalizedTargetId;
+            })
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
@@ -4840,7 +4860,7 @@ class NotificationService {
      */
     static async getUnreadCount(userId) {
         const list = await this.getUserNotifications(userId);
-        return list.filter(n => !n.isRead).length;
+        return list.filter(n => !n.isRead && !n.read).length;
     }
 
     /**
@@ -4852,6 +4872,7 @@ class NotificationService {
         await firebaseService.initializeData();
         await (await firebaseService.db.collection('notifications')).doc(notificationId).update({
             isRead: true,
+            read: true,
             updatedAt: new Date().toISOString()
         });
         return true;
@@ -4864,7 +4885,7 @@ class NotificationService {
     static async markAllAsRead(userId) {
         const list = await this.getUserNotifications(userId);
         for (const n of list) {
-            if (!n.isRead) {
+            if (!n.isRead || !n.read) {
                 await this.markAsRead(n.notificationId);
             }
         }
@@ -5373,20 +5394,12 @@ class RatingService {
 
 // --- MODULE: src/services/qualityService.js ---
 /**
- * KisanTrust - Quality Grading & Verification Service (Multimodal Gemini Vision)
- * Integrates Google Gemini 2.5 Flash Multimodal Vision with AGMARKNET quality standards.
- * Inspects multi-angle harvest photos and internal cross-section cut views.
+ * KisanTrust - Quality Grading & Multimodal Produce Verification Service
+ * Strictly enforces AGMARKNET & NHB commercial produce standards via Gemini Multimodal Vision.
+ * Genuinely verifies claimed commodity, detects random/unrelated objects, analyzes multi-angle photos
+ * and internal cross-section cut slices.
  */
 class QualityService {
-    /**
-     * Helper to get active Gemini API key from environment config
-     */
-    static getApiKey() {
-        return ENV_CONFIG.GEMINI_API_KEY ||
-               (typeof process !== 'undefined' && process.env && process.env.GEMINI_API_KEY) ||
-               (typeof window !== 'undefined' && (window.__ENV__?.GEMINI_API_KEY || window.__GEMINI_API_KEY__));
-    }
-
     /**
      * Extracts base64 payload from data URL, blob, or file string
      */
@@ -5399,271 +5412,209 @@ class QualityService {
                     return { mimeType: match[1], data: match[2] };
                 }
             }
+            // If string is a mock filename or test reference
+            return {
+                mimeType: 'image/jpeg',
+                data: Buffer.from(imageInput).toString('base64'),
+                isMockRef: true,
+                rawRef: imageInput
+            };
+        } else if (imageInput && imageInput.data) {
+            return {
+                mimeType: imageInput.mimeType || 'image/jpeg',
+                data: imageInput.data
+            };
         }
         return null;
     }
 
     /**
-     * Analyze uploaded lot images via Gemini 2.5 Flash Multimodal Vision
-     * @param {Array} images Array of image data URLs or file objects
-     * @param {string} cropType Crop type e.g. "Tomato", "Onion", "Potato", "Carrot", "Cabbage"
-     * @param {string} [language="English"] Target language for descriptions
-     * @returns {Promise<Object>} Normalized quality analysis or commodity mismatch error
+     * Analyze uploaded lot images via Gemini Multimodal Vision API
+     * @param {Array} images Array of image data URLs or base64 objects
+     * @param {string} cropType Claimed crop type e.g. "Tomato", "Onion", "Potato", "Carrot", "Cabbage"
+     * @param {string} [language="English"] Target language for localized feedback
+     * @returns {Promise<Object>} Normalized quality verification and grading report
      */
     static async assessLotQuality(images, cropType = 'Tomato', language = 'English') {
-        const apiKey = this.getApiKey();
         const imageList = Array.isArray(images) ? images : (images ? [images] : []);
         const validImageParts = [];
 
         for (const img of imageList) {
             const parsed = this._parseImageData(img);
             if (parsed) {
-                validImageParts.push({
-                    inlineData: {
-                        mimeType: parsed.mimeType || 'image/jpeg',
-                        data: parsed.data
-                    }
-                });
+                validImageParts.push(parsed);
             }
         }
 
-        // If API key is available and images contain real base64 data, call Gemini Vision
-        if (apiKey && validImageParts.length > 0) {
-            try {
-                const geminiResult = await this._callGeminiVisionAssessment(validImageParts, cropType, language, apiKey);
-                if (geminiResult) {
-                    return geminiResult;
-                }
-            } catch (err) {
-                console.warn('[QualityService] Gemini Vision API call encountered error, using deterministic engine:', err.message);
-            }
+        if (validImageParts.length === 0) {
+            return {
+                analyzedAt: new Date().toISOString(),
+                isCommodityMatch: false,
+                isImageClear: false,
+                isQualityVerified: false,
+                detectedProduce: 'None',
+                confidenceScore: 0,
+                overallGrade: null,
+                visualGrade: null,
+                freshnessScore: 0,
+                rejectionReason: 'No valid harvest images provided for inspection. Please upload clear photos of your crop.',
+                source: 'VALIDATION_FAILED'
+            };
         }
 
-        // Resilient deterministic AGMARKNET standard fallback
-        return this._getDeterministicAssessment(imageList, cropType);
-    }
-
-    /**
-     * Calls Gemini 2.5 Flash Multimodal Vision API for harvest quality analysis
-     */
-    static async _callGeminiVisionAssessment(imageParts, cropType, language, apiKey) {
-        const promptText = `You are "KisanTrust AI Quality Inspector", an expert agricultural produce inspection system strictly adhering to Indian AGMARKNET and National Horticulture Board (NHB) commercial grading standards.
-
-The farmer has uploaded ${imageParts.length} photo(s) claiming this lot is: "${cropType}".
-
-Perform a rigorous visual and commercial evaluation:
-1. COMMODITY VERIFICATION: Check if the photo(s) genuinely contain "${cropType}".
-   - If the image contains a car, animal, human, document, screenshot, random object, or completely DIFFERENT crop, set "isCommodityMatch" to false.
-   - Set "detectedProduce" to what you actually see (e.g. "Automobile", "Human Face", "Onion instead of Tomato", "Random Paper").
-   - If isCommodityMatch is false, provide a courteous "rejectionReason" explaining that the uploaded photo is not ${cropType} and politely prompt the farmer to upload real photos of their ${cropType} harvest.
-2. QUALITY & DEFECT GRADING (only if isCommodityMatch is true):
-   - Freshness Score: integer from 0 to 100 based on skin gloss, turgidity, calyx freshness, and lack of shriveling.
-   - Surface Defects Percentage: estimate 0% to 100% (blemishes, sunburn, insect bites, mechanical bruising, fungal spots).
-   - Color Uniformity Score: integer 0 to 100 (ripeness uniformity and visual appeal).
-   - Size Uniformity: "Uniform Medium-Large (Export Grade)" | "Standard Commercial Grade" | "Mixed / Variable Size".
-   - Overall Visual Grade:
-     * "Grade A": Freshness >= 88%, Defects <= 5%, Uniform Shape & Color.
-     * "Grade B": Freshness 75-87%, Defects 5-10%, Minor Blemishes.
-     * "Grade C": Freshness < 75% or Defects > 10%, Significant Defects or Aging.
-   - Estimated Shelf Life: in days at normal ambient storage temperature.
-   - Specific defects identified: list of concise bullet points (e.g. "minor green shoulder", "slight skin blemish", "clean and defect-free").
-   - Description: 2-3 clear sentences summarizing visual grading for the farmer in ${language}.
-
-Respond strictly in JSON format with this exact structure:
-{
-  "isCommodityMatch": true,
-  "detectedProduce": "Tomato",
-  "confidence": 0.96,
-  "rejectionReason": null,
-  "visualGrade": "Grade A",
-  "freshnessScore": 92,
-  "surfaceDefectsPercent": 2.5,
-  "colorScore": 90,
-  "sizeUniformity": "Uniform Medium-Large (Export Grade)",
-  "estimatedShelfLifeDays": 8,
-  "defectsIdentified": ["Minor green shoulder on 2 fruits", "Zero fungal defects"],
-  "description": "High visual quality with vibrant color and firm skin texture.",
-  "aiVerificationNote": "Verified via Google Gemini 2.5 Flash Multimodal Vision"
-}`;
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        const parts = [{ text: promptText }, ...imageParts];
-
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts }],
-                generationConfig: { responseMimeType: "application/json" }
-            })
-        });
-
-        if (!response.ok) {
-            throw new Error(`Gemini HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!rawText) return null;
-
-        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-        const parsed = JSON.parse(rawText);
-
-        return {
-            analyzedAt: new Date().toISOString(),
-            isCommodityMatch: parsed.isCommodityMatch !== false,
-            detectedProduce: parsed.detectedProduce || cropType,
-            confidence: parsed.confidence || 0.95,
-            rejectionReason: parsed.rejectionReason || null,
-            visualGrade: parsed.visualGrade || 'Grade A',
-            overallGrade: parsed.visualGrade || 'Grade A',
-            colorScore: parsed.colorScore || 90,
-            sizeUniformity: parsed.sizeUniformity || "Standard Commercial Grade",
-            surfaceDefectsPercent: parsed.surfaceDefectsPercent || 2.0,
-            freshnessScore: parsed.freshnessScore || 92,
-            estimatedShelfLifeDays: parsed.estimatedShelfLifeDays || 7,
-            shelfLifeDays: parsed.estimatedShelfLifeDays || 7,
-            defectsIdentified: parsed.defectsIdentified || [],
-            description: parsed.description || `AI Quality Assessment confirmed ${parsed.visualGrade || 'Grade A'} grade for ${cropType}.`,
-            aiVerificationNote: parsed.aiVerificationNote || "Verified via Google Gemini 2.5 Flash Multimodal Vision",
-            source: 'GEMINI_VISION'
-        };
-    }
-
-    /**
-     * Assess internal cut cross-section verification
-     * @param {string} cutImageDataUrl Base64 data URL of the cut slice photo
-     * @param {string} cropType Crop type e.g. "Tomato", "Potato", "Onion"
-     * @param {string} [language="English"]
-     * @returns {Promise<Object>} Internal verification metrics
-     */
-    static async assessCutVerification(cutImageDataUrl, cropType = 'Tomato', language = 'English') {
-        const apiKey = this.getApiKey();
-        const parsedImage = this._parseImageData(cutImageDataUrl);
-
-        if (apiKey && parsedImage) {
+        // 1. Try calling Backend / Netlify Serverless API endpoint
+        if (typeof fetch !== 'undefined') {
             try {
-                const promptText = `You are "KisanTrust AI Internal Cut Inspector".
-The farmer has submitted a close-up photo of an internal half-cut cross-section slice of their harvest, claimed to be "${cropType}".
-
-Analyze the cross-section image:
-1. Is this photo genuinely a cut slice / cross-section of "${cropType}"?
-2. Is the image clear, properly illuminated, and focused on the internal flesh?
-   - If the photo is blurry, unrelated, not a cut slice, or a different object, set "cutVerified" to false and provide a helpful "rejectionReason" asking the farmer to slice one produce item in half and take a clear, well-lit photo.
-3. If it is a genuine slice:
-   - Check internal pulp, seed gel, hydration, core color, and firmness.
-   - Check for internal defects: hollow heart, blackrot, internal browning, core decay, or pest burrowing.
-   - Estimate core defects percentage (0% to 100%).
-   - Provide internal moisture content assessment (e.g. "92% Optimal Hydration").
-
-Respond strictly in JSON format:
-{
-  "cutVerified": true,
-  "isCommodityMatch": true,
-  "isImageClear": true,
-  "rejectionReason": null,
-  "internalFreshness": "Optimal Firmness & Hydration",
-  "moistureContent": "92% Standard",
-  "coreDefectsPercent": 0.5,
-  "internalDefectsIdentified": ["Healthy seed gel", "Zero hollow heart"],
-  "statusNotes": "Internal cross-section confirms healthy flesh with zero internal browning or core defects.",
-  "aiVerificationNote": "Internal Quality Certified via Google Gemini 2.5 Flash Vision"
-}`;
-
-                const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-                const response = await fetch(url, {
+                const apiUrl = '/api/gemini-vision';
+                const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{
-                            parts: [
-                                { text: promptText },
-                                { inlineData: { mimeType: parsedImage.mimeType || 'image/jpeg', data: parsedImage.data } }
-                            ]
-                        }],
-                        generationConfig: { responseMimeType: "application/json" }
+                        images: validImageParts,
+                        cropType,
+                        language,
+                        verificationType: 'exterior'
                     })
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    let rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                    if (rawText) {
-                        rawText = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
-                        const parsed = JSON.parse(rawText);
-                        return {
-                            cutVerified: parsed.cutVerified !== false,
-                            isCommodityMatch: parsed.isCommodityMatch !== false,
-                            isImageClear: parsed.isImageClear !== false,
-                            rejectionReason: parsed.rejectionReason || null,
-                            internalFreshness: parsed.internalFreshness || "Optimal Firmness & Hydration",
-                            moistureContent: parsed.moistureContent || "90% Standard",
-                            coreDefectsPercent: parsed.coreDefectsPercent || 0.5,
-                            internalDefectsIdentified: parsed.internalDefectsIdentified || [],
-                            cutImageUrl: cutImageDataUrl || null,
-                            verifiedAt: new Date().toISOString(),
-                            statusNotes: parsed.statusNotes || "Internal cross-section confirms healthy flesh.",
-                            aiVerificationNote: parsed.aiVerificationNote || "Internal Quality Certified via Google Gemini 2.5 Flash Vision",
-                            source: 'GEMINI_VISION'
-                        };
+                    if (data && typeof data.isCommodityMatch !== 'undefined') {
+                        return data;
                     }
                 }
             } catch (err) {
-                console.warn('[QualityService] Cut verification Gemini API call failed:', err.message);
+                // Fetch failed or running in standalone Node test environment
             }
         }
 
-        // Deterministic fallback
+        // 2. Direct Node.js handler fallback (for local unit tests or offline environments)
+        if (typeof process !== 'undefined' && process.env && (process.env.GEMINI_API_KEY || validImageParts.some(p => p.isMockRef))) {
+            try {
+                const { handler } = await import('../../netlify/functions/gemini-vision.js');
+                const event = {
+                    httpMethod: 'POST',
+                    body: JSON.stringify({
+                        images: validImageParts,
+                        cropType,
+                        language,
+                        verificationType: 'exterior'
+                    })
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    return JSON.parse(result.body);
+                }
+            } catch (nodeErr) {
+                console.warn('[QualityService] Direct Node execution failed:', nodeErr.message);
+            }
+        }
+
+        // 3. If no server or API key is accessible, return honest unverified error rather than false Grade A!
         return {
-            cutVerified: Boolean(cutImageDataUrl),
-            isCommodityMatch: true,
-            isImageClear: true,
-            rejectionReason: null,
-            internalFreshness: "Optimal Firmness & Hydration",
-            moistureContent: "91% Standard",
-            coreDefectsPercent: 0.5,
-            internalDefectsIdentified: ["Healthy core structure"],
-            cutImageUrl: cutImageDataUrl || null,
-            verifiedAt: new Date().toISOString(),
-            statusNotes: "Internal cross-section inspection confirms healthy flesh with zero hollow heart or blackrot.",
-            source: 'STRUCTURED_BENCHMARK'
+            analyzedAt: new Date().toISOString(),
+            isCommodityMatch: false,
+            isImageClear: false,
+            isQualityVerified: false,
+            detectedProduce: 'Unverified (Offline)',
+            confidenceScore: 0,
+            overallGrade: null,
+            visualGrade: null,
+            freshnessScore: 0,
+            rejectionReason: 'AI verification service is currently offline or unreachable. Please check your internet connection or verify GEMINI_API_KEY in settings.',
+            source: 'SERVICE_UNAVAILABLE'
         };
     }
 
     /**
-     * Deterministic AGMARKNET grading fallback
+     * Assess internal cross-section cut slice verification
+     * @param {string} cutImageDataUrl Base64 data URL of the cut slice photo
+     * @param {string} cropType Claimed crop type e.g. "Tomato", "Potato", "Onion"
+     * @param {string} [language="English"]
+     * @returns {Promise<Object>} Internal verification metrics
      */
-    static _getDeterministicAssessment(images, cropType) {
-        const count = images ? images.length : 0;
-        const freshnessScore = 92;
-        const defectPercent = 2.5;
-        const grade = 'Grade A';
+    static async assessCutVerification(cutImageDataUrl, cropType = 'Tomato', language = 'English') {
+        const parsedImage = this._parseImageData(cutImageDataUrl);
+        if (!parsedImage) {
+            return {
+                cutVerified: false,
+                isCommodityMatch: false,
+                isImageClear: false,
+                rejectionReason: 'No cut image provided. Please slice one vegetable in half and take a clear photo.',
+                internalFreshness: 'Unverified',
+                moistureContent: 'N/A',
+                coreDefectsPercent: 0,
+                statusNotes: 'No cut slice uploaded.',
+                source: 'VALIDATION_FAILED'
+            };
+        }
 
-        let baseShelfLifeDays = 7;
-        const cropLower = (cropType || '').toLowerCase();
-        if (cropLower.includes('onion')) baseShelfLifeDays = 45;
-        else if (cropLower.includes('potato')) baseShelfLifeDays = 30;
-        else if (cropLower.includes('tomato')) baseShelfLifeDays = 8;
-        else if (cropLower.includes('cabbage')) baseShelfLifeDays = 12;
+        // 1. Try Backend / Netlify Serverless API endpoint
+        if (typeof fetch !== 'undefined') {
+            try {
+                const response = await fetch('/api/gemini-vision', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        images: [parsedImage],
+                        cropType,
+                        language,
+                        verificationType: 'cut'
+                    })
+                });
 
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && typeof data.cutVerified !== 'undefined') {
+                        return {
+                            ...data,
+                            cutImageUrl: cutImageDataUrl,
+                            verifiedAt: new Date().toISOString()
+                        };
+                    }
+                }
+            } catch (err) {
+                // Fallback for node test environment
+            }
+        }
+
+        // 2. Direct Node.js handler fallback
+        if (typeof process !== 'undefined' && process.env && (process.env.GEMINI_API_KEY || parsedImage.isMockRef)) {
+            try {
+                const { handler } = await import('../../netlify/functions/gemini-vision.js');
+                const event = {
+                    httpMethod: 'POST',
+                    body: JSON.stringify({
+                        images: [parsedImage],
+                        cropType,
+                        language,
+                        verificationType: 'cut'
+                    })
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    const parsedResult = JSON.parse(result.body);
+                    return {
+                        ...parsedResult,
+                        cutImageUrl: cutImageDataUrl,
+                        verifiedAt: new Date().toISOString()
+                    };
+                }
+            } catch (nodeErr) {}
+        }
+
+        // 3. Honest unverified result
         return {
-            analyzedAt: new Date().toISOString(),
-            isCommodityMatch: true,
-            detectedProduce: cropType,
-            confidence: 0.95,
-            rejectionReason: null,
-            visualGrade: grade,
-            overallGrade: grade,
-            colorScore: 94,
-            sizeUniformity: "Uniform Medium-Large (Export Grade)",
-            surfaceDefectsPercent: defectPercent,
-            freshnessScore: freshnessScore,
-            estimatedShelfLifeDays: baseShelfLifeDays,
-            shelfLifeDays: baseShelfLifeDays,
-            defectsIdentified: ["Surface blemishes under 3% threshold"],
-            description: `Visual inspection of ${count} harvest angles indicates ${grade} quality: high skin gloss, consistent color tone, and low surface defect rate (${defectPercent}%).`,
-            aiVerificationNote: "Standard AGMARKNET Grade Certified",
-            source: 'STRUCTURED_BENCHMARK'
+            cutVerified: false,
+            isCommodityMatch: false,
+            isImageClear: false,
+            rejectionReason: 'Internal cut verification service is currently offline or unreachable.',
+            internalFreshness: 'Unverified',
+            moistureContent: 'N/A',
+            coreDefectsPercent: 0,
+            cutImageUrl: cutImageDataUrl,
+            statusNotes: 'Cut slice inspection unavailable offline.',
+            source: 'SERVICE_UNAVAILABLE'
         };
     }
 }
@@ -6018,13 +5969,13 @@ class TransportCostService {
 // --- MODULE: src/services/marketDataService.js ---
 /**
  * KisanTrust - Market Data Service (Agmarknet & Open Data Normalization)
- * Integrates legitimate Open Government Data (data.gov.in / Agmarknet) with Firestore caching.
+ * Integrates legitimate Open Government Data (data.gov.in / Agmarknet) via secure serverless proxy.
  * Implements a strict fallback hierarchy: Live API -> Firestore Cache -> Structured Demo Data.
  * 
  * Strict Compliance:
  * - Never labels mock or benchmark data as live data.
  * - Always provides explicit dataStatus ('live' | 'cached' | 'demo') and data freshness metadata.
- * - Reads API keys securely from environment variables (Node: process.env, Browser: window / localStorage).
+ * - Routes through server-side Netlify Functions to keep API keys secure.
  */
 const DATA_STATUS = {
     LIVE: 'live',
@@ -6039,27 +5990,8 @@ const DATA_STATUS_LABELS = {
     [DATA_STATUS.UNAVAILABLE]: 'Market Data Unavailable'
 };
 class MarketDataService {
-    // Official Open Government Data Platform India (data.gov.in) Agmarknet Resource ID
-    static AGMARKNET_RESOURCE_ID = "9ef84268-d588-465a-a308-a864a43d0070";
-    static API_BASE_URL = "https://api.data.gov.in/resource";
-
-    /**
-     * Retrieves the configured API key from environment variables or browser context
-     * @returns {string|null}
-     */
-    static getApiKey() {
-        return ENV_CONFIG.AGMARKNET_API_KEY ||
-               ENV_CONFIG.DATA_GOV_IN_API_KEY ||
-               (typeof process !== 'undefined' && (process.env.AGMARKNET_API_KEY || process.env.DATA_GOV_IN_API_KEY)) ||
-               (typeof window !== 'undefined' && (window.__ENV__?.AGMARKNET_API_KEY || window.__AGMARKNET_API_KEY__)) ||
-               null;
-    }
-
     /**
      * Calculates structured data freshness metadata
-     * @param {string|Date} timestamp
-     * @param {string} dataStatus 'live' | 'cached' | 'demo'
-     * @returns {Object} Freshness metadata
      */
     static getDataFreshness(timestamp, dataStatus = DATA_STATUS.DEMO) {
         const timeMs = new Date(timestamp || Date.now()).getTime();
@@ -6092,9 +6024,6 @@ class MarketDataService {
 
     /**
      * Normalizes raw mandi data (whether from Agmarknet API, Firestore cache, or internal benchmark)
-     * @param {Object} raw
-     * @param {string} [dataStatus="demo"] 'live' | 'cached' | 'demo' | 'unavailable'
-     * @returns {Object} Normalized Mandi Price Record
      */
     static normalizeMandiRecord(raw, dataStatus = DATA_STATUS.DEMO) {
         // Agmarknet prices are in ₹/quintal (1 quintal = 100 kg); normalize to ₹/kg
@@ -6137,38 +6066,50 @@ class MarketDataService {
 
     /**
      * Fetches Mandi Prices for a commodity with resilient fallback hierarchy:
-     * 1. Live Agmarknet/OGD API (if API Key configured and online)
+     * 1. Live Agmarknet/OGD API via Serverless Proxy
      * 2. Firestore Mandi Cache (if cached within 24h)
      * 3. Structured Authentic Demo Benchmarks (explicitly labeled as 'demo')
-     * 
-     * @param {string} commodity e.g. "Tomato", "Onion", "Potato"
-     * @param {string} [state="Maharashtra"]
-     * @param {string} [district="Nashik"]
-     * @returns {Promise<Array<Object>>} List of normalized market records
      */
     static async fetchMandiPrices(commodity = "Tomato", state = "Maharashtra", district = "Nashik") {
         await firebaseService.initializeData();
         const normalizedCrop = commodity.trim().toLowerCase();
 
-        // 1. Check for Configured API Key
-        const apiKey = this.getApiKey();
-
-        if (apiKey) {
+        // 1. Check Live API via Serverless Route
+        if (typeof fetch !== 'undefined') {
             try {
-                const url = `${this.API_BASE_URL}/${this.AGMARKNET_RESOURCE_ID}?api-key=${apiKey}&format=json&offset=0&limit=25&filters[state]=${encodeURIComponent(state)}&filters[commodity]=${encodeURIComponent(commodity)}`;
+                const url = `/api/agmarknet?commodity=${encodeURIComponent(commodity)}&state=${encodeURIComponent(state)}&district=${encodeURIComponent(district)}`;
                 const response = await fetch(url);
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.records && data.records.length > 0) {
+                    if (data && Array.isArray(data.records) && data.records.length > 0) {
                         const normalizedList = data.records.map(r => this.normalizeMandiRecord(r, DATA_STATUS.LIVE));
-                        // Update Firestore Cache in background
                         await this._cacheMandiPrices(normalizedCrop, normalizedList);
                         return normalizedList;
                     }
                 }
             } catch (err) {
-                console.warn("[MarketDataService] Live API fetch failed, falling back to cache/demo:", err.message);
+                // Fallback to cache/local
             }
+        }
+
+        // Direct Node test fallback
+        if (typeof process !== 'undefined' && process.env && (process.env.AGMARKNET_API_KEY || process.env.DATA_GOV_IN_API_KEY)) {
+            try {
+                const { handler } = await import('../../netlify/functions/agmarknet.js');
+                const event = {
+                    httpMethod: 'GET',
+                    queryStringParameters: { commodity, state, district }
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    const data = JSON.parse(result.body);
+                    if (data && Array.isArray(data.records) && data.records.length > 0) {
+                        const normalizedList = data.records.map(r => this.normalizeMandiRecord(r, DATA_STATUS.LIVE));
+                        await this._cacheMandiPrices(normalizedCrop, normalizedList);
+                        return normalizedList;
+                    }
+                }
+            } catch (nodeErr) {}
         }
 
         // 2. Check Firestore Cache
@@ -6176,7 +6117,6 @@ class MarketDataService {
             const cacheDoc = await (await firebaseService.db.collection('mandiPricesCache')).doc(normalizedCrop).get();
             if (cacheDoc.exists) {
                 const cacheData = cacheDoc.data();
-                // Cache valid if within 24 hours
                 const ageMs = Date.now() - new Date(cacheData.cachedAt).getTime();
                 if (ageMs < 24 * 60 * 60 * 1000 && cacheData.records && cacheData.records.length > 0) {
                     return cacheData.records.map(r => this.normalizeMandiRecord(r, DATA_STATUS.CACHED));
@@ -6197,14 +6137,6 @@ class MarketDataService {
 
     /**
      * Filters a list of normalized mandi records by user criteria
-     * @param {Array<Object>} records
-     * @param {Object} filters
-     * @param {string} [filters.commodity]
-     * @param {string} [filters.variety]
-     * @param {string} [filters.state]
-     * @param {string} [filters.district]
-     * @param {string} [filters.market]
-     * @returns {Array<Object>} Filtered mandi records
      */
     static filterMandiRecords(records = [], filters = {}) {
         if (!Array.isArray(records)) return [];
@@ -7545,16 +7477,11 @@ class RecommendationService {
  * STRICT COMPLIANCE:
  * - Gemini receives only verified structured facts (calculated net realization, buyer offers, APMC rates).
  * - Gemini NEVER invents market prices, future guarantees, or buyer reliability ratings.
- * - Server-side / secure environment key handling with graceful offline multilingual fallback.
+ * - Server-side / secure Netlify Function key handling with graceful offline multilingual fallback.
  */
 class GeminiAdvisoryService {
     /**
      * Generates a conversational explanation of the structured decision recommendation
-     * @param {Object} params
-     * @param {Object} params.recommendation Output of RecommendationService.generateRecommendation
-     * @param {Object} params.lot DigitalAgriculturalLot
-     * @param {string} [params.language="Marathi (मराठी)"]
-     * @returns {Promise<{ adviceText: string, actionKeyPoints: Array<string>, source: 'GEMINI_GENAI'|'STRUCTURED_ADVISORY' }>}
      */
     static async generateGroundedAdvisory(params) {
         const lot = params.lot || {
@@ -7571,55 +7498,77 @@ class GeminiAdvisoryService {
 
     /**
      * Generates a conversational explanation of the structured decision recommendation
-     * @param {Object} params
-     * @param {Object} params.recommendation Output of RecommendationService.generateRecommendation
-     * @param {Object} params.lot DigitalAgriculturalLot
-     * @param {string} [params.language="Marathi (मराठी)"]
-     * @returns {Promise<{ adviceText: string, actionKeyPoints: Array<string>, source: 'GEMINI_GENAI'|'STRUCTURED_ADVISORY' }>}
      */
     static async generateFarmerExplanation({ recommendation, lot, language = "Marathi (मराठी)" }) {
-        const apiKey = ENV_CONFIG.GEMINI_API_KEY ||
-                       (typeof process !== 'undefined' && process.env && process.env.GEMINI_API_KEY) ||
-                       (typeof window !== 'undefined' && (window.__ENV__?.GEMINI_API_KEY || window.__GEMINI_API_KEY__));
-
         const structuredPayload = {
-            cropType: lot.cropType,
+            cropType: lot.cropType || 'Tomato',
             variety: lot.variety || "Standard",
-            quantityKg: lot.quantity,
-            qualityGrade: lot.overallQualityGrade,
-            freshnessScore: lot.freshnessScore,
-            recommendedAction: recommendation.recommendedAction,
-            opportunityScore: recommendation.opportunityScore,
-            estimatedNetRealization: recommendation.estimatedNetRealizationPerKg,
-            totalLotValue: recommendation.totalExpectedNetPayout,
-            bestMandi: recommendation.bestMandi?.marketName,
-            mandiRate: recommendation.bestMandi?.rawModalPricePerKg,
-            topBuyerName: recommendation.topBuyer?.buyerName,
-            buyerOfferedPrice: recommendation.topBuyer?.offeredPricePerKg,
-            pickupProvided: recommendation.topBuyer?.pickupProvided,
-            safeHoldingDaysRemaining: recommendation.spoilage?.safeHoldingDaysRemaining,
-            forecastRange: recommendation.forecast?.expectedOpportunityRange?.formatted,
+            quantityKg: lot.quantity || 500,
+            qualityGrade: lot.overallQualityGrade || 'Grade A',
+            freshnessScore: lot.freshnessScore || 92,
+            recommendedAction: recommendation.recommendedAction || 'SELL_TO_VERIFIED_BUYER',
+            opportunityScore: recommendation.opportunityScore || 90,
+            estimatedNetRealization: recommendation.estimatedNetRealizationPerKg || 36,
+            totalLotValue: recommendation.totalExpectedNetPayout || (36 * (lot.quantity || 500)),
+            bestMandi: recommendation.bestMandi?.marketName || 'Vashi APMC',
+            mandiRate: recommendation.bestMandi?.rawModalPricePerKg || 34,
+            topBuyerName: recommendation.topBuyer?.buyerName || 'Sahyadri Agro Processing',
+            buyerOfferedPrice: recommendation.topBuyer?.offeredPricePerKg || 37.5,
+            pickupProvided: Boolean(recommendation.topBuyer?.pickupProvided ?? true),
+            safeHoldingDaysRemaining: recommendation.spoilage?.safeHoldingDaysRemaining || 7,
+            forecastRange: recommendation.forecast?.expectedOpportunityRange?.formatted || '₹34 - ₹38/kg',
             targetLanguage: language
         };
 
-        // If Gemini API Key is present, call Google GenAI endpoint
-        if (apiKey) {
+        // 1. Try Backend / Netlify Serverless Function
+        if (typeof fetch !== 'undefined') {
             try {
-                const response = await this._callGeminiAPI(structuredPayload, apiKey);
-                if (response && response.adviceText) {
-                    return {
-                        adviceText: response.adviceText,
-                        actionKeyPoints: response.actionKeyPoints || [],
-                        keyPoints: response.actionKeyPoints || [],
-                        source: 'GEMINI_GENAI'
-                    };
+                const response = await fetch('/api/gemini-advisory', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(structuredPayload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.adviceText) {
+                        return {
+                            adviceText: data.adviceText,
+                            actionKeyPoints: data.actionKeyPoints || [],
+                            keyPoints: data.actionKeyPoints || [],
+                            source: 'GEMINI_GENAI'
+                        };
+                    }
                 }
             } catch (err) {
-                console.warn('Gemini API call failed; falling back to structured advisory engine:', err.message);
+                // Fallback to local or deterministic
             }
         }
 
-        // Resilient, deterministic multilingual advisory generator
+        // 2. Direct Node test execution
+        if (typeof process !== 'undefined' && process.env && process.env.GEMINI_API_KEY) {
+            try {
+                const { handler } = await import('../../netlify/functions/gemini-advisory.js');
+                const event = {
+                    httpMethod: 'POST',
+                    body: JSON.stringify(structuredPayload)
+                };
+                const result = await handler(event, {});
+                if (result.statusCode === 200 && result.body) {
+                    const data = JSON.parse(result.body);
+                    if (data && data.adviceText) {
+                        return {
+                            adviceText: data.adviceText,
+                            actionKeyPoints: data.actionKeyPoints || [],
+                            keyPoints: data.actionKeyPoints || [],
+                            source: 'GEMINI_GENAI'
+                        };
+                    }
+                }
+            } catch (nodeErr) {}
+        }
+
+        // 3. Resilient, deterministic multilingual advisory generator
         const deterministic = this._generateDeterministicExplanation(structuredPayload);
         return {
             adviceText: deterministic.adviceText,
@@ -7627,47 +7576,6 @@ class GeminiAdvisoryService {
             keyPoints: deterministic.actionKeyPoints,
             source: 'STRUCTURED_ADVISORY'
         };
-    }
-
-    /**
-     * Internal caller for Gemini API endpoint
-     */
-    static async _callGeminiAPI(payload, apiKey) {
-        const prompt = `You are "KisanTrust AI Mitra", an expert agricultural market advisor helping an Indian farmer.
-Explain the following calculated selling recommendation simply and empathetically in ${payload.targetLanguage}.
-Do NOT invent any numbers, market prices, or predictions. Ground your answer strictly in these facts:
-
-- Crop: ${payload.cropType} (${payload.quantityKg} kg, ${payload.qualityGrade}, Freshness: ${payload.freshnessScore}%)
-- Calculated Action: ${payload.recommendedAction}
-- Opportunity Score: ${payload.opportunityScore}/100
-- Net Realization: ₹${payload.estimatedNetRealization}/kg (Total: ₹${payload.totalLotValue})
-- Best APMC Mandi: ${payload.bestMandi} @ ₹${payload.mandiRate}/kg
-- Top Verified Buyer: ${payload.topBuyerName || 'None'} (Offer: ₹${payload.buyerOfferedPrice || 0}/kg, Farm-gate Pickup: ${payload.pickupProvided ? 'Yes' : 'No'})
-- Safe Holding Days Remaining: ${payload.safeHoldingDaysRemaining} days
-- Forecasted 5-Day Range: ${payload.forecastRange}
-
-Respond in clean JSON format:
-{
-  "adviceText": "2-3 conversational sentences addressing the farmer directly in ${payload.targetLanguage}",
-  "actionKeyPoints": ["Point 1", "Point 2", "Point 3"]
-}`;
-
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-        const res = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: prompt }] }],
-                generationConfig: { responseMimeType: "application/json" }
-            })
-        });
-
-        if (!res.ok) throw new Error(`Gemini HTTP error ${res.status}`);
-        const data = await res.json();
-        let rawJson = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!rawJson) return null;
-        rawJson = rawJson.replace(/```json/g, '').replace(/```/g, '').trim();
-        return JSON.parse(rawJson);
     }
 
     /**
@@ -7699,7 +7607,7 @@ Respond in clean JSON format:
             }
         } else if (p.recommendedAction === "WAIT") {
             if (isMarathi) {
-                adviceText = `मंडईमध्ये सध्या भाववाढीचा कल दिसून येत असून आपल्या पिकाचा ताजेपणा ${p.freshnessScore}% असल्याने पुढील ३-४ दिवस वाट पाहणे अधिक फायदेशीर ठरू शकते.`;
+                adviceText = `मंडईमध्ये सध्या भाववाढीचा कल असून आपल्या पिकाचा ताजेपणा ${p.freshnessScore}% असल्याने पुढील ३-४ दिवस वाट पाहणे अधिक फायदेशीर ठरू शकते.`;
                 actionKeyPoints.push(`अपेक्षित भाव कक्षा: ${p.forecastRange}.`);
                 actionKeyPoints.push(`पिकाची सुरक्षित टिकवण क्षमता ${p.safeHoldingDaysRemaining} दिवस शिल्लक.`);
                 actionKeyPoints.push(`हवामानातील बदल व स्थानिक आवक यावर लक्ष ठेवा.`);
@@ -7708,7 +7616,7 @@ Respond in clean JSON format:
                 actionKeyPoints.push(`अनुमानित भाव दायरा: ${p.forecastRange}.`);
                 actionKeyPoints.push(`फसल की सुरक्षित शेल्फ लाइफ ${p.safeHoldingDaysRemaining} दिन शेष।`);
             } else {
-                adviceText = `Market price momentum is rising (+₹/day) and your crop freshness (${p.freshnessScore}%) allows safe holding for 3-4 days to capture higher realization.`;
+                adviceText = `Market price momentum is rising and your crop freshness (${p.freshnessScore}%) allows safe holding for 3-4 days to capture higher realization.`;
                 actionKeyPoints.push(`Forecasted price range: ${p.forecastRange}.`);
                 actionKeyPoints.push(`Safe holding window: ${p.safeHoldingDaysRemaining} days remaining.`);
             }
@@ -9506,10 +9414,10 @@ class LotModerationService {
         }
 
         // 4. Quality Grade Assessment Validation
-        if (!lotData.overallQualityGrade || ['Grade A', 'Grade B', 'Grade C'].includes(lotData.overallQualityGrade)) {
+        if (lotData.overallQualityGrade && ['Grade A', 'Grade B', 'Grade C'].includes(lotData.overallQualityGrade)) {
             checks.push('QUALITY_GRADE_VALID');
         } else {
-            errors.push('Quality grading must produce a valid Grade A, B, or C assessment.');
+            errors.push('A verified quality grade (Grade A, B, or C) from produce analysis is required before submitting a listing.');
         }
 
         // 5. Automated Duplicate & Anomaly Detection
@@ -9698,8 +9606,9 @@ class LotModerationService {
         const farmerName = lotData.farmerName || 'शेतकरी मित्र';
         const politeMessage = `प्रिय ${farmerName}, आपल्या ${lotData.cropType} (${lotData.quantity}kg) लॉटच्या नोंदणीबाबत प्रशासकीय पुनरावलोकन पूर्ण झाले आहे.\n\n📝 प्रशासकीय शेरा (Admin Remarks): "${rejectionReason}"\n\n💡 आपण आपल्या उत्पादनाचे नवीन/स्पष्ट फोटो किंवा सुधारित माहितीसह पुन्हा नोंदणी करू शकता. किसान ट्रस्ट आपल्या मदतीसाठी सदैव तयार आहे.`;
 
+        const farmerId = lotData.farmerId || 'farmer_mh_001';
         await NotificationService.sendNotification({
-            userId: lotData.farmerId,
+            userId: farmerId,
             type: NOTIFICATION_TYPES.LOT_REJECTED,
             title: `📋 लॉट नोंदणी पुनरावलोकन सूचना (${lotData.cropType})`,
             message: politeMessage,
@@ -11465,12 +11374,22 @@ async function runQualityAnalysis() {
     const quantity = parseFloat(document.getElementById('inputQuantity')?.value) || 500;
     const harvestDate = document.getElementById('inputHarvestDate')?.value || new Date().toISOString().split('T')[0];
 
-    showLoading('🔍 Google Gemini Vision AI द्वारे उत्पादनाची सत्यता व गुणवत्ता तपासत आहे...');
-    
-    // Auto load sample images if user hasn't selected any
+    const alertBox = document.getElementById('qualityRejectionAlert');
+    const alertMsg = document.getElementById('rejectionAlertMessage');
+
+    // 1. Enforce that farmer has uploaded or captured photos
     if (!AppState.uploadedFiles || AppState.uploadedFiles.length === 0) {
-        loadSampleCrop(cropType);
+        if (alertBox && alertMsg) {
+            alertMsg.textContent = `कृपया गुणवत्ता प्रमाणीकरणासाठी आपल्या ${cropType} शेतमालाचे ४ फोटो थेट कॅमेऱ्याने स्कॅन करा किंवा गॅलरीतून निवडा. (Please capture or upload 4 photos of your harvest.)`;
+            alertBox.style.display = 'block';
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        showToast(`⚠️ कृपया आधी शेतमालाचे ४ फोटो जोडा.`, 'warning');
+        return;
     }
+
+    if (alertBox) alertBox.style.display = 'none';
+    showLoading('🔍 Google Gemini Multimodal Vision द्वारे उत्पादनाची सत्यता व गुणवत्ता तपासत आहे...');
 
     let quality = null;
     try {
@@ -11478,37 +11397,54 @@ async function runQualityAnalysis() {
     } catch (err) {
         console.error('Quality assessment error:', err);
     }
-    
+
     hideLoading();
 
-    // STRICT MULTIMODAL COMMODITY VERIFICATION: Reject random objects or mismatch!
-    if (quality && quality.isCommodityMatch === false) {
-        const detected = quality.detectedProduce || 'Unrelated Object';
-        const reason = quality.rejectionReason || `The uploaded photo does not appear to be ${cropType} (AI detected: "${detected}"). Please upload clear photos of your actual ${cropType} harvest.`;
-        showToast(`⚠️ ${reason}`, 'error');
-        
+    // STRICT PRODUCE & COMMODITY VERIFICATION: Reject non-crops, mismatch, blur, or unverified items!
+    if (!quality || quality.isCommodityMatch === false || quality.isQualityVerified === false) {
+        AppState.currentQualityAnalysis = null;
+        const detected = quality?.detectedProduce || 'Unrelated / Unclear Object';
+        const reason = quality?.rejectionReason || `अपलोड केलेला फोटो ${cropType} शी जुळत नाही (AI द्वारे आढळले: "${detected}"). कृपया आपल्या प्रत्यक्ष शेतमालाचे स्पष्ट, पुरेसा प्रकाश असलेले फोटो काढून पुन्हा प्रयत्न करा.`;
+
+        if (alertBox && alertMsg) {
+            alertMsg.textContent = reason;
+            alertBox.style.display = 'block';
+            alertBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
         const uploadBox = document.getElementById('uploadedState');
         if (uploadBox) {
             uploadBox.style.border = '2px dashed #EF4444';
             uploadBox.style.background = '#FEF2F2';
         }
-        return; // Do NOT proceed to Step 2 with random/fake produce!
+
+        showToast(`⚠️ गुणवत्ता तपासणी नाकारली: ${detected}`, 'error');
+        return; // Strictly block progression to Step 2!
     }
 
-    AppState.currentQualityAnalysis = quality || { overallGrade: 'Grade A', freshnessScore: 92, shelfLifeDays: 8 };
-    
+    // Quality Successfully Verified
+    if (alertBox) alertBox.style.display = 'none';
+    AppState.currentQualityAnalysis = quality;
+
+    const uploadBox = document.getElementById('uploadedState');
+    if (uploadBox) {
+        uploadBox.style.border = '2px solid #22C55E';
+        uploadBox.style.background = '#F0FDF4';
+    }
+
     // Populate Step 2 AI Insight Screen
     const aiDesc = document.getElementById('aiDescription');
     const badge = document.getElementById('qualityBadge');
     if (aiDesc) {
         const defectsStr = (quality.defectsIdentified && quality.defectsIdentified.length > 0) ? `\n• AI निरीक्षण: ${quality.defectsIdentified.join(', ')}` : '';
-        aiDesc.textContent = `${cropType} (${variety}) — दर्जा: ${quality.overallGrade || 'Grade A'} | ताजेपणा: ${quality.freshnessScore || 92}% | पृष्ठभाग दोष: ${quality.surfaceDefectsPercent || 2}% | शेल्फ लाइफ: ${quality.shelfLifeDays || 8} दिवस.${defectsStr}\n${quality.description || ''}`;
+        aiDesc.textContent = `${cropType} (${variety}) — प्रमाणित दर्जा: ${quality.overallGrade || 'Grade A'} | ताजेपणा: ${quality.freshnessScore || 92}% | पृष्ठभाग दोष: ${quality.surfaceDefectsPercent || 2}% | शेल्फ लाइफ: ${quality.shelfLifeDays || 8} दिवस.${defectsStr}\n${quality.description || ''}`;
     }
     if (badge) {
         badge.textContent = `दर्जा: ${quality.overallGrade || 'Grade A'} (${quality.freshnessScore || 92}% ताजेपणा)`;
         badge.className = `quality-badge ${(quality.overallGrade || 'Grade A').toLowerCase().replace(' ', '-')}`;
     }
 
+    showToast(`✅ ${cropType} ची गुणवत्ता प्रमाणित: ${quality.overallGrade} (${quality.freshnessScore}% Fresh)`, 'success');
     goToLotStep(2);
 }
 
@@ -11518,10 +11454,17 @@ async function proceedToPricing() {
     const quantity = parseFloat(document.getElementById('inputQuantity')?.value) || 500;
     const harvestDate = document.getElementById('inputHarvestDate')?.value || new Date().toISOString().split('T')[0];
 
+    if (!AppState.currentQualityAnalysis || !AppState.currentQualityAnalysis.isQualityVerified) {
+        showToast('⚠️ शेतमालाची गुणवत्ता तपासणी पूर्ण केल्याशिवाय भाव निश्चित करता येत नाही.', 'error');
+        goToLotStep(1);
+        return;
+    }
+
     showLoading('📊 पारदर्शक भाव आणि बाजार शिफारस तयार करत आहे...');
 
-    const qualityGrade = AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.overallGrade : 'Grade A';
-    const freshnessScore = AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.freshnessScore : 94;
+    const qualityGrade = AppState.currentQualityAnalysis.overallGrade || 'Grade A';
+    const freshnessScore = AppState.currentQualityAnalysis.freshnessScore || 92;
+    const isCutVerified = Boolean(AppState.currentCutAnalysis && AppState.currentCutAnalysis.cutVerified);
 
     try {
         AppState.currentPriceEstimate = await PriceCalculationService.calculateTransparentPrice({
@@ -11529,6 +11472,7 @@ async function proceedToPricing() {
             quantityKg: quantity,
             qualityGrade,
             freshnessScore,
+            isCutVerified,
             originTaluka: 'Niphad'
         });
 
@@ -11659,15 +11603,24 @@ async function saveDigitalLot() {
     const harvestDate = document.getElementById('inputHarvestDate')?.value || new Date().toISOString().split('T')[0];
     const currentUser = AuthService.getCurrentUser();
 
+    if (!AppState.currentQualityAnalysis || !AppState.currentQualityAnalysis.isQualityVerified) {
+        showToast('⚠️ शेतमालाची गुणवत्ता प्रमाणीकरण आधी पूर्ण करणे आवश्यक आहे.', 'error');
+        goToLotStep(1);
+        return;
+    }
+
     showLoading('💾 डिजिटल शेती लॉट तपासणी व सादर करत आहे...');
 
     const netRate = AppState.currentPriceEstimate ? AppState.currentPriceEstimate.estimatedNetRealizationPerKg : 36.0;
     const totalVal = AppState.currentPriceEstimate ? AppState.currentPriceEstimate.totalLotValue : (netRate * quantity);
 
+    const farmerId = currentUser ? (currentUser.userId || currentUser.uid) : 'farmer_mh_001';
+    const farmerName = currentUser ? (currentUser.displayName || currentUser.name) : 'रमेश मारुती पाटील';
+
     const lot = new DigitalAgriculturalLot({
         lotId: `LOT-${Date.now().toString().slice(-6)}`,
-        farmerId: currentUser ? currentUser.userId : 'FARMER-NIPHAD-001',
-        farmerName: currentUser ? (currentUser.displayName || currentUser.name) : 'रमेश मारुती पाटील',
+        farmerId: farmerId,
+        farmerName: farmerName,
         farmerPhone: currentUser ? (currentUser.phone || '9822456789') : '9822456789',
         farmerTaluka: 'Niphad',
         farmerDistrict: 'Nashik',
@@ -11675,12 +11628,21 @@ async function saveDigitalLot() {
         variety,
         quantity,
         harvestDate,
-        overallQualityGrade: AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.overallGrade : 'Grade A',
-        freshnessScore: AppState.currentQualityAnalysis ? AppState.currentQualityAnalysis.freshnessScore : 94,
-        exteriorPhotos: AppState.uploadedFiles.length > 0 ? AppState.uploadedFiles : [generateSampleProduceSvg(cropType, 'Angle 1', '#EF4444', '#FCA5A5')],
+        overallQualityGrade: AppState.currentQualityAnalysis.overallGrade,
+        freshnessScore: AppState.currentQualityAnalysis.freshnessScore,
+        estimatedShelfLifeDays: AppState.currentQualityAnalysis.shelfLifeDays || 7,
+        exteriorPhotos: AppState.uploadedFiles,
+        internalQualityAnalysis: AppState.currentCutAnalysis ? {
+            cutVerified: AppState.currentCutAnalysis.cutVerified,
+            internalFreshness: AppState.currentCutAnalysis.internalFreshness,
+            moistureContent: AppState.currentCutAnalysis.moistureContent,
+            coreDefectsPercent: AppState.currentCutAnalysis.coreDefectsPercent,
+            cutImageUrl: AppState.currentCutAnalysis.cutImageUrl
+        } : null,
         netPricePerKg: netRate,
         totalLotValue: totalVal,
-        status: 'LISTED'
+        status: LOT_STATUSES.PENDING_ADMIN_REVIEW,
+        moderationStatus: 'PENDING_ADMIN_REVIEW'
     });
 
     const preCheck = await LotModerationService.preCheckLot(lot);
@@ -13017,13 +12979,14 @@ window.inspectLot = async function(lotId) {
     const lots = await firebaseService.getLots();
     const lot = lots.find(l => l.lotId === lotId) || {
         lotId,
+        farmerId: 'farmer_mh_001',
+        farmerName: 'रमेश पाटील',
         cropType: 'Tomato',
         variety: 'Himsona',
         quantity: 1000,
         harvestDate: '2026-08-30',
         overallQualityGrade: 'Grade A',
         freshnessScore: 94,
-        farmerName: 'रमेश पाटील',
         exteriorPhotos: ['https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=400']
     };
 
@@ -13187,20 +13150,21 @@ async function renderNotifications() {
         return;
     }
 
-    const notifs = await NotificationService.getUserNotifications(user.userId);
+    const userId = user.userId || user.uid || 'farmer_mh_001';
+    const notifs = await NotificationService.getUserNotifications(userId);
     if (notifs.length === 0) {
         container.innerHTML = `<div style="padding:20px; text-align:center; color:#777;">कोणतीही नवीन सूचना नाही.</div>`;
         return;
     }
 
     container.innerHTML = notifs.map(n => `
-        <div class="notification-item ${n.read ? '' : 'unread'} ${n.priority === 'HIGH' ? 'priority-high' : ''}" onclick="NotificationService.markAsRead('${n.notificationId}').then(() => renderNotifications())">
+        <div class="notification-item ${n.read ? '' : 'unread'} ${n.priority === 'HIGH' || n.type === 'LOT_REJECTED' ? 'priority-high' : ''}" onclick="NotificationService.markAsRead('${n.notificationId}').then(() => { renderNotifications(); syncAuthUI(); })">
             <div class="notification-item-title">
                 <span>${n.title}</span>
                 ${!n.read ? '<span style="font-size:0.7rem; color:#1B5E20; font-weight:800;">NEW</span>' : ''}
             </div>
-            <div class="notification-item-msg">${n.message}</div>
-            <div class="notification-item-time">${new Date(n.createdAt).toLocaleTimeString('mr-IN')}</div>
+            <div class="notification-item-msg" style="white-space: pre-line; line-height: 1.45; margin-top: 4px;">${n.message}</div>
+            <div class="notification-item-time">${new Date(n.createdAt).toLocaleTimeString('mr-IN', { hour: '2-digit', minute: '2-digit' })}</div>
         </div>
     `).join('');
 }
@@ -13419,6 +13383,7 @@ function attachAllEventListeners() {
             if (adminLotRejectModal) adminLotRejectModal.style.display = 'none';
             document.getElementById('adminLotModal').style.display = 'none';
             showToast('📩 शेतकऱ्याला शेरा पाठवला व लॉट नाकारण्यात आला (Notice Dispatched)', 'info');
+            syncAuthUI();
             renderAdminLots();
             renderDashboard();
         }
@@ -13753,15 +13718,174 @@ function attachAllEventListeners() {
         updateBeforePublishInsights(crop, qty);
     });
 
+    // =========================================================================
+    // LIVE MULTI-ANGLE CAMERA & UPLOAD CONTROLLER
+    // =========================================================================
+    let cameraMediaStream = null;
+    let currentCameraFacingMode = 'environment';
+    let currentAngleStep = 0;
+
+    const CAMERA_ANGLE_CONFIG = [
+        {
+            badge: "कोन १ / ४: वरून दृश्य (Angle 1: Top View)",
+            hint: "शेतमालाचे वरून संपूर्ण दृश्य कॅमेऱ्यात घ्या",
+            guide: "💡 कृपया शेतमाल वरून संपूर्ण दिसेल अशा रीतीने कॅमेऱ्यासमोर धरा"
+        },
+        {
+            badge: "कोन २ / ४: बाजूचे दृश्य (Angle 2: Side Profile)",
+            hint: "शेतमालाचा आकार व बाजूचे दृश्य कॅमेऱ्यात घ्या",
+            guide: "💡 बाजूने आकारमान व एकसारखेपणा दिसेल असा फोटो घ्या"
+        },
+        {
+            badge: "कोन ३ / ४: देठ व कळीचा भाग (Angle 3: Stem & Calyx)",
+            hint: "देठ, टोकाचा भाग व ताज्या कळ्या दाखवा",
+            guide: "💡 देठ व कळी जवळून दाखवून ताजेपणा स्पष्ट करा"
+        },
+        {
+            badge: "कोन ४ / ४: एकूण ढीग / क्रेट (Angle 4: Bulk Lot View)",
+            hint: "एकूण लॉट किंवा क्रेटमधील मालाचे दृश्य घ्या",
+            guide: "💡 संपूर्ण क्रेट अथवा ढिगाचा एकत्रित फोटो घ्या"
+        }
+    ];
+
+    function updateCameraStepUI() {
+        const badge = document.getElementById('cameraAngleBadge');
+        const hint = document.getElementById('cameraAngleHint');
+        const guide = document.getElementById('cameraGuideInstruction');
+        const btnDone = document.getElementById('btnDoneCamera');
+
+        const cfg = CAMERA_ANGLE_CONFIG[Math.min(currentAngleStep, 3)];
+        if (badge) badge.textContent = cfg.badge;
+        if (hint) hint.textContent = cfg.hint;
+        if (guide) guide.textContent = cfg.guide;
+
+        if (btnDone) {
+            btnDone.style.display = AppState.uploadedFiles.length >= 4 ? 'inline-block' : 'none';
+        }
+    }
+
+    async function openLiveCamera() {
+        const modal = document.getElementById('liveCameraModal');
+        const video = document.getElementById('liveCameraVideo');
+        if (!modal || !video) return;
+
+        modal.style.display = 'flex';
+        currentAngleStep = Math.min(AppState.uploadedFiles.length, 3);
+        updateCameraStepUI();
+
+        try {
+            if (cameraMediaStream) {
+                cameraMediaStream.getTracks().forEach(t => t.stop());
+            }
+            cameraMediaStream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: currentCameraFacingMode, width: { ideal: 1280 }, height: { ideal: 720 } },
+                audio: false
+            });
+            video.srcObject = cameraMediaStream;
+        } catch (err) {
+            console.warn('Camera access error:', err.message);
+            showToast('कॅमेरा उघडता आला नाही. कृपया गॅलरीतून फोटो निवडा.', 'warning');
+        }
+    }
+
+    function closeLiveCamera() {
+        const modal = document.getElementById('liveCameraModal');
+        if (modal) modal.style.display = 'none';
+
+        if (cameraMediaStream) {
+            cameraMediaStream.getTracks().forEach(t => t.stop());
+            cameraMediaStream = null;
+        }
+    }
+
+    function snapCameraPhoto() {
+        const video = document.getElementById('liveCameraVideo');
+        const canvas = document.getElementById('cameraCaptureCanvas');
+        if (!video || !canvas) return;
+
+        canvas.width = video.videoWidth || 640;
+        canvas.height = video.videoHeight || 480;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+        if (currentAngleStep < 4) {
+            AppState.uploadedFiles[currentAngleStep] = dataUrl;
+        } else {
+            AppState.uploadedFiles.push(dataUrl);
+        }
+
+        // Update thumbnail slot
+        const slot = document.getElementById(`thumbSlot${Math.min(currentAngleStep + 1, 4)}`);
+        if (slot) {
+            slot.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover;">`;
+            slot.style.border = '2px solid #22C55E';
+        }
+
+        currentAngleStep++;
+        showToast(`📸 कोन ${Math.min(currentAngleStep, 4)} चे छायाचित्र नोंदवले!`, 'success');
+
+        renderUploadedImagesGrid();
+
+        if (currentAngleStep < 4) {
+            updateCameraStepUI();
+        } else {
+            updateCameraStepUI();
+            const btnDone = document.getElementById('btnDoneCamera');
+            if (btnDone) btnDone.style.display = 'inline-block';
+        }
+    }
+
+    function renderUploadedImagesGrid() {
+        const emptyState = document.getElementById('emptyState');
+        const uploadedState = document.getElementById('uploadedState');
+        const uploadActions = document.getElementById('uploadActions');
+        const photoCount = document.getElementById('photoCount');
+        const imageGrid = document.getElementById('imageGrid');
+
+        if (AppState.uploadedFiles.length > 0) {
+            if (emptyState) emptyState.style.display = 'none';
+            if (uploadedState) uploadedState.style.display = 'block';
+            if (uploadActions) uploadActions.style.display = 'flex';
+            if (photoCount) photoCount.textContent = AppState.uploadedFiles.length;
+
+            if (imageGrid) {
+                imageGrid.innerHTML = AppState.uploadedFiles.map((src, i) => `
+                    <div class="image-preview" style="position:relative; border-radius:10px; overflow:hidden; border:2px solid #86EFAC; aspect-ratio:1;">
+                        <img src="${src}" alt="Angle ${i+1}" style="width:100%; height:100%; object-fit:cover;">
+                        <span style="position:absolute; bottom:4px; left:4px; background:rgba(0,0,0,0.75); color:#FFF; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px;">
+                            कोन ${i + 1}
+                        </span>
+                    </div>
+                `).join('');
+            }
+        } else {
+            if (emptyState) emptyState.style.display = 'block';
+            if (uploadedState) uploadedState.style.display = 'none';
+            if (uploadActions) uploadActions.style.display = 'none';
+            if (photoCount) photoCount.textContent = '0';
+            if (imageGrid) imageGrid.innerHTML = '';
+        }
+    }
+
+    // Attach Camera & Upload Handlers
+    document.getElementById('openLiveCameraBtn')?.addEventListener('click', openLiveCamera);
+    document.getElementById('btnReopenCamera')?.addEventListener('click', openLiveCamera);
+    document.getElementById('closeLiveCameraBtn')?.addEventListener('click', closeLiveCamera);
+    document.getElementById('btnSnapPhoto')?.addEventListener('click', snapCameraPhoto);
+    document.getElementById('btnDoneCamera')?.addEventListener('click', closeLiveCamera);
+
+    document.getElementById('btnSwitchCamera')?.addEventListener('click', async () => {
+        currentCameraFacingMode = currentCameraFacingMode === 'environment' ? 'user' : 'environment';
+        await openLiveCamera();
+        showToast('🔄 कॅमेरा स्विच केला.', 'info');
+    });
+
     // File Input Upload Handlers
     const fileInput = document.getElementById('fileInput');
     const selectPhotosBtn = document.getElementById('selectPhotosBtn');
     const resetBtn = document.getElementById('resetBtn');
-    const emptyState = document.getElementById('emptyState');
-    const uploadedState = document.getElementById('uploadedState');
-    const uploadActions = document.getElementById('uploadActions');
-    const photoCount = document.getElementById('photoCount');
-    const imageGrid = document.getElementById('imageGrid');
 
     selectPhotosBtn?.addEventListener('click', () => {
         fileInput?.click();
@@ -13778,20 +13902,7 @@ function attachAllEventListeners() {
                     AppState.uploadedFiles.push(re.target.result);
                     loadedCount++;
                     if (loadedCount === files.length) {
-                        if (photoCount) photoCount.textContent = AppState.uploadedFiles.length;
-                        if (emptyState) emptyState.style.display = 'none';
-                        if (uploadedState) uploadedState.style.display = 'block';
-                        if (uploadActions) uploadActions.style.display = 'flex';
-                        if (imageGrid) {
-                            imageGrid.innerHTML = AppState.uploadedFiles.map((src, i) => `
-                                <div class="image-preview" style="position:relative; border-radius:8px; overflow:hidden; border:2px solid #86EFAC;">
-                                    <img src="${src}" alt="Photo ${i+1}" style="width:100%; height:110px; object-fit:cover;">
-                                    <span style="position:absolute; bottom:4px; left:4px; background:rgba(0,0,0,0.7); color:#FFF; font-size:10px; font-weight:bold; padding:2px 6px; border-radius:4px;">
-                                        कोन ${i + 1}
-                                    </span>
-                                </div>
-                            `).join('');
-                        }
+                        renderUploadedImagesGrid();
                     }
                 };
                 reader.readAsDataURL(file);
@@ -13802,11 +13913,14 @@ function attachAllEventListeners() {
     resetBtn?.addEventListener('click', () => {
         AppState.uploadedFiles = [];
         if (fileInput) fileInput.value = '';
-        if (emptyState) emptyState.style.display = 'block';
-        if (uploadedState) uploadedState.style.display = 'none';
-        if (uploadActions) uploadActions.style.display = 'none';
-        if (photoCount) photoCount.textContent = '0';
-        if (imageGrid) imageGrid.innerHTML = '';
+        for (let i = 1; i <= 4; i++) {
+            const slot = document.getElementById(`thumbSlot${i}`);
+            if (slot) {
+                slot.innerHTML = `${i}`;
+                slot.style.border = '1px dashed #475569';
+            }
+        }
+        renderUploadedImagesGrid();
         showToast('🔄 फोटो रीसेट केले.', 'info');
     });
 

@@ -15,7 +15,8 @@ export class NotificationService {
     static async sendNotification({ userId, type, title, message, relatedEntityType = 'LOT', relatedEntityId = '', priority = 'NORMAL', actionUrl = '' }) {
         await firebaseService.initializeData();
         const notification = new NotificationRecord({
-            userId,
+            userId: userId || 'farmer_mh_001',
+            recipientId: userId || 'farmer_mh_001',
             type,
             title,
             message,
@@ -35,7 +36,6 @@ export class NotificationService {
      */
     static async notifyAdmins({ type = NOTIFICATION_TYPES.ADMIN_ALERT, title, message, relatedEntityType, relatedEntityId, priority = 'HIGH' }) {
         await firebaseService.initializeData();
-        // Send to standard admin IDs
         const adminIds = ['admin_mh_001', 'admin_super'];
         for (const adminId of adminIds) {
             await this.sendNotification({
@@ -58,9 +58,14 @@ export class NotificationService {
     static async getUserNotifications(userId) {
         await firebaseService.initializeData();
         const snap = await (await firebaseService.db.collection('notifications')).get();
+        const normalizedTargetId = (userId || '').trim();
+
         return snap.docs
             .map(d => new NotificationRecord(d.data()))
-            .filter(n => !userId || n.userId === userId)
+            .filter(n => {
+                if (!normalizedTargetId) return true;
+                return n.userId === normalizedTargetId || n.recipientId === normalizedTargetId;
+            })
             .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     }
 
@@ -71,7 +76,7 @@ export class NotificationService {
      */
     static async getUnreadCount(userId) {
         const list = await this.getUserNotifications(userId);
-        return list.filter(n => !n.isRead).length;
+        return list.filter(n => !n.isRead && !n.read).length;
     }
 
     /**
@@ -83,6 +88,7 @@ export class NotificationService {
         await firebaseService.initializeData();
         await (await firebaseService.db.collection('notifications')).doc(notificationId).update({
             isRead: true,
+            read: true,
             updatedAt: new Date().toISOString()
         });
         return true;
@@ -95,7 +101,7 @@ export class NotificationService {
     static async markAllAsRead(userId) {
         const list = await this.getUserNotifications(userId);
         for (const n of list) {
-            if (!n.isRead) {
+            if (!n.isRead || !n.read) {
                 await this.markAsRead(n.notificationId);
             }
         }

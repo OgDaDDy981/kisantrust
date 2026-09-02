@@ -27,7 +27,8 @@ export const NOTIFICATION_TYPES = {
 export class NotificationRecord {
     constructor(data = {}) {
         this.notificationId = data.notificationId || `NOTIF-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`;
-        this.userId = data.userId || 'farmer_mh_001';
+        this.userId = data.userId || data.recipientId || 'farmer_mh_001';
+        this.recipientId = this.userId;
         this.type = data.type || NOTIFICATION_TYPES.LOT_APPROVED;
         this.title = data.title || 'Notification';
         this.message = data.message || '';
@@ -44,12 +45,14 @@ export class NotificationRecord {
         return {
             notificationId: this.notificationId,
             userId: this.userId,
+            recipientId: this.recipientId,
             type: this.type,
             title: this.title,
             message: this.message,
             relatedEntityType: this.relatedEntityType,
             relatedEntityId: this.relatedEntityId,
             isRead: this.isRead,
+            read: this.read,
             priority: this.priority,
             actionUrl: this.actionUrl,
             createdAt: this.createdAt
