@@ -5,371 +5,2373 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Kisan Trust - AI-Powered Fair Pricing for Farmers. Upload vegetable photos, get quality analysis and fair price estimates in your language.">
-    <title>Kisan Trust Global 🌱 | AI-Powered Fair Pricing for Farmers</title>
+        content="KisanTrust - AI-Powered Market Intelligence and Trusted Farm-to-Buyer Network. Know Your Crop. Know Its Worth. Know Where to Sell.">
+    <title>KisanTrust 🌱 | AI-Powered Market Intelligence & Farm-to-Buyer Network</title>
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts: Inter, Noto Sans Devanagari (Marathi/Hindi), Noto Sans Tamil, Poppins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=Noto+Sans+Tamil:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@300;400;500;600;700;800&family=Noto+Sans+Tamil:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
 
     <link rel="stylesheet" href="app.css">
 </head>
 
-<body>
-    <!-- Floating Leaves -->
-    <div class="floating-leaf">🍃</div>
-    <div class="floating-leaf">🌿</div>
-    <div class="floating-leaf">🌾</div>
-    <div class="floating-leaf">🍂</div>
-    <div class="floating-leaf">🌱</div>
-    <div class="floating-leaf">🍃</div>
-
-    <!-- SIDEBAR -->
+<body class="lang-english">
+    <!-- SIDEBAR FOR LANGUAGE & ROLE -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Language Selector">
+        <div class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Settings">
             <span class="toggle-icon">🌍</span>
         </div>
         <div class="sidebar-content">
             <div class="language-selector-header">
                 <div class="language-icon">🌍</div>
-                <h3>Choose Language</h3>
+                <h3 id="sidebarLangHeader">भाषा निवडा (Language)</h3>
             </div>
             <div class="language-options" id="languageOptions">
-                <button class="lang-option" data-lang="English">
-                    <span class="lang-flag">🇬🇧</span>
+                <button class="lang-option active" data-lang="English" onclick="updateLanguage('English')">
+                    <span class="lang-flag">🌐</span>
                     <span class="lang-name">English</span>
                 </button>
-                <button class="lang-option active" data-lang="Hindi (हिंदी)">
+                <button class="lang-option" data-lang="Marathi (मराठी)" onclick="updateLanguage('Marathi (मराठी)')">
                     <span class="lang-flag">🇮🇳</span>
-                    <span class="lang-name">हिंदी</span>
+                    <span class="lang-name">मराठी (Marathi)</span>
                 </button>
-                <button class="lang-option" data-lang="Marathi (मराठी)">
+                <button class="lang-option" data-lang="Hindi (हिंदी)" onclick="updateLanguage('Hindi (हिंदी)')">
                     <span class="lang-flag">🇮🇳</span>
-                    <span class="lang-name">मराठी</span>
-                </button>
-                <button class="lang-option" data-lang="Tamil (தமிழ்)">
-                    <span class="lang-flag">🇮🇳</span>
-                    <span class="lang-name">தமிழ்</span>
-                </button>
-                <button class="lang-option" data-lang="Spanish (Español)">
-                    <span class="lang-flag">🇪🇸</span>
-                    <span class="lang-name">Español</span>
-                </button>
-                <button class="lang-option" data-lang="French (Français)">
-                    <span class="lang-flag">🇫🇷</span>
-                    <span class="lang-name">Français</span>
+                    <span class="lang-name">हिंदी (Hindi)</span>
                 </button>
             </div>
             <div class="sidebar-info">
                 <div class="demo-badge">
                     <span class="demo-dot"></span>
-                    <span>Demo Mode Active</span>
+                    <span id="sidebarStatusText">Cloud Firestore & Sync Active</span>
                 </div>
-                <p class="sidebar-note">All features work with simulated AI analysis</p>
+                <p class="sidebar-note" id="sidebarNoteText">APMC Agmarknet & Cloud Database Ready</p>
             </div>
         </div>
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN CONTENT WRAPPER -->
     <main class="main-content" id="mainContent">
-        <!-- HEADER -->
-        <header class="header-container" id="headerContainer">
-            <div class="brand-name-animation">
-                <h1 class="brand-name" id="brandName">किसान ट्रस्ट</h1>
-                <div class="tagline" id="tagline">सही दाम. सही वजन.</div>
+        <!-- LIVE APMC MANDI PRICE TICKER BAR -->
+        <div class="mandi-ticker-bar" id="mandiTickerBar" aria-label="Live Mandi Price Ticker">
+            <div class="ticker-label-badge">
+                <span>🔴 Live APMC Prices</span>
             </div>
-            <div class="language-indicator">
-                <span class="lang-badge" id="langBadge">Hindi (हिंदी)</span>
+            <div class="ticker-track">
+                <span class="ticker-item">🍅 <strong>Tomato (Vashi APMC):</strong> <span class="ticker-price">₹ 38.00/kg</span> <span class="ticker-up">▲ +2.50</span></span>
+                <span class="ticker-item">🧅 <strong>Onion (Lasalgaon):</strong> <span class="ticker-price">₹ 28.50/kg</span> <span class="ticker-up">▲ +1.20</span></span>
+                <span class="ticker-item">🥔 <strong>Potato (Pune):</strong> <span class="ticker-price">₹ 24.00/kg</span> <span class="ticker-down">▼ -0.50</span></span>
+                <span class="ticker-item">🥕 <strong>Carrot (Pimpalgaon):</strong> <span class="ticker-price">₹ 26.00/kg</span> <span class="ticker-up">▲ +0.80</span></span>
+                <span class="ticker-item">🥬 <strong>Cabbage (Nashik):</strong> <span class="ticker-price">₹ 18.00/kg</span> <span class="ticker-up">▲ +1.00</span></span>
+                <span class="ticker-item">🌾 <strong>Soybean (Latur):</strong> <span class="ticker-price">₹ 46.50/kg</span> <span class="ticker-up">▲ +3.00</span></span>
+                <!-- Duplicate for infinite seamless scroll -->
+                <span class="ticker-item">🍅 <strong>Tomato (Vashi APMC):</strong> <span class="ticker-price">₹ 38.00/kg</span> <span class="ticker-up">▲ +2.50</span></span>
+                <span class="ticker-item">🧅 <strong>Onion (Lasalgaon):</strong> <span class="ticker-price">₹ 28.50/kg</span> <span class="ticker-up">▲ +1.20</span></span>
+                <span class="ticker-item">🥔 <strong>Potato (Pune):</strong> <span class="ticker-price">₹ 24.00/kg</span> <span class="ticker-down">▼ -0.50</span></span>
+                <span class="ticker-item">🥕 <strong>Carrot (Pimpalgaon):</strong> <span class="ticker-price">₹ 26.00/kg</span> <span class="ticker-up">▲ +0.80</span></span>
+                <span class="ticker-item">🥬 <strong>Cabbage (Nashik):</strong> <span class="ticker-price">₹ 18.00/kg</span> <span class="ticker-up">▲ +1.00</span></span>
+                <span class="ticker-item">🌾 <strong>Soybean (Latur):</strong> <span class="ticker-price">₹ 46.50/kg</span> <span class="ticker-up">▲ +3.00</span></span>
+            </div>
+        </div>
+
+        <!-- APP BRANDING HEADER (Enterprise Header: Branding Left + Helpline + Actions Right) -->
+        <header class="header-container" id="headerContainer">
+            <div class="header-branding-left">
+                <div class="brand-name-animation">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:2rem;">🌱</span>
+                        <div>
+                            <h1 class="brand-name" id="brandName" style="margin:0; font-size:1.6rem; font-weight:900; letter-spacing:-0.5px;">KisanTrust</h1>
+                            <div class="tagline" id="tagline" style="font-size:0.82rem; font-weight:600; color:#15803D;">Know Your Crop. Know Its Worth. Know Where to Sell.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TOP RIGHT ACTIONS: Helpline + Language Dropdown + Notifications + Account / Login -->
+            <div class="header-actions-right">
+                <!-- Farmer Helpline Badge -->
+                <div class="helpline-badge" style="display:inline-flex; align-items:center; gap:6px; background:#F0FDF4; border:1px solid #BBF7D0; padding:5px 12px; border-radius:20px; font-size:0.8rem; font-weight:700; color:#166534;">
+                    <span>📞</span> <span id="headerHelplineText">Helpline: 1800-123-4567</span>
+                </div>
+
+                <div class="language-indicator">
+                    <select class="header-lang-select" id="headerLangSelect" onchange="updateLanguage(this.value)" aria-label="Select Language">
+                        <option value="English">🌐 English</option>
+                        <option value="Marathi (मराठी)">🇮🇳 मराठी (Marathi)</option>
+                        <option value="Hindi (हिंदी)">🇮🇳 हिंदी (Hindi)</option>
+                    </select>
+                </div>
+
+                <!-- Notification Bell -->
+                <button class="notification-bell-btn" id="navNotifBtn" title="Notifications">
+                    <span>🔔</span>
+                    <span class="notif-badge" id="notifBadgeCount">3</span>
+                </button>
+
+
+                <div class="nav-auth-section" id="navAuthSection">
+                    <div class="user-role-badge" id="userRoleBadge" title="Click to manage account / Switch role">
+                        <span id="userRoleIcon">👨‍🌾</span> 
+                        <span id="userRoleDisplay">Ramesh Patil (Niphad)</span>
+                        <button class="logout-mini-btn" id="navLogoutBtn" title="Logout">🚪</button>
+                    </div>
+                    <button class="nav-auth-btn" id="navLoginBtn" style="display:none;">
+                        <span>🔐</span> <span id="navLoginBtnText">Login / Sign Up</span>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <!-- WELCOME MESSAGE -->
-        <div class="welcome-message" id="welcomeMessage">
-            <h2>👋 <span id="welcomeText">किसान ट्रस्ट में आपका स्वागत है</span></h2>
-            <p id="subtitleText">किसानों को AI-संचालित उचित मूल्यन से सशक्त बनाना</p>
-        </div>
+        <!-- TOP NAVIGATION BAR (Centered, Clean Pill Tabs with Bilingual Labels) -->
+        <nav class="main-nav-container" aria-label="Primary Navigation">
+            <div class="nav-links-wrapper">
+                <button class="nav-tab-btn active" id="navDashboard" data-view="viewDashboard" onclick="navigateTo('viewDashboard')">
+                    <span>🏠</span> <span class="nav-label" id="navLblDashboard">Dashboard</span>
+                    <span class="nav-sublabel">Home</span>
+                </button>
+                <button class="nav-tab-btn" id="navAssessLot" data-view="viewAssessLot" onclick="navigateTo('viewAssessLot')">
+                    <span>✨</span> <span class="nav-label" id="navLblAssessLot">Assess Crop</span>
+                    <span class="nav-sublabel">Quality Check</span>
+                </button>
+                <button class="nav-tab-btn" id="navMyLots" data-view="viewMyLots" onclick="navigateTo('viewMyLots')">
+                    <span>📦</span> <span class="nav-label" id="navLblMyLots">My Lots</span>
+                    <span class="nav-sublabel">Inventory</span>
+                </button>
+                <button class="nav-tab-btn" id="navMarketIntel" data-view="viewMarketIntel" onclick="navigateTo('viewMarketIntel')">
+                    <span>📊</span> <span class="nav-label" id="navLblMarketIntel">Market Prices</span>
+                    <span class="nav-sublabel">APMC Rates</span>
+                </button>
+                <button class="nav-tab-btn" id="navBuyerMarket" data-view="viewBuyerMarket" onclick="navigateTo('viewBuyerMarket')">
+                    <span>🤝</span> <span class="nav-label" id="navLblBuyers">Buyers</span>
+                    <span class="nav-sublabel">Marketplace</span>
+                </button>
+                <button class="nav-tab-btn" id="navSmartPooling" data-view="viewSmartPooling" onclick="navigateTo('viewSmartPooling')">
+                    <span>🚜</span> <span class="nav-label" id="navLblPooling">Smart Pooling</span>
+                    <span class="nav-sublabel">Shared Freight</span>
+                </button>
+                <button class="nav-tab-btn" id="navTransactions" data-view="viewTransactions" onclick="navigateTo('viewTransactions')">
+                    <span>📜</span> <span class="nav-label" id="navLblTransactions">Transactions</span>
+                    <span class="nav-sublabel">Deals & Payments</span>
+                </button>
+                <button class="nav-tab-btn admin-only" id="navAdminPortal" data-view="viewAdminPortal" onclick="navigateTo('viewAdminPortal')" style="background:#FFF9C4; border:1px solid #FBC02D; color:#7F5F00;">
+                    <span>🛡️</span> <span class="nav-label" id="navLblAdminPortal">Admin Portal</span>
+                    <span class="nav-sublabel">Moderation</span>
+                </button>
+                <span id="navLblPayments" style="display:none;"></span>
+                <span id="adminQuickBtnText" style="display:none;"></span>
+            </div>
+        </nav>
 
-        <!-- PROGRESS BAR -->
-        <div class="progress-bar">
-            <div class="progress-step active" id="progressStep1">
-                <div class="step-number">1</div>
-                <div class="step-label" id="step1Label">चरण 1: फोटो अपलोड करें</div>
-            </div>
-            <div class="progress-connector">
-                <div class="connector-line" id="connector1"></div>
-            </div>
-            <div class="progress-step" id="progressStep2">
-                <div class="step-number">2</div>
-                <div class="step-label" id="step2Label">चरण 2: गुणवत्ता जांच</div>
-            </div>
-            <div class="progress-connector">
-                <div class="connector-line" id="connector2"></div>
-            </div>
-            <div class="progress-step" id="progressStep3">
-                <div class="step-number">3</div>
-                <div class="step-label" id="step3Label">चरण 3: मूल्य प्राप्त करें</div>
-            </div>
-        </div>
-
-        <!-- DEMO MODE INDICATOR -->
-        <div class="demo-indicator" id="demoIndicator">
-            <span class="demo-icon">ℹ️</span>
-            <span>DEMO MODE | Selected Language: <strong id="demoLangDisplay">Hindi (हिंदी)</strong></span>
-        </div>
-
-        <!-- STEP 1: IMAGE UPLOAD -->
-        <section class="step-section reveal" id="step1Section">
-            <div class="custom-card upload-card">
-                <div class="step-header">
-                    <div class="step-icon">📸</div>
-                    <h2 id="uploadTitle">4 फोटो अपलोड करें (लॉट)</h2>
+        <!-- ============================================================== -->
+        <!-- VIEW 1: FARMER DASHBOARD                                       -->
+        <!-- ============================================================== -->
+        <section class="app-view active" id="viewDashboard">
+            <!-- Hero Banner -->
+            <div class="dashboard-hero-banner">
+                <div class="dashboard-hero-text">
+                    <h2 id="dashWelcomeText">Welcome, Ramesh Patil 👋</h2>
+                    <p id="dashSubDesc">KisanTrust helps you get accurate quality assessment, transparent market prices, and connects you directly with trusted buyers.</p>
                 </div>
-                <p class="step-description" id="uploadDesc">Upload 4 clear photos from different angles of your
-                    vegetable lot for accurate analysis.</p>
+                <button class="hero-cta-btn" id="dashAssessBtn">
+                    <span>➕</span> <span id="dashAssessBtnText">Assess & Register New Lot</span>
+                </button>
+            </div>
 
-                <div class="upload-area" id="uploadArea">
-                    <!-- File Input (Hidden) -->
-                    <input type="file" id="fileInput" multiple accept="image/png,image/jpg,image/jpeg"
-                        style="display:none">
+            <!-- 5-BUTTON FARMER QUICK ACTION COMMAND GRID (Large Touch Targets for Rural Usability) -->
+            <div class="farmer-quick-grid" id="farmerQuickActionsGrid">
+                <div class="farmer-quick-card" onclick="navigateTo('viewAssessLot')">
+                    <div class="quick-icon-wrapper green">📸</div>
+                    <div class="quick-content">
+                        <h4 id="quickActionScanTitle">Check Crop Quality</h4>
+                        <p id="quickActionScanSub">AI grading & freshness from 4 photos</p>
+                    </div>
+                </div>
+                <div class="farmer-quick-card" onclick="navigateTo('viewMarketIntel')">
+                    <div class="quick-icon-wrapper gold">💰</div>
+                    <div class="quick-content">
+                        <h4 id="quickActionMandiTitle">Live Mandi Prices</h4>
+                        <p id="quickActionMandiSub">Net realization after transport costs</p>
+                    </div>
+                </div>
+                <div class="farmer-quick-card" onclick="navigateTo('viewBuyerMarket')">
+                    <div class="quick-icon-wrapper blue">🤝</div>
+                    <div class="quick-content">
+                        <h4 id="quickActionBuyersTitle">Find Trusted Buyers</h4>
+                        <p id="quickActionBuyersSub">FSSAI & APMC verified direct buyers</p>
+                    </div>
+                </div>
+                <div class="farmer-quick-card" onclick="navigateTo('viewSmartPooling')">
+                    <div class="quick-icon-wrapper orange">🚜</div>
+                    <div class="quick-content">
+                        <h4 id="quickActionPoolingTitle">Village Transport Pooling</h4>
+                        <p id="quickActionPoolingSub">Save 50-70% freight in 10-ton trucks</p>
+                    </div>
+                </div>
+                <div class="farmer-quick-card" onclick="navigateTo('viewTransactions')">
+                    <div class="quick-icon-wrapper purple">📜</div>
+                    <div class="quick-content">
+                        <h4 id="quickActionDealsTitle">My Deals & Receipts</h4>
+                        <p id="quickActionDealsSub">Digital contracts & official receipts</p>
+                    </div>
+                </div>
+            </div>
 
-                    <!-- Empty State -->
-                    <div class="empty-state" id="emptyState">
-                        <div class="empty-icon">📷</div>
-                        <h3>No photos uploaded yet</h3>
-                        <p>Please upload 4 photos of your vegetable lot to begin analysis</p>
-                        <button class="upload-btn" id="selectPhotosBtn" type="button">
-                            <span>📁</span> Select Photos
+            <!-- Dashboard Grid: Active Lots, Market Snapshot, Selling Opportunities -->
+            <div class="dashboard-grid">
+                <!-- Section: My Active Lots -->
+                <div class="custom-card" style="grid-column: 1 / -1;">
+                    <div class="section-header-row">
+                        <h3><span>📦</span> <span id="dashActiveLotsTitle">My Active Produce Lots</span></h3>
+                        <a class="view-more-link" id="dashViewAllLotsLink">View All Lots ➔</a>
+                    </div>
+                    <div class="lots-card-grid" id="dashLotsContainer">
+                        <!-- Loaded dynamically from lotService -->
+                    </div>
+                </div>
+
+                <!-- Section: Market Snapshot -->
+                <div class="snapshot-card">
+                    <div class="section-header-row">
+                        <h3><span>📈</span> <span id="dashMarketSnapshotTitle">Market Price Snapshot</span></h3>
+                        <span class="opp-badge high" style="background:#E8F5E9; color:#2E7D32; border-color:#A5D6A7;">Live Index</span>
+                    </div>
+                    <div class="snapshot-benchmark-meta">
+                        <strong id="snapBestMarketLabel">Best Market:</strong> <span id="snapBestMarketName">Vashi APMC (Navi Mumbai)</span>
+                    </div>
+                    <div class="snapshot-price-row">
+                        <div class="snapshot-price-large" id="snapHighestPrice">₹ 38.00</div>
+                        <div style="font-size:0.9rem; color:#666;" id="snapPerKgUnit">/ kg (Tomato)</div>
+                    </div>
+                    <div class="snapshot-benchmark-meta">
+                        <strong id="snapNetValueLabel">Estimated Net Realization:</strong> <span id="snapNetValue">₹ 35.40 / kg</span> (after transport)
+                    </div>
+                    <div class="action-tip-box" id="snapTipBox">
+                        💡 Hybrid tomatoes are in high demand at Mumbai and Vashi markets right now.
+                    </div>
+                </div>
+
+                <!-- Section: Selling Opportunity -->
+                <div class="opportunity-card">
+                    <div class="section-header-row">
+                        <h3><span>🎯</span> <span id="dashOpportunityTitle">Selling Opportunity</span></h3>
+                        <span class="opp-badge high" id="dashDemandBadge">High Demand</span>
+                    </div>
+                    <div class="opportunity-badge-row">
+                        <span>🤝</span> <strong>Available Buyers:</strong> <span id="dashPotentialBuyersCount">3 verified buyers active</span>
+                    </div>
+                    <div class="action-tip-box" style="border-left-color: #2E7D32; background: rgba(46,125,50,0.06);">
+                        <strong>Recommended Action:</strong>
+                        <p id="dashActionRecommendation">Dealing directly with buyers like Sahyadri Agro or Reliance Fresh gives you higher profit by removing middlemen.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 2: ASSESS & CREATE DIGITAL LOT (PRESERVED 3-STEP ENGINE)   -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewAssessLot">
+            <!-- Progress Bar -->
+            <div class="progress-bar">
+                <div class="progress-step active" id="progressStep1">
+                    <div class="step-number">1</div>
+                    <div class="step-label" id="step1Label">Step 1: Lot Information & Photos</div>
+                </div>
+                <div class="progress-connector">
+                    <div class="connector-line" id="connector1"></div>
+                </div>
+                <div class="progress-step" id="progressStep2">
+                    <div class="step-number">2</div>
+                    <div class="step-label" id="step2Label">Step 2: Quality Inspection</div>
+                </div>
+                <div class="progress-connector">
+                    <div class="connector-line" id="connector2"></div>
+                </div>
+                <div class="progress-step" id="progressStep3">
+                    <div class="step-number">3</div>
+                    <div class="step-label" id="step3Label">Step 3: Transparent Pricing & Sale</div>
+                </div>
+            </div>
+
+            <!-- STEP 1: CROP METADATA + 4 ANGLE PHOTOS -->
+            <div class="step-section" id="step1Section">
+                <div class="custom-card upload-card">
+                    <div class="step-header">
+                        <div class="step-icon">📋</div>
+                        <h2 id="lotFormTitle">Create Digital Produce Lot</h2>
+                    </div>
+
+                    <!-- Crop Metadata Inputs -->
+                    <div class="lot-input-grid">
+                        <div class="lot-form-field">
+                            <label for="inputCropType" id="lblCropType">Crop Type</label>
+                            <select id="inputCropType">
+                                <option value="Tomato">Tomato</option>
+                                <option value="Onion">Onion</option>
+                                <option value="Potato">Potato</option>
+                                <option value="Carrot">Carrot</option>
+                                <option value="Cabbage">Cabbage</option>
+                            </select>
+                        </div>
+                        <div class="lot-form-field">
+                            <label for="inputVariety" id="lblVariety">Variety</label>
+                            <select id="inputVariety">
+                                <option value="Himsona Hybrid">Himsona Hybrid</option>
+                                <option value="Abhinav">Abhinav</option>
+                                <option value="Saho 3251">Saho 3251</option>
+                                <option value="Desi (Gavran)">Desi (Gavran)</option>
+                            </select>
+                        </div>
+                        <div class="lot-form-field">
+                            <label for="inputQuantity" id="lblQuantity">Total Quantity (kg)</label>
+                            <input type="number" id="inputQuantity" value="500" min="10" step="10">
+                        </div>
+                        <div class="lot-form-field">
+                            <label for="inputHarvestDate" id="lblHarvestDate">Harvest Date</label>
+                            <input type="date" id="inputHarvestDate">
+                        </div>
+                    </div>
+
+                    <!-- Micro-Lot Quantity Presets for Small & Marginal Farmers -->
+                    <div style="margin:var(--s2) 0; padding:10px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px;">
+                        <div style="font-size:0.75rem; color:#475569; font-weight:700; margin-bottom:6px;">
+                            <span>🌱</span> <span id="lblMicroLotPresets">Smallholder & Bulk Lot Presets:</span>
+                        </div>
+                        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(25)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px; background:#EFF6FF; border-color:#BFDBFE; color:#1E40AF;">🥬 25 kg (Household)</button>
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(50)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px; background:#EFF6FF; border-color:#BFDBFE; color:#1E40AF;">🧺 50 kg</button>
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(100)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px; background:#EFF6FF; border-color:#BFDBFE; color:#1E40AF;">📦 100 kg</button>
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(250)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px;">📦 250 kg</button>
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(500)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px;">🚚 500 kg (1/2 Ton)</button>
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(1000)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px;">🚛 1,000 kg (1 Ton)</button>
+                            <button type="button" class="btn btn-secondary" onclick="setAssessQuantity(5000)" style="padding:4px 8px; font-size:0.75rem; font-weight:700; border-radius:6px;">🏭 5,000 kg (5 Ton)</button>
+                        </div>
+                    </div>
+
+                    <!-- Smallholder Farmer Dedicated Privilege Box -->
+                    <div class="small-farmer-card" style="background:#FFFBEB; border:1px solid #FCD34D; border-radius:12px; padding:12px 14px; margin:var(--s3) 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:700; color:#92400E; font-size:0.88rem;">
+                            <input type="checkbox" id="chkSmallholderFarmer" checked style="width:17px; height:17px; accent-color:#D97706;">
+                            <span id="lblSmallholderToggle">🌱 I am a Small / Marginal Farmer (< 2 Acres)</span>
+                        </label>
+                        <div style="display:flex; gap:6px; align-items:center;">
+                            <span class="status-pill completed" style="background:#DEF7EC; color:#03543F; font-size:0.72rem; font-weight:800;" id="badgeZeroFee">✨ 0% Platform Fee</span>
+                            <span class="status-pill info" style="background:#EFF6FF; color:#1E40AF; font-size:0.72rem; font-weight:800;" id="badgeSmartPoolEligible">🚛 Group Pooling 65% Savings</span>
+                        </div>
+                    </div>
+
+
+                    <!-- Quick 1-Click Sample Crop Loaders for Instant Testing -->
+                    <div class="sample-lots-container" id="sampleLotsContainer">
+                        <div class="sample-lots-header">
+                            <span>✨</span> <span id="sampleLotsTitleText">✨ 1-Click Sample Produce Loaders:</span>
+                        </div>
+                        <div class="sample-lot-pills-row">
+                            <button type="button" class="sample-lot-btn" onclick="loadSampleCrop('Tomato')">
+                                <span id="sampleTomatoBtnText">🍅 Tomato (Himsona Grade A)</span>
+                            </button>
+                            <button type="button" class="sample-lot-btn" onclick="loadSampleCrop('Onion')">
+                                <span id="sampleOnionBtnText">🧅 Onion (Nashik Red Grade A)</span>
+                            </button>
+                            <button type="button" class="sample-lot-btn" onclick="loadSampleCrop('Potato')">
+                                <span id="samplePotatoBtnText">🥔 Potato (Kufri Pukhraj Grade B)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PHASE 5: BEFORE YOU PUBLISH CONTEXTUAL MARKET INSIGHTS -->
+                    <div class="before-publish-card" id="beforePublishCard" style="background: linear-gradient(135deg, #F0FDF4 0%, #ECFDF5 100%); border: 1px solid #A7F3D0; border-radius: 14px; padding: 16px; margin: var(--s4) 0; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; border-bottom: 1px dashed #A7F3D0; padding-bottom: 8px;">
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span style="font-size: 1.2rem;">💡</span>
+                                <div>
+                                    <strong style="color: #065F46; font-size: 0.95rem;" id="lblBeforePublishTitle">💡 Before You Publish Insights</strong>
+                                    <div style="font-size: 0.75rem; color: #047857;" id="lblBeforePublishSub">Real-time market opportunities for selected crop & weight</div>
+                                </div>
+                            </div>
+                            <div id="beforePublishStatusPill">
+                                <span class="data-status-pill demo" style="font-size: 0.72rem; padding: 2px 8px;">🔵 APMC Live Benchmark</span>
+                            </div>
+                        </div>
+
+                        <!-- 4 Insights Context Blocks -->
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
+                            <!-- Block 1: Prevailing APMC Benchmark -->
+                            <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #E2E8F0;">
+                                <div style="font-size: 0.72rem; color: #64748B; font-weight: 700; text-transform: uppercase;">🏛️ Benchmark APMC Rate</div>
+                                <div style="font-size: 1.15rem; font-weight: 900; color: #0F172A; margin: 2px 0;" id="bpMandiRate">₹ 34.00/kg</div>
+                                <div style="font-size: 0.72rem; color: #475569;" id="bpMandiName">Lasalgaon APMC (२८ किमी)</div>
+                            </div>
+
+                            <!-- Block 2: Expected Net by Grade -->
+                            <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #E2E8F0;">
+                                <div style="font-size: 0.72rem; color: #64748B; font-weight: 700; text-transform: uppercase;">🎯 Net Realization by Grade</div>
+                                <div style="font-size: 0.85rem; font-weight: 800; color: #16A34A; margin-top: 4px;" id="bpGradeARate">Grade A: ₹ 36.50/kg</div>
+                                <div style="font-size: 0.72rem; color: #475569;" id="bpGradeBRate">Grade B: ₹ 33.10/kg • C: ₹ 28.00</div>
+                            </div>
+
+                            <!-- Block 3: Active Buyer Demand -->
+                            <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #E2E8F0;">
+                                <div style="font-size: 0.72rem; color: #64748B; font-weight: 700; text-transform: uppercase;">🏢 Active Buyer Demand</div>
+                                <div style="font-size: 1.05rem; font-weight: 900; color: #2563EB; margin: 2px 0;" id="bpBuyerDemand">2 Buyers Available</div>
+                                <div style="font-size: 0.72rem; color: #166534;" id="bpTopOffer">Top Offer: ₹ 37.50/kg (Sahyadri)</div>
+                            </div>
+
+                            <!-- Block 4: Logistics Context & Pooling -->
+                            <div style="background: #ffffff; padding: 10px; border-radius: 10px; border: 1px solid #E2E8F0;">
+                                <div style="font-size: 0.72rem; color: #64748B; font-weight: 700; text-transform: uppercase;">🚚 Transport Estimate & Savings</div>
+                                <div style="font-size: 0.95rem; font-weight: 800; color: #0D9488; margin: 2px 0;" id="bpTransportCost">₹ 0.35/kg (Pooling)</div>
+                                <div style="font-size: 0.72rem; color: #047857;" id="bpTransportSavings">68% Savings Possible with Smart Pooling</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-header" style="margin-top:var(--s4);">
+                        <div class="step-icon">📸</div>
+                        <h2 id="uploadTitle">Upload 4 Photos of Lot (4 Angles)</h2>
+                    </div>
+                    <p class="step-description" id="uploadDesc">Select 4 photos of your lot from different angles for accurate quality analysis.</p>
+
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" id="fileInput" multiple accept="image/png,image/jpg,image/jpeg" style="display:none">
+
+                        <!-- Empty State -->
+                        <div class="empty-state" id="emptyState">
+                            <div class="empty-icon">📷</div>
+                            <h3 id="noPhotosYetText">No photos selected yet</h3>
+                            <p id="uploadPromptText">Select 4 photos of your lot for quality analysis</p>
+                            <button class="upload-btn" id="selectPhotosBtn" type="button">
+                                <span>📁</span> <span id="selectPhotosBtnText">📁 Select Photos</span>
+                            </button>
+                            <div class="upload-hint">
+                                <span>📱 Tip: Capture photos in good lighting from different angles</span>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded State -->
+                        <div class="uploaded-state" id="uploadedState" style="display:none">
+                            <div class="upload-count animated-count">
+                                <span class="count-number" id="photoCount">0</span>
+                                <span class="count-label" id="photoCountLabel">/ 4 photos selected</span>
+                            </div>
+                            <div class="image-grid" id="imageGrid"></div>
+                            <div class="upload-warning" id="uploadWarning" style="display:none">
+                                <span>⚠️</span> <span id="warningText">Please select at least 4 photos</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-buttons" id="uploadActions" style="display:none">
+                        <button class="btn btn-secondary" id="resetBtn" type="button">🔄 Reset</button>
+                        <button class="btn btn-primary" id="analyzeBtn" type="button">
+                            <span>✨</span> <span id="analyzeBtnText">गुणवत्ता तपासा</span>
                         </button>
-                        <div class="upload-hint">
-                            <span>📱 Tip: Take photos in good lighting from different angles</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 2: QUALITY INSPECTION + CUT VERIFICATION -->
+            <div class="step-section" id="step2Section" style="display:none">
+                <div class="custom-card verification-card">
+                    <div class="success-animation">
+                        <div class="checkmark">✓</div>
+                        <div class="success-text" id="lotVerifiedText">External Quality Assessment Complete!</div>
+                    </div>
+
+                    <!-- AI Insight Box with Voice Audio Read-Out -->
+                    <div class="ai-insight" id="aiInsight">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <h4>🤖 AI Quality Assessment Results</h4>
+                            <button class="btn-voice-read" id="btnVoiceQuality" onclick="readQualityAloud()" title="Listen to AI Quality Result">
+                                <span id="btnVoiceQualityText">🔊 Listen (AI Voice)</span>
+                            </button>
+                        </div>
+                        <p id="aiDescription">Inspection in progress...</p>
+                        <div class="quality-badge good" id="qualityBadge">Grade: Grade A</div>
+                    </div>
+
+                    <div class="step-header">
+                        <div class="step-icon">🔪</div>
+                        <h2 id="cutTitle">Internal Quality Inspection (Cross-Section Cut Scan)</h2>
+                    </div>
+                    <p class="step-description" id="cutDesc">Cut one representative item cross-sectionally to verify internal firmness, core health, and freshness.</p>
+
+                    <!-- Scanning Effect -->
+                    <div class="scanning-container">
+                        <div class="scanning-effect">
+                            <div class="scan-line"></div>
+                            <div class="scan-content">
+                                <span class="scan-icon">🔍</span>
+                                <span class="scan-text">Live quality scan in progress...</span>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Uploaded State -->
-                    <div class="uploaded-state" id="uploadedState" style="display:none">
-                        <div class="upload-count animated-count">
-                            <span class="count-number" id="photoCount">0</span>
-                            <span class="count-label">/ 4 photos uploaded</span>
+                    <!-- Instructions + Camera -->
+                    <div class="verification-grid">
+                        <div class="cut-instruction">
+                            <div class="instruction-icon">📋</div>
+                            <h4>Steps for Certified Grade Verification:</h4>
+                            <ol>
+                                <li>Select any one representative vegetable from the harvest</li>
+                                <li>Cut it vertically in half (cross-section)</li>
+                                <li>Hold the cut cross-section steadily in front of the camera in good lighting</li>
+                                <li>Capture or upload the photo to verify internal firmness, moisture & pulp</li>
+                            </ol>
                         </div>
-                        <div class="image-grid" id="imageGrid"></div>
-                        <div class="upload-warning" id="uploadWarning" style="display:none">
-                            <span>⚠️</span> <span id="warningText">Please upload more photos</span>
+                        <div class="camera-actions" style="display:flex; flex-direction:column; gap:10px; align-items:center;">
+                            <input type="file" id="cutImageInput" accept="image/*" capture="environment" style="display:none;">
+                            <button class="btn btn-primary btn-large" id="captureBtn" type="button" style="width:100%;">
+                                📸 <span id="captureCutBtnText">📷 Capture / Upload Cut Slice (तुकडा/काप फोटो घ्या)</span>
+                            </button>
+                            <button class="btn btn-secondary" id="skipBtn" type="button" style="width:100%;">
+                                ⏭️ <span id="skipCutBtnText">⏭️ Skip Cut Check & Proceed to Pricing</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Cut Image Preview & AI Analysis Box -->
+                    <div id="cutPhotoPreviewContainer" style="display:none; margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:12px; padding:14px;">
+                        <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+                            <img id="cutPreviewImg" src="" alt="Cut Preview" style="width:120px; height:120px; object-fit:cover; border-radius:10px; border:2px solid #86EFAC;">
+                            <div style="flex:1;">
+                                <div id="cutVerificationBadge" style="display:inline-block; font-weight:800; font-size:0.85rem; padding:4px 10px; border-radius:20px; background:#DCFCE7; color:#166534; margin-bottom:6px;">
+                                    ⏳ Verifying Cut Slice...
+                                </div>
+                                <div id="cutVerificationDetails" style="font-size:0.85rem; color:#475569; line-height:1.4;">
+                                    Analyzing internal core structure, moisture and firmness with Google Gemini Vision...
+                                </div>
+                                <button type="button" class="btn btn-primary" id="btnProceedAfterCut" style="margin-top:10px; padding:6px 16px; font-size:0.85rem; background:#166534; border-color:#166534;">
+                                    ✅ दर्जेदार अंतर्गत पडताळणी मंजूर (Proceed to Pricing) ➔
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEP 3: TRANSPARENT PRICING & NET REALIZATION -->
+            <div class="step-section" id="step3Section" style="display:none">
+                <div class="custom-card price-card">
+                    <div class="step-header">
+                        <div class="step-icon">💰</div>
+                        <h2 id="priceTitle">Transparent Net Realization (After Transport & Costs)</h2>
+                    </div>
+                    <p class="step-description" id="priceSubtitle">Deterministic price discovery grounded in live APMC benchmarks and verified quality grades.</p>
+
+                    <!-- Price Cards Grid -->
+                    <div class="price-grid">
+                        <div class="price-card-market">
+                            <div class="price-card-header">
+                                <div class="price-icon">🏪</div>
+                                <h4 id="lblApmcBenchmark">Base APMC Market Price</h4>
+                            </div>
+                            <div class="price-amount" id="marketPrice">₹ 34.00</div>
+                            <div class="price-note">Average Mandi Modal Price</div>
+                        </div>
+                        <div class="price-card-farmer highlight-card">
+                            <div class="price-card-header">
+                                <div class="price-icon">👨‍🌾</div>
+                                <h4 id="lblNetRealization">Estimated Farmer Net Realization</h4>
+                            </div>
+                            <div class="price-amount farmer-price" id="farmerPrice">₹ 36.00</div>
+                            <div class="price-note">Net income per kg</div>
+                            <div class="price-savings" id="totalLotValueDisplay">Total Value: ₹ १८,०००</div>
+                        </div>
+                    </div>
+
+                    <!-- Itemized Transparent Breakdown Accordion -->
+                    <div style="display:flex; justify-content:flex-end; margin-bottom:8px;">
+                        <button type="button" class="btn btn-secondary" onclick="openHowCalculatedModal()" style="padding:4px 12px; font-size:0.78rem; font-weight:700; border-color:#86EFAC; background:#F0FDF4; color:#166534;">
+                            ℹ️ ℹ️ How is this calculated?
+                        </button>
+                    </div>
+                    <details class="breakdown-accordion" open>
+                        <summary>📊 📊 Transparent Formula Breakdown</summary>
+                        <div class="price-breakdown">
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">1. Base APMC Market Price</span>
+                                <span class="breakdown-value" id="bdBase">₹ 34.00</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">2. Quality Premium / Adjustment (Grade A +10%)</span>
+                                <span class="breakdown-value" id="bdQuality" style="color:#2E7D32;">+ ₹ 3.40</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">3. Local Buyer Demand Index</span>
+                                <span class="breakdown-value" id="bdDemand" style="color:#2E7D32;">+ ₹ 1.00</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">4. Estimated Transport & Logistics Cost</span>
+                                <span class="breakdown-value" id="bdTransport" style="color:#C62828;">- ₹ 2.00</span>
+                            </div>
+                            <div class="breakdown-item">
+                                <span class="breakdown-label">5. Storage & Handling</span>
+                                <span class="breakdown-value" id="bdStorage" style="color:#C62828;">- ₹ 0.40</span>
+                            </div>
+                            <div class="breakdown-item total">
+                                <span class="breakdown-label">Estimated Farmer Net Realization (per kg)</span>
+                                <span class="breakdown-value" id="bdTotal">₹ 36.00</span>
+                            </div>
+                        </div>
+                    </details>
+
+                    <!-- Stage 4: Intelligent Selling Decision & Gemini Advisory Card -->
+                    <div class="decision-card" id="decisionRecommendationCard" style="margin-bottom:var(--s5);">
+                        <div class="decision-header-row">
+                            <div>
+                                <span style="font-size:0.8rem; color:#777; text-transform:uppercase; font-weight:800;" id="lblDecisionHeading">Smart Selling Recommendation (Decision Engine)</span>
+                                <div style="margin-top:4px;">
+                                    <span class="action-decision-pill sell-buyer" id="decisionActionBadge">
+                                        🤝 Sell to Verified Buyer
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="opportunity-score-badge" id="decisionScoreBadge">
+                                <span>🎯 Opportunity Score:</span> <strong id="decisionOpportunityScore" style="font-size:1.2rem;">94 / 100</strong>
+                            </div>
+                        </div>
+
+                        <!-- Decision Metric Strip -->
+                        <div class="decision-metric-strip">
+                            <div class="decision-metric-box">
+                                <div class="decision-metric-label">Safe Shelf Life of Crop</div>
+                                <div class="decision-metric-val" id="safeHoldingDaysVal">🌱 6 Days Safe</div>
+                            </div>
+                            <div class="decision-metric-box">
+                                <div class="decision-metric-label">Spoilage Risk</div>
+                                <div class="decision-metric-val" id="spoilageRiskVal" style="color:#2E7D32;">🛡️ 15% (Low)</div>
+                            </div>
+                            <div class="decision-metric-box">
+                                <div class="decision-metric-label">5-Day Estimated Price Range</div>
+                                <div class="decision-metric-val" id="forecastRangeVal" style="color:var(--leaf-deep);">₹ 34 - ₹ 38 / kg</div>
+                            </div>
+                        </div>
+
+                        <!-- Gemini Mitra Grounded Advisory Box with Voice Listen -->
+                        <div class="gemini-mitra-box" id="geminiMitraBox">
+                            <div class="gemini-mitra-header" style="display:flex; justify-content:space-between; align-items:center;">
+                                <div>
+                                    <span>🤖 <strong>KisanTrust AI Mitra Advice (Grounded Advisory)</strong></span>
+                                    <span style="font-size:0.75rem; color:#777; margin-left:8px;" id="geminiAdvisorSource">✓ Based on ICAR / NHB & APMC data</span>
+                                </div>
+                                <button class="btn-voice-read" id="btnVoiceAdvice" onclick="readAdviceAloud()" title="Listen to AI Advisory">
+                                    <span id="btnVoiceAdviceText">🔊 Listen (AI Voice)</span>
+                                </button>
+                            </div>
+                            <div class="gemini-advice-text" id="geminiMitraText">
+                                A direct purchase offer of ₹37.50/kg is available from Sahyadri Agro for your excellent Grade A tomato crop. With farm pickup, you will save all transport costs.
+                            </div>
+                            <ul class="match-reasons-list" id="geminiKeyPointsList" style="margin:0; padding-left:18px;">
+                                <li>✓ Direct farm pickup (zero transport cost)</li>
+                                <li>✓ Total farmer realization: ₹ 18,750</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Mandi Comparison for this Lot -->
+                    <div style="margin: var(--s5) 0 var(--s3);">
+                        <div class="section-header-row">
+                            <h3 id="step3CompareTitle">🏛️ Comparison of nearby major mandis (Mandi Comparison)</h3>
+                        </div>
+                        <p style="font-size:0.88rem; color:#666; margin-bottom:var(--s3);" id="step3CompareDesc">
+                            Instead of just raw price, choose the best market based on Net Realization after transport costs:
+                        </p>
+                        <div class="comparison-table-wrapper">
+                            <table class="comparison-table" id="step3ComparisonTable">
+                                <thead>
+                                    <tr>
+                                        <th>Mandi / Market</th>
+                                        <th>Distance</th>
+                                        <th>Mandi Price</th>
+                                        <th>Transport</th>
+                                        <th>Estimated Net Realization</th>
+                                        <th>Total Value</th>
+                                        <th>Opportunity & Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="step3ComparisonTableBody">
+                                    <!-- Dynamic comparison rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="action-tip-box" id="step3AdvantageTip" style="border-left-color:#2E7D32; background:rgba(46,125,50,0.06);">
+                            💡 Comparison analysis is being prepared...
+                        </div>
+                    </div>
+
+                    <hr class="section-divider">
+
+                    <!-- Actions Strip: Save, Certificate, WhatsApp, Negotiate, Accept Deal -->
+                    <div class="price-actions" style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <button class="btn btn-secondary" id="saveLotBtn" type="button">
+                            💾 <span id="saveLotBtnText">Save Digital Lot</span>
+                        </button>
+                        <button class="btn btn-secondary" id="viewCertBtn" type="button" onclick="openOfficialCertificate()">
+                            <span id="btnViewCertText">📜 View Official Certificate</span>
+                        </button>
+                        <button class="btn-whatsapp-share" id="shareWhatsAppBtn" type="button" onclick="shareLotOnWhatsApp()">
+                            <span id="btnShareWhatsAppText">💬 💬 Share on WhatsApp</span>
+                        </button>
+                        <button class="btn btn-secondary" id="negotiateBtn" type="button">
+                            📝 <span id="negotiateBtnText">Negotiate</span>
+                        </button>
+                        <button class="btn btn-primary" id="acceptOfferBtn" type="button">
+                            <span>✅</span> <span id="acceptBtnText">Initiate Deal with Direct Buyer</span>
+                        </button>
+                    </div>
+
+                    <!-- Transaction Success Modal -->
+                    <div class="transaction-complete" id="transactionComplete" style="display:none">
+                        <div class="celebration-container">
+                            <div class="confetti">🎉</div>
+                            <div class="confetti">🎊</div>
+                            <div class="confetti">✨</div>
+                        </div>
+                        <div class="transaction-success">
+                            <h3>🎉 Transaction & Digital Receipt Ready!</h3>
+                            <div class="transaction-details">
+                                <p><strong>Total Yield:</strong> <span id="txAmount">₹ 18,000</span></p>
+                                <p><strong>Quality Grade:</strong> <span id="txQuality">Grade A (93% ताजेपणा)</span></p>
+                                <p><strong>Lot ID:</strong> <span id="txLotId">LOT-2026-089101</span></p>
+                            </div>
+                            <p class="tx-note">Payment will be credited to account in 24 hours via secure bank transfer.</p>
+                            <div class="tx-actions">
+                                <button class="btn btn-secondary" id="downloadReceiptBtn" type="button">📄 Download Digital Receipt (Receipt)</button>
+                                <button class="btn btn-primary" id="newTransactionBtn" type="button">🌱 Return to Dashboard</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 3: MY ACTIVE LOTS                                         -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewMyLots">
+            <div class="custom-card">
+                <div class="section-header-row">
+                    <h3><span>📦</span> <span>My Digital Agricultural Lots (Stored in Firestore)</span></h3>
+                    <button class="btn btn-primary" id="myLotsCreateBtn">➕ Create New Lot</button>
+                </div>
+                <div class="lots-card-grid" id="fullLotsContainer">
+                    <!-- Dynamic Lot Cards -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 4: MARKET INTELLIGENCE & PRICE DISCOVERY (STAGE 2 ACTIVE)  -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewMarketIntel">
+            <div class="custom-card" style="margin-bottom:var(--s5);">
+                <div class="section-header-row">
+                    <div>
+                        <h2 id="marketIntelMainTitle" style="font-size:1.4rem; color:var(--leaf-deep);">📊 Market Intelligence & Price Discovery</h2>
+                        <p style="font-size:0.88rem; color:#666;" id="marketIntelSub">Direct comparison based on Agmarknet / Open Government Data, certified distance & transport costs</p>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                        <button type="button" class="btn-voice-read" id="btnVoiceIntel" onclick="readMarketIntelAloud()" title="Listen to Market Intel & Price Outlook" style="padding:6px 12px; font-size:0.82rem; border-radius:20px;">
+                            🔊 Listen (Voice)
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="openHowCalculatedModal()" style="padding:4px 12px; font-size:0.78rem; font-weight:700; border-color:#86EFAC; background:#F0FDF4; color:#166534;">
+                            ℹ️ Net Realization Formula (Formula Explanation)
+                        </button>
+                        <div id="marketDataStatusContainer">
+                            <span class="data-status-pill demo" id="marketDataStatusBadge">🔵 Standard APMC Benchmark</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Action Buttons -->
-                <div class="action-buttons" id="uploadActions" style="display:none">
-                    <button class="btn btn-secondary" id="resetBtn" type="button">🔄 Reset</button>
-                    <button class="btn btn-primary" id="analyzeBtn" type="button">
-                        <span>✨</span> <span id="analyzeBtnText">गुणवत्ता जांचें</span>
+                <!-- Crop Filter Pills -->
+                <div style="margin:var(--s4) 0 var(--s2);">
+                    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                        <strong style="font-size:0.85rem; color:#555;" id="filterCropLabel">Select Crop (Select Commodity):</strong>
+                        <span id="marketDataFreshnessText" style="font-size:0.8rem; color:#666; font-weight:600;">🕒 Fresh Info: Loading...</span>
+                    </div>
+                    <div class="crop-filter-pills" id="cropFilterPills" style="margin-top:8px;">
+                        <button class="crop-pill-btn active" data-crop="Tomato" onclick="renderMarketIntel('Tomato')">🍅 Tomato</button>
+                        <button class="crop-pill-btn" data-crop="Onion" onclick="renderMarketIntel('Onion')">🧅 Onion</button>
+                        <button class="crop-pill-btn" data-crop="Potato" onclick="renderMarketIntel('Potato')">🥔 Potato</button>
+                        <button class="crop-pill-btn" data-crop="Carrot" onclick="renderMarketIntel('Carrot')">🥕 Carrot</button>
+                        <button class="crop-pill-btn" data-crop="Cabbage" onclick="renderMarketIntel('Cabbage')">🥬 Cabbage</button>
+                    </div>
+                </div>
+
+                <!-- Interactive Filter Toolbar: District + Quality Grade + Origin Location -->
+                <div class="market-filter-toolbar" style="display:flex; gap:12px; flex-wrap:wrap; background:#F8FAF8; padding:12px 16px; border-radius:12px; border:1px solid #E2E8F0; margin:14px 0;">
+                    <div style="flex:1; min-width:160px;">
+                        <label style="font-size:0.78rem; font-weight:700; color:#475569; display:block; margin-bottom:4px;">📍 जिल्हा फिल्टर (District)</label>
+                        <select id="marketDistrictFilter" class="form-control" style="padding:6px 10px; font-size:0.85rem; border-radius:8px;" onchange="applyMarketIntelFilters()">
+                            <option value="All">सर्व जिल्हे (All Districts)</option>
+                            <option value="Nashik">नाशिक (Nashik)</option>
+                            <option value="Pune">पुणे (Pune)</option>
+                            <option value="Mumbai">मुंबई / वाशी (Mumbai/Vashi)</option>
+                            <option value="Ahmednagar">अहमदनगर (Ahmednagar)</option>
+                        </select>
+                    </div>
+
+                    <div style="flex:1; min-width:160px;">
+                        <label style="font-size:0.78rem; font-weight:700; color:#475569; display:block; margin-bottom:4px;">⭐ तुलना प्रतवारी (Target Grade)</label>
+                        <select id="marketGradeFilter" class="form-control" style="padding:6px 10px; font-size:0.85rem; border-radius:8px;" onchange="applyMarketIntelFilters()">
+                            <option value="Grade A">Grade A (प्रिमियम गुणवत्ता • +१०%)</option>
+                            <option value="Grade B">Grade B (मानक बाजार भाव • ०%)</option>
+                            <option value="Grade C">Grade C (कपात प्रतवारी • -१५%)</option>
+                        </select>
+                    </div>
+
+                    <div style="flex:1; min-width:180px;">
+                        <label style="font-size:0.78rem; font-weight:700; color:#475569; display:block; margin-bottom:4px;">🏡 आपले शेत/स्थान (Farmer Origin)</label>
+                        <select id="marketFarmerOrigin" class="form-control" style="padding:6px 10px; font-size:0.85rem; border-radius:8px;" onchange="applyMarketIntelFilters()">
+                            <option value="Nashik">निफाड / नाशिक (Niphad, Nashik)</option>
+                            <option value="Pune">पुणे ग्रामीण (Pune Rural)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Market Summary Statistics Cards -->
+                <div class="market-summary-grid" id="marketSummaryGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; margin:16px 0;">
+                    <div style="background:#F0FDF4; border:1px solid #BBF7D0; padding:12px; border-radius:10px;">
+                        <div style="font-size:0.75rem; color:#166534; font-weight:700;">सर्वोच्च Mandi Price (Max Modal)</div>
+                        <div style="font-size:1.3rem; font-weight:900; color:#15803D;" id="summaryMaxModal">₹ --</div>
+                        <div style="font-size:0.75rem; color:#666;" id="summaryMaxMarket">--</div>
+                    </div>
+                    <div style="background:#EFF6FF; border:1px solid #BFDBFE; padding:12px; border-radius:10px;">
+                        <div style="font-size:0.75rem; color:#1E40AF; font-weight:700;">किमान Mandi Price (Min Modal)</div>
+                        <div style="font-size:1.3rem; font-weight:900; color:#1D4ED8;" id="summaryMinModal">₹ --</div>
+                        <div style="font-size:0.75rem; color:#666;" id="summaryMinMarket">--</div>
+                    </div>
+                    <div style="background:#FFFBEB; border:1px solid #FDE68A; padding:12px; border-radius:10px;">
+                        <div style="font-size:0.75rem; color:#92400E; font-weight:700;">प्रादेशिक भाव तफावत (Spread)</div>
+                        <div style="font-size:1.3rem; font-weight:900; color:#B45309;" id="summarySpread">₹ --</div>
+                        <div style="font-size:0.75rem; color:#666;" id="summaryAvgModal">सरासरी: ₹ --/kg</div>
+                    </div>
+                    <div style="background:#FAF5FF; border:1px solid #E9D5FF; padding:12px; border-radius:10px;">
+                        <div style="font-size:0.75rem; color:#6B21A8; font-weight:700;">डेटा स्त्रोत व स्थिती (Source)</div>
+                        <div style="font-size:0.95rem; font-weight:800; color:#7E22CE; margin-top:4px;" id="summaryDataStatus">--</div>
+                        <div style="font-size:0.75rem; color:#666;" id="summaryMandisCount">-- मंड्यांचे विश्लेषण</div>
+                    </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <div class="comparison-table-wrapper">
+                    <table class="comparison-table" id="marketIntelTable">
+                        <thead>
+                            <tr>
+                                <th>Mandi / Market</th>
+                                <th>दूरी (किमी)</th>
+                                <th>कच्चा भाव (Min - Max)</th>
+                                <th>दैनिक आवक</th>
+                                <th>Transport कपात</th>
+                                <th>निव्वळ प्राप्ती (Net Realization)</th>
+                                <th>डेटा स्थिती (Source)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="marketIntelTableBody">
+                            <!-- Populated dynamically by MarketComparisonService -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recommendation Callout -->
+                <div class="action-tip-box" id="intelAdvantageBox" style="border-left-color:#2E7D32; background:rgba(46,125,50,0.06); margin-top:16px;">
+                    💡 <strong>शेतकरी Opportunity & Action:</strong> डेटा लोड होत आहे...
+                </div>
+            </div>
+
+            <!-- Price Trend & Velocity Analysis Section -->
+            <div class="custom-card">
+                <div class="section-header-row">
+                    <h3 id="trendsHeaderTitle">📈 भाव कल व चढ-उतार विश्लेषण (Price Trends & Velocity)</h3>
+                    <span style="font-size:0.82rem; color:#777;">७-दिवसीय व ३०-दिवसीय कल</span>
+                </div>
+                <div class="trend-stats-grid" id="trendStatsGrid">
+                    <!-- Trend Cards loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 5: BUYER MARKETPLACE (STAGE 3 ACTIVE)                      -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewBuyerMarket">
+            <div class="custom-card" style="margin-bottom:var(--s5);">
+                <div class="section-header-row">
+                    <div>
+                        <h2 id="buyerMarketMainTitle" style="font-size:1.4rem; color:var(--leaf-deep);">🤝 सत्यापित खरेदीदार बाजारपेठ (Verified Buyer Marketplace)</h2>
+                        <p style="font-size:0.88rem; color:#666;" id="buyerMarketSub">फूड प्रोसेसर्स, संघटित रिटेलर्स, निर्यातदार आणि थेट खरेदीदारांच्या खरेदी मागण्या</p>
+                    </div>
+                    <button class="btn btn-primary" id="openPostDemandModalBtn">
+                        <span>➕</span> <span id="postDemandBtnText">खरेदी मागणी नोंदवा (Buyer Mode)</span>
                     </button>
                 </div>
-            </div>
-        </section>
 
-        <!-- STEP 2: QUALITY VERIFICATION -->
-        <section class="step-section reveal" id="step2Section" style="display:none">
-            <div class="custom-card verification-card">
-                <!-- Success Animation -->
-                <div class="success-animation">
-                    <div class="checkmark">✓</div>
-                    <div class="success-text">Lot Verified Successfully!</div>
-                </div>
-
-                <!-- AI Insight -->
-                <div class="ai-insight" id="aiInsight">
-                    <h4>🤖 AI Insight</h4>
-                    <p id="aiDescription">Loading analysis...</p>
-                    <div class="quality-badge good" id="qualityBadge">Quality: Good</div>
-                </div>
-
-                <div class="step-header">
-                    <div class="step-icon">🔪</div>
-                    <h2 id="cutTitle">काट कर दिखाएं</h2>
-                </div>
-                <p class="step-description">Cut one vegetable in half to show internal quality for verification.</p>
-
-                <!-- Scanning Effect -->
-                <div class="scanning-container">
-                    <div class="scanning-effect">
-                        <div class="scan-line"></div>
-                        <div class="scan-content">
-                            <span class="scan-icon">🔍</span>
-                            <span class="scan-text">Live Quality Scan in Progress...</span>
-                            <span class="scan-language" id="scanLangDisplay">Language: Hindi (हिंदी)</span>
-                        </div>
+                <!-- Crop Filter for Buyers -->
+                <div style="margin:var(--s3) 0 var(--s2);">
+                    <div class="crop-filter-pills" id="buyerCropFilterPills">
+                        <button class="crop-pill-btn active" data-crop="All">🌾 सर्व पिके (All)</button>
+                        <button class="crop-pill-btn" data-crop="Tomato">🍅 Tomato</button>
+                        <button class="crop-pill-btn" data-crop="Onion">🧅 Onion</button>
+                        <button class="crop-pill-btn" data-crop="Potato">🥔 Potato</button>
                     </div>
                 </div>
 
-                <!-- Instructions + Camera -->
-                <div class="verification-grid">
-                    <div class="cut-instruction">
-                        <div class="instruction-icon">📋</div>
-                        <h4>Instructions:</h4>
-                        <ol>
-                            <li>Take one vegetable from the lot</li>
-                            <li>Cut it in half vertically</li>
-                            <li>Show the internal view to camera</li>
-                            <li>Click capture below</li>
-                        </ol>
-                    </div>
-                    <div class="camera-actions">
-                        <button class="btn btn-primary btn-large" id="captureBtn" type="button">
-                            📸 Capture Internal View
-                        </button>
-                        <button class="btn btn-secondary" id="skipBtn" type="button">
-                            ⏭️ Skip & Continue
-                        </button>
-                    </div>
+                <!-- Active Buyer Demands Grid -->
+                <div class="buyer-demands-grid" id="buyerDemandsGrid">
+                    <!-- Populated dynamically by buyerService & matchingService -->
                 </div>
             </div>
         </section>
 
-        <!-- STEP 3: PRICE & EXPLANATION -->
-        <section class="step-section reveal" id="step3Section" style="display:none">
-            <div class="custom-card price-card">
-                <div class="step-header">
-                    <div class="step-icon">💰</div>
-                    <h2 id="offerTitle">अंतिम मूल्य प्रस्ताव</h2>
-                </div>
-                <p class="step-description">Your personalized price offer based on quality analysis</p>
-
-                <!-- Price Cards -->
-                <div class="price-grid">
-                    <div class="price-card-market">
-                        <div class="price-card-header">
-                            <div class="price-icon">🏪</div>
-                            <h4>Market Price</h4>
-                        </div>
-                        <div class="price-amount" id="marketPrice">₹ --</div>
-                        <div class="price-note">Average market rate</div>
-                    </div>
-                    <div class="price-card-farmer highlight-card">
-                        <div class="price-card-header">
-                            <div class="price-icon">👨‍🌾</div>
-                            <h4>You Receive</h4>
-                        </div>
-                        <div class="price-amount farmer-price" id="farmerPrice">₹ --</div>
-                        <div class="price-note">Direct to farmer price</div>
-                        <div class="price-savings" id="priceSavings">+15% better than market</div>
+        <!-- ============================================================== -->
+        <!-- VIEW 6: SMART POOLING & AGGREGATION (STAGE 4 ACTIVE)            -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewSmartPooling">
+            <div class="custom-card" style="margin-bottom:var(--s5);">
+                <div class="section-header-row">
+                    <div>
+                        <h2 id="poolingMainTitle" style="font-size:1.4rem; color:var(--leaf-deep);">🚜 🚜 Smart Village Pooling & Freight Optimization</h2>
+                        <p style="font-size:0.88rem; color:#666;" id="poolingSub">Join freight pooling to save up to 65% on logistics</p>
                     </div>
                 </div>
 
-                <!-- Price Breakdown -->
-                <details class="breakdown-accordion">
-                    <summary>📊 See detailed price breakdown</summary>
-                    <div class="price-breakdown" id="priceBreakdown">
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Base Quality Value</span>
-                            <span class="breakdown-value" id="bdBase">₹ 35</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Freshness Bonus</span>
-                            <span class="breakdown-value" id="bdFreshness">+ ₹ 3</span>
-                        </div>
-                        <div class="breakdown-item">
-                            <span class="breakdown-label">Direct Farmer Discount</span>
-                            <span class="breakdown-value" id="bdDiscount">- ₹ 1</span>
-                        </div>
-                        <div class="breakdown-item total">
-                            <span class="breakdown-label">Final Price</span>
-                            <span class="breakdown-value" id="bdTotal">₹ 37</span>
-                        </div>
+                <!-- Pooling Clusters Grid -->
+                <div class="pooling-clusters-grid" id="poolingClustersGrid">
+                    <!-- Populated dynamically by PoolingService -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 7: TRANSACTIONS & DIGITAL AUDIT LEDGER (STAGE 5 ACTIVE)   -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewTransactions">
+            <div class="custom-card" style="margin-bottom:var(--s5);">
+                <div class="section-header-row">
+                    <div>
+                        <h2 style="font-size:1.4rem; color:var(--leaf-deep);">📜 व्यवहार इतिहास व डिजिटल पावत्या (Transaction Ledger)</h2>
+                        <p style="font-size:0.88rem; color:#666;">सौदा स्वीकृतीपासून थेट शेतातून उचल, Transport, डिलिव्हरी पडताळणी आणि बँक सेटलमेंटपर्यंतचा संपूर्ण प्रवास</p>
                     </div>
-                </details>
+                </div>
+                <div id="transactionsListContainer">
+                    <!-- Transactions dynamic cards -->
+                </div>
+            </div>
+        </section>
 
-                <hr class="section-divider">
+        <!-- ============================================================== -->
+        <!-- VIEW 8: DEDICATED ADMIN PORTAL & MODERATION CONTROL CENTER      -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewAdminPortal">
+            <!-- Admin Header Banner -->
+            <div class="admin-header-banner">
+                <div class="admin-header-info">
+                    <h2 id="adminBannerTitle">🛡️ किसान ट्रस्ट प्रशासकीय नियंत्रण कक्ष (Admin Portal)</h2>
+                    <p id="adminBannerSub">केंद्रीकृत शेतकरी पडताळणी, लॉट मॉडरेशन, व्यवहार आणि वाद निवारण प्रणाली (Same Firebase Backend)</p>
+                </div>
+                <div style="text-align:right;">
+                    <span class="data-status-pill" style="background:#DEF7EC; color:#03543F; font-weight:800; border:1px solid #BCF0DA;">
+                        🟢 Firebase Central Sync Active
+                    </span>
+                    <div style="font-size:0.8rem; color:#C8E6C9; margin-top:4px;" id="adminActiveUserDisplay">
+                        अधिकारी: पूजा देशमुख (Chief Verification Officer)
+                    </div>
+                </div>
+            </div>
 
-                <!-- AI Explanation -->
-                <div class="explanation-section">
-                    <div class="explanation-header">
-                        <div class="explanation-icon">🗣️</div>
+            <!-- Admin Sub-Navigation Pills -->
+            <div class="admin-subnav-pills" id="adminSubNav">
+                <button class="admin-subnav-btn active" data-admin-tab="adminSectionOverview">
+                    <span>📊</span> <span id="admTabLblOverview">आढावा (Overview)</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionFarmers">
+                    <span>👨‍🌾</span> <span id="admTabLblFarmers">शेतकरी पडताळणी</span>
+                    <span class="status-pill pending" id="badgePendingFarmers" style="font-size:0.7rem; padding:2px 6px;">1</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionBuyers">
+                    <span>🏢</span> <span id="admTabLblBuyers">खरेदीदार पडताळणी</span>
+                    <span class="status-pill pending" id="badgePendingBuyers" style="font-size:0.7rem; padding:2px 6px;">0</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionLots">
+                    <span>📦</span> <span id="admTabLblLots">लॉट मॉडरेशन</span>
+                    <span class="status-pill pending" id="badgePendingLots" style="font-size:0.7rem; padding:2px 6px;">0</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionDemands">
+                    <span>📋</span> <span id="admTabLblDemands">खरेदी मागण्या</span>
+                    <span class="status-pill pending" id="badgePendingDemands" style="font-size:0.7rem; padding:2px 6px;">0</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionUsers">
+                    <span>👥</span> <span id="admTabLblUsers">युझर व्यवस्थापन</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionPayments">
+                    <span>💳</span> <span id="admTabLblPayments">पेमेंट्स व व्यवहार</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionDisputes">
+                    <span>⚠️</span> <span id="admTabLblDisputes">तक्रार निवारण</span>
+                    <span class="status-pill rejected" id="badgePendingDisputes" style="font-size:0.7rem; padding:2px 6px;">0</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionRisk">
+                    <span>🚨</span> <span id="admTabLblRisk">संशयास्पद / रिस्क</span>
+                    <span class="status-pill warning" id="badgePendingRisk" style="font-size:0.7rem; padding:2px 6px;">1</span>
+                </button>
+                <button class="admin-subnav-btn" data-admin-tab="adminSectionAudit">
+                    <span>📜</span> <span id="admTabLblAudit">ऑडिट लॉग्स</span>
+                </button>
+            </div>
+
+            <!-- 1. OVERVIEW SECTION -->
+            <div class="admin-tab-pane active" id="adminSectionOverview">
+                <div class="admin-metrics-grid" id="adminMetricsGrid">
+                    <!-- Loaded dynamically from analyticsService -->
+                </div>
+
+                <div class="custom-card" style="margin-top:var(--s4);">
+                    <div class="section-header-row">
+                        <h3><span>⚡</span> <span>त्वरित प्रशासकीय कृती (Quick Moderation Shortcuts)</span></h3>
+                    </div>
+                    <div style="display:flex; gap:var(--s3); flex-wrap:wrap;">
+                        <button class="btn btn-primary" onclick="switchAdminTab('adminSectionFarmers')">👨‍🌾 प्रलंबित शेतकरी पडताळणी</button>
+                        <button class="btn btn-secondary" onclick="switchAdminTab('adminSectionLots')">📦 लॉट मॉडरेशन रांग</button>
+                        <button class="btn btn-secondary" onclick="switchAdminTab('adminSectionDisputes')">⚠️ वाद / तक्रारी तपासणी</button>
+                        <button class="btn btn-secondary" onclick="switchAdminTab('adminSectionRisk')">🚨 रिस्क फ्लॅग्ज व्यवस्थापन</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FARMER VERIFICATION QUEUE -->
+            <div class="admin-tab-pane" id="adminSectionFarmers" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
                         <div>
-                            <h4>AI Explanation (<span id="explainLang">Hindi (हिंदी)</span>)</h4>
-                            <div class="language-badge-small" id="explainLangBadge">Hindi (हिंदी)</div>
+                            <h3 style="color:var(--leaf-deep);"><span>👨‍🌾</span> <span>शेतकरी ओळख व जमीन पडताळणी रांग (Farmer Verification Queue)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">शेतकऱ्यांची माहिती, आधार/ओळख पुरावे, शेती क्षेत्र आणि FPO संलग्नतेची खात्री करून मान्यता द्या.</p>
                         </div>
                     </div>
-                    <div class="explanation-content" id="explanationContent">
-                        Loading explanation...
+                    <div id="adminFarmersListContainer">
+                        <!-- Loaded dynamically from verificationService -->
                     </div>
                 </div>
+            </div>
 
-                <!-- Audio Indicator -->
-                <div class="audio-player-container">
-                    <div class="audio-header">
-                        <div class="audio-icon">🔊</div>
-                        <span>Audio explanation available with full Azure setup</span>
-                    </div>
-                </div>
-
-                <!-- Action Buttons -->
-                <div class="price-actions">
-                    <button class="btn btn-secondary" id="negotiateBtn" type="button">📝 Negotiate</button>
-                    <button class="btn btn-secondary" id="newAnalysisBtn" type="button">🔄 New Analysis</button>
-                    <button class="btn btn-primary" id="acceptOfferBtn" type="button">
-                        <span>✅</span> <span id="acceptBtnText">अंतिम मूल्य प्रस्ताव</span>
-                    </button>
-                </div>
-
-                <!-- Transaction Complete (hidden initially) -->
-                <div class="transaction-complete" id="transactionComplete" style="display:none">
-                    <div class="celebration-container">
-                        <div class="confetti">🎉</div>
-                        <div class="confetti">🎊</div>
-                        <div class="confetti">✨</div>
-                        <div class="confetti">🌟</div>
-                    </div>
-                    <div class="transaction-success">
-                        <h3>🎉 Transaction Complete!</h3>
-                        <div class="transaction-details">
-                            <p><strong>Amount:</strong> <span id="txAmount">₹ --</span></p>
-                            <p><strong>Quality:</strong> <span id="txQuality">Good</span></p>
-                            <p><strong>Language:</strong> <span id="txLanguage">Hindi (हिंदी)</span></p>
+            <!-- 3. BUYER VERIFICATION QUEUE -->
+            <div class="admin-tab-pane" id="adminSectionBuyers" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:var(--leaf-deep);"><span>🏢</span> <span>खरेदीदार व्यवसाय पडताळणी रांग (Buyer Verification Queue)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">कंपनीचे नाव, GSTIN नोंदणी आणि खरेदी क्षमतेची पडताळणी करून खरेदीदार खाते सत्यापित करा.</p>
                         </div>
-                        <p class="tx-note">Payment will be processed within 24 hours.</p>
-                        <div class="tx-actions">
-                            <button class="btn btn-secondary" id="downloadReceiptBtn" type="button">📄 Download
-                                Receipt</button>
-                            <button class="btn btn-primary" id="newTransactionBtn" type="button">🌱 Start New
-                                Transaction</button>
+                    </div>
+                    <div id="adminBuyersListContainer">
+                        <!-- Loaded dynamically from verificationService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. LOT MODERATION QUEUE -->
+            <div class="admin-tab-pane" id="adminSectionLots" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:var(--leaf-deep);"><span>📦</span> <span>डिजिटल शेती लॉट मॉडरेशन रांग (Lot Review & Moderation Queue)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">AI गुणवत्ता अहवाल, ४-कोनांचे फोटो आणि Distance्गत कट स्कॅन तपासून लॉट बाजारपेठेत प्रकाशित करा.</p>
                         </div>
+                    </div>
+                    <div id="adminLotsListContainer">
+                        <!-- Loaded dynamically from lotModerationService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. BUYER DEMANDS QUEUE -->
+            <div class="admin-tab-pane" id="adminSectionDemands" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:var(--leaf-deep);"><span>📋</span> <span>खरेदी मागण्या मंजुरी रांग (Purchase Demands Queue)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">खरेदीदारांनी नोंदवलेल्या खरेदी मागण्यांची व्यावसायिक सत्यता तपासून शेतकरी मॅचिंग सुरू करा.</p>
+                        </div>
+                    </div>
+                    <div id="adminDemandsListContainer">
+                        <!-- Loaded dynamically from lotModerationService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. USER MANAGEMENT -->
+            <div class="admin-tab-pane" id="adminSectionUsers" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:var(--leaf-deep);"><span>👥</span> <span>प्लॅटफॉर्म युझर व्यवस्थापन (User Management & RBAC)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">शेतकरी, खरेदीदार, FPO आणि प्रशासक खात्यांचे नियंत्रण, Distance्गत नोंदी आणि खाते निलंबन व्यवस्थापन.</p>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <input type="text" id="adminUserSearchInput" placeholder="नाव, ईमेल किंवा फोन शोधा..." style="padding:7px 12px; border:1px solid #ccc; border-radius:8px; font-size:0.85rem; width:220px;">
+                        </div>
+                    </div>
+                    <div id="adminUsersListContainer">
+                        <!-- Loaded dynamically from userService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. PAYMENTS & TRANSACTIONS TRACKER -->
+            <div class="admin-tab-pane" id="adminSectionPayments" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:var(--leaf-deep);"><span>💳</span> <span>पेमेंट्स व व्यवहार मॉनिटरिंग (Payment & Settlement Tracker)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">थेट शेतातून उचल, Transport, डिलिव्हरी पडताळणी आणि बँक सेटलमेंट विलंबाचा रिअल-टाइम मागोवा.</p>
+                        </div>
+                    </div>
+                    <div id="adminPaymentsListContainer">
+                        <!-- Loaded dynamically from transactionService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. DISPUTE MANAGEMENT -->
+            <div class="admin-tab-pane" id="adminSectionDisputes" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:#C62828;"><span>⚠️</span> <span>पुरावा-आधारित वाद व तक्रार निवारण (Evidence-Assisted Disputes)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">प्रमाणित मूळ डिजिटल लॉट गुणवत्ता बेसलाइन आणि दोन्ही बाजूंच्या पुराव्यांच्या आधारे तक्रारी सोडवा.</p>
+                        </div>
+                    </div>
+                    <div id="adminDisputesListContainer">
+                        <!-- Loaded dynamically from disputeService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. RISK FLAGS & FRAUD MONITORING -->
+            <div class="admin-tab-pane" id="adminSectionRisk" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:#D97706;"><span>🚨</span> <span>संशयास्पद हालचाली व Distance्गत रिस्क फ्लॅग्ज (Risk & Fraud Flags)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">ऑटोमेटेड डुप्लिकेट फोटो, असामान्य नोंदणी वारंवारता आणि संशयास्पद हालचालींचा मागोवा.</p>
+                        </div>
+                    </div>
+                    <div id="adminRiskListContainer">
+                        <!-- Loaded dynamically from riskService -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 10. AUDIT LOGS -->
+            <div class="admin-tab-pane" id="adminSectionAudit" style="display:none;">
+                <div class="custom-card">
+                    <div class="section-header-row">
+                        <div>
+                            <h3 style="color:var(--leaf-deep);"><span>📜</span> <span>प्रशासकीय कृती ऑडिट लॉग्स (Admin Action Audit Trail)</span></h3>
+                            <p style="font-size:0.85rem; color:#666;">प्रशासकांनी घेतलेल्या सर्व पडताळणी, मंजुरी, निलंबन आणि वाद निवारण निर्णयांची अपरिवर्तनीय नोंद.</p>
+                        </div>
+                    </div>
+                    <div id="adminAuditListContainer">
+                        <!-- Loaded dynamically from auditService -->
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- ============================================================== -->
+        <!-- STAGE 3 MODALS: POST DEMAND & NEGOTIATION DRAWER               -->
+        <!-- ============================================================== -->
+
+        <!-- 1. Post Purchase Requirement Modal (Buyer Role) -->
+        <div class="custom-modal-overlay" id="postDemandModal" style="display:none;">
+            <div class="custom-modal-card">
+                <div class="modal-header-row">
+                    <h3 id="modalPostTitle" style="color:var(--leaf-deep);">➕ नवीन खरेदी मागणी नोंदवा (Buyer Mode)</h3>
+                    <button class="modal-close-btn" id="closePostDemandModalBtn">✕</button>
+                </div>
+                <form id="postDemandForm">
+                    <div class="lot-input-grid" style="grid-template-columns: 1fr 1fr; background: transparent; padding: 0;">
+                        <div class="lot-form-field">
+                            <label id="lblModalBuyerName">Company / Buyer Name</label>
+                            <input type="text" id="modalBuyerName" value="Sahyadri Agro Processing" required>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalBuyerType">Buyer Category</label>
+                            <select id="modalBuyerType">
+                                <option value="Food Processor">Food Processor (अन्न प्रक्रिया उद्योग)</option>
+                                <option value="Retailer">Organized Retailer (संघटित किरकोळ)</option>
+                                <option value="Exporter">Exporter (निर्यातदार)</option>
+                                <option value="Wholesaler">Wholesaler (घाऊक व्यापारी)</option>
+                                <option value="Restaurant / Hospitality">Restaurant / Hospitality</option>
+                            </select>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalCrop">Required Crop</label>
+                            <select id="modalDemandCrop">
+                                <option value="Tomato">Tomato</option>
+                                <option value="Onion">Onion</option>
+                                <option value="Potato">Potato</option>
+                                <option value="Carrot">Carrot</option>
+                                <option value="Cabbage">Cabbage</option>
+                            </select>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalVariety">पसंतीचा वाण (Variety Preference)</label>
+                            <select id="modalDemandVariety">
+                                <option value="All Varieties">सर्व वाण स्वीकार्य (All Varieties)</option>
+                                <option value="Himsona Hybrid">Himsona Hybrid</option>
+                                <option value="Abhinav">अभिनव (Abhinav / Syngenta)</option>
+                                <option value="Nashik Red">नाशिक लाल (Nashik Red)</option>
+                                <option value="Kufri Pukhraj">कुफरी पुखराज (Kufri Pukhraj)</option>
+                            </select>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalQty">आवश्यक वजन (किलो)</label>
+                            <input type="number" id="modalDemandQty" value="10000" min="500" step="500" required>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalMinGrade">किमान आवश्यक गुणवत्ता दर्जा</label>
+                            <select id="modalMinGrade">
+                                <option value="Grade A">Grade A (उत्कृष्ट / निर्यात दर्जा)</option>
+                                <option value="Grade B">Grade B (प्रमाणित मंडी दर्जा)</option>
+                                <option value="Grade C">Grade C (मध्यम / प्रक्रिया दर्जा)</option>
+                            </select>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalOfferPrice">ऑफर खरेदी दर (₹ / किलो)</label>
+                            <input type="number" id="modalOfferPrice" value="37.5" step="0.5" required>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalMaxPrice">कमाल खरेदी मर्यादा (Max Price Range)</label>
+                            <input type="number" id="modalMaxPrice" value="39.5" step="0.5" placeholder="₹ 39.50/kg">
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalLocation">पसंतीचे खरेदी हब / ठिकाण</label>
+                            <input type="text" id="modalLocation" value="Nashik / Niphad Hub" required>
+                        </div>
+                        <div class="lot-form-field">
+                            <label id="lblModalDeliveryDate">आवश्यक डिलिव्हरी तारीख</label>
+                            <input type="date" id="modalDeliveryDate" required>
+                        </div>
+                    </div>
+                    <div style="margin: var(--s3) 0;">
+                        <label style="display:flex; align-items:center; gap:8px; font-size:0.9rem; font-weight:700; cursor:pointer;">
+                            <input type="checkbox" id="modalPickupProvided" checked style="width:18px; height:18px;">
+                            <span>🚚 शेतावर थेट पिकअप पुरवले जाईल (Farm-gate Pickup Provided)</span>
+                        </label>
+                    </div>
+                    <div style="display:flex; justify-content:flex-end; gap:var(--s3); margin-top:var(--s4);">
+                        <button type="button" class="btn btn-secondary" id="cancelPostDemandBtn">रद्द करा</button>
+                        <button type="submit" class="btn btn-primary" id="submitPostDemandBtn">🚀 खरेदी मागणी प्रकाशित करा</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- 2. Direct Deal Negotiation Modal / Drawer -->
+        <div class="custom-modal-overlay" id="negotiationModal" style="display:none;">
+            <div class="custom-modal-card">
+                <div class="modal-header-row">
+                    <h3 id="modalNegTitle" style="color:var(--leaf-deep);">🤝 थेट खरेदीदार वाटाघाटी (Direct Deal Negotiation)</h3>
+                    <button class="modal-close-btn" id="closeNegotiationModalBtn">✕</button>
+                </div>
+                <div id="negotiationDetailsBox">
+                    <div class="demand-meta-box">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <strong id="negBuyerNameDisplay" style="font-size:1.1rem; color:var(--leaf-deep);">Sahyadri Agro Processing</strong>
+                            <span class="match-score-pill high-match" id="negMatchScoreDisplay">⭐ 95% Match</span>
+                        </div>
+                        <div style="font-size:0.85rem; color:#555;">
+                            पीक: <strong id="negCropDisplay">Tomato</strong> • लॉट वजन: <strong id="negQtyDisplay">500 kg</strong> • दर्जा: <strong id="negGradeDisplay">Grade A</strong>
+                        </div>
+                    </div>
+
+                    <!-- Negotiation Timeline -->
+                    <strong style="font-size:0.85rem; color:#444;" id="negTimelineTitle">वाटाघाटी इतिहास (Offer History):</strong>
+                    <div class="negotiation-timeline-box" id="negotiationTimeline">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Counter-Offer Submission -->
+                    <div style="background:#F1F8E9; border-radius:var(--r2); padding:var(--s4); margin-top:var(--s3); border:1px solid #C8E6C9;">
+                        <label style="font-size:0.85rem; font-weight:800; color:var(--leaf-deep);" id="lblCounterPrice">
+                            आपला प्रति-प्रस्ताव / अंतिम दर (Counter-Offer in ₹/kg):
+                        </label>
+                        <div class="counter-input-row">
+                            <input type="number" id="counterOfferPriceInput" value="38.0" step="0.5">
+                            <button class="btn btn-secondary" id="sendCounterOfferBtn" type="button">
+                                📤 <span id="btnSendCounterText">प्रति-प्रस्ताव पाठवा</span>
+                            </button>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:0.85rem;">
+                            <span>एकूण शेतकरी प्राप्ती: <strong id="negTotalPayoutDisplay" style="color:#1B5E20; font-size:1.1rem;">₹ 19,000</strong></span>
+                            <button class="btn btn-primary" id="confirmAcceptDealBtn" type="button" style="padding:10px 20px;">
+                                ✅ <span id="btnAcceptDealText">हा दर मान्य करा व करार करा</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Evidence-Assisted Dispute Creation Modal -->
+        <div class="custom-modal-overlay" id="disputeModal" style="display:none;">
+            <div class="custom-modal-card">
+                <div class="modal-header-row">
+                    <h3 id="modalDisputeTitle" style="color:#C62828;">⚠️ तक्रार / वाद नोंदवा (Evidence-Assisted Dispute)</h3>
+                    <button class="modal-close-btn" id="closeDisputeModalBtn">✕</button>
+                </div>
+                <form id="disputeForm">
+                    <input type="hidden" id="disputeTxnId">
+                    <div class="demand-meta-box">
+                        <div><strong>व्यवहार आयडी:</strong> <span id="dispTxnDisplay">TXN-2026-981042</span></div>
+                        <div><strong>खरेदीदार:</strong> <span id="dispBuyerDisplay">Sahyadri Agro Hub</span></div>
+                    </div>
+
+                    <!-- Certified Digital Lot Evidence Box -->
+                    <div class="evidence-card-box">
+                        <div class="evidence-header">
+                            <span>🛡️ प्रमाणित मूळ डिजिटल लॉट पुरावा (Certified Quality Baseline)</span>
+                            <span class="opp-badge high" style="background:#E8F5E9; color:#1B5E20; font-size:0.75rem;">✓ ब्लॉकचेन / टाइमस्टॅम्प ऑडिट</span>
+                        </div>
+                        <div class="evidence-grid-mini">
+                            <div class="evidence-item-mini">
+                                <div style="color:#777; font-size:0.72rem;">प्रमाणित दर्जा</div>
+                                <strong id="dispLotGrade">Grade A (94% ताजेपणा)</strong>
+                            </div>
+                            <div class="evidence-item-mini">
+                                <div style="color:#777; font-size:0.72rem;">काढणी तारीख</div>
+                                <strong id="dispLotHarvest">2026-08-29</strong>
+                            </div>
+                            <div class="evidence-item-mini">
+                                <div style="color:#777; font-size:0.72rem;">Distance्गत कट तपासणी</div>
+                                <strong id="dispLotCut">✓ Verified No Defect</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="lot-form-field" style="margin-top:var(--s3);">
+                        <label>तक्रारीचे कारण / प्रकार (Dispute Category)</label>
+                        <select id="disputeCategorySelect" required>
+                            <option value="QUALITY_MISMATCH">गुणवत्ता तफावत (Quality Mismatch - Buyer claiming lower grade)</option>
+                            <option value="QUANTITY_MISMATCH">वजन / परिमाण तफावत (Quantity Mismatch at unloading)</option>
+                            <option value="PAYMENT_DELAY">पेमेंटला विलंब (Payment Delayed beyond 24h)</option>
+                            <option value="PAYMENT_NOT_RECEIVED">पेमेंट जमा झाले नाही (Payment Not Received)</option>
+                            <option value="DELIVERY_DAMAGE">Transport दरम्यान नासाडी (Transit Damage)</option>
+                            <option value="OTHER">इतर तक्रार (Other)</option>
+                        </select>
+                    </div>
+
+                    <div class="lot-form-field" style="margin-top:var(--s3);">
+                        <label>तपशीलवार वर्णन (Description of Issue)</label>
+                        <textarea id="disputeDescriptionInput" rows="3" placeholder="तक्रारीचे स्पष्ट कारण येथे लिहा..." style="width:100%; border:1px solid #ccc; border-radius:8px; padding:10px;" required></textarea>
+                    </div>
+
+                    <div style="display:flex; justify-content:flex-end; gap:var(--s3); margin-top:var(--s4);">
+                        <button type="button" class="btn btn-secondary" id="cancelDisputeBtn">रद्द करा</button>
+                        <button type="submit" class="btn btn-primary" style="background:#C62828; border-color:#C62828;">
+                            ⚠️ तक्रार दाखल करा (Submit Evidence Dispute)
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- MODAL: PAYMENT CHECKOUT & KISANTRUST ESCROW GATEWAY            -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="paymentCheckoutModal" style="display:none; align-items:center; justify-content:center; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(17,24,39,0.7); z-index:99999; backdrop-filter:blur(4px);">
+            <div class="custom-modal-box" style="background:#ffffff; border-radius:20px; max-width:640px; width:95%; max-height:92vh; overflow-y:auto; padding:24px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.25);">
+                <!-- Modal Header -->
+                <div class="modal-header-row" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #E5E7EB; padding-bottom:14px; margin-bottom:18px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:1.6rem;">💳</span>
+                        <div>
+                            <h2 style="font-size:1.25rem; font-weight:800; margin:0; color:#111827;" id="payModalTitle">किसान ट्रस्ट एस्क्रो पेमेंट (Escrow Checkout)</h2>
+                            <div style="font-size:0.78rem; color:#4B5563;" id="payModalSubtitle">१००% सुरक्षित बँक एस्क्रो संरक्षण (100% Escrow Protected)</div>
+                        </div>
+                    </div>
+                    <button class="modal-close-btn" id="closePaymentModalBtn" style="background:none; border:none; font-size:1.4rem; cursor:pointer; color:#9CA3AF;">✕</button>
+                </div>
+
+                <div id="paymentFormBodySection">
+                    <!-- 1. Order Summary Card -->
+                    <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; padding:16px; margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <span style="font-size:1.4rem;" id="payCropIcon">🍅</span>
+                                <div>
+                                    <strong style="font-size:1.05rem; color:#0F172A;" id="payCropName">टोमॅटो (Himsona Grade A)</strong>
+                                    <div style="font-size:0.8rem; color:#64748B;" id="payFarmerName">👨‍🌾 शेतकरी: रमेश मारुती पाटील (निफाड)</div>
+                                </div>
+                            </div>
+                            <span class="status-pill completed" style="font-size:0.75rem; background:#DEF7EC; color:#03543F; font-weight:800;" id="paySmallholderBadge">🌱 अल्पभूधारक शेतकरी</span>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px; padding-top:10px; border-top:1px dashed #CBD5E1; text-align:center;">
+                            <div style="background:#ffffff; padding:8px; border-radius:8px; border:1px solid #E2E8F0;">
+                                <div style="font-size:0.7rem; color:#64748B; font-weight:700;">वजन (Quantity)</div>
+                                <div style="font-size:0.95rem; font-weight:800; color:#0F172A;" id="payQuantityDisplay">500 kg</div>
+                            </div>
+                            <div style="background:#ffffff; padding:8px; border-radius:8px; border:1px solid #E2E8F0;">
+                                <div style="font-size:0.7rem; color:#64748B; font-weight:700;">दर (Price / kg)</div>
+                                <div style="font-size:0.95rem; font-weight:800; color:#059669;" id="payRateDisplay">₹ 35.00 /kg</div>
+                            </div>
+                            <div style="background:#ECFDF5; padding:8px; border-radius:8px; border:1px solid #A7F3D0;">
+                                <div style="font-size:0.7rem; color:#047857; font-weight:700;">एकूण रक्कम (Total)</div>
+                                <div style="font-size:1.05rem; font-weight:900; color:#065F46;" id="payTotalAmountDisplay">₹ 17,500</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Escrow Protection Trust Banner -->
+                    <div style="background:linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); border:1px solid #BFDBFE; border-radius:12px; padding:12px 14px; margin-bottom:18px; display:flex; align-items:flex-start; gap:10px;">
+                        <span style="font-size:1.3rem;">🛡️</span>
+                        <div>
+                            <strong style="color:#1E40AF; font-size:0.85rem;" id="lblEscrowShieldTitle">किसान ट्रस्ट स्मार्ट एस्क्रो शील्ड</strong>
+                            <p style="font-size:0.78rem; color:#1E3A8A; margin:2px 0 0 0; line-height:1.4;" id="lblEscrowShieldDesc">
+                                तुमचे पैसे किसान ट्रस्टच्या अधिकृत बँकेत (ICICI/SBI) सुरक्षितपणे लॉक केले जातील. पिकाची डिलिव्हरी आणि गुणवत्ता तपासणी पूर्ण झाल्यावरच रक्कम शेतकऱ्याच्या थेट बँक खात्यात वितरित होईल.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Payment Method Switcher Tabs -->
+                    <div style="margin-bottom:18px;">
+                        <label style="font-size:0.82rem; font-weight:700; color:#374151; display:block; margin-bottom:8px;" id="lblSelectPaymentMethod">पेमेंट पद्धत निवडा (Select Payment Method):</label>
+                        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:8px;">
+                            <button type="button" class="btn btn-secondary active-pay-tab" id="tabPayUpi" style="padding:10px 4px; font-size:0.82rem; font-weight:800; border-radius:10px; border:2px solid #2563EB; background:#EFF6FF; color:#1E40AF; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+                                <span>📱 UPI QR / GPay</span>
+                                <small style="font-size:0.65rem; color:#60A5FA;">Instant 0% Fee</small>
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="tabPayEscrow" style="padding:10px 4px; font-size:0.82rem; font-weight:800; border-radius:10px; border:1px solid #E5E7EB; background:#ffffff; color:#4B5563; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+                                <span>🏦 Bank Escrow</span>
+                                <small style="font-size:0.65rem; color:#9CA3AF;">NEFT / RTGS</small>
+                            </button>
+                            <button type="button" class="btn btn-secondary" id="tabPayCard" style="padding:10px 4px; font-size:0.82rem; font-weight:800; border-radius:10px; border:1px solid #E5E7EB; background:#ffffff; color:#4B5563; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;">
+                                <span>💳 Cards / NetBank</span>
+                                <small style="font-size:0.65rem; color:#9CA3AF;">Debit & Credit</small>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4A. UPI QR View -->
+                    <div id="payUpiSection" style="text-align:center; padding:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; margin-bottom:18px;">
+                        <div style="font-size:0.82rem; font-weight:700; color:#475569; margin-bottom:10px;" id="lblScanQrText">कोणत्याही UPI App द्वारे QR कोड स्कॅन करा (Scan with GPay / PhonePe / Paytm / BHIM):</div>
+                        <div style="background:#ffffff; padding:12px; display:inline-block; border-radius:14px; box-shadow:0 4px 6px -1px rgba(0,0,0,0.1); border:1px solid #CBD5E1;">
+                            <svg width="150" height="150" viewBox="0 0 150 150">
+                                <rect width="150" height="150" fill="white"/>
+                                <path d="M10 10h40v40h-40zM20 20h20v20h-20zM100 10h40v40h-40zM110 20h20v20h-20zM10 100h40v40h-40zM20 110h20v20h-20z" fill="#0F172A"/>
+                                <rect x="60" y="10" width="10" height="10" fill="#059669"/>
+                                <rect x="80" y="10" width="10" height="10" fill="#0F172A"/>
+                                <rect x="60" y="30" width="20" height="10" fill="#0F172A"/>
+                                <rect x="70" y="50" width="10" height="20" fill="#059669"/>
+                                <rect x="10" y="60" width="20" height="10" fill="#0F172A"/>
+                                <rect x="30" y="80" width="10" height="10" fill="#059669"/>
+                                <rect x="50" y="70" width="20" height="20" fill="#059669"/>
+                                <rect x="80" y="70" width="20" height="10" fill="#0F172A"/>
+                                <rect x="110" y="60" width="30" height="10" fill="#0F172A"/>
+                                <rect x="100" y="80" width="20" height="20" fill="#059669"/>
+                                <rect x="60" y="100" width="10" height="30" fill="#0F172A"/>
+                                <rect x="80" y="110" width="20" height="10" fill="#059669"/>
+                                <rect x="110" y="110" width="30" height="30" fill="#0F172A"/>
+                                <circle cx="75" cy="75" r="14" fill="#059669"/>
+                                <text x="75" y="80" font-size="12" fill="white" font-weight="bold" text-anchor="middle">₹</text>
+                            </svg>
+                        </div>
+                        <div style="margin-top:10px; font-size:0.8rem; color:#475569;">
+                            <span>UPI ID: <strong>kisantrust.escrow@icici</strong></span>
+                            <button type="button" class="btn btn-secondary" onclick="navigator.clipboard?.writeText('kisantrust.escrow@icici'); showToast('✅ UPI ID कॉपी केला!', 'success');" style="padding:2px 8px; font-size:0.7rem; margin-left:6px;">📋 Copy</button>
+                        </div>
+                    </div>
+
+                    <!-- 4B. Bank Escrow Section -->
+                    <div id="payBankSection" style="display:none; padding:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; margin-bottom:18px;">
+                        <div style="font-size:0.85rem; font-weight:700; color:#334155; margin-bottom:8px;">🏦 किसान ट्रस्ट अधिकृत बँक एस्क्रो तपशील:</div>
+                        <div style="font-size:0.8rem; color:#475569; line-height:1.6; background:#ffffff; padding:10px; border-radius:8px; border:1px solid #E2E8F0;">
+                            <div><strong>बँक:</strong> ICICI Bank Ltd. (Agricultural Escrow Branch)</div>
+                            <div><strong>खाते नाव:</strong> KisanTrust Escrow Settlement A/C</div>
+                            <div><strong>खाते क्र.:</strong> 002305019842</div>
+                            <div><strong>IFSC:</strong> ICIC0000023</div>
+                        </div>
+                    </div>
+
+                    <!-- 4C. Card / NetBanking Section -->
+                    <div id="payCardSection" style="display:none; padding:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:14px; margin-bottom:18px;">
+                        <div class="lot-form-field">
+                            <label style="font-size:0.8rem; font-weight:700;">कार्ड नंबर (Card Number)</label>
+                            <input type="text" placeholder="4532 •••• •••• 8892" style="font-size:0.9rem;" value="4532 8921 0042 8892">
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px;">
+                            <div class="lot-form-field">
+                                <label style="font-size:0.8rem; font-weight:700;">MM / YY</label>
+                                <input type="text" placeholder="12/28" value="12/28">
+                            </div>
+                            <div class="lot-form-field">
+                                <label style="font-size:0.8rem; font-weight:700;">CVV</label>
+                                <input type="password" placeholder="•••" value="842">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 5. Action Pay Button -->
+                    <button type="button" class="btn btn-primary" id="btnConfirmEscrowPayment" style="width:100%; padding:13px; font-size:1.05rem; font-weight:900; justify-content:center; border-radius:12px; background:linear-gradient(135deg, #059669 0%, #047857 100%); box-shadow:0 4px 12px rgba(5,150,105,0.3);">
+                        🔒 ₹ <span id="payBtnAmountSpan">17,500</span> एस्क्रो खात्यात जमा करा (Pay & Lock in Escrow)
+                    </button>
+                </div>
+
+                <!-- 6. Payment Receipt Success View (Shown after payment) -->
+                <div id="paymentSuccessReceiptView" style="display:none; text-align:center; padding:10px 0;">
+                    <div style="width:60px; height:60px; background:#DEF7EC; color:#03543F; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.8rem; margin:0 auto 12px auto;">
+                        ✓
+                    </div>
+                    <h3 style="font-size:1.3rem; font-weight:800; color:#065F46; margin:0 0 4px 0;" id="paySuccessTitle">🎉 पेमेंट यशस्वी व एस्क्रो लॉक झाले!</h3>
+                    <p style="font-size:0.85rem; color:#4B5563; margin:0 0 16px 0;" id="paySuccessSub">व्यवहार अधिकृतपणे नोंदवला गेला असून रक्कम एस्क्रोमध्ये सुरक्षित आहे.</p>
+
+                    <div style="background:#F8FAFC; border:1px solid #CBD5E1; border-radius:14px; padding:16px; text-align:left; font-size:0.85rem; line-height:1.7; margin-bottom:18px;">
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #E2E8F0; padding-bottom:6px;">
+                            <span style="color:#64748B;">व्यवहार आयडी (Txn ID):</span>
+                            <strong style="color:#0F172A;" id="receiptTxnId">TXN-2026-89412</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #E2E8F0; padding:6px 0;">
+                            <span style="color:#64748B;">एस्क्रो लॉक संदर्भ (Lock Ref):</span>
+                            <strong style="color:#2563EB;" id="receiptEscrowRef">ESC-LOCK-4892</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #E2E8F0; padding:6px 0;">
+                            <span style="color:#64748B;">रक्कम (Amount):</span>
+                            <strong style="color:#059669; font-size:1.05rem;" id="receiptAmount">₹ 17,500</strong>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; border-bottom:1px solid #E2E8F0; padding:6px 0;">
+                            <span style="color:#64748B;">पेमेंट स्थिती (Status):</span>
+                            <span class="status-pill completed" style="background:#DEF7EC; color:#03543F; font-weight:800;">🔒 ESCROW LOCKED</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding-top:6px;">
+                            <span style="color:#64748B;">दिनांक व वेळ:</span>
+                            <span id="receiptTimestamp">2026-09-01, 21:55 IST</span>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                        <button type="button" class="btn btn-secondary" onclick="window.print();" style="padding:10px; font-weight:700; justify-content:center;">
+                            🖨️ पावती प्रिंट करा
+                        </button>
+                        <button type="button" class="btn btn-primary" id="btnDonePaymentView" style="padding:10px; font-weight:800; justify-content:center;">
+                            📦 ऑर्डर ट्रॅक करा
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- MODAL: AUTHENTICATION & LOGIN / SIGN-UP PORTAL                 -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="authModal" style="display:none">
+            <div class="custom-modal-box auth-modal-custom-box">
+                <div class="modal-header-row">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <span style="font-size:1.5rem;">🔐</span>
+                        <h2 style="font-size:1.35rem; font-weight:800; margin:0; color:#111827;" id="authModalTitle">किसान ट्रस्ट प्रवेश (Login & Register)</h2>
+                    </div>
+                    <button class="modal-close-btn" id="closeAuthModalBtn">✕</button>
+                </div>
+
+                <!-- Auth Mode Tabs: Login vs Register -->
+                <div class="auth-tabs-wrapper">
+                    <button class="auth-tab-btn active" id="authTabLogin">लॉगिन (Sign In)</button>
+                    <button class="auth-tab-btn" id="authTabRegister">नवीन नोंदणी (Register)</button>
+                </div>
+
+                <!-- 1. LOGIN FORM -->
+                <div class="auth-form-container" id="authLoginFormContainer">
+                    <form id="authLoginForm">
+                        <div class="lot-form-field" style="margin-top:var(--s3);">
+                            <label id="lblLoginIdentifier" style="color:#374151; font-weight:700;">मोबाईल नंबर किंवा ईमेल (Mobile / Email)</label>
+                            <input type="text" id="loginIdentifierInput" placeholder="उदा. 9822456789 किंवा ramesh@gmail.com" required>
+                        </div>
+                        <div class="lot-form-field" style="margin-top:var(--s3);">
+                            <label id="lblLoginPassword" style="color:#374151; font-weight:700;">पासवर्ड (Password)</label>
+                            <input type="password" id="loginPasswordInput" placeholder="••••••••" required>
+                        </div>
+
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin:var(--s3) 0; font-size:0.85rem;">
+                            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#4B5563; font-weight:600;">
+                                <input type="checkbox" id="rememberMeCheckbox" checked> <span id="lblRememberMeText">मला आठवणीत ठेवा</span>
+                            </label>
+                            <a href="#" id="lblForgotPassword" style="color:#2563EB; font-weight:700; text-decoration:none;" onclick="event.preventDefault(); alert('कृपया पासवर्ड रीसेटसाठी शेतकरी हेल्पलाइनवर संपर्क साधा: 1800-123-4567');">पासवर्ड विसरलात?</a>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="btnSignInSubmit" style="width:100%; padding:11px; font-size:0.98rem; font-weight:800; justify-content:center; border-radius:10px;">
+                            🔑 लॉगिन करा (Sign In)
+                        </button>
+                    </form>
+
+                    <div class="auth-divider">
+                        <span id="dividerOrText">किंवा (OR)</span>
+                    </div>
+
+                    <!-- Google Sign In Button -->
+                    <button type="button" class="google-auth-btn" id="googleSignInBtn">
+                        <svg width="20" height="20" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="m6.306 14.691 6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0 1 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 0 1-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
+                        <span id="googleBtnText">Google सह त्वरित लॉगिन करा</span>
+                    </button>
+
+                    <!-- Quick 1-Click Demo Accounts -->
+                    <div class="demo-login-section">
+                        <div class="demo-login-header" id="quickDemoHeader">⚡ Quick Demo Login — Try any role instantly</div>
+                        <div class="demo-login-grid">
+                            <button type="button" class="demo-login-btn" id="demoFarmerLoginBtn">
+                                <span class="demo-role-icon">👨‍🌾</span>
+                                <span class="demo-role-name">Farmer</span>
+                                <span class="demo-role-desc">Create lots, check prices, sell produce</span>
+                            </button>
+                            <button type="button" class="demo-login-btn" id="demoBuyerLoginBtn">
+                                <span class="demo-role-icon">🏢</span>
+                                <span class="demo-role-name">Business / Buyer</span>
+                                <span class="demo-role-desc">Post demands, negotiate, purchase</span>
+                            </button>
+                            <button type="button" class="demo-login-btn" id="demoCustomerLoginBtn">
+                                <span class="demo-role-icon">🛒</span>
+                                <span class="demo-role-name">Customer</span>
+                                <span class="demo-role-desc">Browse produce, buy fresh</span>
+                            </button>
+                            <button type="button" class="demo-login-btn admin-btn" id="demoAdminLoginBtn">
+                                <span class="demo-role-icon">🛡️</span>
+                                <span class="demo-role-name">Admin</span>
+                                <span class="demo-role-desc">Verify users, moderate lots, resolve disputes</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. REGISTER FORM -->
+                <div class="auth-form-container" id="authRegisterFormContainer" style="display:none;">
+                    <form id="authRegisterForm">
+                        <div class="lot-form-field" style="margin-top:var(--s2);">
+                            <label id="lblRegRole" style="color:#374151; font-weight:700;">Select Your Role</label>
+                            <div class="role-switch-pills" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px;">
+                                <label class="role-pill-label active" id="rolePillFarmer" style="text-align:center; padding:8px 4px; font-size:0.8rem; cursor:pointer;">
+                                    <input type="radio" name="regRole" value="farmer" checked style="display:none;">
+                                    <span id="roleTextFarmer">👨‍🌾 Farmer</span>
+                                </label>
+                                <label class="role-pill-label" id="rolePillBuyer" style="text-align:center; padding:8px 4px; font-size:0.8rem; cursor:pointer;">
+                                    <input type="radio" name="regRole" value="buyer" style="display:none;">
+                                    <span id="roleTextBuyer">🏢 Buyer</span>
+                                </label>
+                                <label class="role-pill-label" id="rolePillCustomer" style="text-align:center; padding:8px 4px; font-size:0.8rem; cursor:pointer;">
+                                    <input type="radio" name="regRole" value="customer" style="display:none;">
+                                    <span id="roleTextCustomer">🛒 Customer</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="lot-form-field" style="margin-top:var(--s3);">
+                            <label id="lblRegName" style="color:#374151; font-weight:700;">Full Name</label>
+                            <input type="text" id="regNameInput" placeholder="e.g. Ramesh Patil" required>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); margin-top:var(--s3);">
+                            <div class="lot-form-field">
+                                <label id="lblRegPhone" style="color:#374151; font-weight:700;">Mobile Number</label>
+                                <input type="tel" id="regPhoneInput" placeholder="9822456789" required>
+                            </div>
+                            <div class="lot-form-field">
+                                <label id="lblRegEmail" style="color:#374151; font-weight:700;">Email ID</label>
+                                <input type="email" id="regEmailInput" placeholder="name@example.com">
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); margin-top:var(--s3);">
+                            <div class="lot-form-field">
+                                <label id="lblRegState" style="color:#374151; font-weight:700;">State</label>
+                                <select id="regStateInput">
+                                    <option value="Maharashtra">Maharashtra</option>
+                                    <option value="Gujarat">Gujarat</option>
+                                    <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                    <option value="Karnataka">Karnataka</option>
+                                </select>
+                            </div>
+                            <div class="lot-form-field">
+                                <label id="lblRegDistrict" style="color:#374151; font-weight:700;">District / City</label>
+                                <input type="text" id="regDistrictInput" placeholder="e.g. Nashik" required>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Farmer Fields -->
+                        <div id="farmerSpecificFields" style="margin-top:var(--s3);">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s2);">
+                                <div class="lot-form-field">
+                                    <label id="lblRegCrops" style="color:#374151; font-weight:700;">Primary Crop</label>
+                                    <select id="regCropInput">
+                                        <option value="Tomato">Tomato</option>
+                                        <option value="Onion">Onion</option>
+                                        <option value="Potato">Potato</option>
+                                        <option value="Vegetables">Vegetables</option>
+                                    </select>
+                                </div>
+                                <div class="lot-form-field">
+                                    <label id="lblRegAcres" style="color:#374151; font-weight:700;">Farm Area (Acres)</label>
+                                    <input type="number" id="regAcresInput" placeholder="e.g. 2.5" step="0.5">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Buyer Fields -->
+                        <div id="buyerSpecificFields" style="display:none; margin-top:var(--s3);">
+                            <div class="lot-form-field">
+                                <label id="lblRegCompanyName" style="color:#374151; font-weight:700;">Company / Buyer Name</label>
+                                <input type="text" id="regCompanyInput" placeholder="e.g. Sahyadri Foods Pvt. Ltd.">
+                            </div>
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); margin-top:var(--s2);">
+                                <div class="lot-form-field">
+                                    <label id="lblRegBuyerType" style="color:#374151; font-weight:700;">Buyer Category</label>
+                                    <select id="regBuyerTypeInput">
+                                        <option value="Food Processor">Food Processor</option>
+                                        <option value="Retailer">Retail Chain</option>
+                                        <option value="Wholesaler">Wholesaler</option>
+                                        <option value="Exporter">Exporter</option>
+                                    </select>
+                                </div>
+                                <div class="lot-form-field">
+                                    <label id="lblRegGstin" style="color:#374151; font-weight:700;">GST / License No.</label>
+                                    <input type="text" id="regGstinInput" placeholder="27AABCS1429B1Z">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Customer Fields -->
+                        <div id="customerSpecificFields" style="display:none; margin-top:var(--s3);">
+                            <div class="lot-form-field">
+                                <label id="lblRegCustProduce" style="color:#374151; font-weight:700;">Produce Needed</label>
+                                <input type="text" id="regCustProduceInput" placeholder="e.g. Fresh Tomatoes, Onions, Organic Veggies">
+                            </div>
+                            <div class="lot-form-field" style="margin-top:var(--s2);">
+                                <label id="lblRegCustAddress" style="color:#374151; font-weight:700;">Delivery Address</label>
+                                <input type="text" id="regCustAddressInput" placeholder="e.g. Flat 402, Ganga Heights, Nashik">
+                            </div>
+                        </div>
+
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); margin-top:var(--s3);">
+                            <div class="lot-form-field">
+                                <label id="lblRegPassword" style="color:#374151; font-weight:700;">Create Password</label>
+                                <input type="password" id="regPasswordInput" placeholder="Min 7 chars (A-Z, 0-9, @#$)" required>
+                            </div>
+                            <div class="lot-form-field">
+                                <label id="lblRegConfirmPassword" style="color:#374151; font-weight:700;">Confirm Password</label>
+                                <input type="password" id="regConfirmPasswordInput" placeholder="Re-type password..." required>
+                            </div>
+                        </div>
+
+                        <!-- Password Strength & Guidelines Meter -->
+                        <div class="password-strength-container" id="passwordStrengthContainer">
+                            <div class="password-strength-header">
+                                <span class="password-strength-label" id="lblPassStrength">Password Strength:</span>
+                                <span class="password-strength-text weak" id="passStrengthText">Enter password</span>
+                            </div>
+                            <div class="password-meter-track">
+                                <div class="password-meter-fill weak" id="passMeterFill"></div>
+                            </div>
+                            <div class="password-requirements-grid">
+                                <div class="password-req-item" id="reqLength"><span class="req-icon">⚪</span> <span id="reqLengthText">7+ Characters</span></div>
+                                <div class="password-req-item" id="reqUpper"><span class="req-icon">⚪</span> <span id="reqUpperText">1 Uppercase (A-Z)</span></div>
+                                <div class="password-req-item" id="reqNumber"><span class="req-icon">⚪</span> <span id="reqNumberText">1 Number (0-9)</span></div>
+                                <div class="password-req-item" id="reqSpecial"><span class="req-icon">⚪</span> <span id="reqSpecialText">1 Special Char (!@#$)</span></div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" id="btnRegisterSubmit" style="width:100%; padding:11px; font-size:0.98rem; font-weight:800; justify-content:center; margin-top:var(--s3); border-radius:10px;">
+                            🌱 Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- NOTIFICATION DRAWER OVERLAY                                    -->
+        <!-- ============================================================== -->
+        <div class="notification-drawer-card" id="notificationDrawer" style="display:none;">
+            <div class="notification-drawer-header">
+                <h3><span>🔔</span> <span>सूचना (Notifications)</span></h3>
+                <div style="display:flex; gap:6px; align-items:center;">
+                    <button class="btn btn-secondary" id="notifMarkAllReadBtn" style="padding:4px 8px; font-size:0.75rem;">सर्व वाचले</button>
+                    <button class="modal-close-btn" id="closeNotificationDrawerBtn">✕</button>
+                </div>
+            </div>
+            <div class="notification-list-container" id="notificationListContainer">
+                <!-- Populated dynamically by notificationService -->
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- POST-TRANSACTION RATING MODAL 1: BUYER RATES FARMER           -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="buyerRateFarmerModal" style="display:none;">
+            <div class="custom-modal-card">
+                <div class="modal-header-row">
+                    <h3 style="color:var(--leaf-deep);">⭐ शेतकरी गुणवत्ता व सेवा रेटिंग (Rate Farmer)</h3>
+                    <button class="modal-close-btn" id="closeBuyerRateFarmerModalBtn">✕</button>
+                </div>
+                <form id="buyerRateFarmerForm">
+                    <input type="hidden" id="rateFarmerTxnId">
+                    <div class="demand-meta-box">
+                        <div><strong>व्यवहार:</strong> <span id="rateFarmerTxnDisplay">TXN-2026-981042</span></div>
+                        <div><strong>शेतकरी:</strong> <span id="rateFarmerNameDisplay">रमेश मारुती पाटील</span></div>
+                        <div><strong>पीक व वजन:</strong> <span id="rateFarmerCropDisplay">Tomato • 1000 kg</span></div>
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">१. मालाची गुणवत्ता व ताजेपणा (40% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="produceQuality">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRateQuality" value="5">
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">२. वजनाची अचूकता (20% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="quantityAccuracy">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRateQty" value="5">
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">३. पॅकिंग व हाताळणी (10% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="packagingCondition">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRatePackaging" value="5">
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">४. वेळेवर डिलिव्हरी / सहकार्य (15% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="deliveryReliability">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRateDelivery" value="5">
+                    </div>
+
+                    <div class="lot-form-field" style="margin-top:var(--s3);">
+                        <label>अभिप्राय / टिप्पणी (Review Comments)</label>
+                        <textarea id="rateFarmerCommentsInput" rows="2" placeholder="शेतकऱ्याच्या मालाच्या गुणवत्तेबाबत आपला अनुभव लिहा..." style="width:100%; border:1px solid #ccc; border-radius:8px; padding:8px;"></textarea>
+                    </div>
+
+                    <div style="display:flex; justify-content:flex-end; gap:var(--s3); margin-top:var(--s4);">
+                        <button type="button" class="btn btn-secondary" id="cancelBuyerRateFarmerBtn">रद्द करा</button>
+                        <button type="submit" class="btn btn-primary">⭐ रेटिंग सबमिट करा</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- POST-TRANSACTION RATING MODAL 2: FARMER RATES BUYER           -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="farmerRateBuyerModal" style="display:none;">
+            <div class="custom-modal-card">
+                <div class="modal-header-row">
+                    <h3 style="color:var(--leaf-deep);">⭐ खरेदीदार विश्वासार्हता रेटिंग (Rate Buyer)</h3>
+                    <button class="modal-close-btn" id="closeFarmerRateBuyerModalBtn">✕</button>
+                </div>
+                <form id="farmerRateBuyerForm">
+                    <input type="hidden" id="rateBuyerTxnId">
+                    <div class="demand-meta-box">
+                        <div><strong>व्यवहार:</strong> <span id="rateBuyerTxnDisplay">TXN-2026-981042</span></div>
+                        <div><strong>खरेदीदार:</strong> <span id="rateBuyerNameDisplay">सह्याद्री अ‍ॅग्रो प्रोसेसिंग हब</span></div>
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">१. वेळेवर पेमेंट सेटलमेंट (40% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="paymentTimeliness">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRatePayment" value="5">
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">२. पारदर्शक संवाद व प्रामाणिकपणा (20% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="buyerCommunication">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRateComm" value="5">
+                    </div>
+
+                    <div style="margin:var(--s3) 0;">
+                        <label style="font-size:0.85rem; font-weight:700;">३. व्यवहारातील विश्वासार्हता (25% Weight):</label>
+                        <div class="star-rating-selector" data-rating-group="buyerReliability">
+                            <button type="button" class="star-btn active" data-val="1">★</button>
+                            <button type="button" class="star-btn active" data-val="2">★</button>
+                            <button type="button" class="star-btn active" data-val="3">★</button>
+                            <button type="button" class="star-btn active" data-val="4">★</button>
+                            <button type="button" class="star-btn active" data-val="5">★</button>
+                        </div>
+                        <input type="hidden" id="inputRateReliability" value="5">
+                    </div>
+
+                    <div class="lot-form-field" style="margin-top:var(--s3);">
+                        <label>अभिप्राय / टिप्पणी (Feedback Comments)</label>
+                        <textarea id="rateBuyerCommentsInput" rows="2" placeholder="खरेदीदाराच्या व्यवहाराबाबत आपला अनुभव लिहा..." style="width:100%; border:1px solid #ccc; border-radius:8px; padding:8px;"></textarea>
+                    </div>
+
+                    <div style="display:flex; justify-content:flex-end; gap:var(--s3); margin-top:var(--s4);">
+                        <button type="button" class="btn btn-secondary" id="cancelFarmerRateBuyerBtn">रद्द करा</button>
+                        <button type="submit" class="btn btn-primary">⭐ रेटिंग सबमिट करा</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ADMIN INSPECTION MODAL 1: FARMER VERIFICATION INSPECTOR        -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="adminFarmerModal" style="display:none;">
+            <div class="custom-modal-card" style="max-width:650px;">
+                <div class="modal-header-row">
+                    <h3 style="color:var(--leaf-deep);">👨‍🌾 शेतकरी पडताळणी तपशील (Farmer Verification Details)</h3>
+                    <button class="modal-close-btn" id="closeAdminFarmerModalBtn">✕</button>
+                </div>
+                <div id="adminFarmerModalBody">
+                    <!-- Populated dynamically -->
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:var(--s4); border-top:1px solid #eee; padding-top:12px;">
+                    <button class="btn btn-secondary" id="admFarmerReqChangesBtn">⚠️ बदल सुचवा (Request Changes)</button>
+                    <button class="btn btn-secondary" id="admFarmerRejectBtn" style="background:#FEE2E2; color:#DC2626; border-color:#FCA5A5;">❌ नाकारा (Reject)</button>
+                    <button class="btn btn-primary" id="admFarmerApproveBtn">✅ मान्यता द्या (Approve Farmer)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ADMIN INSPECTION MODAL 2: BUYER VERIFICATION INSPECTOR         -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="adminBuyerModal" style="display:none;">
+            <div class="custom-modal-card" style="max-width:650px;">
+                <div class="modal-header-row">
+                    <h3 style="color:var(--leaf-deep);">🏢 खरेदीदार पडताळणी तपशील (Buyer Verification Details)</h3>
+                    <button class="modal-close-btn" id="closeAdminBuyerModalBtn">✕</button>
+                </div>
+                <div id="adminBuyerModalBody">
+                    <!-- Populated dynamically -->
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:var(--s4); border-top:1px solid #eee; padding-top:12px;">
+                    <button class="btn btn-secondary" id="admBuyerRejectBtn" style="background:#FEE2E2; color:#DC2626; border-color:#FCA5A5;">❌ नाकारा (Reject)</button>
+                    <button class="btn btn-primary" id="admBuyerApproveBtn">✅ मान्यता द्या (Approve Buyer)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ADMIN INSPECTION MODAL 3: LOT MODERATION INSPECTOR             -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="adminLotModal" style="display:none;">
+            <div class="custom-modal-card" style="max-width:720px;">
+                <div class="modal-header-row">
+                    <h3 style="color:var(--leaf-deep);">📦 डिजिटल शेती लॉट मॉडरेशन (Lot Moderation Review)</h3>
+                    <button class="modal-close-btn" id="closeAdminLotModalBtn">✕</button>
+                </div>
+                <div id="adminLotModalBody">
+                    <!-- Populated dynamically with 4-angle images, AI grade, and duplicate check -->
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:var(--s4); border-top:1px solid #eee; padding-top:12px;">
+                    <button class="btn btn-secondary" id="admLotReqChangesBtn">⚠️ बदल सुचवा</button>
+                    <button class="btn btn-secondary" id="admLotRejectBtn" style="background:#FEE2E2; color:#DC2626; border-color:#FCA5A5;">❌ नाकारा (Reject)</button>
+                    <button class="btn btn-primary" id="admLotApproveBtn">✅ मंजूर करा व बाजारात प्रकाशित करा</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ADMIN MODAL 3B: POLITE LOT REJECTION & REMARKS DIALOG           -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="adminLotRejectModal" style="display:none; z-index:10050;">
+            <div class="custom-modal-card" style="max-width:560px;">
+                <div class="modal-header-row">
+                    <h3 style="color:#DC2626; margin:0;">❌ लॉट नोंदणी नाकारा (Reject Lot & Notify Farmer)</h3>
+                    <button class="modal-close-btn" id="closeAdminLotRejectModalBtn">✕</button>
+                </div>
+                <div style="margin:12px 0;">
+                    <p style="font-size:0.85rem; color:#475569; margin-bottom:12px;">
+                        शेतकऱ्याला सौजन्यपूर्ण व मार्गदर्शक संदेश पाठवण्यासाठी कारण निवडा आणि प्रशासकीय शेरा लिहा:
+                    </p>
+                    
+                    <label style="font-size:0.82rem; font-weight:700; color:#1E293B;">मुख्य कारण निवडा (Select Reason):</label>
+                    <select id="adminRejectReasonSelect" style="width:100%; padding:8px; border:1px solid #CBD5E1; border-radius:8px; margin-top:4px; font-size:0.85rem;">
+                        <option value="फोटोंमध्ये मालाचा प्रकार स्पष्ट दिसत नाही किंवा गुणवत्ता निकष पूर्ण होत नाहीत">फोटोंमध्ये मालाचा प्रकार स्पष्ट दिसत नाही किंवा गुणवत्ता निकष पूर्ण होत नाहीत</option>
+                        <option value="मालाचा प्रकार निवडलेल्या पिकाशी जुळत नाही (Produce mismatch detected)">मालाचा प्रकार निवडलेल्या पिकाशी जुळत नाही (Produce mismatch)</option>
+                        <option value="अंतर्गत कट तपासणी फोटो अस्पष्ट किंवा चुकीचा आहे (Cross-section cut photo unclear)">अंतर्गत कट तपासणी फोटो अस्पष्ट किंवा चुकीचा आहे</option>
+                        <option value="वजन / प्रमाण किंवा किंमत अपेक्षेपेक्षा जास्त विसंगत आहे (Weight / price expectation discrepancy)">वजन / प्रमाण किंवा किंमत अपेक्षेपेक्षा जास्त विसंगत आहे</option>
+                        <option value="custom">इतर सविस्तर शेरा (Custom Remarks)</option>
+                    </select>
+
+                    <div style="margin-top:12px;">
+                        <label style="font-size:0.82rem; font-weight:700; color:#1E293B;">शेतकऱ्यासाठी प्रशासकीय शेरा (Admin Remarks for Farmer Inbox):</label>
+                        <textarea id="adminRejectRemarksInput" rows="3" placeholder="शेतकऱ्याला समजेल असा सौजन्यपूर्ण आणि मार्गदर्शक शेरा लिहा..." style="width:100%; padding:8px; border:1px solid #CBD5E1; border-radius:8px; font-size:0.85rem; margin-top:4px;"></textarea>
+                    </div>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #eee; padding-top:12px;">
+                    <button class="btn btn-secondary" id="cancelAdminLotRejectBtn">रद्द करा</button>
+                    <button class="btn btn-primary" id="confirmAdminLotRejectBtn" style="background:#DC2626; border-color:#DC2626; color:white;">
+                        📩 शेरा पाठवून लॉट नाकारा (Send Notice & Reject)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ADMIN INSPECTION MODAL 4: DISPUTE RESOLUTION INSPECTOR         -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="adminDisputeModal" style="display:none;">
+            <div class="custom-modal-card" style="max-width:720px;">
+                <div class="modal-header-row">
+                    <h3 style="color:#C62828;">⚠️ पुरावा-आधारित वाद निवारण (Dispute Case Review)</h3>
+                    <button class="modal-close-btn" id="closeAdminDisputeModalBtn">✕</button>
+                </div>
+                <div id="adminDisputeModalBody">
+                    <!-- Populated dynamically with certified lot baseline vs claim -->
+                </div>
+                <div style="margin-top:var(--s3);">
+                    <label style="font-size:0.85rem; font-weight:700;">प्रशासकीय निकाल व तोडगा (Resolution Notes):</label>
+                    <textarea id="adminDisputeResolutionInput" rows="3" placeholder="पुरावा पडताळणीनुसार अधिकृत निकाल येथे नोंदवा..." style="width:100%; border:1px solid #ccc; border-radius:8px; padding:8px;"></textarea>
+                </div>
+                <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:var(--s4); border-top:1px solid #eee; padding-top:12px;">
+                    <button class="btn btn-secondary" id="admDisputeCloseBtn">रद्द करा</button>
+                    <button class="btn btn-primary" id="admDisputeResolveBtn" style="background:#2E7D32; border-color:#2E7D32;">✅ वाद सोडवा (Mark Resolved)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- ADMIN INSPECTION MODAL 5: USER STATUS & INTERNAL NOTES         -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="adminUserModal" style="display:none;">
+            <div class="custom-modal-card" style="max-width:550px;">
+                <div class="modal-header-row">
+                    <h3 style="color:var(--leaf-deep);">👤 युझर खाते व Distance्गत नोंदी (User Account & Notes)</h3>
+                    <button class="modal-close-btn" id="closeAdminUserModalBtn">✕</button>
+                </div>
+                <div id="adminUserModalBody">
+                    <!-- Dynamic user metadata & existing notes -->
+                </div>
+                <div style="margin-top:var(--s3);">
+                    <label style="font-size:0.85rem; font-weight:700;">नवीन Distance्गत नोंद जोडा (Internal Admin Note):</label>
+                    <textarea id="adminUserNoteInput" rows="2" placeholder="फक्त प्रशासकांना दिसणारी Distance्गत नोंद लिहा..." style="width:100%; border:1px solid #ccc; border-radius:8px; padding:8px;"></textarea>
+                    <button class="btn btn-secondary" id="adminAddNoteBtn" style="margin-top:6px; padding:6px 12px; font-size:0.82rem;">📝 नोंद सेव्ह करा</button>
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:var(--s4); border-top:1px solid #eee; padding-top:12px;">
+                    <button class="btn btn-secondary" id="adminToggleSuspendBtn" style="background:#FEE2E2; color:#DC2626; border-color:#FCA5A5;">⛔ खाते निलंबित करा</button>
+                    <button class="btn btn-primary" id="adminCloseUserModalBtn">पूर्ण झाले</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- MODAL: HOW NET REALIZATION IS CALCULATED (STAGE 4 DIFFERENTIATOR) -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="modalHowCalculated" style="display:none;">
+            <div class="custom-modal-card" style="max-width:740px;">
+                <div class="modal-header-row">
+                    <div>
+                        <h3 style="color:var(--leaf-deep); margin:0;">📊 निव्वळ प्राप्ती कशी मोजली जाते? (How Net Realization is Calculated)</h3>
+                        <p style="font-size:0.82rem; color:#666; margin:4px 0 0;">पारदर्शक गणितीय पद्धत: कच्चा बाजार भाव विरुद्ध प्रत्यक्ष शेतकरी निव्वळ परतावा</p>
+                    </div>
+                    <button class="modal-close-btn" onclick="closeHowCalculatedModal()">✕</button>
+                </div>
+
+                <!-- Mathematical Formula Banner -->
+                <div style="background:#F0FDF4; border:1px solid #BBF7D0; padding:14px 18px; border-radius:12px; margin:14px 0;">
+                    <div style="font-size:0.8rem; font-weight:800; color:#166534; text-transform:uppercase;">मूलभूत पारदर्शक सूत्र (Core Deterministic Formula):</div>
+                    <div style="font-size:1.02rem; font-weight:800; color:#0F172A; margin:8px 0; font-family:monospace; background:#fff; padding:8px 12px; border-radius:8px; border:1px solid #E2E8F0;">
+                        अंदाजे निव्वळ प्राप्ती = बेस Mandi Price + गुणवत्ता प्रिमियम + मागणी निर्देशांक - Transport खर्च - हाताळणी व सेस
+                    </div>
+                    <div style="font-size:0.82rem; color:#15803D;">
+                        <em>Estimated Net Realization = Base APMC Price + Quality Adj + Buyer Demand Index - Transport Cost - Storage/Mandi Fees</em>
+                    </div>
+                </div>
+
+                <!-- 4-Opportunity Comparison Scenario -->
+                <div style="margin:16px 0;">
+                    <h4 style="font-size:0.95rem; color:#1E293B; margin-bottom:8px;">💡 ४ विक्री संधींची वास्तववादी तुलना (Side-by-Side 4-Pathway Opportunity Comparison):</h4>
+                    <div class="comparison-table-wrapper">
+                        <table class="comparison-table" style="font-size:0.82rem;">
+                            <thead>
+                                <tr>
+                                    <th>विक्री पर्याय (Pathway)</th>
+                                    <th>कच्चा भाव (Gross)</th>
+                                    <th>Transport खर्च</th>
+                                    <th>सेस व हाताळणी</th>
+                                    <th>निव्वळ प्राप्ती (Net Realization)</th>
+                                    <th>पेमेंट व जोखीम</th>
+                                    <th>तुलना निकाल</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>🏛️ पर्याय A: स्थानिक मंडई (Lasalgaon APMC)</strong>
+                                        <div style="font-size:0.72rem; color:#666;">Distance: २८ किमी • ५०० किलो</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:700;">₹ ३४.००/kg</div>
+                                        <div style="font-size:0.7rem; color:#666;">(₹ ३,४००/qtl)</div>
+                                    </td>
+                                    <td style="color:#DC2626;">-₹ ०.८०/kg</td>
+                                    <td style="color:#DC2626;">-₹ ०.४०/kg</td>
+                                    <td>
+                                        <div style="font-weight:900; color:#15803D; font-size:0.95rem;">₹ ३२.८०/kg</div>
+                                        <div style="font-size:0.7rem; color:#166534;">एकूण: ₹ १६,४००</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:0.75rem;">⚡ त्याच दिवशी रोख</div>
+                                        <span style="background:#FEF3C7; color:#92400E; padding:1px 5px; border-radius:4px; font-size:0.68rem; font-weight:700;">मध्यम जोखीम</span>
+                                    </td>
+                                    <td><span style="background:#E2E8F0; padding:2px 6px; border-radius:8px; font-size:0.72rem; font-weight:700;">स्थानिक पर्याय</span></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>🏛️ पर्याय B: दूरचा प्रमुख बाजार (Vashi APMC)</strong>
+                                        <div style="font-size:0.72rem; color:#666;">Distance: १६५ किमी • सिंगल ट्रिप</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:700; color:#2563EB;">₹ ३८.००/kg</div>
+                                        <div style="font-size:0.7rem; color:#666;">(₹ ३,८००/qtl)</div>
+                                    </td>
+                                    <td style="color:#DC2626;">-₹ २.८०/kg</td>
+                                    <td style="color:#DC2626;">-₹ ०.५०/kg</td>
+                                    <td>
+                                        <div style="font-weight:900; color:#15803D; font-size:0.95rem;">₹ ३४.७०/kg</div>
+                                        <div style="font-size:0.7rem; color:#166534;">एकूण: ₹ १७,३५०</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:0.75rem;">⏱️ २४-४८ तास</div>
+                                        <span style="background:#FEE2E2; color:#991B1B; padding:1px 5px; border-radius:4px; font-size:0.68rem; font-weight:700;">मध्यम-जास्त जोखीम</span>
+                                    </td>
+                                    <td><span style="background:#FEF9C3; color:#854D0E; padding:2px 6px; border-radius:8px; font-size:0.72rem; font-weight:700;">Transport महाग</span></td>
+                                </tr>
+                                <tr style="background:#F0FDF4; font-weight:700;">
+                                    <td>
+                                        <strong>🤝 पर्याय C: सत्यापित थेट खरेदीदार (Sahyadri Agro)</strong>
+                                        <div style="font-size:0.72rem; color:#166534;">शेतावर थेट पिकअप (Farm-gate)</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:800; color:#166534;">₹ ३७.५०/kg</div>
+                                        <div style="font-size:0.7rem; color:#166534;">(₹ ३,७५०/qtl)</div>
+                                    </td>
+                                    <td style="color:#16A34A;">₹ ०.०० (मोफत)</td>
+                                    <td style="color:#16A34A;">₹ ०.००</td>
+                                    <td>
+                                        <div style="font-weight:900; color:#166534; font-size:1.05rem;">₹ ३७.५०/kg</div>
+                                        <div style="font-size:0.7rem; color:#166534;">एकूण: ₹ १८,७५०</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:0.75rem;">🔒 १२ तास (एस्क्रो)</div>
+                                        <span style="background:#DCFCE7; color:#166534; padding:1px 5px; border-radius:4px; font-size:0.68rem; font-weight:700;">किमान जोखीम</span>
+                                    </td>
+                                    <td><span style="background:#DCFCE7; color:#166534; padding:3px 8px; border-radius:8px; font-size:0.75rem; font-weight:800;">⭐ सर्वोत्तम निव्वळ परतावा (+₹२,३५०)</span></td>
+                                </tr>
+                                <tr style="background:#F8FAFC;">
+                                    <td>
+                                        <strong>🚚 पर्याय D: स्मार्ट Transport पूलिंग (Vashi APMC)</strong>
+                                        <div style="font-size:0.72rem; color:#475569;">१०-टन शेअर्ड पूल • ६०% बचत</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-weight:700; color:#2563EB;">₹ ३८.००/kg</div>
+                                        <div style="font-size:0.7rem; color:#666;">(₹ ३,८००/qtl)</div>
+                                    </td>
+                                    <td style="color:#0284C7;">-₹ १.१०/kg</td>
+                                    <td style="color:#DC2626;">-₹ ०.४०/kg</td>
+                                    <td>
+                                        <div style="font-weight:900; color:#0369A1; font-size:0.95rem;">₹ ३६.५०/kg</div>
+                                        <div style="font-size:0.7rem; color:#0369A1;">एकूण: ₹ १८,२५०</div>
+                                    </td>
+                                    <td>
+                                        <div style="font-size:0.75rem;">⏱️ २४ तास (FPO)</div>
+                                        <span style="background:#E0F2FE; color:#0369A1; padding:1px 5px; border-radius:4px; font-size:0.68rem; font-weight:700;">कमी-मध्यम</span>
+                                    </td>
+                                    <td><span style="background:#E0F2FE; color:#0369A1; padding:2px 6px; border-radius:8px; font-size:0.72rem; font-weight:700;">पूलिंग फायदा (+₹१,८५०)</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Key Transparency Assumptions -->
+                <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:12px 14px; font-size:0.8rem; color:#475569;">
+                    <div style="font-weight:800; color:#334155; margin-bottom:4px;">🔍 गणना गृहितके व पारदर्शकता (Assumptions & Disclaimers):</div>
+                    <ul style="margin:0; padding-left:16px; line-height:1.5;">
+                        <li><strong>Transport खर्च:</strong> प्रमाणित व्यावसायिक मालTransport दर व प्रत्यक्ष Distanceावर आधारित (LTL इंडेक्स).</li>
+                        <li><strong>गुणवत्ता प्रिमियम:</strong> Grade A (+१०% प्रिमियम), Grade B (०% मानक), Grade C (-१५% कपात).</li>
+                        <li><strong>मंडी सेस व हाताळणी:</strong> APMC नियम व वजन-काटा शुल्कानुसार सरासरी ₹०.४०/किलो.</li>
+                        <li><strong>पारदर्शकता नियम:</strong> या सर्व अंदाज आकडेवारी शेतकरी निर्णय तुलना करण्यासाठी असून कोणतीही लपवलेली कपात केली जात नाही.</li>
+                    </ul>
+                </div>
+
+                <div style="display:flex; justify-content:flex-end; margin-top:14px;">
+                    <button type="button" class="btn btn-primary" onclick="closeHowCalculatedModal()">समजले (Close)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- MODAL: OFFICIAL AGRICULTURAL QUALITY CERTIFICATE & INVOICE     -->
+        <!-- ============================================================== -->
+        <div class="custom-modal-overlay" id="officialCertModal" style="display:none;">
+            <div class="custom-modal-card" style="max-width:820px; padding:0; background:transparent; border:none; box-shadow:none;">
+                <div class="official-cert-card" id="certPrintArea">
+                    <!-- Certificate Header -->
+                    <div class="cert-header">
+                        <div class="cert-emblem-area">
+                            <div class="cert-emblem">🇮🇳</div>
+                            <div class="cert-title-block">
+                                <h2 id="modalCertHeaderTitle">किसान ट्रस्ट अधिकृत कृषी गुणवत्ता प्रमाणपत्र</h2>
+                                <p id="modalCertHeaderSub">Agmarknet & National Horticulture Board (NHB) Standards Compliant</p>
+                            </div>
+                        </div>
+                        <div class="cert-badge-stamp">
+                            <span>✓ APMC प्रमाणित</span>
+                            <div style="font-size:0.65rem; color:#666; font-weight:normal;">ISO 9001:2015</div>
+                        </div>
+                    </div>
+
+                    <!-- Certificate Metadata Grid -->
+                    <div class="cert-field-grid">
+                        <div class="cert-field-item">
+                            <label>लॉट ओळख क्रमांक (Lot ID)</label>
+                            <strong id="certLotId">LOT-2026-089101</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>शेतकऱ्याचे नाव व गाव</label>
+                            <strong id="certFarmerName">रमेश मारुती पाटील (निफाड, नाशिक)</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>पीक व वाण (Crop & Variety)</label>
+                            <strong id="certCropVariety">टोमॅटो - हिमसोना संकरित</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>प्रमाणित गुणवत्ता दर्जा (AI Grade)</label>
+                            <strong id="certGrade" style="color:#15803D;">Grade A (९४% ताजेपणा)</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>एकूण वजन (Quantity)</label>
+                            <strong id="certQuantity">५०० किलो (500 kg)</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>काढणी तारीख व शेल्फ लाइफ</label>
+                            <strong id="certHarvestShelf">2026-08-29 (८ दिवस सुरक्षित)</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>Distance्गत कट तपासणी (Cut Scan)</label>
+                            <strong id="certCutScan">✓ Verified No Internal Defect</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>अंदाजे निव्वळ प्राप्ती (Net Realization)</label>
+                            <strong id="certNetRate" style="color:#0D5C3A;">₹ ३६.०० / किलो</strong>
+                        </div>
+                        <div class="cert-field-item">
+                            <label>एकूण प्रमाणित लॉट मूल्य</label>
+                            <strong id="certTotalValue" style="color:#15803D; font-size:1.05rem;">₹ १८,०००</strong>
+                        </div>
+                    </div>
+
+                    <!-- 4-Angle Verified Image Thumbnails -->
+                    <div style="margin:14px 0;">
+                        <div style="font-size:0.75rem; font-weight:800; color:#475569; text-transform:uppercase; margin-bottom:6px;">
+                            प्रमाणित ४-कोनीय तपासणी छायाचित्रे (Certified 4-Angle Image Audit):
+                        </div>
+                        <div class="inspect-image-strip" id="certImageStrip">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Footer Stamps & QR Code -->
+                    <div class="cert-stamps-row">
+                        <div class="cert-qr-area">
+                            <div class="cert-qr-box">
+                                <div>📱<br>QR VERIFY</div>
+                            </div>
+                            <div>
+                                <strong style="display:block; font-size:0.8rem; color:#0F172A;">डिजिटल स्वाक्षरी व एस्क्रो लॉक</strong>
+                                <span style="font-size:0.72rem; color:#64748B;">SHA-256: 8f9b...a102 | Timestampted</span>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:0.75rem; color:#64748B;">अधिकृत तपासणी अधिकारी / AI प्रणाली</div>
+                            <strong style="font-size:0.85rem; color:#0D5C3A;">KisanTrust Verified Quality Engine</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Print & Close Action Buttons -->
+                <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
+                    <button type="button" class="btn btn-secondary" onclick="closeOfficialCertificate()">✕ बंद करा (Close)</button>
+                    <button type="button" class="btn btn-primary" onclick="window.print()">🖨️ प्रिंट / PDF डाउनलोड करा (Print Certificate)</button>
+                </div>
+            </div>
+        </div>
 
         <!-- LOADING OVERLAY -->
         <div class="loading-overlay" id="loadingOverlay" style="display:none">
             <div class="loading-card">
                 <div class="loading-spinner"></div>
                 <div class="loading-animation-bar"></div>
-                <p class="loading-text" id="loadingText">🔍 AI is analyzing your vegetables...</p>
+                <p class="loading-text" id="loadingText">🔍 AI पिकाचे विश्लेषण करत आहे...</p>
             </div>
         </div>
 
         <!-- FOOTER -->
         <footer class="footer">
             <div class="footer-content">
-                <div class="footer-brand">🌱 Kisan Trust</div>
+                <div class="footer-brand">🌱 KisanTrust</div>
                 <div class="footer-links">
-                    <span>📞 Support: 1800-123-4567</span>
-                    <span>📧 Email: help@kisantrust.org</span>
-                    <span>📍 Available in 6 languages</span>
+                    <span>📞 शेतकरी हेल्पलाइन: 1800-123-4567</span>
+                    <span>📧 ईमेल: help@kisantrust.org</span>
+                    <span>📍 भाषा: मराठी, हिंदी, English</span>
                 </div>
                 <div class="footer-note">
-                    Empowering farmers with transparent, AI-powered pricing since 2024
+                    Smart India Hackathon 2024 | Problem Statement 6132 | AI-Powered Market Intelligence & Farm-to-Buyer Network
                 </div>
             </div>
         </footer>
     </main>
 
-    <script src="app.js"></script>
+    <!-- Firebase Web SDK (Cloud Firestore & Auth & Analytics for SIH 2026 Live Database) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+
+    <!-- KisanTrust Standalone Universal Bundle (Supports both file:/// and http://) -->
+    <script src="bundle.js"></script>
 </body>
 
 </html>

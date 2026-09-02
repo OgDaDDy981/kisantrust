@@ -1,0 +1,104 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+    
+    function isAdmin() {
+      return isAuthenticated() && 
+        (request.auth.token.role == 'admin' || request.auth.token.role == 'super_admin');
+    }
+
+    // 1. User Profiles & Accounts
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId) || isAdmin();
+    }
+
+    // 2. Farmer Detailed Profiles
+    match /farmerProfiles/{farmerId} {
+      allow read: if true; // Public verified credentials for buyers
+      allow write: if isOwner(farmerId) || isAdmin();
+    }
+
+    // 3. Buyer Detailed Profiles
+    match /buyerProfiles/{buyerId} {
+      allow read: if true; // Public verified business details for farmers
+      allow write: if isOwner(buyerId) || isAdmin();
+    }
+
+    // 4. Digital Agricultural Lots (Farmer Listings)
+    match /lots/{lotId} {
+      allow read: if true; // Public market listings
+      allow create: if isAuthenticated();
+      allow update, delete: if isOwner(resource.data.farmerId) || isAdmin();
+    }
+
+    // 5. Mandi Price Benchmarks (Agmarknet & APMC Data)
+    match /mandiBenchmarks/{mandiId} {
+      allow read: if true; // Public price discovery
+      allow write: if isAdmin();
+    }
+
+    // 6. Verified Buyer Demands (Institutional Procurement)
+    match /buyerDemands/{demandId} {
+      allow read: if true; // Public demands for farmer discovery
+      allow create: if isAuthenticated();
+      allow update, delete: if isOwner(resource.data.buyerId) || isAdmin();
+    }
+
+    // 7. Smart Village Pooling Clusters
+    match /poolingClusters/{clusterId} {
+      allow read: if true;
+      allow write: if isAuthenticated() || isAdmin();
+    }
+
+    // 8. Transactions & Escrow Contracts
+    match /transactions/{txnId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.farmerId || 
+        request.auth.uid == resource.data.buyerId || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAuthenticated() && (
+        request.auth.uid == resource.data.farmerId || 
+        request.auth.uid == resource.data.buyerId || 
+        isAdmin()
+      );
+    }
+
+    // 9. Dispute Resolution Cases
+    match /disputes/{disputeId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == resource.data.complainantId || 
+        request.auth.uid == resource.data.respondentId || 
+        isAdmin()
+      );
+      allow create: if isAuthenticated();
+      allow update: if isAdmin();
+    }
+
+    // 10. Audit Logs & System Activity
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow write: if isAuthenticated() || isAdmin();
+    }
+
+    // 11. In-App Notifications
+    match /notifications/{notifId} {
+      allow read, write: if isAuthenticated() && (
+        request.auth.uid == resource.data.userId || 
+        request.auth.uid == request.resource.data.userId || 
+        isAdmin()
+      );
+    }
+  }
+}

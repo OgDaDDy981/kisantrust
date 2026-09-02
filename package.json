@@ -1,0 +1,29 @@
+{
+  "name": "kisantrust",
+  "version": "2.0.0",
+  "description": "KisanTrust - SIH26132 Strengthening Market Linkages and Price Discovery for Farmers",
+  "type": "module",
+  "main": "bundle.js",
+  "scripts": {
+    "start": "npx -y firebase-tools@latest emulators:start --only hosting,firestore --project sih2026-622a0",
+    "serve": "npx -y firebase-tools@latest serve --only hosting --port 5000 --project sih2026-622a0",
+    "emulators": "npx -y firebase-tools@latest emulators:start --project sih2026-622a0",
+    "deploy": "npx -y firebase-tools@latest deploy --project sih2026-622a0",
+    "build": "node scripts/build_bundle.js",
+    "test": "node test_stage1.js && node test_stage2.js && node test_stage3.js && node test_stage4.js && node test_stage5.js && node test_stage6.js && node test_stage7.js && node test_browser_bundle.js",
+    "test:all": "node test_phase2.js && node test_phase3.js && node test_phase4.js && node test_phase5.js && node test_phase6.js && node test_phase7.js && node test_phase8.js && node test_phase9.js && node test_phase10.js && node test_phase11.js && node test_stage1.js && node test_stage2.js && node test_stage3.js && node test_stage4.js && node test_stage5.js && node test_stage6.js && node test_stage7.js && node test_browser_bundle.js"
+  },
+  "keywords": [
+    "sih2024",
+    "sih2026",
+    "smart-india-hackathon",
+    "agriculture",
+    "market-linkage",
+    "price-discovery",
+    "farmer-empowerment",
+    "firebase",
+    "firestore"
+  ],
+  "author": "KisanTrust Team",
+  "license": "MIT"
+}
