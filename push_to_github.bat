@@ -14,7 +14,7 @@ set "PATH=C:\Program Files\Git\cmd;C:\Users\SHASHANK\AppData\Local\Programs\Git\
 echo Checking Git status...
 git status -s
 echo.
-echo Pushing commits to origin main (https://github.com/OgDaDDy981/KisanTrust.git) ...
+echo Pushing commits to origin main (https://github.com/OgDaDDy981/kisantrust.git) ...
 echo.
 git push origin main
 
@@ -22,7 +22,7 @@ if %ERRORLEVEL% EQU 0 (
     echo.
     echo ========================================================
     echo  [SUCCESS] All latest code is successfully pushed!
-    echo  Repository: https://github.com/OgDaDDy981/KisanTrust
+    echo  Repository: https://github.com/OgDaDDy981/kisantrust
     echo ========================================================
 ) else (
     echo.
