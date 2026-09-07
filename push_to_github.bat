@@ -9,7 +9,7 @@ echo.
 
 cd /d "%~dp0"
 
-set "PATH=C:\Users\SHASHANK\AppData\Local\Programs\Git\cmd;C:\Users\SHASHANK\AppData\Local\Programs\Git\mingw64\bin;%PATH%"
+set "PATH=C:\Program Files\Git\cmd;C:\Users\SHASHANK\AppData\Local\Programs\Git\cmd;C:\Users\SHASHANK\AppData\Local\Programs\Git\mingw64\bin;%PATH%"
 
 echo Checking Git status...
 git status -s
