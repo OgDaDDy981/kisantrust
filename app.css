@@ -4410,4 +4410,480 @@ body.role-super_admin .admin-only {
     transform: scale(1.15);
 }
 
-
+/* ============================================================== */
+/* MOBILE-FIRST REDESIGN — Stage 2                                */
+/* Bottom Nav, Compact Header, Responsive Grids, Modals, Forms    */
+/* ============================================================== */
+
+/* --- Mobile Bottom Navigation Bar --- */
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-top: 1px solid #E2E8F0;
+    padding: 4px 0 env(safe-area-inset-bottom, 6px);
+    z-index: 9999;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.mob-nav-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 4px;
+    border: none;
+    background: transparent;
+    color: #94A3B8;
+    font-size: 0.65rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.15s ease;
+    min-width: 56px;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mob-nav-btn .mob-nav-icon {
+    font-size: 1.3rem;
+    line-height: 1;
+}
+
+.mob-nav-btn .mob-nav-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.mob-nav-btn.active {
+    color: #15803D;
+}
+
+.mob-nav-btn.active .mob-nav-icon {
+    transform: scale(1.1);
+}
+
+.mob-nav-btn.mob-nav-primary {
+    position: relative;
+}
+
+.mob-nav-btn.mob-nav-primary .mob-nav-icon {
+    background: linear-gradient(135deg, #15803D, #22C55E);
+    color: white;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    margin-top: -14px;
+    box-shadow: 0 4px 12px rgba(21,128,61,0.3);
+}
+
+.mob-nav-btn.mob-nav-primary.active .mob-nav-icon {
+    box-shadow: 0 4px 16px rgba(21,128,61,0.5);
+}
+
+/* --- TABLET BREAKPOINT (768px) --- */
+@media (max-width: 768px) {
+    /* Show mobile bottom nav, hide desktop top nav */
+    .mobile-bottom-nav {
+        display: flex;
+    }
+    .main-nav-container {
+        display: none;
+    }
+    
+    /* Add padding for bottom nav */
+    body {
+        padding-bottom: 72px;
+    }
+    
+    /* Compact header */
+    .header-container {
+        padding: 8px 12px;
+        flex-wrap: nowrap;
+    }
+    .helpline-badge {
+        display: none !important;
+    }
+    .language-indicator {
+        display: none;
+    }
+    .brand-name {
+        font-size: 1.35rem !important;
+    }
+    .tagline {
+        font-size: 0.68rem;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .header-actions-right {
+        gap: 6px;
+    }
+    .user-role-badge {
+        font-size: 0.72rem;
+        padding: 4px 8px;
+        max-width: 150px;
+    }
+    #userRoleDisplay {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .logout-mini-btn {
+        font-size: 0.85rem;
+        padding: 2px 4px;
+    }
+    .notification-bell-btn {
+        font-size: 1rem;
+        padding: 4px;
+    }
+    
+    /* Price ticker — thinner on mobile */
+    .mandi-ticker-bar {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    .ticker-label-badge {
+        font-size: 0.6rem;
+        padding: 2px 6px;
+    }
+    
+    /* Main content — tighter padding */
+    .main-content {
+        padding: 8px;
+        overflow-x: hidden;
+    }
+    
+    /* Dashboard hero — stack vertically */
+    .dashboard-hero-banner {
+        flex-direction: column;
+        padding: 14px;
+        gap: 10px;
+        text-align: center;
+    }
+    .dashboard-hero-banner h2 {
+        font-size: 1.15rem;
+    }
+    .hero-cta-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Cards — reduce padding */
+    .custom-card {
+        padding: 12px;
+        border-radius: 12px;
+    }
+    .welcome-message {
+        padding: 14px;
+    }
+    
+    /* Dashboard grid — single column on tablet */
+    .dashboard-cards-grid,
+    .kpi-summary-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    /* Snapshot price row */
+    .snapshot-price-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+    .snapshot-price-large {
+        font-size: 1.8rem;
+    }
+    
+    /* Opportunity card */
+    .opportunity-card {
+        padding: 12px;
+    }
+    .opportunity-badge-row {
+        font-size: 0.82rem;
+    }
+    
+    /* Market intel stats grid */
+    .market-summary-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    /* Image grid — 2 columns on tablet */
+    .image-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    /* Price grid, verification grid — single column */
+    .price-grid,
+    .verification-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Action buttons — stack vertically */
+    .price-actions,
+    .action-buttons,
+    .tx-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .price-actions .btn,
+    .action-buttons .btn,
+    .tx-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Transaction details — stack */
+    .transaction-details {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    /* Modals — slide up from bottom, full width */
+    .custom-modal-overlay {
+        align-items: flex-end;
+        padding: 0;
+    }
+    .custom-modal-box,
+    .custom-modal-card {
+        max-width: 100% !important;
+        width: 100% !important;
+        max-height: 92vh;
+        border-radius: 20px 20px 0 0;
+        margin: 0;
+        animation: slideUpModal 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .auth-modal-card {
+        max-width: 100% !important;
+        width: 100% !important;
+        border-radius: 20px 20px 0 0;
+    }
+    
+    /* Certificate modal — smaller on mobile */
+    .official-cert-card {
+        font-size: 0.78rem;
+        padding: 12px;
+    }
+    .cert-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 8px;
+    }
+    
+    /* Forms — prevent iOS zoom, larger touch targets */
+    input, select, textarea {
+        font-size: 16px !important;
+        padding: 12px;
+        border-radius: 10px;
+    }
+    .btn {
+        min-height: 44px;
+        padding: 12px 16px;
+        font-size: 0.88rem;
+    }
+    .btn-sm {
+        min-height: 38px;
+        padding: 8px 12px;
+    }
+    
+    /* Tables — horizontal scroll wrapper */
+    .table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -8px;
+        padding: 0 8px;
+    }
+    table {
+        font-size: 0.78rem;
+    }
+    table th, table td {
+        padding: 8px 6px;
+        white-space: nowrap;
+    }
+    
+    /* Admin tabs — horizontal scroll */
+    .admin-tabs {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        flex-wrap: nowrap;
+        scrollbar-width: none;
+    }
+    .admin-tabs::-webkit-scrollbar {
+        display: none;
+    }
+    .admin-tab-btn {
+        min-width: max-content;
+        white-space: nowrap;
+        font-size: 0.72rem;
+        padding: 8px 12px;
+    }
+    
+    /* Demand/buyer cards — tighter */
+    .demand-card {
+        padding: 12px;
+    }
+    .demand-card .demand-actions {
+        flex-direction: column;
+    }
+    
+    /* Pool cluster cards */
+    .pool-cluster-card {
+        padding: 12px;
+    }
+    
+    /* Footer */
+    .footer-links {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    /* Progress bar steps */
+    .progress-bar {
+        padding: 0;
+        overflow-x: auto;
+    }
+    .progress-step {
+        padding: 6px 10px;
+        min-width: max-content;
+    }
+    .step-label {
+        font-size: 0.65rem;
+    }
+    .progress-connector {
+        width: 12px;
+    }
+    
+    /* Toast notification — full width on mobile */
+    .toast-notification {
+        left: 8px;
+        right: 8px;
+        bottom: 80px; /* Above bottom nav */
+        max-width: none;
+        text-align: center;
+    }
+    
+    /* Notification drawer — full width */
+    .notification-drawer {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Loading overlay text */
+    .loading-overlay .loading-text {
+        font-size: 0.9rem;
+        padding: 0 20px;
+    }
+}
+
+/* --- PHONE BREAKPOINT (480px) --- */
+@media (max-width: 480px) {
+    .brand-name {
+        font-size: 1.15rem !important;
+    }
+    .tagline {
+        display: none;
+    }
+    
+    /* Image grid — single column on small phones */
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Market summary — single column */
+    .market-summary-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Smaller section headers */
+    .section-header-row h3 {
+        font-size: 1rem;
+    }
+    
+    /* Welcome message */
+    .welcome-message h2 {
+        font-size: 1.15rem;
+    }
+    .welcome-message p {
+        font-size: 0.82rem;
+    }
+    
+    /* Snapshot price */
+    .snapshot-price-large {
+        font-size: 1.5rem;
+    }
+    
+    /* Badge sizes */
+    .opp-badge {
+        font-size: 0.65rem;
+        padding: 2px 8px;
+    }
+    
+    /* KPI stat values */
+    .stat-value {
+        font-size: 1.2rem;
+    }
+    
+    /* Action tip box */
+    .action-tip-box {
+        font-size: 0.8rem;
+        padding: 10px;
+    }
+}
+
+/* --- SMALL PHONE BREAKPOINT (360px) --- */
+@media (max-width: 360px) {
+    .header-container {
+        padding: 6px 8px;
+    }
+    .brand-name {
+        font-size: 1rem !important;
+    }
+    .user-role-badge {
+        display: none;
+    }
+    .mob-nav-btn .mob-nav-label {
+        font-size: 0.58rem;
+    }
+    .mob-nav-btn .mob-nav-icon {
+        font-size: 1.1rem;
+    }
+    .mob-nav-btn.mob-nav-primary .mob-nav-icon {
+        width: 36px;
+        height: 36px;
+        margin-top: -10px;
+    }
+    .custom-card {
+        padding: 10px;
+        border-radius: 10px;
+    }
+    .dashboard-hero-banner h2 {
+        font-size: 1rem;
+    }
+}
+
+/* --- Modal slide-up animation --- */
+@keyframes slideUpModal {
+    from {
+        transform: translateY(100%);
+        opacity: 0.8;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

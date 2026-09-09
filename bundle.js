@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-09T16:12:12.447Z
+ * Auto-generated on 2026-09-09T16:26:21.398Z
  */
 (function() {
     'use strict';
@@ -10904,6 +10904,11 @@ function navigateTo(viewId) {
         if (btn.dataset.view === viewId) {
             btn.classList.add('active');
         }
+    });
+
+    // Sync mobile bottom nav active state
+    document.querySelectorAll('.mob-nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === viewId);
     });
 
     if (viewId === 'viewDashboard') renderDashboard();

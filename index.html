@@ -330,7 +330,7 @@
                         </div>
                         <div class="lot-form-field">
                             <label for="inputQuantity" id="lblQuantity">Total Quantity (kg)</label>
-                            <input type="number" id="inputQuantity" value="500" min="10" step="10">
+                            <input type="number" id="inputQuantity" value="500" min="10" step="10" inputmode="numeric">
                         </div>
                         <div class="lot-form-field">
                             <label for="inputHarvestDate" id="lblHarvestDate">Harvest Date</label>
@@ -1258,7 +1258,7 @@
                         </div>
                         <div class="lot-form-field">
                             <label id="lblModalQty">आवश्यक वजन (किलो)</label>
-                            <input type="number" id="modalDemandQty" value="10000" min="500" step="500" required>
+                            <input type="number" id="modalDemandQty" value="10000" min="500" step="500" required inputmode="numeric">
                         </div>
                         <div class="lot-form-field">
                             <label id="lblModalMinGrade">किमान आवश्यक गुणवत्ता दर्जा</label>
@@ -1270,11 +1270,11 @@
                         </div>
                         <div class="lot-form-field">
                             <label id="lblModalOfferPrice">ऑफर खरेदी दर (₹ / किलो)</label>
-                            <input type="number" id="modalOfferPrice" value="37.5" step="0.5" required>
+                            <input type="number" id="modalOfferPrice" value="37.5" step="0.5" required inputmode="decimal">
                         </div>
                         <div class="lot-form-field">
                             <label id="lblModalMaxPrice">कमाल खरेदी मर्यादा (Max Price Range)</label>
-                            <input type="number" id="modalMaxPrice" value="39.5" step="0.5" placeholder="₹ 39.50/kg">
+                            <input type="number" id="modalMaxPrice" value="39.5" step="0.5" placeholder="Optional" inputmode="decimal">
                         </div>
                         <div class="lot-form-field">
                             <label id="lblModalLocation">पसंतीचे खरेदी हब / ठिकाण</label>
@@ -1329,7 +1329,7 @@
                             आपला प्रति-प्रस्ताव / अंतिम दर (Counter-Offer in ₹/kg):
                         </label>
                         <div class="counter-input-row">
-                            <input type="number" id="counterOfferPriceInput" value="38.0" step="0.5">
+                            <input type="number" id="counterOfferPriceInput" value="38.0" step="0.5" inputmode="decimal">
                             <button class="btn btn-secondary" id="sendCounterOfferBtn" type="button">
                                 📤 <span id="btnSendCounterText">प्रति-प्रस्ताव पाठवा</span>
                             </button>
@@ -1707,7 +1707,7 @@
                         <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--s2); margin-top:var(--s3);">
                             <div class="lot-form-field">
                                 <label id="lblRegPhone" style="color:#374151; font-weight:700;">Mobile Number</label>
-                                <input type="tel" id="regPhoneInput" placeholder="9822456789" required>
+                                <input type="tel" id="regPhoneInput" placeholder="9822456789" required inputmode="tel">
                             </div>
                             <div class="lot-form-field">
                                 <label id="lblRegEmail" style="color:#374151; font-weight:700;">Email ID</label>
@@ -2456,6 +2456,29 @@
                 </div>
             </div>
         </footer>
+    <!-- MOBILE BOTTOM NAVIGATION BAR -->
+    <nav class="mobile-bottom-nav" id="mobileBottomNav" aria-label="Mobile Navigation">
+        <button class="mob-nav-btn active" data-view="viewDashboard" onclick="navigateTo('viewDashboard')">
+            <span class="mob-nav-icon">🏠</span>
+            <span class="mob-nav-label" id="mobNavHome">Home</span>
+        </button>
+        <button class="mob-nav-btn" data-view="viewMarketIntel" onclick="navigateTo('viewMarketIntel')">
+            <span class="mob-nav-icon">📊</span>
+            <span class="mob-nav-label" id="mobNavMarket">Market</span>
+        </button>
+        <button class="mob-nav-btn mob-nav-primary" data-view="viewAssessLot" onclick="navigateTo('viewAssessLot')">
+            <span class="mob-nav-icon">➕</span>
+            <span class="mob-nav-label" id="mobNavNewLot">New Lot</span>
+        </button>
+        <button class="mob-nav-btn" data-view="viewBuyerMarket" onclick="navigateTo('viewBuyerMarket')">
+            <span class="mob-nav-icon">🤝</span>
+            <span class="mob-nav-label" id="mobNavBuyers">Buyers</span>
+        </button>
+        <button class="mob-nav-btn" data-view="viewTransactions" onclick="navigateTo('viewTransactions')">
+            <span class="mob-nav-icon">📜</span>
+            <span class="mob-nav-label" id="mobNavDeals">Deals</span>
+        </button>
+    </nav>
     </main>
 
     <!-- Firebase Web SDK (Cloud Firestore & Auth & Analytics for SIH 2026 Live Database) -->

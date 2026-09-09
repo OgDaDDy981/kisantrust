@@ -260,6 +260,11 @@ function navigateTo(viewId) {
         }
     });
 
+    // Sync mobile bottom nav active state
+    document.querySelectorAll('.mob-nav-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.view === viewId);
+    });
+
     if (viewId === 'viewDashboard') renderDashboard();
     else if (viewId === 'viewMyLots') renderMyLots();
     else if (viewId === 'viewMarketIntel') renderMarketIntel(AppState.selectedCropFilter);
