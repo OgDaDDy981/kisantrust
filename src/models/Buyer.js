@@ -8,7 +8,7 @@ export class BuyerProfile {
      */
     constructor(data = {}) {
         this.buyerId = data.buyerId || `buyer_${Date.now().toString().slice(-4)}`;
-        this.companyName = data.companyName || 'Sahyadri Agro Processing';
+        this.companyName = data.companyName || 'KisanMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor'; 
         // 'Wholesaler' | 'Retailer' | 'Food Processor' | 'Restaurant' | 'Institutional Buyer' | 'Exporter' | 'Aggregator'
         this.contactPerson = data.contactPerson || 'Vilas Shinde';
@@ -17,7 +17,7 @@ export class BuyerProfile {
         this.district = data.district || 'Nashik';
         this.state = data.state || 'Maharashtra';
         this.pincode = data.pincode || '422001';
-        this.gstin = data.gstin || '27AABCS1429B1Z';
+        this.gstin = data.gstin || '00XXXXX0000X0XX';
         this.verified = Boolean(data.verified ?? true);
         this.verificationStatus = data.verificationStatus || (this.verified ? 'VERIFIED' : 'PENDING_VERIFICATION');
         this.reliabilityScore = Number(data.reliabilityScore) || 4.8; // 0.0 to 5.0
@@ -34,7 +34,7 @@ export class BuyerDemand {
     constructor(data = {}) {
         this.demandId = data.demandId || `DEM-${new Date().getFullYear()}-${Date.now().toString().slice(-5)}`;
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'Sahyadri Agro Processing';
+        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor';
         this.verifiedBuyer = Boolean(data.verifiedBuyer ?? true);
         this.reliabilityScore = Number(data.reliabilityScore) || 4.8;

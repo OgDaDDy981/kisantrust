@@ -106,7 +106,7 @@ export const mockBuyerDemands = [
     {
         demandId: "DEM-9081",
         buyerId: "buyer_sahyadri",
-        buyerName: "Sahyadri Farmer Producer Co.",
+        buyerName: "KisanMitra Producer Co.",
         companyType: "FPO / Processor",
         verifiedBuyer: true,
         requiredCrop: "Tomato",
@@ -123,7 +123,7 @@ export const mockBuyerDemands = [
     {
         demandId: "DEM-9082",
         buyerId: "buyer_reliance",
-        buyerName: "Reliance Retail Fresh Hub",
+        buyerName: "MahaFresh Fresh Hub",
         companyType: "Organized Retailer",
         verifiedBuyer: true,
         requiredCrop: "Onion",

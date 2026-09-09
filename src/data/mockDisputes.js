@@ -8,7 +8,7 @@ export const mockDisputes = [
     disputeId: "DSP-2026-00201",
     transactionId: "TXN-2026-981044",
     filedBy: "buyer_reliance",
-    filedByName: "Reliance Retail",
+    filedByName: "MahaFresh",
     filedByRole: "BUYER",
     category: "QUALITY_MISMATCH",
     description: "Received produce graded as Grade B but lot was certified as Grade A. 15% of potatoes show green skin discoloration.",

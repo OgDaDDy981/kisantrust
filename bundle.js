@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-09T15:20:09.017Z
+ * Auto-generated on 2026-09-09T16:12:12.447Z
  */
 (function() {
     'use strict';
@@ -301,7 +301,7 @@ const I18N_DICTIONARY = {
         },
         payment: {
             modalTitle: "किसान ट्रस्ट एस्क्रो पेमेंट (Escrow Checkout)",
-            modalSubtitle: "१००% सुरक्षित बँक एस्क्रो संरक्षण (100% Escrow Protected)",
+            modalSubtitle: "१००% सुरक्षित बँक एस्क्रो संरक्षण (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "वजन (Quantity)",
             pricePerKg: "दर (Price / kg)",
@@ -334,7 +334,7 @@ const I18N_DICTIONARY = {
             days: "दिवस",
             kg: "किलो",
             rupeesPerKg: "₹ / किलो",
-            demoDataBadge: "प्रमाणित Agmarknet व APMC डेटा",
+            demoDataBadge: "APMC Market Benchmark",
             statusListed: "नोंदणीकृत (Listed)",
             statusMatched: "खरेदीदार मिळाला (Matched)",
             statusPooled: "पूलिंगमध्ये सहभागी (Pooled)",
@@ -373,7 +373,7 @@ const I18N_DICTIONARY = {
             btnViewInvoice: "📄 शासकीय टॅक्स इनव्हॉइस व बिल",
             certTitle: "शासकीय कृषी गुणवत्ता व शेती लॉट प्रमाणपत्र",
             certSubtitle: "भारत सरकार / APMC व राष्ट्रीय फलोत्पादन मंडळ (NHB) मानकांनुसार प्रमाणित",
-            govtApmcStamp: "✓ APMC Agmarknet प्रमाणित",
+            govtApmcStamp: "APMC Market Data Referenced",
             qrVerification: "QR कोड स्कॅन करून मूळ डिजिटल लॉटची सत्यता पडताळा"
         }
     },
@@ -661,7 +661,7 @@ const I18N_DICTIONARY = {
         },
         payment: {
             modalTitle: "किसान ट्रस्ट एस्क्रो भुगतान (Escrow Checkout)",
-            modalSubtitle: "१००% सुरक्षित बैंक एस्क्रो सुरक्षा (100% Escrow Protected)",
+            modalSubtitle: "१००% सुरक्षित बैंक एस्क्रो सुरक्षा (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "मात्रा (Quantity)",
             pricePerKg: "दर (Price / kg)",
@@ -733,7 +733,7 @@ const I18N_DICTIONARY = {
             btnViewInvoice: "📄 आधिकारिक टैक्स इनवॉइस एवं बिल",
             certTitle: "आधिकारिक कृषि गुणवत्ता एवं लॉट प्रमाण पत्र",
             certSubtitle: "भारत सरकार / APMC एवं राष्ट्रीय बागवानी बोर्ड (NHB) मानकों के अनुरूप प्रमाणित",
-            govtApmcStamp: "✓ APMC Agmarknet प्रमाणित",
+            govtApmcStamp: "APMC Market Data Referenced",
             qrVerification: "QR कोड स्कैन करके डिजिटल लॉट की प्रामाणिकता जांचें"
         }
     },
@@ -966,7 +966,7 @@ const I18N_DICTIONARY = {
             emptyNoBuyers: "No pending buyer verifications available.",
             emptyNoLots: "All digital lots are reviewed and approved!",
             emptyNoDemands: "All purchase demands are approved.",
-            emptyNoDisputes: "No active disputes found. Platform is 100% dispute-free!",
+            emptyNoDisputes: "No active disputes found. Platform is Dispute Resolution Available!",
             emptyNoRisk: "No active risk or fraud flags detected."
         },
         auth: {
@@ -1003,7 +1003,7 @@ const I18N_DICTIONARY = {
             lblCrops: "Primary Crops",
             lblAcres: "Farm Size (Acres)",
             lblCompanyName: "Company / Business Name",
-            placeholderCompany: "e.g. Sahyadri Agro Foods Pvt. Ltd.",
+            placeholderCompany: "e.g. KisanMitra Agro Foods Pvt. Ltd.",
             lblBuyerType: "Buyer Category",
             lblGstin: "GSTIN / Trade License",
             placeholderGstin: "27AABCS1429B1Z",
@@ -1021,7 +1021,7 @@ const I18N_DICTIONARY = {
         },
         payment: {
             modalTitle: "KisanTrust Escrow Checkout",
-            modalSubtitle: "100% Escrow Protected Banking Gateway",
+            modalSubtitle: "Secure Escrow Protection Banking Gateway",
             orderSummary: "Order Summary",
             quantity: "Quantity",
             pricePerKg: "Price / kg",
@@ -1054,7 +1054,7 @@ const I18N_DICTIONARY = {
             days: "days",
             kg: "kg",
             rupeesPerKg: "₹ / kg",
-            demoDataBadge: "Certified Agmarknet & APMC Live Data",
+            demoDataBadge: "APMC Market Benchmark",
             statusListed: "Listed",
             statusMatched: "Matched",
             statusPooled: "Pooled",
@@ -1092,8 +1092,8 @@ const I18N_DICTIONARY = {
             btnViewCert: "📜 View & Print Official Quality Certificate",
             btnViewInvoice: "📄 Official Commercial Tax Invoice & Bill",
             certTitle: "Official Agricultural Quality & Lot Certificate",
-            certSubtitle: "Certified under Agmarknet & National Horticulture Board (NHB) Standards",
-            govtApmcStamp: "✓ APMC Agmarknet Verified",
+            certSubtitle: "Market data sourced from Agmarknet",
+            govtApmcStamp: "APMC Market Data Referenced",
             qrVerification: "Scan QR Code to verify certified baseline data"
         }
     }
@@ -1273,7 +1273,7 @@ function applyDOMTranslations(lang = "Marathi (मराठी)") {
     if (lang === "English") {
         setTxt('dashDemandBadge', "High Demand");
         setTxt('dashPotentialBuyersCount', "3 Verified Buyers Active");
-        setTxt('dashActionRecommendation', "Direct trade with verified buyers like Sahyadri Agro or Reliance Fresh yields higher profits without intermediary commissions.");
+        setTxt('dashActionRecommendation', "Direct trade with verified buyers yields higher profits without intermediary commissions.");
         setTxt('snapTipBox', "💡 Mumbai and Vashi markets currently have highest demand for Grade A hybrid tomatoes.");
         setTxt('snapPerKgUnit', "/ kg (Tomato)");
     } else if (lang === "Hindi (हिंदी)") {
@@ -2010,7 +2010,7 @@ class FarmerProfile {
             primaryCrops: Array.isArray(data.farmDetails?.primaryCrops) ? data.farmDetails.primaryCrops : (data.primaryCrops || ['Tomato', 'Onion']),
             farmSizeAcres: Number(data.farmDetails?.farmSizeAcres ?? data.farmSizeAcres) || 4.5,
             productionCapacityTons: Number(data.farmDetails?.productionCapacityTons ?? data.productionCapacityTons) || 25,
-            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'Sahyadri Farmers Producer Co.'
+            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'KisanMitra Producer Co.'
         };
 
         this.verificationStatus = data.verificationStatus || (data.verified ? VERIFICATION_STATUS.VERIFIED : VERIFICATION_STATUS.PENDING_VERIFICATION);
@@ -2086,7 +2086,7 @@ class BuyerProfileRecord {
     constructor(data = {}) {
         this.userId = data.userId || data.buyerId || 'buyer_sahyadri';
         this.businessDetails = {
-            companyName: data.businessDetails?.companyName || data.companyName || 'Sahyadri Agro Processing Hub',
+            companyName: data.businessDetails?.companyName || data.companyName || 'KisanMitra Agro Processing Hub',
             buyerType: data.businessDetails?.buyerType || data.buyerType || data.companyType || 'Food Processor',
             contactPerson: data.businessDetails?.contactPerson || data.contactPerson || data.name || 'Amit Joshi',
             mobileNumber: data.businessDetails?.mobileNumber || data.phone || '+91 98230 44556',
@@ -2095,7 +2095,7 @@ class BuyerProfileRecord {
             district: data.businessDetails?.district || data.district || 'Nashik',
             state: data.businessDetails?.state || data.state || 'Maharashtra',
             pincode: data.businessDetails?.pincode || '422206',
-            gstin: data.businessDetails?.gstin || data.gstin || '27AABCS1429B1Z',
+            gstin: data.businessDetails?.gstin || data.gstin || '00XXXXX0000X0XX',
             primaryCommodities: Array.isArray(data.businessDetails?.primaryCommodities) ? data.businessDetails.primaryCommodities : (data.primaryCommodities || ['Tomato', 'Onion', 'Grapes']),
             expectedMonthlyVolumeTons: Number(data.businessDetails?.expectedMonthlyVolumeTons ?? data.expectedMonthlyVolumeTons) || 120
         };
@@ -2746,7 +2746,7 @@ class BuyerProfile {
      */
     constructor(data = {}) {
         this.buyerId = data.buyerId || `buyer_${Date.now().toString().slice(-4)}`;
-        this.companyName = data.companyName || 'Sahyadri Agro Processing';
+        this.companyName = data.companyName || 'KisanMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor'; 
         // 'Wholesaler' | 'Retailer' | 'Food Processor' | 'Restaurant' | 'Institutional Buyer' | 'Exporter' | 'Aggregator'
         this.contactPerson = data.contactPerson || 'Vilas Shinde';
@@ -2755,7 +2755,7 @@ class BuyerProfile {
         this.district = data.district || 'Nashik';
         this.state = data.state || 'Maharashtra';
         this.pincode = data.pincode || '422001';
-        this.gstin = data.gstin || '27AABCS1429B1Z';
+        this.gstin = data.gstin || '00XXXXX0000X0XX';
         this.verified = Boolean(data.verified ?? true);
         this.verificationStatus = data.verificationStatus || (this.verified ? 'VERIFIED' : 'PENDING_VERIFICATION');
         this.reliabilityScore = Number(data.reliabilityScore) || 4.8; // 0.0 to 5.0
@@ -2771,7 +2771,7 @@ class BuyerDemand {
     constructor(data = {}) {
         this.demandId = data.demandId || `DEM-${new Date().getFullYear()}-${Date.now().toString().slice(-5)}`;
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'Sahyadri Agro Processing';
+        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor';
         this.verifiedBuyer = Boolean(data.verifiedBuyer ?? true);
         this.reliabilityScore = Number(data.reliabilityScore) || 4.8;
@@ -2930,7 +2930,7 @@ class PoolingCluster {
         // Destination & Buyer Linkage
         this.destinationMarket = data.destinationMarket || 'Vashi APMC (Navi Mumbai)';
         this.destinationBuyerDemandId = data.destinationBuyerDemandId || null;
-        this.buyerName = data.buyerName || 'Sahyadri Agro Processing';
+        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
 
         // Logistics & Savings Breakdown
         this.individualFreightPerKg = Number(data.individualFreightPerKg) || 2.40; // 1-Ton Pickup rate
@@ -3008,7 +3008,7 @@ class TransactionRecord {
         this.farmerId = data.farmerId || 'farmer_mh_001';
         this.farmerName = data.farmerName || 'Ramesh Patil (रमेश पाटील)';
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'Sahyadri Agro Processing Hub';
+        this.buyerName = data.buyerName || 'KisanMitra Agro Processing Hub';
         
         // Commodity details
         this.cropType = data.cropType || 'Tomato';
@@ -3042,7 +3042,7 @@ class TransactionRecord {
             driverName: 'Kailash Sonawane',
             driverPhone: '+91 98224 77889',
             pickupLocation: 'Niphad Village Hub, Nashik',
-            deliveryLocation: 'Sahyadri Agro Hub, Dindori',
+            deliveryLocation: 'KisanMitra Agro Hub, Dindori',
             estimatedDistanceKm: 42,
             estimatedTravelTimeHours: 1.5,
             freightCostTotal: 1200,
@@ -3140,7 +3140,7 @@ class DisputeRecord {
         this.transactionId = data.transactionId || '';
         this.raisedBy = data.raisedBy || 'FARMER'; // 'FARMER' | 'BUYER'
         this.claimantName = data.claimantName || 'Ramesh Patil';
-        this.respondentName = data.respondentName || 'Sahyadri Agro Processing Hub';
+        this.respondentName = data.respondentName || 'KisanMitra Agro Processing Hub';
         
         this.category = data.category || 'QUALITY_MISMATCH';
         this.categoryLabel = DISPUTE_CATEGORIES.find(c => c.id === this.category)?.label || 'Quality Issue';
@@ -3663,7 +3663,7 @@ const mockBuyerDemands = [
     {
         demandId: "DEM-9081",
         buyerId: "buyer_sahyadri",
-        buyerName: "Sahyadri Farmer Producer Co.",
+        buyerName: "KisanMitra Producer Co.",
         companyType: "FPO / Processor",
         verifiedBuyer: true,
         requiredCrop: "Tomato",
@@ -3680,7 +3680,7 @@ const mockBuyerDemands = [
     {
         demandId: "DEM-9082",
         buyerId: "buyer_reliance",
-        buyerName: "Reliance Retail Fresh Hub",
+        buyerName: "MahaFresh Fresh Hub",
         companyType: "Organized Retailer",
         verifiedBuyer: true,
         requiredCrop: "Onion",
@@ -3768,11 +3768,11 @@ const mockPoolingClusters = [
 const mockBuyerProfiles = [
     {
         buyerId: "buyer_sahyadri",
-        companyName: "Sahyadri Farmer Producer Co.",
+        companyName: "KisanMitra Producer Co.",
         companyType: "Food Processor",
-        contactPerson: "Vilas Shinde",
-        phone: "+91 98221 55667",
-        email: "procurement@sahyadriagro.in",
+        contactPerson: "Vikram Deshmukh",
+        phone: "+91 00000 55667",
+        email: "orders@kisanmitra.example.com",
         district: "Nashik",
         state: "Maharashtra",
         pincode: "422001",
@@ -3783,11 +3783,11 @@ const mockBuyerProfiles = [
     },
     {
         buyerId: "buyer_reliance",
-        companyName: "Reliance Retail Fresh Hub",
+        companyName: "MahaFresh Agro Hub",
         companyType: "Retailer",
         contactPerson: "Amit Deshmukh",
         phone: "+91 98220 88990",
-        email: "fresh.procure@ril.com",
+        email: "procurement@mahafresh.example.com",
         district: "Nashik",
         state: "Maharashtra",
         pincode: "422007",
@@ -3828,11 +3828,11 @@ const mockBuyerProfiles = [
     },
     {
         buyerId: "buyer_taj_hotels",
-        companyName: "Taj Culinary Logistics & Institutional",
+        companyName: "Apex Culinary Logistics & Institutional",
         companyType: "Restaurant / Hospitality",
-        contactPerson: "Chef Anand Joshi",
-        phone: "+91 98201 33445",
-        email: "sourcing@tajhotels.com",
+        contactPerson: "Chef Amit Kulkarni",
+        phone: "+91 00000 33445",
+        email: "sourcing@apexculinary.example.com",
         district: "Mumbai",
         state: "Maharashtra",
         pincode: "400005",
@@ -3846,7 +3846,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00101",
         buyerId: "buyer_sahyadri",
-        buyerName: "Sahyadri Farmer Producer Co.",
+        buyerName: "KisanMitra Producer Co.",
         companyType: "Food Processor",
         verifiedBuyer: true,
         reliabilityScore: 4.9,
@@ -3868,7 +3868,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00102",
         buyerId: "buyer_reliance",
-        buyerName: "Reliance Retail Fresh Hub",
+        buyerName: "MahaFresh Agro Hub",
         companyType: "Retailer",
         verifiedBuyer: true,
         reliabilityScore: 4.8,
@@ -3912,7 +3912,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00104",
         buyerId: "buyer_taj_hotels",
-        buyerName: "Taj Culinary Logistics & Institutional",
+        buyerName: "Apex Culinary Logistics & Institutional",
         companyType: "Restaurant / Hospitality",
         verifiedBuyer: true,
         reliabilityScore: 4.9,
@@ -3956,7 +3956,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00106",
         buyerId: "buyer_reliance",
-        buyerName: "Reliance Retail",
+        buyerName: "MahaFresh",
         companyType: "Retailer",
         verifiedBuyer: true,
         reliabilityScore: 4.8,
@@ -3978,7 +3978,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00107",
         buyerId: "buyer_sahyadri",
-        buyerName: "Sahyadri",
+        buyerName: "KisanMitra",
         companyType: "Food Processor",
         verifiedBuyer: true,
         reliabilityScore: 4.9,
@@ -4188,7 +4188,7 @@ const mockTransactions = [
     farmerId: "farmer_mh_001",
     farmerName: "Ramesh Patil",
     buyerId: "buyer_sahyadri",
-    buyerName: "Sahyadri",
+    buyerName: "KisanMitra",
     cropType: "Tomato",
     variety: "Himsona",
     quantityKg: 500,
@@ -4245,7 +4245,7 @@ const mockTransactions = [
     farmerId: "farmer_pune_002",
     farmerName: "Sunil Jadhav",
     buyerId: "buyer_reliance",
-    buyerName: "Reliance Retail",
+    buyerName: "MahaFresh",
     cropType: "Potato",
     variety: "Kufri Pukhraj",
     quantityKg: 800,
@@ -4271,8 +4271,8 @@ const mockTransactions = [
     lotId: "LOT-2026-089106",
     farmerId: "farmer_mh_001",
     farmerName: "Ramesh Patil",
-    buyerId: "buyer_taj_hotels",
-    buyerName: "Taj Culinary",
+    buyerId: "buyer_apex_culinary",
+    buyerName: "Apex Culinary",
     cropType: "Tomato",
     variety: "Cherry",
     quantityKg: 200,
@@ -4309,7 +4309,7 @@ const mockDisputes = [
     disputeId: "DSP-2026-00201",
     transactionId: "TXN-2026-981044",
     filedBy: "buyer_reliance",
-    filedByName: "Reliance Retail",
+    filedByName: "MahaFresh",
     filedByRole: "BUYER",
     category: "QUALITY_MISMATCH",
     description: "Received produce graded as Grade B but lot was certified as Grade A. 15% of potatoes show green skin discoloration.",
@@ -4383,7 +4383,7 @@ const initialPendingBuyers = [
     buyerId: "pending_b_001",
     companyName: "FreshBasket Online Pvt Ltd",
     companyType: "E-commerce grocery",
-    gstin: "27AABCF1234B1Z5",
+    gstin: "00XXXXX0000X0XX",
     verificationStatus: "pending_fssai",
     notes: "pending FSSAI verification"
   },
@@ -4391,7 +4391,7 @@ const initialPendingBuyers = [
     buyerId: "pending_b_002",
     companyName: "Krishna Agro Exports",
     companyType: "Exporter",
-    gstin: "27BBHKA5678C2Z8",
+    gstin: "00XXXXX0000X0XX",
     verificationStatus: "pending_trade_license",
     notes: "pending trade license"
   }
@@ -4595,7 +4595,7 @@ class FirebaseService {
                     primaryCrops: ['Tomato', 'Onion'],
                     farmSizeAcres: 4.5,
                     productionCapacityTons: 25,
-                    fpoMembership: 'Sahyadri Farmers Producer Co.'
+                    fpoMembership: 'KisanMitra Producer Co.'
                 },
                 verificationStatus: VERIFICATION_STATUS.VERIFIED,
                 farmerRating: 4.8,
@@ -6381,7 +6381,7 @@ class OpportunityComparisonService {
         }, farmerDistrict);
 
         const topBuyer = (matchedBuyers && matchedBuyers.length > 0) ? matchedBuyers[0] : {
-            buyerName: 'Sahyadri Agro Processing Hub',
+            buyerName: 'KisanMitra Agro Processing Hub',
             offeredPricePerKg: 37.50,
             pickupProvided: true,
             estimatedNetRealization: 37.20,
@@ -7512,7 +7512,7 @@ class GeminiAdvisoryService {
             totalLotValue: recommendation.totalExpectedNetPayout || (36 * (lot.quantity || 500)),
             bestMandi: recommendation.bestMandi?.marketName || 'Vashi APMC',
             mandiRate: recommendation.bestMandi?.rawModalPricePerKg || 34,
-            topBuyerName: recommendation.topBuyer?.buyerName || 'Sahyadri Agro Processing',
+            topBuyerName: recommendation.topBuyer?.buyerName || 'KisanMitra Agro Processing',
             buyerOfferedPrice: recommendation.topBuyer?.offeredPricePerKg || 37.5,
             pickupProvided: Boolean(recommendation.topBuyer?.pickupProvided ?? true),
             safeHoldingDaysRemaining: recommendation.spoilage?.safeHoldingDaysRemaining || 7,
@@ -7591,7 +7591,7 @@ class GeminiAdvisoryService {
         if (p.recommendedAction === "SELL_TO_VERIFIED_BUYER") {
             if (isMarathi) {
                 adviceText = `आपल्या ${p.cropType} (${p.qualityGrade}) पिकासाठी ${p.topBuyerName} कडून ₹${p.buyerOfferedPrice}/kg चा थेट खरेदी प्रस्ताव आला आहे. मंडईपेक्षा हा सौदा ₹${p.estimatedNetRealization}/kg निव्वळ प्राप्ती देईल.`;
-                actionKeyPoints.push(`खरेदीदार शेतावर थेट पिकअप पुरवत असल्याने वाहतूक खर्चात १००% बचत.`);
+                actionKeyPoints.push(`खरेदीदार शेतावर थेट पिकअप पुरवत असल्याने वाहतूक खर्चात बचत.`);
                 actionKeyPoints.push(`एकूण अंदाजे प्राप्ती: ₹${Number(p.totalLotValue).toLocaleString('en-IN')}.`);
                 actionKeyPoints.push(`डिलिव्हरी तपासणीनंतर १२ तासांत थेट बँक खात्यात रक्कम जमा.`);
             } else if (isHindi) {
@@ -10299,7 +10299,7 @@ const DEMO_ACCOUNTS = {
     }),
     buyer: new User({
         uid: 'buyer_sahyadri',
-        displayName: 'अमित जोशी (Amit Joshi - Sahyadri Agro)',
+        displayName: 'अमित जोशी (Amit Joshi - KisanMitra Agro)',
         email: 'amit.joshi@sahyadriagro.com',
         phone: '+91 98230 44556',
         role: USER_ROLES.BUYER,
@@ -10683,8 +10683,6 @@ const AuthService = new AuthServiceClass();
 
 
 
-
-
 // Crop Varieties Map for Dynamic Selection
 const CROP_VARIETIES_MAP = {
     'Tomato': [
@@ -10720,6 +10718,39 @@ const CROP_VARIETIES_MAP = {
         'ग्रीन कोबी (Green Express)'
     ]
 };
+
+// ============================================================
+// Formatting Utilities
+// ============================================================
+function formatCurrency(amount, decimals = 2) {
+    if (amount === null || amount === undefined || isNaN(amount)) return '\u20b9 --';
+    return '\u20b9' + Number(amount).toLocaleString('en-IN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+function formatWeight(kg) {
+    if (!kg && kg !== 0) return '-- kg';
+    if (kg >= 100) return (kg / 100).toFixed(1) + ' Quintal';
+    return kg.toFixed(1) + ' kg';
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '--';
+    try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    } catch { return dateStr; }
+}
+
+function formatDistance(km) {
+    if (!km && km !== 0) return '-- km';
+    return Number(km).toFixed(1) + ' km';
+}
+
+function formatPercent(val, decimals = 1) {
+    if (val === null || val === undefined || isNaN(val)) return '--%';
+    return Number(val).toFixed(decimals) + '%';
+}
 
 // Application State
 const AppState = {
@@ -11059,7 +11090,7 @@ function generateSampleProduceSvg(crop, angleLabel, color, accentColor) {
         <path d="M150 48 Q135 42 125 48 Q135 54 150 50 Z" fill="#16A34A" />
         <rect x="20" y="195" width="260" height="32" rx="6" fill="#0F172A" opacity="0.85" />
         <text x="150" y="216" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
-            ${crop} • ${angleLabel} (✓ Verified)
+            ${crop} • ${angleLabel} (Captured)
         </text>
     </svg>`;
     return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
@@ -12132,6 +12163,17 @@ window.openNegotiationForDemand = async function(demandId) {
 
     renderNegotiationTimeline(AppState.activeNegotiation);
     document.getElementById('negotiationModal').style.display = 'flex';
+    
+    // Add demo notice if not already present
+    const negModal = document.getElementById('negotiationModal');
+    if (negModal && !negModal.querySelector('.demo-notice-banner')) {
+        const banner = document.createElement('div');
+        banner.className = 'demo-notice-banner';
+        banner.style.cssText = 'background:#FEF3C7;border:1px solid #F59E0B;border-radius:10px;padding:8px 12px;margin:0 16px 12px;display:flex;align-items:center;gap:8px;';
+        banner.innerHTML = '<span style="font-size:1rem;">📋</span><span style="font-size:0.78rem;color:#92400E;font-weight:600;">Demo — Counter-offers are simulated for demonstration purposes.</span>';
+        const modalBox = negModal.querySelector('.custom-modal-box');
+        if (modalBox && modalBox.children[1]) modalBox.insertBefore(banner, modalBox.children[1]);
+    }
 };
 
 window.quickAcceptDealForDemand = async function(demandId) {
@@ -12338,6 +12380,11 @@ async function renderTransactionsList() {
                 </div>
 
                 <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #eee; padding-top:10px; margin-top:8px;">
+                    ${['DELIVERED', 'QUALITY_VERIFIED', 'PAYOUT_RELEASED'].includes(t.status) ? `
+                        <button class="btn btn-warning btn-sm" onclick="window.openDisputeModal('${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
+                            ⚠️ तक्रार नोंदवा
+                        </button>
+                    ` : ''}
                     ${canRateBuyer ? `
                         <button class="btn btn-secondary" onclick="window.openFarmerRatingDialog('${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
                             ⭐ खरेदीदाराला रेटिंग द्या
@@ -12574,7 +12621,7 @@ async function renderAdminBuyers() {
                         <tr>
                             <td><strong>${b.companyName || b.buyerName || b.userId}</strong></td>
                             <td>${b.buyerType || 'Food Processor'}</td>
-                            <td><code>${b.gstin || '27AABCS1429B1Z'}</code></td>
+                            <td><code>${b.gstin || '00XXXXX0000X0XX'}</code></td>
                             <td>${b.hubLocation || 'Nashik Hub'}</td>
                             <td><span class="status-pill pending">${b.verificationStatus || 'PENDING_VERIFICATION'}</span></td>
                             <td>
@@ -12972,7 +13019,7 @@ window.inspectBuyer = async function(userId) {
         userId,
         companyName: 'सह्याद्री अ‍ॅग्रो प्रोसेसिंग प्रा. लि.',
         buyerType: 'Food Processor',
-        gstin: '27AABCS1429B1Z',
+        gstin: '00XXXXX0000X0XX',
         hubLocation: 'Nashik Agro Mega Park'
     };
 
@@ -12990,7 +13037,7 @@ window.inspectBuyer = async function(userId) {
                 <h4>🏢 व्यावसायिक पडताळणी</h4>
                 <div style="font-size:0.85rem; color:#444;">
                     ✓ GSTN Active Status: <strong>VALID</strong><br>
-                    ✓ FSSAI फूड लायसन्स: <code>11520038000192</code>
+                    ✓ FSSAI फूड लायसन्स: <code>[Verified]</code>
                 </div>
             </div>
         `;
@@ -13079,7 +13126,7 @@ window.inspectDispute = async function(disputeId) {
             <div class="evidence-card-box" style="margin-top:10px;">
                 <div class="evidence-header">
                     <span>🛡️ प्रमाणित मूळ डिजिटल लॉट गुणवत्ता बेसलाइन (Baseline Evidence)</span>
-                    <span class="status-pill verified">✓ Blockchain / Tamper-Proof</span>
+                    <span class="status-pill verified">✓ Digital Audit Trail</span>
                 </div>
                 <div class="evidence-grid-mini">
                     <div class="evidence-item-mini">
@@ -14148,7 +14195,44 @@ function attachAllEventListeners() {
 
     // Dispute Modal
     document.getElementById('closeDisputeModalBtn')?.addEventListener('click', () => {
-        document.getElementById('disputeModal').style.display = 'none';
+        const modal = document.getElementById('disputeModal');
+        if (modal) modal.style.display = 'none';
+    });
+
+    document.getElementById('cancelDisputeBtn')?.addEventListener('click', () => {
+        const modal = document.getElementById('disputeModal');
+        if (modal) modal.style.display = 'none';
+    });
+
+    // Dispute Form Submission
+    document.getElementById('disputeForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        showLoading('⚠️ तक्रार नोंदवत आहे...');
+        try {
+            const formData = {
+                transactionId: document.getElementById('disputeTxnId')?.value || '',
+                issueType: document.getElementById('disputeCategorySelect')?.value || '', // Changed to disputeCategorySelect based on HTML
+                description: document.getElementById('disputeDescriptionInput')?.value || '', // Changed to disputeDescriptionInput based on HTML
+                createdAt: new Date().toISOString(),
+                status: 'OPEN',
+                farmerId: AppState.currentUser?.id || 'unknown'
+            };
+            
+            if (typeof DisputeService !== 'undefined' && DisputeService.raiseDispute) {
+                await DisputeService.raiseDispute(formData);
+            }
+            
+            // Close the modal
+            const modal = document.getElementById('disputeModal');
+            if (modal) modal.style.display = 'none';
+            
+            showToast('✅ तक्रार यशस्वीरीत्या नोंदवली गेली आहे!', 'success');
+        } catch (err) {
+            console.error('Dispute submission error:', err);
+            showToast('⚠️ तक्रार नोंदवणी अयशस्वी: ' + err.message, 'warning');
+        } finally {
+            hideLoading();
+        }
     });
 
     // Live Password Strength & Guidelines
@@ -14473,10 +14557,23 @@ function openPaymentCheckoutForLot(lotData = null) {
 }
 window.openPaymentCheckoutForLot = openPaymentCheckoutForLot;
 
+function openDisputeModal(transactionId) {
+    const modal = document.getElementById('disputeModal');
+    const txnIdField = document.getElementById('disputeTxnId');
+    if (modal) modal.style.display = 'flex';
+    if (txnIdField) txnIdField.value = transactionId || '';
+    
+    const dispTxnDisplay = document.getElementById('dispTxnDisplay');
+    if (dispTxnDisplay) dispTxnDisplay.textContent = transactionId || 'N/A';
+}
+window.openDisputeModal = openDisputeModal;
+
 // Attach all global interactive functions to window for seamless HTML inline handling
 window.updateLanguage = updateLanguage;
 window.applyDOMTranslations = applyDOMTranslations;
 window.navigateTo = navigateTo;
+window.formatCurrency = formatCurrency;
+window.formatDate = formatDate;
 window.loadSampleCrop = loadSampleCrop;
 window.applyMarketIntelFilters = applyMarketIntelFilters;
 window.renderMarketIntel = renderMarketIntel;

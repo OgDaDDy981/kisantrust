@@ -96,7 +96,7 @@ export class FarmerProfile {
             primaryCrops: Array.isArray(data.farmDetails?.primaryCrops) ? data.farmDetails.primaryCrops : (data.primaryCrops || ['Tomato', 'Onion']),
             farmSizeAcres: Number(data.farmDetails?.farmSizeAcres ?? data.farmSizeAcres) || 4.5,
             productionCapacityTons: Number(data.farmDetails?.productionCapacityTons ?? data.productionCapacityTons) || 25,
-            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'Sahyadri Farmers Producer Co.'
+            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'KisanMitra Producer Co.'
         };
 
         this.verificationStatus = data.verificationStatus || (data.verified ? VERIFICATION_STATUS.VERIFIED : VERIFICATION_STATUS.PENDING_VERIFICATION);
@@ -172,7 +172,7 @@ export class BuyerProfileRecord {
     constructor(data = {}) {
         this.userId = data.userId || data.buyerId || 'buyer_sahyadri';
         this.businessDetails = {
-            companyName: data.businessDetails?.companyName || data.companyName || 'Sahyadri Agro Processing Hub',
+            companyName: data.businessDetails?.companyName || data.companyName || 'KisanMitra Agro Processing Hub',
             buyerType: data.businessDetails?.buyerType || data.buyerType || data.companyType || 'Food Processor',
             contactPerson: data.businessDetails?.contactPerson || data.contactPerson || data.name || 'Amit Joshi',
             mobileNumber: data.businessDetails?.mobileNumber || data.phone || '+91 98230 44556',
@@ -181,7 +181,7 @@ export class BuyerProfileRecord {
             district: data.businessDetails?.district || data.district || 'Nashik',
             state: data.businessDetails?.state || data.state || 'Maharashtra',
             pincode: data.businessDetails?.pincode || '422206',
-            gstin: data.businessDetails?.gstin || data.gstin || '27AABCS1429B1Z',
+            gstin: data.businessDetails?.gstin || data.gstin || '00XXXXX0000X0XX',
             primaryCommodities: Array.isArray(data.businessDetails?.primaryCommodities) ? data.businessDetails.primaryCommodities : (data.primaryCommodities || ['Tomato', 'Onion', 'Grapes']),
             expectedMonthlyVolumeTons: Number(data.businessDetails?.expectedMonthlyVolumeTons ?? data.expectedMonthlyVolumeTons) || 120
         };

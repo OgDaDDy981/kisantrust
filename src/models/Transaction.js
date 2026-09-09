@@ -34,7 +34,7 @@ export class TransactionRecord {
         this.farmerId = data.farmerId || 'farmer_mh_001';
         this.farmerName = data.farmerName || 'Ramesh Patil (रमेश पाटील)';
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'Sahyadri Agro Processing Hub';
+        this.buyerName = data.buyerName || 'KisanMitra Agro Processing Hub';
         
         // Commodity details
         this.cropType = data.cropType || 'Tomato';
@@ -68,7 +68,7 @@ export class TransactionRecord {
             driverName: 'Kailash Sonawane',
             driverPhone: '+91 98224 77889',
             pickupLocation: 'Niphad Village Hub, Nashik',
-            deliveryLocation: 'Sahyadri Agro Hub, Dindori',
+            deliveryLocation: 'KisanMitra Agro Hub, Dindori',
             estimatedDistanceKm: 42,
             estimatedTravelTimeHours: 1.5,
             freightCostTotal: 1200,

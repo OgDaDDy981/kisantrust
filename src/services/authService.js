@@ -25,7 +25,7 @@ export const DEMO_ACCOUNTS = {
     }),
     buyer: new User({
         uid: 'buyer_sahyadri',
-        displayName: 'अमित जोशी (Amit Joshi - Sahyadri Agro)',
+        displayName: 'अमित जोशी (Amit Joshi - KisanMitra Agro)',
         email: 'amit.joshi@sahyadriagro.com',
         phone: '+91 98230 44556',
         role: USER_ROLES.BUYER,

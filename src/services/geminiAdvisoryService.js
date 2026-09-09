@@ -44,7 +44,7 @@ export class GeminiAdvisoryService {
             totalLotValue: recommendation.totalExpectedNetPayout || (36 * (lot.quantity || 500)),
             bestMandi: recommendation.bestMandi?.marketName || 'Vashi APMC',
             mandiRate: recommendation.bestMandi?.rawModalPricePerKg || 34,
-            topBuyerName: recommendation.topBuyer?.buyerName || 'Sahyadri Agro Processing',
+            topBuyerName: recommendation.topBuyer?.buyerName || 'KisanMitra Agro Processing',
             buyerOfferedPrice: recommendation.topBuyer?.offeredPricePerKg || 37.5,
             pickupProvided: Boolean(recommendation.topBuyer?.pickupProvided ?? true),
             safeHoldingDaysRemaining: recommendation.spoilage?.safeHoldingDaysRemaining || 7,
@@ -123,7 +123,7 @@ export class GeminiAdvisoryService {
         if (p.recommendedAction === "SELL_TO_VERIFIED_BUYER") {
             if (isMarathi) {
                 adviceText = `आपल्या ${p.cropType} (${p.qualityGrade}) पिकासाठी ${p.topBuyerName} कडून ₹${p.buyerOfferedPrice}/kg चा थेट खरेदी प्रस्ताव आला आहे. मंडईपेक्षा हा सौदा ₹${p.estimatedNetRealization}/kg निव्वळ प्राप्ती देईल.`;
-                actionKeyPoints.push(`खरेदीदार शेतावर थेट पिकअप पुरवत असल्याने वाहतूक खर्चात १००% बचत.`);
+                actionKeyPoints.push(`खरेदीदार शेतावर थेट पिकअप पुरवत असल्याने वाहतूक खर्चात बचत.`);
                 actionKeyPoints.push(`एकूण अंदाजे प्राप्ती: ₹${Number(p.totalLotValue).toLocaleString('en-IN')}.`);
                 actionKeyPoints.push(`डिलिव्हरी तपासणीनंतर १२ तासांत थेट बँक खात्यात रक्कम जमा.`);
             } else if (isHindi) {

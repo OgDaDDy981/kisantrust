@@ -66,7 +66,7 @@ export class OpportunityComparisonService {
         }, farmerDistrict);
 
         const topBuyer = (matchedBuyers && matchedBuyers.length > 0) ? matchedBuyers[0] : {
-            buyerName: 'Sahyadri Agro Processing Hub',
+            buyerName: 'KisanMitra Agro Processing Hub',
             offeredPricePerKg: 37.50,
             pickupProvided: true,
             estimatedNetRealization: 37.20,

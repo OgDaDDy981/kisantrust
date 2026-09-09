@@ -38,7 +38,7 @@ export const initialPendingBuyers = [
     buyerId: "pending_b_001",
     companyName: "FreshBasket Online Pvt Ltd",
     companyType: "E-commerce grocery",
-    gstin: "27AABCF1234B1Z5",
+    gstin: "00XXXXX0000X0XX",
     verificationStatus: "pending_fssai",
     notes: "pending FSSAI verification"
   },
@@ -46,7 +46,7 @@ export const initialPendingBuyers = [
     buyerId: "pending_b_002",
     companyName: "Krishna Agro Exports",
     companyType: "Exporter",
-    gstin: "27BBHKA5678C2Z8",
+    gstin: "00XXXXX0000X0XX",
     verificationStatus: "pending_trade_license",
     notes: "pending trade license"
   }

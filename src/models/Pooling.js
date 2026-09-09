@@ -26,7 +26,7 @@ export class PoolingCluster {
         // Destination & Buyer Linkage
         this.destinationMarket = data.destinationMarket || 'Vashi APMC (Navi Mumbai)';
         this.destinationBuyerDemandId = data.destinationBuyerDemandId || null;
-        this.buyerName = data.buyerName || 'Sahyadri Agro Processing';
+        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
 
         // Logistics & Savings Breakdown
         this.individualFreightPerKg = Number(data.individualFreightPerKg) || 2.40; // 1-Ton Pickup rate

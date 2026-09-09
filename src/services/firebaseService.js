@@ -92,7 +92,7 @@ class FirebaseService {
                     primaryCrops: ['Tomato', 'Onion'],
                     farmSizeAcres: 4.5,
                     productionCapacityTons: 25,
-                    fpoMembership: 'Sahyadri Farmers Producer Co.'
+                    fpoMembership: 'KisanMitra Producer Co.'
                 },
                 verificationStatus: VERIFICATION_STATUS.VERIFIED,
                 farmerRating: 4.8,

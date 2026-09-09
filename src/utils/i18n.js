@@ -290,7 +290,7 @@ export const I18N_DICTIONARY = {
         },
         payment: {
             modalTitle: "किसान ट्रस्ट एस्क्रो पेमेंट (Escrow Checkout)",
-            modalSubtitle: "१००% सुरक्षित बँक एस्क्रो संरक्षण (100% Escrow Protected)",
+            modalSubtitle: "१००% सुरक्षित बँक एस्क्रो संरक्षण (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "वजन (Quantity)",
             pricePerKg: "दर (Price / kg)",
@@ -323,7 +323,7 @@ export const I18N_DICTIONARY = {
             days: "दिवस",
             kg: "किलो",
             rupeesPerKg: "₹ / किलो",
-            demoDataBadge: "प्रमाणित Agmarknet व APMC डेटा",
+            demoDataBadge: "APMC Market Benchmark",
             statusListed: "नोंदणीकृत (Listed)",
             statusMatched: "खरेदीदार मिळाला (Matched)",
             statusPooled: "पूलिंगमध्ये सहभागी (Pooled)",
@@ -362,7 +362,7 @@ export const I18N_DICTIONARY = {
             btnViewInvoice: "📄 शासकीय टॅक्स इनव्हॉइस व बिल",
             certTitle: "शासकीय कृषी गुणवत्ता व शेती लॉट प्रमाणपत्र",
             certSubtitle: "भारत सरकार / APMC व राष्ट्रीय फलोत्पादन मंडळ (NHB) मानकांनुसार प्रमाणित",
-            govtApmcStamp: "✓ APMC Agmarknet प्रमाणित",
+            govtApmcStamp: "APMC Market Data Referenced",
             qrVerification: "QR कोड स्कॅन करून मूळ डिजिटल लॉटची सत्यता पडताळा"
         }
     },
@@ -650,7 +650,7 @@ export const I18N_DICTIONARY = {
         },
         payment: {
             modalTitle: "किसान ट्रस्ट एस्क्रो भुगतान (Escrow Checkout)",
-            modalSubtitle: "१००% सुरक्षित बैंक एस्क्रो सुरक्षा (100% Escrow Protected)",
+            modalSubtitle: "१००% सुरक्षित बैंक एस्क्रो सुरक्षा (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "मात्रा (Quantity)",
             pricePerKg: "दर (Price / kg)",
@@ -722,7 +722,7 @@ export const I18N_DICTIONARY = {
             btnViewInvoice: "📄 आधिकारिक टैक्स इनवॉइस एवं बिल",
             certTitle: "आधिकारिक कृषि गुणवत्ता एवं लॉट प्रमाण पत्र",
             certSubtitle: "भारत सरकार / APMC एवं राष्ट्रीय बागवानी बोर्ड (NHB) मानकों के अनुरूप प्रमाणित",
-            govtApmcStamp: "✓ APMC Agmarknet प्रमाणित",
+            govtApmcStamp: "APMC Market Data Referenced",
             qrVerification: "QR कोड स्कैन करके डिजिटल लॉट की प्रामाणिकता जांचें"
         }
     },
@@ -955,7 +955,7 @@ export const I18N_DICTIONARY = {
             emptyNoBuyers: "No pending buyer verifications available.",
             emptyNoLots: "All digital lots are reviewed and approved!",
             emptyNoDemands: "All purchase demands are approved.",
-            emptyNoDisputes: "No active disputes found. Platform is 100% dispute-free!",
+            emptyNoDisputes: "No active disputes found. Platform is Dispute Resolution Available!",
             emptyNoRisk: "No active risk or fraud flags detected."
         },
         auth: {
@@ -992,7 +992,7 @@ export const I18N_DICTIONARY = {
             lblCrops: "Primary Crops",
             lblAcres: "Farm Size (Acres)",
             lblCompanyName: "Company / Business Name",
-            placeholderCompany: "e.g. Sahyadri Agro Foods Pvt. Ltd.",
+            placeholderCompany: "e.g. KisanMitra Agro Foods Pvt. Ltd.",
             lblBuyerType: "Buyer Category",
             lblGstin: "GSTIN / Trade License",
             placeholderGstin: "27AABCS1429B1Z",
@@ -1010,7 +1010,7 @@ export const I18N_DICTIONARY = {
         },
         payment: {
             modalTitle: "KisanTrust Escrow Checkout",
-            modalSubtitle: "100% Escrow Protected Banking Gateway",
+            modalSubtitle: "Secure Escrow Protection Banking Gateway",
             orderSummary: "Order Summary",
             quantity: "Quantity",
             pricePerKg: "Price / kg",
@@ -1043,7 +1043,7 @@ export const I18N_DICTIONARY = {
             days: "days",
             kg: "kg",
             rupeesPerKg: "₹ / kg",
-            demoDataBadge: "Certified Agmarknet & APMC Live Data",
+            demoDataBadge: "APMC Market Benchmark",
             statusListed: "Listed",
             statusMatched: "Matched",
             statusPooled: "Pooled",
@@ -1081,8 +1081,8 @@ export const I18N_DICTIONARY = {
             btnViewCert: "📜 View & Print Official Quality Certificate",
             btnViewInvoice: "📄 Official Commercial Tax Invoice & Bill",
             certTitle: "Official Agricultural Quality & Lot Certificate",
-            certSubtitle: "Certified under Agmarknet & National Horticulture Board (NHB) Standards",
-            govtApmcStamp: "✓ APMC Agmarknet Verified",
+            certSubtitle: "Market data sourced from Agmarknet",
+            govtApmcStamp: "APMC Market Data Referenced",
             qrVerification: "Scan QR Code to verify certified baseline data"
         }
     }
@@ -1263,7 +1263,7 @@ export function applyDOMTranslations(lang = "Marathi (मराठी)") {
     if (lang === "English") {
         setTxt('dashDemandBadge', "High Demand");
         setTxt('dashPotentialBuyersCount', "3 Verified Buyers Active");
-        setTxt('dashActionRecommendation', "Direct trade with verified buyers like Sahyadri Agro or Reliance Fresh yields higher profits without intermediary commissions.");
+        setTxt('dashActionRecommendation', "Direct trade with verified buyers yields higher profits without intermediary commissions.");
         setTxt('snapTipBox', "💡 Mumbai and Vashi markets currently have highest demand for Grade A hybrid tomatoes.");
         setTxt('snapPerKgUnit', "/ kg (Tomato)");
     } else if (lang === "Hindi (हिंदी)") {

@@ -5,8 +5,6 @@
 
 import { firebaseService } from './src/services/firebaseService.js';
 import { QualityService } from './src/services/qualityService.js';
-import { PricingService } from './src/services/pricingService.js';
-import { MarketService } from './src/services/marketService.js';
 import { TransactionService } from './src/services/transactionService.js';
 import { MarketDataService } from './src/services/marketDataService.js';
 import { PriceCalculationService } from './src/services/priceCalculationService.js';
@@ -74,6 +72,39 @@ export const CROP_VARIETIES_MAP = {
         'ग्रीन कोबी (Green Express)'
     ]
 };
+
+// ============================================================
+// Formatting Utilities
+// ============================================================
+function formatCurrency(amount, decimals = 2) {
+    if (amount === null || amount === undefined || isNaN(amount)) return '\u20b9 --';
+    return '\u20b9' + Number(amount).toLocaleString('en-IN', { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+}
+
+function formatWeight(kg) {
+    if (!kg && kg !== 0) return '-- kg';
+    if (kg >= 100) return (kg / 100).toFixed(1) + ' Quintal';
+    return kg.toFixed(1) + ' kg';
+}
+
+function formatDate(dateStr) {
+    if (!dateStr) return '--';
+    try {
+        const d = new Date(dateStr);
+        if (isNaN(d.getTime())) return dateStr;
+        return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    } catch { return dateStr; }
+}
+
+function formatDistance(km) {
+    if (!km && km !== 0) return '-- km';
+    return Number(km).toFixed(1) + ' km';
+}
+
+function formatPercent(val, decimals = 1) {
+    if (val === null || val === undefined || isNaN(val)) return '--%';
+    return Number(val).toFixed(decimals) + '%';
+}
 
 // Application State
 const AppState = {
@@ -413,7 +444,7 @@ function generateSampleProduceSvg(crop, angleLabel, color, accentColor) {
         <path d="M150 48 Q135 42 125 48 Q135 54 150 50 Z" fill="#16A34A" />
         <rect x="20" y="195" width="260" height="32" rx="6" fill="#0F172A" opacity="0.85" />
         <text x="150" y="216" fill="#FFFFFF" font-family="sans-serif" font-size="12" font-weight="bold" text-anchor="middle">
-            ${crop} • ${angleLabel} (✓ Verified)
+            ${crop} • ${angleLabel} (Captured)
         </text>
     </svg>`;
     return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
@@ -1486,6 +1517,17 @@ window.openNegotiationForDemand = async function(demandId) {
 
     renderNegotiationTimeline(AppState.activeNegotiation);
     document.getElementById('negotiationModal').style.display = 'flex';
+    
+    // Add demo notice if not already present
+    const negModal = document.getElementById('negotiationModal');
+    if (negModal && !negModal.querySelector('.demo-notice-banner')) {
+        const banner = document.createElement('div');
+        banner.className = 'demo-notice-banner';
+        banner.style.cssText = 'background:#FEF3C7;border:1px solid #F59E0B;border-radius:10px;padding:8px 12px;margin:0 16px 12px;display:flex;align-items:center;gap:8px;';
+        banner.innerHTML = '<span style="font-size:1rem;">📋</span><span style="font-size:0.78rem;color:#92400E;font-weight:600;">Demo — Counter-offers are simulated for demonstration purposes.</span>';
+        const modalBox = negModal.querySelector('.custom-modal-box');
+        if (modalBox && modalBox.children[1]) modalBox.insertBefore(banner, modalBox.children[1]);
+    }
 };
 
 window.quickAcceptDealForDemand = async function(demandId) {
@@ -1692,6 +1734,11 @@ async function renderTransactionsList() {
                 </div>
 
                 <div style="display:flex; justify-content:flex-end; gap:8px; border-top:1px solid #eee; padding-top:10px; margin-top:8px;">
+                    ${['DELIVERED', 'QUALITY_VERIFIED', 'PAYOUT_RELEASED'].includes(t.status) ? `
+                        <button class="btn btn-warning btn-sm" onclick="window.openDisputeModal('${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
+                            ⚠️ तक्रार नोंदवा
+                        </button>
+                    ` : ''}
                     ${canRateBuyer ? `
                         <button class="btn btn-secondary" onclick="window.openFarmerRatingDialog('${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
                             ⭐ खरेदीदाराला रेटिंग द्या
@@ -1928,7 +1975,7 @@ async function renderAdminBuyers() {
                         <tr>
                             <td><strong>${b.companyName || b.buyerName || b.userId}</strong></td>
                             <td>${b.buyerType || 'Food Processor'}</td>
-                            <td><code>${b.gstin || '27AABCS1429B1Z'}</code></td>
+                            <td><code>${b.gstin || '00XXXXX0000X0XX'}</code></td>
                             <td>${b.hubLocation || 'Nashik Hub'}</td>
                             <td><span class="status-pill pending">${b.verificationStatus || 'PENDING_VERIFICATION'}</span></td>
                             <td>
@@ -2326,7 +2373,7 @@ window.inspectBuyer = async function(userId) {
         userId,
         companyName: 'सह्याद्री अ‍ॅग्रो प्रोसेसिंग प्रा. लि.',
         buyerType: 'Food Processor',
-        gstin: '27AABCS1429B1Z',
+        gstin: '00XXXXX0000X0XX',
         hubLocation: 'Nashik Agro Mega Park'
     };
 
@@ -2344,7 +2391,7 @@ window.inspectBuyer = async function(userId) {
                 <h4>🏢 व्यावसायिक पडताळणी</h4>
                 <div style="font-size:0.85rem; color:#444;">
                     ✓ GSTN Active Status: <strong>VALID</strong><br>
-                    ✓ FSSAI फूड लायसन्स: <code>11520038000192</code>
+                    ✓ FSSAI फूड लायसन्स: <code>[Verified]</code>
                 </div>
             </div>
         `;
@@ -2433,7 +2480,7 @@ window.inspectDispute = async function(disputeId) {
             <div class="evidence-card-box" style="margin-top:10px;">
                 <div class="evidence-header">
                     <span>🛡️ प्रमाणित मूळ डिजिटल लॉट गुणवत्ता बेसलाइन (Baseline Evidence)</span>
-                    <span class="status-pill verified">✓ Blockchain / Tamper-Proof</span>
+                    <span class="status-pill verified">✓ Digital Audit Trail</span>
                 </div>
                 <div class="evidence-grid-mini">
                     <div class="evidence-item-mini">
@@ -3502,7 +3549,44 @@ function attachAllEventListeners() {
 
     // Dispute Modal
     document.getElementById('closeDisputeModalBtn')?.addEventListener('click', () => {
-        document.getElementById('disputeModal').style.display = 'none';
+        const modal = document.getElementById('disputeModal');
+        if (modal) modal.style.display = 'none';
+    });
+
+    document.getElementById('cancelDisputeBtn')?.addEventListener('click', () => {
+        const modal = document.getElementById('disputeModal');
+        if (modal) modal.style.display = 'none';
+    });
+
+    // Dispute Form Submission
+    document.getElementById('disputeForm')?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        showLoading('⚠️ तक्रार नोंदवत आहे...');
+        try {
+            const formData = {
+                transactionId: document.getElementById('disputeTxnId')?.value || '',
+                issueType: document.getElementById('disputeCategorySelect')?.value || '', // Changed to disputeCategorySelect based on HTML
+                description: document.getElementById('disputeDescriptionInput')?.value || '', // Changed to disputeDescriptionInput based on HTML
+                createdAt: new Date().toISOString(),
+                status: 'OPEN',
+                farmerId: AppState.currentUser?.id || 'unknown'
+            };
+            
+            if (typeof DisputeService !== 'undefined' && DisputeService.raiseDispute) {
+                await DisputeService.raiseDispute(formData);
+            }
+            
+            // Close the modal
+            const modal = document.getElementById('disputeModal');
+            if (modal) modal.style.display = 'none';
+            
+            showToast('✅ तक्रार यशस्वीरीत्या नोंदवली गेली आहे!', 'success');
+        } catch (err) {
+            console.error('Dispute submission error:', err);
+            showToast('⚠️ तक्रार नोंदवणी अयशस्वी: ' + err.message, 'warning');
+        } finally {
+            hideLoading();
+        }
     });
 
     // Live Password Strength & Guidelines
@@ -3827,10 +3911,23 @@ function openPaymentCheckoutForLot(lotData = null) {
 }
 window.openPaymentCheckoutForLot = openPaymentCheckoutForLot;
 
+function openDisputeModal(transactionId) {
+    const modal = document.getElementById('disputeModal');
+    const txnIdField = document.getElementById('disputeTxnId');
+    if (modal) modal.style.display = 'flex';
+    if (txnIdField) txnIdField.value = transactionId || '';
+    
+    const dispTxnDisplay = document.getElementById('dispTxnDisplay');
+    if (dispTxnDisplay) dispTxnDisplay.textContent = transactionId || 'N/A';
+}
+window.openDisputeModal = openDisputeModal;
+
 // Attach all global interactive functions to window for seamless HTML inline handling
 window.updateLanguage = updateLanguage;
 window.applyDOMTranslations = applyDOMTranslations;
 window.navigateTo = navigateTo;
+window.formatCurrency = formatCurrency;
+window.formatDate = formatDate;
 window.loadSampleCrop = loadSampleCrop;
 window.applyMarketIntelFilters = applyMarketIntelFilters;
 window.renderMarketIntel = renderMarketIntel;
