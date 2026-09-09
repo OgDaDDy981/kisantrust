@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-09T15:01:58.768Z
+ * Auto-generated on 2026-09-09T15:14:25.151Z
  */
 (function() {
     'use strict';
@@ -13697,25 +13697,46 @@ function attachAllEventListeners() {
     });
 
     document.getElementById('googleSignInBtn')?.addEventListener('click', () => {
-        // NOTE: We use signInWithRedirect (not signInWithPopup) because browsers block
-        // popups that are opened from async contexts. signInWithRedirect is reliable on
-        // all hosted environments (Netlify, Firebase Hosting, etc).
-        // The result is picked up by getRedirectResult() in initKisanTrustApp on page load.
+        // IMPORTANT: This handler must NOT be async, and signInWithPopup must be called
+        // synchronously (before any await/microtask). This preserves the browser's
+        // "user gesture" context that is required to open a popup window.
+        // We handle the result via .then()/.catch() which does NOT break the gesture chain.
         if (!window.firebase || !window.firebase.auth) {
             showToast('⚠️ Firebase Auth not loaded. Please refresh the page.', 'warning');
             return;
         }
-        try {
-            showLoading('🌐 Google वर पुनर्निर्देशित करत आहे...');
-            const provider = new firebase.auth.GoogleAuthProvider();
-            provider.setCustomParameters({ prompt: 'select_account' });
-            // signInWithRedirect is synchronous — navigates the page immediately
-            firebase.auth().signInWithRedirect(provider);
-        } catch (e) {
-            console.error('Google Sign-In redirect error:', e);
-            hideLoading();
-            showToast(`⚠️ Could not initiate Google Sign-In: ${e.message}`, 'warning');
-        }
+        const provider = new firebase.auth.GoogleAuthProvider();
+        provider.setCustomParameters({ prompt: 'select_account' });
+        showLoading('🌐 Google सह लॉगिन करत आहे...');
+
+        // signInWithPopup called directly in sync click handler — popup allowed by browser
+        firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+                return AuthService.loginWithGoogleUser(result.user);
+            })
+            .then((user) => {
+                hideLoading();
+                syncAuthUI();
+                const authModal = document.getElementById('authModal');
+                if (authModal) authModal.style.display = 'none';
+                showToast(`✅ Signed in as ${user.displayName} (${user.email})`, 'success');
+                navigateTo('viewDashboard');
+            })
+            .catch((e) => {
+                hideLoading();
+                console.error('Google Sign-In error:', e.code, e.message);
+                if (e.code === 'auth/popup-blocked') {
+                    // Only fall back to redirect when popup is explicitly blocked
+                    showToast('📱 Popup blocked — redirecting to Google...', 'info');
+                    firebase.auth().signInWithRedirect(provider);
+                } else if (e.code === 'auth/popup-closed-by-user') {
+                    showToast('ℹ️ Sign-in cancelled. Try again.', 'warning');
+                } else if (e.code === 'auth/unauthorized-domain') {
+                    showToast('⚠️ Domain not authorized. Add this domain in Firebase Console → Authentication → Settings → Authorized domains.', 'warning');
+                } else {
+                    showToast(`⚠️ Google sign-in: ${e.message}`, 'warning');
+                }
+            });
     });
 
     // Crop Selection & Quantity Changes
