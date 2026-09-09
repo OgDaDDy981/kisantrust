@@ -184,6 +184,30 @@ class AuthServiceClass {
     }
 
     /**
+     * Firebase Google Sign-In Provider Login
+     */
+    async loginWithGoogleUser(fbUser, selectedRole = USER_ROLES.FARMER) {
+        if (!fbUser) throw new Error('Invalid Google user object');
+        const role = (selectedRole || USER_ROLES.FARMER).toLowerCase();
+        const user = new User({
+            uid: fbUser.uid || `google_${Date.now()}`,
+            displayName: fbUser.displayName || (fbUser.email ? fbUser.email.split('@')[0] : 'Google User'),
+            email: fbUser.email || '',
+            photoURL: fbUser.photoURL || '',
+            role: role,
+            accountStatus: ACCOUNT_STATUS.ACTIVE,
+            verificationStatus: VERIFICATION_STATUS.VERIFIED,
+            authProvider: 'google'
+        });
+
+        this._saveUser(user);
+        try {
+            await this._syncToFirestore(user);
+        } catch (e) {}
+        return user;
+    }
+
+    /**
      * User Registration (Handles Farmer, Buyer, Customer, FPO)
      */
     async register(data) {

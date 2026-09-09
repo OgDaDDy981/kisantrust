@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-06T16:16:05.456Z
+ * Auto-generated on 2026-09-09T15:01:58.768Z
  */
 (function() {
     'use strict';
@@ -10458,6 +10458,30 @@ class AuthServiceClass {
     }
 
     /**
+     * Firebase Google Sign-In Provider Login
+     */
+    async loginWithGoogleUser(fbUser, selectedRole = USER_ROLES.FARMER) {
+        if (!fbUser) throw new Error('Invalid Google user object');
+        const role = (selectedRole || USER_ROLES.FARMER).toLowerCase();
+        const user = new User({
+            uid: fbUser.uid || `google_${Date.now()}`,
+            displayName: fbUser.displayName || (fbUser.email ? fbUser.email.split('@')[0] : 'Google User'),
+            email: fbUser.email || '',
+            photoURL: fbUser.photoURL || '',
+            role: role,
+            accountStatus: ACCOUNT_STATUS.ACTIVE,
+            verificationStatus: VERIFICATION_STATUS.VERIFIED,
+            authProvider: 'google'
+        });
+
+        this._saveUser(user);
+        try {
+            await this._syncToFirestore(user);
+        } catch (e) {}
+        return user;
+    }
+
+    /**
      * User Registration (Handles Farmer, Buyer, Customer, FPO)
      */
     async register(data) {
@@ -13672,38 +13696,25 @@ function attachAllEventListeners() {
         }
     });
 
-    document.getElementById('googleSignInBtn')?.addEventListener('click', async () => {
-        showLoading('🌐 Google सह लॉगिन करत आहे...');
+    document.getElementById('googleSignInBtn')?.addEventListener('click', () => {
+        // NOTE: We use signInWithRedirect (not signInWithPopup) because browsers block
+        // popups that are opened from async contexts. signInWithRedirect is reliable on
+        // all hosted environments (Netlify, Firebase Hosting, etc).
+        // The result is picked up by getRedirectResult() in initKisanTrustApp on page load.
+        if (!window.firebase || !window.firebase.auth) {
+            showToast('⚠️ Firebase Auth not loaded. Please refresh the page.', 'warning');
+            return;
+        }
         try {
-            if (!window.firebase || !window.firebase.auth) {
-                throw new Error('Firebase Auth is not available.');
-            }
+            showLoading('🌐 Google वर पुनर्निर्देशित करत आहे...');
             const provider = new firebase.auth.GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
-            const result = await firebase.auth().signInWithPopup(provider);
-            const fbUser = result.user;
-
-            const user = new User({
-                uid: fbUser.uid,
-                displayName: fbUser.displayName || 'Google User',
-                email: fbUser.email || '',
-                photoURL: fbUser.photoURL || '',
-                role: 'farmer',
-                accountStatus: 'ACTIVE',
-                verificationStatus: 'VERIFIED',
-                authProvider: 'google'
-            });
-
-            AuthService.setCurrentUser(user);
-            syncAuthUI();
-            if (authModal) authModal.style.display = 'none';
-            showToast(`✅ Signed in as ${user.displayName} (${user.email})`, 'success');
-            navigateTo('viewDashboard');
+            // signInWithRedirect is synchronous — navigates the page immediately
+            firebase.auth().signInWithRedirect(provider);
         } catch (e) {
-            console.error(e);
-            showToast('⚠️ Google sign in was cancelled or popup blocked. Please try again.', 'warning');
-        } finally {
+            console.error('Google Sign-In redirect error:', e);
             hideLoading();
+            showToast(`⚠️ Could not initiate Google Sign-In: ${e.message}`, 'warning');
         }
     });
 
@@ -14497,6 +14508,27 @@ async function initKisanTrustApp() {
         await PoolingService.initializePoolingData();
         updateLanguage(AppState.selectedLang || "English");
         updateCropVarieties('Tomato');
+
+        // Handle Google Redirect Result after page reload from signInWithRedirect
+        if (typeof window !== 'undefined' && window.firebase && window.firebase.auth) {
+            try {
+                const redirectRes = await window.firebase.auth().getRedirectResult();
+                if (redirectRes && redirectRes.user) {
+                    const user = await AuthService.loginWithGoogleUser(redirectRes.user);
+                    // Close any open auth modal
+                    const authModal = document.getElementById('authModal');
+                    if (authModal) authModal.style.display = 'none';
+                    showToast(`✅ Signed in via Google as ${user.displayName} (${user.email})`, 'success');
+                    navigateTo('viewDashboard');
+                }
+            } catch (redirErr) {
+                console.warn('Firebase Redirect Auth result:', redirErr.code, redirErr.message);
+                if (redirErr.code === 'auth/unauthorized-domain') {
+                    showToast(`⚠️ Domain not authorized in Firebase Console — add it under Authentication > Settings > Authorized domains.`, 'warning');
+                }
+            }
+        }
+
         syncAuthUI();
         renderDashboard();
         console.log('✅ KisanTrust Fully Ready & Active');
