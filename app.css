@@ -4887,3 +4887,54 @@ body.role-super_admin .admin-only {
         opacity: 1;
     }
 }
+
+/* ============================================================== */
+/* STAGE 3 — ROLE-BASED VISIBILITY & ACCESS                       */
+/* ============================================================== */
+
+/* 1. Hide all navigation tabs by default */
+.nav-tab-btn, .mob-nav-btn { 
+    display: none !important; 
+}
+
+/* 2. Show tabs for FARMER (Default) */
+.role-farmer #navDashboard,
+.role-farmer #navAssessLot,
+.role-farmer #navMyLots,
+.role-farmer #navMarketIntel,
+.role-farmer #navBuyerMarket,
+.role-farmer #navSmartPooling,
+.role-farmer #navTransactions,
+.role-farmer .mob-nav-btn[data-view="viewDashboard"],
+.role-farmer .mob-nav-btn[data-view="viewAssessLot"],
+.role-farmer .mob-nav-btn[data-view="viewMarketIntel"],
+.role-farmer .mob-nav-btn[data-view="viewBuyerMarket"],
+.role-farmer .mob-nav-btn[data-view="viewTransactions"] {
+    display: flex !important;
+}
+
+/* 3. Show tabs for BUYER / CUSTOMER */
+.role-buyer #navDashboard,
+.role-buyer #navBuyerMarket,
+.role-buyer #navTransactions,
+.role-buyer .mob-nav-btn[data-view="viewDashboard"],
+.role-buyer .mob-nav-btn[data-view="viewBuyerMarket"],
+.role-buyer .mob-nav-btn[data-view="viewTransactions"],
+.role-customer #navDashboard,
+.role-customer #navBuyerMarket,
+.role-customer #navTransactions,
+.role-customer .mob-nav-btn[data-view="viewDashboard"],
+.role-customer .mob-nav-btn[data-view="viewBuyerMarket"],
+.role-customer .mob-nav-btn[data-view="viewTransactions"] {
+    display: flex !important;
+}
+
+/* 4. Show tabs for ADMIN / SUPER ADMIN */
+.role-admin #navDashboard,
+.role-admin #navAdminPortal,
+.role-admin .mob-nav-btn[data-view="viewDashboard"],
+.role-super_admin #navDashboard,
+.role-super_admin #navAdminPortal,
+.role-super_admin .mob-nav-btn[data-view="viewDashboard"] {
+    display: flex !important;
+}

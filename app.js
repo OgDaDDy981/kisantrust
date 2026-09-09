@@ -200,6 +200,21 @@ function syncAuthUI() {
             roleDisplay.textContent = `${displayName} (${roleLabel})`;
         }
 
+        // Dynamic tab labels
+        const lblBuyers = document.getElementById('navLblBuyers');
+        const mobLblBuyers = document.getElementById('mobNavBuyers');
+        if (lblBuyers && mobLblBuyers) {
+            const isEnglish = AppState.selectedLang === "English";
+            const isHindi = AppState.selectedLang === "Hindi (हिंदी)";
+            if (role === 'buyer' || role === 'customer') {
+                lblBuyers.textContent = isEnglish ? 'Marketplace' : (isHindi ? 'बाज़ार' : 'बाजार');
+                mobLblBuyers.textContent = isEnglish ? 'Market' : (isHindi ? 'बाज़ार' : 'बाजार');
+            } else {
+                lblBuyers.textContent = isEnglish ? 'Buyers' : (isHindi ? 'खरीदार' : 'खरेदीदार');
+                mobLblBuyers.textContent = isEnglish ? 'Buyers' : (isHindi ? 'खरीदार' : 'खरेदीदार');
+            }
+        }
+
         // Show/hide admin tabs and quick buttons
         const isAdmin = user.role === 'admin' || user.role === 'super_admin';
         if (adminQuickBtn) adminQuickBtn.style.display = isAdmin ? 'inline-flex' : 'none';
@@ -241,6 +256,21 @@ function sendTelemetryEvent(type, payload = {}) {
 
 // View Navigation Router
 function navigateTo(viewId) {
+    const user = AuthService.getCurrentUser();
+    const role = user ? user.role : 'farmer';
+
+    // Route Guards
+    if ((role === 'buyer' || role === 'customer') && 
+        (viewId === 'viewAssessLot' || viewId === 'viewMyLots' || viewId === 'viewSmartPooling' || viewId === 'viewMarketIntel')) {
+        showToast('Unauthorized access. Redirecting to Dashboard.', 'warning');
+        viewId = 'viewDashboard';
+    }
+    
+    if (role === 'farmer' && viewId === 'viewAdminPortal') {
+        showToast('Admin access required.', 'warning');
+        viewId = 'viewDashboard';
+    }
+
     document.querySelectorAll('.app-view').forEach(view => {
         view.classList.remove('active');
         view.style.display = 'none';
@@ -711,7 +741,61 @@ async function updateBeforePublishInsights(cropType = 'Tomato', quantityKg = 500
 // VIEW 1: FARMER DASHBOARD
 // =========================================================================
 
-async function renderDashboard() {
+// Master Dashboard Router
+function renderDashboard() {
+    const user = AuthService.getCurrentUser();
+    const role = user ? user.role : 'farmer';
+
+    if (role === 'buyer' || role === 'customer') {
+        renderBuyerDashboard();
+    } else if (role === 'admin' || role === 'super_admin') {
+        renderAdminDashboard();
+    } else {
+        renderFarmerDashboard();
+    }
+}
+
+function renderBuyerDashboard() {
+    const user = AuthService.getCurrentUser();
+    const name = user ? (user.displayName || user.name) : 'Buyer';
+    
+    document.getElementById('dashWelcomeText').textContent = `Welcome, ${name} 👋`;
+    document.getElementById('dashSubDesc').textContent = "Find verified produce, manage your active offers, and track your procurements.";
+    
+    const ctaBtn = document.getElementById('dashAssessBtn');
+    if (ctaBtn) {
+        ctaBtn.innerHTML = '<span>🤝</span> <span>View Active Offers</span>';
+        ctaBtn.onclick = () => navigateTo('viewBuyerMarket');
+    }
+    
+    // We will build out the rest of the buyer dashboard in a future stage
+    const mainContainer = document.querySelector('#viewDashboard');
+    // Hide farmer specific sections for now
+    document.querySelectorAll('.kpi-summary-row, .section-header-row, .dashboard-cards-grid').forEach(el => {
+        if(el) el.style.display = 'none';
+    });
+}
+
+function renderAdminDashboard() {
+    const user = AuthService.getCurrentUser();
+    const name = user ? (user.displayName || user.name) : 'Admin';
+    
+    document.getElementById('dashWelcomeText').textContent = `Admin Portal: ${name} 🛡️`;
+    document.getElementById('dashSubDesc').textContent = "System overview, moderation queue, and dispute resolution.";
+    
+    const ctaBtn = document.getElementById('dashAssessBtn');
+    if (ctaBtn) {
+        ctaBtn.innerHTML = '<span>⚙️</span> <span>Go to Moderation</span>';
+        ctaBtn.onclick = () => navigateTo('viewAdminPortal');
+    }
+    
+    // Hide farmer specific sections
+    document.querySelectorAll('.kpi-summary-row, .section-header-row, .dashboard-cards-grid').forEach(el => {
+        if(el) el.style.display = 'none';
+    });
+}
+
+async function renderFarmerDashboard() {
     const lots = await firebaseService.getLots();
     const activeLots = (lots || []).filter(l => l.status === 'LISTED' || l.status === 'MATCHED' || l.status === 'POOLED' || l.moderationStatus === 'APPROVED');
 
