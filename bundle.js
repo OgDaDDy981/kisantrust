@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-09T15:14:25.151Z
+ * Auto-generated on 2026-09-09T15:20:09.017Z
  */
 (function() {
     'use strict';
@@ -1629,17 +1629,17 @@ const ENV_CONFIG = {
     DATA_GOV_IN_API_KEY:
         getEnvVar('DATA_GOV_IN_API_KEY', getEnvVar('AGMARKNET_API_KEY')),
     FIREBASE_API_KEY:
-        getEnvVar('FIREBASE_API_KEY', 'AIzaSyD2yRbvMydcoHVutM6FFqerQGl0ST5OPfw'),
+        getEnvVar('FIREBASE_API_KEY', 'AIzaSyD2yRbvNydcoHVutM6FFqerQGl0ST5OPfw'),
     FIREBASE_PROJECT_ID:
         getEnvVar('FIREBASE_PROJECT_ID', 'sih2026-622a0'),
     FIREBASE_AUTH_DOMAIN:
         getEnvVar('FIREBASE_AUTH_DOMAIN', 'sih2026-622a0.firebaseapp.com'),
     FIREBASE_STORAGE_BUCKET:
-        getEnvVar('FIREBASE_STORAGE_BUCKET', 'sih2026-622a0.appspot.com'),
+        getEnvVar('FIREBASE_STORAGE_BUCKET', 'sih2026-622a0.firebasestorage.app'),
     FIREBASE_MESSAGING_SENDER_ID:
-        getEnvVar('FIREBASE_MESSAGING_SENDER_ID', '791048201934'),
+        getEnvVar('FIREBASE_MESSAGING_SENDER_ID', '593553956672'),
     FIREBASE_APP_ID:
-        getEnvVar('FIREBASE_APP_ID', '1:791048201934:web:622a0f8b193ac491028471'),
+        getEnvVar('FIREBASE_APP_ID', '1:593553956672:web:d9daf3af089bb9867ce4a5'),
     WEATHER_API_KEY:
         getEnvVar('WEATHER_API_KEY', '')
 };
