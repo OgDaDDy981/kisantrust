@@ -183,46 +183,78 @@
                 </button>
             </div>
 
-            <!-- 5-BUTTON FARMER QUICK ACTION COMMAND GRID (Large Touch Targets for Rural Usability) -->
-            <div class="farmer-quick-grid" id="farmerQuickActionsGrid">
-                <div class="farmer-quick-card" onclick="navigateTo('viewAssessLot')">
-                    <div class="quick-icon-wrapper green">📸</div>
-                    <div class="quick-content">
-                        <h4 id="quickActionScanTitle">Check Crop Quality</h4>
-                        <p id="quickActionScanSub">AI grading & freshness from 4 photos</p>
-                    </div>
+            <!-- BEST ACTION TODAY: DECISION ENGINE -->
+            <div class="decision-engine-wrapper" id="decisionEngineWrapper">
+                <!-- Shown when farmer has no active lots -->
+                <div class="decision-empty-state" id="decisionEmptyState">
+                    <h3>No Active Crops to Analyze</h3>
+                    <p>Assess and register a crop lot to get personalized AI market recommendations, direct buyer offers, and transport pooling options.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('viewAssessLot')" style="margin-top: 15px;">
+                        <span>📸</span> Assess New Lot
+                    </button>
                 </div>
-                <div class="farmer-quick-card" onclick="navigateTo('viewMarketIntel')">
-                    <div class="quick-icon-wrapper gold">💰</div>
-                    <div class="quick-content">
-                        <h4 id="quickActionMandiTitle">Live Mandi Prices</h4>
-                        <p id="quickActionMandiSub">Net realization after transport costs</p>
+
+                <!-- Shown when farmer has an active lot -->
+                <div class="decision-engine-card" id="decisionEngineCard" style="display: none;">
+                    <div class="decision-header">
+                        <div class="pulse-indicator"></div>
+                        <h3 id="bestActionTitle">Best Action Today</h3>
+                        <span class="opp-badge high" id="decisionOppBadge">High Opportunity</span>
                     </div>
-                </div>
-                <div class="farmer-quick-card" onclick="navigateTo('viewBuyerMarket')">
-                    <div class="quick-icon-wrapper blue">🤝</div>
-                    <div class="quick-content">
-                        <h4 id="quickActionBuyersTitle">Find Trusted Buyers</h4>
-                        <p id="quickActionBuyersSub">FSSAI & APMC verified direct buyers</p>
+                    
+                    <div class="decision-core" id="decisionCoreContent">
+                        <div class="decision-commodity">
+                            <span class="crop-icon" id="decisionCropIcon">🍅</span>
+                            <div>
+                                <h4 id="decisionCropTitle">Tomato (Grade A) - 500kg</h4>
+                                <p id="decisionCropSub">AI Graded • 94% Freshness</p>
+                            </div>
+                        </div>
+                        
+                        <div class="decision-metrics">
+                            <div class="metric">
+                                <span class="label">Best APMC Rate</span>
+                                <span class="value" id="decisionApmcRate">₹--/kg</span>
+                            </div>
+                            <div class="metric">
+                                <span class="label">Direct Buyer Offer</span>
+                                <span class="value highlight" id="decisionBuyerRate">₹--/kg</span>
+                            </div>
+                        </div>
+
+                        <div class="decision-action-box">
+                            <strong>🎯 Recommended Action:</strong>
+                            <p id="decisionActionText">Loading AI recommendation...</p>
+                            <button class="btn btn-primary" id="decisionCtaBtn" style="width: 100%; margin-top: 12px;">
+                                View Details ➔
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="farmer-quick-card" onclick="navigateTo('viewSmartPooling')">
-                    <div class="quick-icon-wrapper orange">🚜</div>
-                    <div class="quick-content">
-                        <h4 id="quickActionPoolingTitle">Village Transport Pooling</h4>
-                        <p id="quickActionPoolingSub">Save 50-70% freight in 10-ton trucks</p>
-                    </div>
-                </div>
-                <div class="farmer-quick-card" onclick="navigateTo('viewTransactions')">
-                    <div class="quick-icon-wrapper purple">📜</div>
-                    <div class="quick-content">
-                        <h4 id="quickActionDealsTitle">My Deals & Receipts</h4>
-                        <p id="quickActionDealsSub">Digital contracts & official receipts</p>
+
+                    <!-- EXPLAINABLE OPPORTUNITY SCORE -->
+                    <div class="opportunity-breakdown" id="opportunityBreakdown">
+                        <div class="opp-score-header">
+                            <h4>Why this recommendation?</h4>
+                        </div>
+                        <div class="opp-factors">
+                            <div class="factor positive">
+                                <span class="icon">✅</span>
+                                <div class="text"><strong>What Helped:</strong> <span id="oppFactorHelp">High freshness (94%) commands a premium. Local APMC supply is 15% lower than usual.</span></div>
+                            </div>
+                            <div class="factor negative">
+                                <span class="icon">⚠️</span>
+                                <div class="text"><strong>What Hurt:</strong> <span id="oppFactorHurt">Freight costs to Mumbai are high for this small quantity (500kg).</span></div>
+                            </div>
+                            <div class="factor neutral">
+                                <span class="icon">💡</span>
+                                <div class="text"><strong>What You Can Change:</strong> <span id="oppFactorChange">Use Smart Pooling to combine transport with nearby farmers to reduce freight cost by ₹4/kg.</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Dashboard Grid: Active Lots, Market Snapshot, Selling Opportunities -->
+            <!-- Dashboard Grid: Active Lots -->
             <div class="dashboard-grid">
                 <!-- Section: My Active Lots -->
                 <div class="custom-card" style="grid-column: 1 / -1;">
@@ -232,42 +264,6 @@
                     </div>
                     <div class="lots-card-grid" id="dashLotsContainer">
                         <!-- Loaded dynamically from lotService -->
-                    </div>
-                </div>
-
-                <!-- Section: Market Snapshot -->
-                <div class="snapshot-card">
-                    <div class="section-header-row">
-                        <h3><span>📈</span> <span id="dashMarketSnapshotTitle">Market Price Snapshot</span></h3>
-                        <span class="opp-badge high" style="background:#E8F5E9; color:#2E7D32; border-color:#A5D6A7;">Live Index</span>
-                    </div>
-                    <div class="snapshot-benchmark-meta">
-                        <strong id="snapBestMarketLabel">Best Market:</strong> <span id="snapBestMarketName">Vashi APMC (Navi Mumbai)</span>
-                    </div>
-                    <div class="snapshot-price-row">
-                        <div class="snapshot-price-large" id="snapHighestPrice">₹ 38.00</div>
-                        <div style="font-size:0.9rem; color:#666;" id="snapPerKgUnit">/ kg (Tomato)</div>
-                    </div>
-                    <div class="snapshot-benchmark-meta">
-                        <strong id="snapNetValueLabel">Estimated Net Realization:</strong> <span id="snapNetValue">₹ 35.40 / kg</span> (after transport)
-                    </div>
-                    <div class="action-tip-box" id="snapTipBox">
-                        💡 Hybrid tomatoes are in high demand at Mumbai and Vashi markets right now.
-                    </div>
-                </div>
-
-                <!-- Section: Selling Opportunity -->
-                <div class="opportunity-card">
-                    <div class="section-header-row">
-                        <h3><span>🎯</span> <span id="dashOpportunityTitle">Selling Opportunity</span></h3>
-                        <span class="opp-badge high" id="dashDemandBadge">High Demand</span>
-                    </div>
-                    <div class="opportunity-badge-row">
-                        <span>🤝</span> <strong>Available Buyers:</strong> <span id="dashPotentialBuyersCount">3 verified buyers active</span>
-                    </div>
-                    <div class="action-tip-box" style="border-left-color: #2E7D32; background: rgba(46,125,50,0.06);">
-                        <strong>Recommended Action:</strong>
-                        <p id="dashActionRecommendation">Dealing directly with verified buyers gives you higher profit by removing middlemen.</p>
                     </div>
                 </div>
             </div>

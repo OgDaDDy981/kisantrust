@@ -802,7 +802,7 @@ async function renderFarmerDashboard() {
     const lotsContainer = document.getElementById('dashLotsContainer');
     if (lotsContainer) {
         if (activeLots.length === 0) {
-            lotsContainer.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:#777;">सध्या कोणताही सक्रिय शेती लॉट नाही. वरील 'नवीन पीक लॉट तपासा' कार्डावर क्लिक करा.</div>`;
+            lotsContainer.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:#777;">No active produce lots. Click 'Assess New Lot' above.</div>`;
         } else {
             lotsContainer.innerHTML = activeLots.slice(0, 3).map(lot => `
                 <div class="dash-lot-card" onclick="navigateTo('viewMyLots')" style="cursor:pointer; background:#FFF; border:1px solid #E2E8F0; border-radius:10px; padding:12px; margin-bottom:8px;">
@@ -811,12 +811,12 @@ async function renderFarmerDashboard() {
                             <strong style="font-size:1.05rem; color:var(--leaf-deep);">${lot.cropType}</strong>
                             <div style="font-size:0.8rem; color:#666;">${lot.quantity} kg • ${lot.variety || 'Standard'}</div>
                         </div>
-                        <span class="opp-badge high" style="background:#E8F5E9; color:#1B5E20;">
+                        <span class="opp-badge high" style="background:#E8F5E9; color:#1B5E20; padding:2px 8px; border-radius:12px; font-size:0.75rem;">
                             ${lot.overallQualityGrade || 'Grade A'} (${lot.freshnessScore || 92}%)
                         </span>
                     </div>
                     <div style="margin-top:8px; display:flex; justify-content:space-between; font-size:0.85rem;">
-                        <span>स्थिती: <strong>${lot.moderationStatus || 'APPROVED'}</strong></span>
+                        <span>Status: <strong>${lot.moderationStatus || 'APPROVED'}</strong></span>
                         <span style="color:var(--leaf-deep); font-weight:800;">₹${lot.netPricePerKg || 28.5}/kg</span>
                     </div>
                 </div>
@@ -824,17 +824,58 @@ async function renderFarmerDashboard() {
         }
     }
 
-    // Market snapshot for Nashik Tomato
-    const mandiComp = await MarketComparisonService.getComparisonForCrop('Tomato', 500, 94, 'Grade A');
-    if (mandiComp && mandiComp.recommended) {
-        const topMandi = mandiComp.recommended;
-        const bestMandiElem = document.getElementById('snapBestMarketName');
-        const modalPriceElem = document.getElementById('snapHighestPrice');
-        const netRealizationElem = document.getElementById('snapNetValue');
-
-        if (bestMandiElem) bestMandiElem.textContent = topMandi.mandiName;
-        if (modalPriceElem) modalPriceElem.textContent = `₹ ${topMandi.modalPricePerKg.toFixed(2)}`;
-        if (netRealizationElem) netRealizationElem.textContent = `₹ ${topMandi.estimatedNetRealizationPerKg.toFixed(2)} / किलो`;
+    // DECISION ENGINE POPULATION
+    const emptyState = document.getElementById('decisionEmptyState');
+    const decisionCard = document.getElementById('decisionEngineCard');
+    
+    if (activeLots.length === 0) {
+        if (emptyState) emptyState.style.display = 'block';
+        if (decisionCard) decisionCard.style.display = 'none';
+    } else {
+        if (emptyState) emptyState.style.display = 'none';
+        if (decisionCard) decisionCard.style.display = 'block';
+        
+        // Grab the most recent active lot
+        const latestLot = activeLots[0];
+        
+        document.getElementById('decisionCropIcon').textContent = latestLot.cropType === 'Tomato' ? '🍅' : (latestLot.cropType === 'Onion' ? '🧅' : '🌾');
+        document.getElementById('decisionCropTitle').textContent = `${latestLot.cropType} (${latestLot.overallQualityGrade || 'Grade A'}) - ${latestLot.quantity}kg`;
+        document.getElementById('decisionCropSub').textContent = `AI Graded • ${latestLot.freshnessScore || 92}% Freshness`;
+        
+        // Run AI Services for the lot
+        const mandiComp = await MarketComparisonService.getComparisonForCrop(latestLot.cropType, latestLot.quantity, latestLot.freshnessScore || 92, latestLot.overallQualityGrade || 'Grade A');
+        const matchedBuyers = await BuyerService.matchBuyersForLot({ cropType: latestLot.cropType, quantity: latestLot.quantity, qualityGrade: latestLot.overallQualityGrade || 'Grade A' });
+        
+        let bestApmcPrice = mandiComp && mandiComp.recommended ? mandiComp.recommended.modalPricePerKg : 25;
+        let bestBuyerOffer = matchedBuyers.length > 0 ? matchedBuyers[0].offeredPricePerKg : bestApmcPrice + 2;
+        
+        document.getElementById('decisionApmcRate').textContent = `₹${bestApmcPrice.toFixed(2)}/kg`;
+        document.getElementById('decisionBuyerRate').textContent = `₹${bestBuyerOffer.toFixed(2)}/kg`;
+        
+        // Populate Recommendation
+        if (bestBuyerOffer >= bestApmcPrice) {
+            document.getElementById('bestActionTitle').textContent = 'Sell to Direct Buyer';
+            document.getElementById('decisionOppBadge').textContent = 'High Opportunity';
+            document.getElementById('decisionActionText').textContent = `Accept the direct offer of ₹${bestBuyerOffer}/kg. APMC prices are projected to drop due to high inward supply today.`;
+            document.getElementById('decisionCtaBtn').onclick = () => navigateTo('viewBuyerMarket');
+            document.getElementById('decisionCtaBtn').textContent = 'Review Direct Offers ➔';
+        } else {
+            document.getElementById('bestActionTitle').textContent = 'Transport to APMC';
+            document.getElementById('decisionOppBadge').textContent = 'Good Opportunity';
+            document.getElementById('decisionActionText').textContent = `APMC rates in your nearest mandi are currently higher than direct buyer offers. Use Smart Pooling to reduce freight costs.`;
+            document.getElementById('decisionCtaBtn').onclick = () => navigateTo('viewSmartPooling');
+            document.getElementById('decisionCtaBtn').textContent = 'Find Transport Pool ➔';
+        }
+        
+        // Populate Opportunity Score Breakdown
+        document.getElementById('oppFactorHelp').textContent = `High freshness (${latestLot.freshnessScore || 92}%) commands a premium. Quality is verified.`;
+        if (latestLot.quantity < 1000) {
+            document.getElementById('oppFactorHurt').textContent = `Freight costs are high for this small quantity (${latestLot.quantity}kg).`;
+            document.getElementById('oppFactorChange').textContent = `Use Smart Pooling to combine transport with nearby farmers to reduce freight cost by ₹4/kg.`;
+        } else {
+            document.getElementById('oppFactorHurt').textContent = `Market volatility is high today.`;
+            document.getElementById('oppFactorChange').textContent = `Lock in the direct buyer contract now to prevent price drops.`;
+        }
     }
 }
 
