@@ -2534,12 +2534,16 @@
             <span class="mob-nav-icon">🏠</span>
             <span class="mob-nav-label" id="mobNavHome">Home</span>
         </button>
+        <button class="mob-nav-btn" data-view="viewMyLots" onclick="navigateTo('viewMyLots')">
+            <span class="mob-nav-icon">📦</span>
+            <span class="mob-nav-label" id="mobNavMyLots">My Lots</span>
+        </button>
         <button class="mob-nav-btn" data-view="viewMarketIntel" onclick="navigateTo('viewMarketIntel')">
             <span class="mob-nav-icon">📊</span>
             <span class="mob-nav-label" id="mobNavMarket">Market</span>
         </button>
         <button class="mob-nav-btn" data-view="viewStorage" onclick="navigateTo('viewStorage')">
-            <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">📦</span>Storage
+            <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">🏦</span>Storage
         </button>
         <button class="mob-nav-btn mob-nav-primary" data-view="viewAssessLot" onclick="navigateTo('viewAssessLot')">
             <span class="mob-nav-icon">➕</span>
@@ -2549,9 +2553,17 @@
             <span class="mob-nav-icon">🤝</span>
             <span class="mob-nav-label" id="mobNavBuyers">Buyers</span>
         </button>
+        <button class="mob-nav-btn" data-view="viewSmartPooling" onclick="navigateTo('viewSmartPooling')">
+            <span class="mob-nav-icon">👥</span>
+            <span class="mob-nav-label" id="mobNavPooling">Pooling</span>
+        </button>
         <button class="mob-nav-btn" data-view="viewTransactions" onclick="navigateTo('viewTransactions')">
             <span class="mob-nav-icon">📜</span>
             <span class="mob-nav-label" id="mobNavDeals">Deals</span>
+        </button>
+        <button class="mob-nav-btn admin-only" data-view="viewAdminPortal" onclick="navigateTo('viewAdminPortal')">
+            <span class="mob-nav-icon">⚙️</span>
+            <span class="mob-nav-label" id="mobNavAdmin">Admin</span>
         </button>
     </nav>
     </main>

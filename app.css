@@ -4528,31 +4528,28 @@ body.role-super_admin .admin-only {
         display: none !important;
     }
     .language-indicator {
-        display: none;
+        display: block !important;
+    }
+    .header-lang-select {
+        width: 40px;
+        padding: 4px;
+        color: transparent;
     }
     .brand-name {
         font-size: 1.35rem !important;
     }
     .tagline {
-        font-size: 0.68rem;
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        display: none; /* Hide tagline to save space */
     }
     .header-actions-right {
         gap: 6px;
     }
     .user-role-badge {
-        font-size: 0.72rem;
-        padding: 4px 8px;
-        max-width: 150px;
+        padding: 4px;
+        gap: 4px;
     }
     #userRoleDisplay {
-        max-width: 100px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        display: none !important;
     }
     .logout-mini-btn {
         font-size: 0.85rem;
@@ -4866,9 +4863,6 @@ body.role-super_admin .admin-only {
     .brand-name {
         font-size: 1rem !important;
     }
-    .user-role-badge {
-        display: none;
-    }
     .mob-nav-btn .mob-nav-label {
         font-size: 0.58rem;
     }
@@ -4924,7 +4918,9 @@ body.role-super_admin .admin-only {
 .role-farmer .mob-nav-btn[data-view="viewMarketIntel"],
 .role-farmer .mob-nav-btn[data-view="viewBuyerMarket"],
 .role-farmer .mob-nav-btn[data-view="viewTransactions"],
-.role-farmer .mob-nav-btn[data-view="viewStorage"] {
+.role-farmer .mob-nav-btn[data-view="viewStorage"],
+.role-farmer .mob-nav-btn[data-view="viewMyLots"],
+.role-farmer .mob-nav-btn[data-view="viewSmartPooling"] {
     display: flex !important;
 }
 
@@ -4948,9 +4944,11 @@ body.role-super_admin .admin-only {
 .role-admin #navDashboard,
 .role-admin #navAdminPortal,
 .role-admin .mob-nav-btn[data-view="viewDashboard"],
+.role-admin .mob-nav-btn[data-view="viewAdminPortal"],
 .role-super_admin #navDashboard,
 .role-super_admin #navAdminPortal,
-.role-super_admin .mob-nav-btn[data-view="viewDashboard"] {
+.role-super_admin .mob-nav-btn[data-view="viewDashboard"],
+.role-super_admin .mob-nav-btn[data-view="viewAdminPortal"] {
     display: flex !important;
 }
 
