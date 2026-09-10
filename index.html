@@ -147,6 +147,9 @@
                     <span>📊</span> <span class="nav-label" id="navLblMarketIntel">Market Prices</span>
                     <span class="nav-sublabel">APMC Rates</span>
                 </button>
+                <button class="nav-tab-btn" id="navStorage" data-view="viewStorage" onclick="navigateTo('viewStorage')">
+                    📦 Storage/Hold
+                </button>
                 <button class="nav-tab-btn" id="navBuyerMarket" data-view="viewBuyerMarket" onclick="navigateTo('viewBuyerMarket')">
                     <span>🤝</span> <span class="nav-label" id="navLblBuyers">Buyers</span>
                     <span class="nav-sublabel">Marketplace</span>
@@ -963,6 +966,31 @@
                         <div style="font-size: 1.4rem; font-weight: 900; color: #1D4ED8; margin: 8px 0;" id="altBuyerPrice">₹--/kg</div>
                         <div style="font-size: 0.75rem; color: #78716C;" id="altBuyerNet">No transport cost (farm pickup)</div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================== -->
+        <!-- VIEW 5a: STORAGE & HOLDING ADVISORY (STAGE 6)                  -->
+        <!-- ============================================================== -->
+        <section class="app-view" id="viewStorage">
+            <div class="custom-card" style="margin-bottom:var(--s5);">
+                <div class="section-header-row">
+                    <div>
+                        <h2 id="storageMainTitle" style="font-size:1.4rem; color:var(--leaf-deep);">📦 Storage & Holding Advisory</h2>
+                        <p style="font-size:0.88rem; color:#666;" id="storageSub">Evaluate whether to sell now or store for better margins</p>
+                    </div>
+                </div>
+
+                <!-- Sell vs Hold Decision Engine -->
+                <div id="storageDecisionContainer" style="margin: 16px 0;">
+                    <!-- JS will populate the decision widget here -->
+                </div>
+                
+                <!-- Nearby Facilities -->
+                <h3 style="margin-top: 32px; font-size: 1.1rem; color: #1F2937; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px;">📍 Nearby Verified Storage Facilities</h3>
+                <div class="storage-facility-grid" id="storageFacilityGrid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:16px; margin-top:16px;">
+                    <!-- JS will populate facility cards here -->
                 </div>
             </div>
         </section>
@@ -2509,6 +2537,9 @@
         <button class="mob-nav-btn" data-view="viewMarketIntel" onclick="navigateTo('viewMarketIntel')">
             <span class="mob-nav-icon">📊</span>
             <span class="mob-nav-label" id="mobNavMarket">Market</span>
+        </button>
+        <button class="mob-nav-btn" data-view="viewStorage" onclick="navigateTo('viewStorage')">
+            <span style="font-size: 1.2rem; display: block; margin-bottom: 2px;">📦</span>Storage
         </button>
         <button class="mob-nav-btn mob-nav-primary" data-view="viewAssessLot" onclick="navigateTo('viewAssessLot')">
             <span class="mob-nav-icon">➕</span>

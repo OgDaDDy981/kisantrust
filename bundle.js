@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-10T01:32:13.938Z
+ * Auto-generated on 2026-09-10T01:44:11.046Z
  */
 (function() {
     'use strict';
@@ -8496,7 +8496,72 @@ const STORAGE_FACILITY_BENCHMARKS = [
         description: 'Commercial refrigeration hubs preventing enzymatic ripening and dehydration.'
     }
 ];
+const MOCK_NEARBY_FACILITIES = [
+    {
+        id: 'sf-001',
+        name: 'Nashik Cold Chain Hub',
+        typeId: 'COMMERCIAL_COLD_STORAGE',
+        facilityType: 'Commercial Cold Storage',
+        distanceKm: 14.5,
+        totalCapacityMT: 5000,
+        availableCapacityMT: 1200,
+        costPerKgMonth: 0.55,
+        suitableCrops: ['Potato', 'Carrot', 'Cabbage', 'Grapes', 'Tomato'],
+        temperature: '2°C - 8°C',
+        isVerified: true,
+        contact: '+91-9876543210'
+    },
+    {
+        id: 'sf-002',
+        name: 'Pimpalgaon Kanda Chawl Cooperative',
+        typeId: 'FARM_VENTILATED',
+        facilityType: 'Ventilated Farm Storage',
+        distanceKm: 4.2,
+        totalCapacityMT: 800,
+        availableCapacityMT: 150,
+        costPerKgMonth: 0.20,
+        suitableCrops: ['Onion', 'Garlic', 'Pumpkin'],
+        temperature: 'Ambient (Ventilated)',
+        isVerified: true,
+        contact: '+91-9988776655'
+    },
+    {
+        id: 'sf-003',
+        name: 'Vashi Mega Cold Storage',
+        typeId: 'COMMERCIAL_COLD_STORAGE',
+        facilityType: 'Commercial Cold Storage',
+        distanceKm: 162.0,
+        totalCapacityMT: 12000,
+        availableCapacityMT: 450,
+        costPerKgMonth: 0.65,
+        suitableCrops: ['Potato', 'Carrot', 'Grapes', 'Pomegranate', 'Tomato'],
+        temperature: '2°C - 5°C',
+        isVerified: true,
+        contact: '+91-9123456789'
+    },
+    {
+        id: 'sf-004',
+        name: 'Lasalgaon Farm Godown',
+        typeId: 'FARM_VENTILATED',
+        facilityType: 'Standard Godown',
+        distanceKm: 8.5,
+        totalCapacityMT: 2000,
+        availableCapacityMT: 800,
+        costPerKgMonth: 0.15,
+        suitableCrops: ['Onion', 'Garlic', 'Grains'],
+        temperature: 'Ambient',
+        isVerified: false,
+        contact: '+91-9998887776'
+    }
+];
 class StorageService {
+    /**
+     * Gets nearby storage facilities filtered by crop suitability
+     */
+    static getNearbyFacilities(cropType) {
+        if (!cropType) return MOCK_NEARBY_FACILITIES;
+        return MOCK_NEARBY_FACILITIES.filter(f => f.suitableCrops.includes(cropType)).sort((a, b) => a.distanceKm - b.distanceKm);
+    }
     /**
      * Evaluates storage feasibility and provides clear actionable guidance
      * @param {Object} params
@@ -10907,7 +10972,7 @@ function navigateTo(viewId) {
 
     // Route Guards
     if ((role === 'buyer' || role === 'customer') && 
-        (viewId === 'viewAssessLot' || viewId === 'viewMyLots' || viewId === 'viewSmartPooling' || viewId === 'viewMarketIntel')) {
+        (viewId === 'viewAssessLot' || viewId === 'viewMyLots' || viewId === 'viewSmartPooling' || viewId === 'viewMarketIntel' || viewId === 'viewStorage')) {
         showToast('Unauthorized access. Redirecting to Dashboard.', 'warning');
         viewId = 'viewDashboard';
     }
@@ -10944,6 +11009,7 @@ function navigateTo(viewId) {
     if (viewId === 'viewDashboard') renderDashboard();
     else if (viewId === 'viewMyLots') renderMyLots();
     else if (viewId === 'viewMarketIntel') renderMarketIntel(AppState.selectedCropFilter);
+    else if (viewId === 'viewStorage') renderStorageView();
     else if (viewId === 'viewBuyerMarket') renderBuyerMarket(AppState.selectedBuyerCropFilter);
     else if (viewId === 'viewSmartPooling') renderSmartPooling();
     else if (viewId === 'viewTransactions') renderTransactionsList();
@@ -11499,28 +11565,53 @@ async function renderFarmerDashboard() {
         document.getElementById('decisionBuyerRate').textContent = `₹${bestBuyerOffer.toFixed(2)}/kg`;
         
         // Populate Recommendation
-        if (bestBuyerOffer >= bestApmcPrice) {
+        // Fetch storage recommendation
+        const StorageServiceModule = await import('./src/services/storageService.js');
+        const storageRec = StorageServiceModule.StorageService.evaluateStorageFeasibility({
+            cropType: latestLot.cropType,
+            freshnessScore: latestLot.freshnessScore || 92,
+            expectedPriceGainPerKg: 3.5 // Simulate some price gain
+        });
+
+        const isHoldRec = storageRec.recommendationType !== 'IMMEDIATE_SALE_PREFERRED';
+
+        if (isHoldRec) {
+            document.getElementById('bestActionTitle').textContent = 'Store & Sell Later (Hold)';
+            document.getElementById('decisionOppBadge').textContent = 'High Opportunity';
+            document.getElementById('decisionOppBadge').style.background = '#F0FDF4';
+            document.getElementById('decisionOppBadge').style.color = '#166534';
+            document.getElementById('decisionActionText').textContent = storageRec.guidanceRationale;
+            document.getElementById('decisionCtaBtn').onclick = () => navigateTo('viewStorage');
+            document.getElementById('decisionCtaBtn').textContent = 'Book Storage Facility ➔';
+            document.getElementById('decisionCtaBtn').style.background = '#10B981';
+            
+            document.getElementById('oppFactorChange').textContent = `Store in ${storageRec.recommendedFacility?.facilityType || 'storage'} for expected margin gain.`;
+        } else if (bestBuyerOffer >= bestApmcPrice) {
             document.getElementById('bestActionTitle').textContent = 'Sell to Direct Buyer';
             document.getElementById('decisionOppBadge').textContent = 'High Opportunity';
             document.getElementById('decisionActionText').textContent = `Accept the direct offer of ₹${bestBuyerOffer}/kg. APMC prices are projected to drop due to high inward supply today.`;
             document.getElementById('decisionCtaBtn').onclick = () => navigateTo('viewBuyerMarket');
             document.getElementById('decisionCtaBtn').textContent = 'Review Direct Offers ➔';
+            
+            document.getElementById('oppFactorChange').textContent = `Lock in the direct buyer contract now to prevent price drops.`;
         } else {
             document.getElementById('bestActionTitle').textContent = 'Transport to APMC';
             document.getElementById('decisionOppBadge').textContent = 'Good Opportunity';
             document.getElementById('decisionActionText').textContent = `APMC rates in your nearest mandi are currently higher than direct buyer offers. Use Smart Pooling to reduce freight costs.`;
             document.getElementById('decisionCtaBtn').onclick = () => navigateTo('viewSmartPooling');
             document.getElementById('decisionCtaBtn').textContent = 'Find Transport Pool ➔';
+            
+            if (latestLot.quantity < 1000) {
+                document.getElementById('oppFactorChange').textContent = `Use Smart Pooling to combine transport with nearby farmers to reduce freight cost by ₹4/kg.`;
+            }
         }
         
         // Populate Opportunity Score Breakdown
         document.getElementById('oppFactorHelp').textContent = `High freshness (${latestLot.freshnessScore || 92}%) commands a premium. Quality is verified.`;
         if (latestLot.quantity < 1000) {
             document.getElementById('oppFactorHurt').textContent = `Freight costs are high for this small quantity (${latestLot.quantity}kg).`;
-            document.getElementById('oppFactorChange').textContent = `Use Smart Pooling to combine transport with nearby farmers to reduce freight cost by ₹4/kg.`;
         } else {
             document.getElementById('oppFactorHurt').textContent = `Market volatility is high today.`;
-            document.getElementById('oppFactorChange').textContent = `Lock in the direct buyer contract now to prevent price drops.`;
         }
     }
 }
@@ -12228,6 +12319,179 @@ async function renderMarketIntel(cropType = 'Tomato') {
         const pStatus = comparison?.summaryMetrics?.primaryDataStatus || 'demo';
         provStatus.textContent = pStatus === 'live' ? '🟢 Live' : (pStatus === 'cached' ? '🟡 Cached' : '🔵 Demo / Offline');
     }
+}
+
+// =========================================================================
+// VIEW 5a: STORAGE & HOLDING ADVISORY (STAGE 6)
+// =========================================================================
+
+async function renderStorageView() {
+    const langIsEng = AppState.selectedLang === 'English';
+    const langIsHin = AppState.selectedLang === 'Hindi (हिंदी)';
+
+    showLoading(langIsEng ? '📦 Analyzing storage options...' : (langIsHin ? '📦 भंडारण विकल्प खोज रहे हैं...' : '📦 साठवणूक पर्याय शोधत आहे...'));
+
+    const decisionContainer = document.getElementById('storageDecisionContainer');
+    const facilityGrid = document.getElementById('storageFacilityGrid');
+
+    // Default mock parameters if farmer has no active lot
+    let cropType = 'Tomato';
+    let freshnessScore = 85;
+    let quantityKg = 1000;
+    
+    // Check if farmer has an active lot to run true decision
+    const user = AuthService.getCurrentUser();
+    if (user && user.role === 'farmer') {
+        const lots = await window.FarmerService.getFarmerLots(user.uid);
+        const activeLot = lots.find(l => l.status === 'Active');
+        if (activeLot) {
+            cropType = activeLot.cropType;
+            freshnessScore = activeLot.quality?.freshnessScore || 85;
+            quantityKg = activeLot.quantityKg || 1000;
+        }
+    }
+
+    // Evaluate storage
+    const storageService = (await import('./src/services/storageService.js')).StorageService;
+    const priceService = (await import('./src/services/pricePredictionService.js')).PricePredictionService;
+    const marketComparisonService = (await import('./src/services/marketComparisonService.js')).MarketComparisonService;
+    
+    const comparison = await marketComparisonService.compareMarketsForLot({ cropType, quantityKg, freshnessScore });
+    const currentPrice = comparison?.summaryMetrics?.maxModal || 35.0;
+    
+    const forecast = await priceService.forecastPriceRange({ cropType, currentPrice, horizonDays: 30 });
+    const expectedGain = forecast.expectedOpportunityRange.max - currentPrice;
+    
+    const storageRec = storageService.evaluateStorageFeasibility({
+        cropType,
+        freshnessScore,
+        expectedPriceGainPerKg: expectedGain > 0 ? expectedGain : 0
+    });
+
+    // Populate Decision Widget
+    if (decisionContainer) {
+        const isHoldRec = storageRec.recommendationType !== 'IMMEDIATE_SALE_PREFERRED';
+        
+        const netNow = currentPrice * quantityKg;
+        
+        // If holding, netLater = (Future Price - Storage Cost - Transport) * Qty - Spoilage Loss
+        const futurePrice = isHoldRec ? forecast.expectedOpportunityRange.max : currentPrice;
+        const storageCostTotal = (storageRec.estimatedHoldingCostPerKg * quantityKg);
+        const spoilageLoss = (futurePrice * quantityKg) * (storageRec.spoilageRiskPercent / 100);
+        const netLater = isHoldRec ? ((futurePrice * quantityKg) - storageCostTotal - spoilageLoss) : netNow;
+        
+        const gainLoss = netLater - netNow;
+
+        const sellBtnText = langIsEng ? 'Sell Now ↗' : (langIsHin ? 'अभी बेचें ↗' : 'आताच विका ↗');
+        const holdBtnText = langIsEng ? 'Book Storage ↗' : (langIsHin ? 'भंडारण बुक करें ↗' : 'स्टोरेज बुक करा ↗');
+
+        decisionContainer.innerHTML = `
+            <div class="sell-vs-hold-grid">
+                <!-- SELL NOW CARD -->
+                <div class="svh-card svh-sell" style="${!isHoldRec ? 'border: 2px solid #3B82F6; box-shadow: 0 4px 12px rgba(59,130,246,0.15);' : ''}">
+                    ${!isHoldRec ? '<div style="position:absolute; top:-12px; right:20px; background:#3B82F6; color:white; padding:4px 12px; border-radius:12px; font-weight:700; font-size:0.8rem;">⭐ RECOMMENDED</div>' : ''}
+                    <h3 style="color:#1E293B; margin:0 0 12px 0;">💰 ${langIsEng ? 'Immediate Sale' : (langIsHin ? 'तत्काल बिक्री' : 'तात्काळ विक्री')}</h3>
+                    
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px dashed #CBD5E1; padding-bottom:8px;">
+                        <span style="color:#64748B;">Current Market Price:</span>
+                        <span style="font-weight:700; color:#0F172A;">₹${currentPrice.toFixed(2)}/kg</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px dashed #CBD5E1; padding-bottom:8px;">
+                        <span style="color:#64748B;">Spoilage Risk:</span>
+                        <span style="font-weight:700; color:#10B981;">0% (None)</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+                        <span style="color:#64748B; font-weight:700;">Est. Net Realization:</span>
+                        <span style="font-weight:900; color:#3B82F6; font-size:1.1rem;">₹${netNow.toLocaleString('en-IN')}</span>
+                    </div>
+                    
+                    <button class="btn btn-outline" style="width:100%; border-color:#3B82F6; color:#3B82F6;" onclick="navigateTo('viewMarketIntel')">${sellBtnText}</button>
+                </div>
+                
+                <!-- HOLD & STORE CARD -->
+                <div class="svh-card svh-hold" style="${isHoldRec ? 'border: 2px solid #10B981; box-shadow: 0 4px 12px rgba(16,185,129,0.15);' : ''}">
+                    ${isHoldRec ? '<div style="position:absolute; top:-12px; right:20px; background:#10B981; color:white; padding:4px 12px; border-radius:12px; font-weight:700; font-size:0.8rem;">⭐ RECOMMENDED</div>' : ''}
+                    <h3 style="color:#064E3B; margin:0 0 12px 0;">📦 ${langIsEng ? 'Store & Sell Later' : (langIsHin ? 'भंडारण करें' : 'साठवणूक करा')}</h3>
+                    
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px dashed #A7F3D0; padding-bottom:8px;">
+                        <span style="color:#047857;">Est. Future Price (30d):</span>
+                        <span style="font-weight:700; color:#064E3B;">₹${futurePrice.toFixed(2)}/kg</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; border-bottom:1px dashed #A7F3D0; padding-bottom:8px;">
+                        <span style="color:#047857;">Storage Cost + Spoilage:</span>
+                        <span style="font-weight:700; color:#DC2626;">- ₹${(storageCostTotal + spoilageLoss).toLocaleString('en-IN')}</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:16px;">
+                        <span style="color:#047857; font-weight:700;">Est. Net Realization:</span>
+                        <span style="font-weight:900; color:#10B981; font-size:1.1rem;">₹${netLater.toLocaleString('en-IN')}</span>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width:100%; background:#10B981; border-color:#10B981;" onclick="document.getElementById('storageFacilityGrid').scrollIntoView({behavior: 'smooth'})">${holdBtnText}</button>
+                </div>
+            </div>
+            
+            <div style="margin-top:16px; background:#F8FAFC; border-left:4px solid ${isHoldRec ? '#10B981' : '#3B82F6'}; padding:12px 16px; border-radius:8px;">
+                <h4 style="margin:0 0 4px 0; color:#1E293B;">💡 ${storageRec.recommendationTitle}</h4>
+                <p style="margin:0; font-size:0.85rem; color:#475569;">${storageRec.guidanceRationale}</p>
+                <div style="margin-top:12px; border-top:1px solid #E2E8F0; padding-top:8px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:0.8rem; color:#64748B;">
+                        <span>Shelf Life Remaining: <strong>${storageRec.safeHoldingDaysRemaining} days</strong></span>
+                        <span>Spoilage Risk: <strong>${storageRec.spoilageRiskPercent}%</strong></span>
+                    </div>
+                    <div class="storage-capacity-bar">
+                        <div class="storage-capacity-fill" style="width:${Math.max(0, Math.min(100, (storageRec.safeHoldingDaysRemaining/60)*100))}%; background:${storageRec.safeHoldingDaysRemaining > 30 ? '#10B981' : (storageRec.safeHoldingDaysRemaining > 10 ? '#F59E0B' : '#EF4444')}"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // Populate Facility Grid
+    if (facilityGrid) {
+        const facilities = storageService.getNearbyFacilities(cropType);
+        
+        if (facilities.length === 0) {
+            facilityGrid.innerHTML = `<div style="grid-column: 1/-1; text-align:center; padding:24px; color:#64748B;">No suitable storage facilities found for ${cropType} nearby.</div>`;
+        } else {
+            facilityGrid.innerHTML = facilities.map(f => {
+                const fillPct = (f.availableCapacityMT / f.totalCapacityMT) * 100;
+                const fillColor = fillPct > 20 ? '#10B981' : '#EF4444';
+                
+                return `
+                <div class="storage-card">
+                    ${f.isVerified ? '<span class="storage-badge verified">✓ Verified</span>' : ''}
+                    ${f.typeId === 'COMMERCIAL_COLD_STORAGE' ? '<span class="storage-badge cold" style="right: 85px;">❄️ Cold Storage</span>' : ''}
+                    
+                    <h4 style="margin:0 0 4px 0; color:#0F172A; font-size:1.05rem; padding-right:80px;">${f.name}</h4>
+                    <p style="margin:0 0 12px 0; font-size:0.8rem; color:#64748B;">📍 ${f.distanceKm} km away • ${f.facilityType}</p>
+                    
+                    <div style="display:flex; justify-content:space-between; font-size:0.85rem; color:#334155; margin-bottom:4px;">
+                        <span>Available Capacity:</span>
+                        <span style="font-weight:700; color:${fillColor}">${f.availableCapacityMT} / ${f.totalCapacityMT} MT</span>
+                    </div>
+                    <div class="storage-capacity-bar">
+                        <div class="storage-capacity-fill" style="width:${fillPct}%; background:${fillColor}"></div>
+                    </div>
+                    
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:12px 0; padding:12px 0; border-top:1px dashed #E2E8F0; border-bottom:1px dashed #E2E8F0;">
+                        <div>
+                            <div style="font-size:0.7rem; color:#64748B;">Cost / Month</div>
+                            <div style="font-size:0.95rem; font-weight:700; color:#0F172A;">₹${f.costPerKgMonth.toFixed(2)} / kg</div>
+                        </div>
+                        <div>
+                            <div style="font-size:0.7rem; color:#64748B;">Temperature</div>
+                            <div style="font-size:0.85rem; font-weight:600; color:#334155;">${f.temperature}</div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" style="width:100%;" onclick="window.open('tel:${f.contact}')">📞 Contact to Book</button>
+                </div>
+                `;
+            }).join('');
+        }
+    }
+
+    hideLoading();
 }
 
 // =========================================================================

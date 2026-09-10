@@ -27,7 +27,73 @@ export const STORAGE_FACILITY_BENCHMARKS = [
     }
 ];
 
+export const MOCK_NEARBY_FACILITIES = [
+    {
+        id: 'sf-001',
+        name: 'Nashik Cold Chain Hub',
+        typeId: 'COMMERCIAL_COLD_STORAGE',
+        facilityType: 'Commercial Cold Storage',
+        distanceKm: 14.5,
+        totalCapacityMT: 5000,
+        availableCapacityMT: 1200,
+        costPerKgMonth: 0.55,
+        suitableCrops: ['Potato', 'Carrot', 'Cabbage', 'Grapes', 'Tomato'],
+        temperature: '2°C - 8°C',
+        isVerified: true,
+        contact: '+91-9876543210'
+    },
+    {
+        id: 'sf-002',
+        name: 'Pimpalgaon Kanda Chawl Cooperative',
+        typeId: 'FARM_VENTILATED',
+        facilityType: 'Ventilated Farm Storage',
+        distanceKm: 4.2,
+        totalCapacityMT: 800,
+        availableCapacityMT: 150,
+        costPerKgMonth: 0.20,
+        suitableCrops: ['Onion', 'Garlic', 'Pumpkin'],
+        temperature: 'Ambient (Ventilated)',
+        isVerified: true,
+        contact: '+91-9988776655'
+    },
+    {
+        id: 'sf-003',
+        name: 'Vashi Mega Cold Storage',
+        typeId: 'COMMERCIAL_COLD_STORAGE',
+        facilityType: 'Commercial Cold Storage',
+        distanceKm: 162.0,
+        totalCapacityMT: 12000,
+        availableCapacityMT: 450,
+        costPerKgMonth: 0.65,
+        suitableCrops: ['Potato', 'Carrot', 'Grapes', 'Pomegranate', 'Tomato'],
+        temperature: '2°C - 5°C',
+        isVerified: true,
+        contact: '+91-9123456789'
+    },
+    {
+        id: 'sf-004',
+        name: 'Lasalgaon Farm Godown',
+        typeId: 'FARM_VENTILATED',
+        facilityType: 'Standard Godown',
+        distanceKm: 8.5,
+        totalCapacityMT: 2000,
+        availableCapacityMT: 800,
+        costPerKgMonth: 0.15,
+        suitableCrops: ['Onion', 'Garlic', 'Grains'],
+        temperature: 'Ambient',
+        isVerified: false,
+        contact: '+91-9998887776'
+    }
+];
+
 export class StorageService {
+    /**
+     * Gets nearby storage facilities filtered by crop suitability
+     */
+    static getNearbyFacilities(cropType) {
+        if (!cropType) return MOCK_NEARBY_FACILITIES;
+        return MOCK_NEARBY_FACILITIES.filter(f => f.suitableCrops.includes(cropType)).sort((a, b) => a.distanceKm - b.distanceKm);
+    }
     /**
      * Evaluates storage feasibility and provides clear actionable guidance
      * @param {Object} params

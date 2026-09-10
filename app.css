@@ -4905,11 +4905,13 @@ body.role-super_admin .admin-only {
 .role-farmer #navBuyerMarket,
 .role-farmer #navSmartPooling,
 .role-farmer #navTransactions,
+.role-farmer #navStorage,
 .role-farmer .mob-nav-btn[data-view="viewDashboard"],
 .role-farmer .mob-nav-btn[data-view="viewAssessLot"],
 .role-farmer .mob-nav-btn[data-view="viewMarketIntel"],
 .role-farmer .mob-nav-btn[data-view="viewBuyerMarket"],
-.role-farmer .mob-nav-btn[data-view="viewTransactions"] {
+.role-farmer .mob-nav-btn[data-view="viewTransactions"],
+.role-farmer .mob-nav-btn[data-view="viewStorage"] {
     display: flex !important;
 }
 
@@ -5134,3 +5136,74 @@ body.role-super_admin .admin-only {
     }
 }
 
+/* =========================================================
+   STAGE 6 - STORAGE MODULE STYLES
+   ========================================================= */
+.storage-card {
+    background: #ffffff;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.storage-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    border-color: #CBD5E1;
+}
+.storage-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+.storage-badge.verified {
+    background: #DCFCE7;
+    color: #166534;
+    border: 1px solid #86EFAC;
+}
+.storage-badge.cold {
+    background: #DBEAFE;
+    color: #1E40AF;
+    border: 1px solid #93C5FD;
+}
+.storage-capacity-bar {
+    height: 6px;
+    background: #E2E8F0;
+    border-radius: 3px;
+    margin: 8px 0;
+    overflow: hidden;
+}
+.storage-capacity-fill {
+    height: 100%;
+    border-radius: 3px;
+}
+.sell-vs-hold-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+@media (max-width: 768px) {
+    .sell-vs-hold-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.svh-card {
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+}
+.svh-sell {
+    background: #F8FAFC;
+    border: 2px solid #CBD5E1;
+}
+.svh-hold {
+    background: #F0FDF4;
+    border: 2px solid #4ADE80;
+}
+
