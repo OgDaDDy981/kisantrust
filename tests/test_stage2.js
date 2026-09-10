@@ -3,11 +3,11 @@
  * Market Intelligence, Mandi Normalization, Transport Estimation & Net Realization Engine
  */
 
-import { TransportEstimationService } from './src/services/transportEstimationService.js';
-import { MarketDataService } from './src/services/marketDataService.js';
-import { PriceCalculationService } from './src/services/priceCalculationService.js';
-import { MarketComparisonService } from './src/services/marketComparisonService.js';
-import { MarketTrendService } from './src/services/marketTrendService.js';
+import { TransportEstimationService } from '../src/services/transportEstimationService.js';
+import { MarketDataService } from '../src/services/marketDataService.js';
+import { PriceCalculationService } from '../src/services/priceCalculationService.js';
+import { MarketComparisonService } from '../src/services/marketComparisonService.js';
+import { MarketTrendService } from '../src/services/marketTrendService.js';
 
 console.log('🌱 Starting KisanTrust Stage 2 Automated Verification Suite...\n');
 

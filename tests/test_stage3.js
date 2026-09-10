@@ -3,11 +3,11 @@
  * Buyer Profiles, Demands, Deterministic Matching Engine & Multi-Round Negotiations
  */
 
-import { BuyerProfile, BuyerDemand, NegotiationRecord } from './src/models/Buyer.js';
-import { BuyerService } from './src/services/buyerService.js';
-import { MatchingService } from './src/services/matchingService.js';
-import { NegotiationService } from './src/services/negotiationService.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { BuyerProfile, BuyerDemand, NegotiationRecord } from '../src/models/Buyer.js';
+import { BuyerService } from '../src/services/buyerService.js';
+import { MatchingService } from '../src/services/matchingService.js';
+import { NegotiationService } from '../src/services/negotiationService.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 console.log('🌱 Starting KisanTrust Stage 3 Automated Verification Suite...\n');
 

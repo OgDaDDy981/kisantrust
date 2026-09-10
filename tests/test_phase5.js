@@ -4,11 +4,11 @@
  * Expected Net Price Range by Grade, Active Buyer Demand, and Logistics Context.
  */
 
-import { PriceAnalysisService } from './src/services/priceAnalysisService.js';
-import { BuyerService } from './src/services/buyerService.js';
-import { QualityService } from './src/services/qualityService.js';
-import { firebaseService } from './src/services/firebaseService.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { PriceAnalysisService } from '../src/services/priceAnalysisService.js';
+import { BuyerService } from '../src/services/buyerService.js';
+import { QualityService } from '../src/services/qualityService.js';
+import { firebaseService } from '../src/services/firebaseService.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 let passed = 0;
 let failed = 0;

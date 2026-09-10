@@ -5,10 +5,10 @@
  * and Transparent Formula Explanations.
  */
 
-import { PriceCalculationService } from './src/services/priceCalculationService.js';
-import { PriceAnalysisService } from './src/services/priceAnalysisService.js';
-import { TransportCostService } from './src/services/transportCostService.js';
-import { MatchingService } from './src/services/matchingService.js';
+import { PriceCalculationService } from '../src/services/priceCalculationService.js';
+import { PriceAnalysisService } from '../src/services/priceAnalysisService.js';
+import { TransportCostService } from '../src/services/transportCostService.js';
+import { MatchingService } from '../src/services/matchingService.js';
 
 let passed = 0;
 let failed = 0;

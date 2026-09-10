@@ -2,7 +2,7 @@
  * KisanTrust - Multilingual Translation & Voice Narration Synchronization Test
  */
 
-import { I18N_DICTIONARY, applyDOMTranslations } from './src/utils/i18n.js';
+import { I18N_DICTIONARY, applyDOMTranslations } from '../src/utils/i18n.js';
 import fs from 'fs';
 
 let passed = 0;

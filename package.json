@@ -10,8 +10,8 @@
     "emulators": "npx -y firebase-tools@latest emulators:start --project sih2026-622a0",
     "deploy": "npx -y firebase-tools@latest deploy --project sih2026-622a0",
     "build": "node scripts/build_bundle.js",
-    "test": "node test_stage1.js && node test_stage2.js && node test_stage3.js && node test_stage4.js && node test_stage5.js && node test_stage6.js && node test_stage7.js && node test_browser_bundle.js",
-    "test:all": "node test_phase2.js && node test_phase3.js && node test_phase4.js && node test_phase5.js && node test_phase6.js && node test_phase7.js && node test_phase8.js && node test_phase9.js && node test_phase10.js && node test_phase11.js && node test_stage1.js && node test_stage2.js && node test_stage3.js && node test_stage4.js && node test_stage5.js && node test_stage6.js && node test_stage7.js && node test_browser_bundle.js"
+    "test": "node tests/test_stage1.js && node tests/test_stage2.js && node tests/test_stage3.js && node tests/test_stage4.js && node tests/test_stage5.js && node tests/test_stage6.js && node tests/test_stage7.js && node tests/test_browser_bundle.js",
+    "test:all": "node tests/test_phase2.js && node tests/test_phase3.js && node tests/test_phase4.js && node tests/test_phase5.js && node tests/test_phase6.js && node tests/test_phase7.js && node tests/test_phase8.js && node tests/test_phase9.js && node tests/test_phase10.js && node tests/test_phase11.js && node tests/test_stage1.js && node tests/test_stage2.js && node tests/test_stage3.js && node tests/test_stage4.js && node tests/test_stage5.js && node tests/test_stage6.js && node tests/test_stage7.js && node tests/test_browser_bundle.js"
   },
   "keywords": [
     "sih2024",

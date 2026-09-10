@@ -3,10 +3,10 @@
  * Transaction Lifecycle, Logistics Decision Support, Storage Feasibility, and Digital Certificates
  */
 
-import { TransactionRecord, TRANSACTION_STAGES } from './src/models/Transaction.js';
-import { TransactionService } from './src/services/transactionService.js';
-import { LogisticsService } from './src/services/logisticsService.js';
-import { StorageService } from './src/services/storageService.js';
+import { TransactionRecord, TRANSACTION_STAGES } from '../src/models/Transaction.js';
+import { TransactionService } from '../src/services/transactionService.js';
+import { LogisticsService } from '../src/services/logisticsService.js';
+import { StorageService } from '../src/services/storageService.js';
 
 console.log('🌱 Starting KisanTrust Stage 5 Automated Verification Suite...\n');
 

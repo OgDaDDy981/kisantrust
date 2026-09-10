@@ -3,12 +3,12 @@
  * TrustScoreService, Payment Reliability, Evidence-Assisted Dispute Support, and Final Security Audit
  */
 
-import { TrustScoreService, TRUST_TIERS } from './src/services/trustScoreService.js';
-import { DisputeRecord, DISPUTE_CATEGORIES } from './src/models/Dispute.js';
-import { DisputeService } from './src/services/disputeService.js';
-import { TransactionService } from './src/services/transactionService.js';
-import { TransactionRecord } from './src/models/Transaction.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { TrustScoreService, TRUST_TIERS } from '../src/services/trustScoreService.js';
+import { DisputeRecord, DISPUTE_CATEGORIES } from '../src/models/Dispute.js';
+import { DisputeService } from '../src/services/disputeService.js';
+import { TransactionService } from '../src/services/transactionService.js';
+import { TransactionRecord } from '../src/models/Transaction.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 console.log('🌱 Starting KisanTrust Stage 6 Automated Verification Suite...\n');
 

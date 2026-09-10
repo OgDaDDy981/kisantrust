@@ -2,9 +2,9 @@
  * KisanTrust - Escrow Payment, Smallholder Micro-Lots & Multilingual Voice Verification Suite
  */
 
-import { TransactionService } from './src/services/transactionService.js';
-import { I18N_DICTIONARY } from './src/utils/i18n.js';
-import { PAYMENT_STATUSES } from './src/models/Transaction.js';
+import { TransactionService } from '../src/services/transactionService.js';
+import { I18N_DICTIONARY } from '../src/utils/i18n.js';
+import { PAYMENT_STATUSES } from '../src/models/Transaction.js';
 import fs from 'fs';
 
 let passed = 0;

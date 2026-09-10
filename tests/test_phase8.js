@@ -5,11 +5,11 @@
  * Trust Score 5-Factor Breakdown, Verified Produce Badges, and Transparent Trust Signals.
  */
 
-import { TrustScoreService, TRUST_TIERS } from './src/services/trustScoreService.js';
-import { VerificationService } from './src/services/verificationService.js';
-import { RatingService } from './src/services/ratingService.js';
-import { FarmerProfile, BuyerProfileRecord, VERIFICATION_STATUS } from './src/models/User.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { TrustScoreService, TRUST_TIERS } from '../src/services/trustScoreService.js';
+import { VerificationService } from '../src/services/verificationService.js';
+import { RatingService } from '../src/services/ratingService.js';
+import { FarmerProfile, BuyerProfileRecord, VERIFICATION_STATUS } from '../src/models/User.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 let passed = 0;
 let failed = 0;

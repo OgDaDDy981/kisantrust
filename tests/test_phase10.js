@@ -8,8 +8,8 @@
  * - Transparent explanations without fake precision.
  */
 
-import { MarketTrendService } from './src/services/marketTrendService.js';
-import { PricePredictionService } from './src/services/pricePredictionService.js';
+import { MarketTrendService } from '../src/services/marketTrendService.js';
+import { PricePredictionService } from '../src/services/pricePredictionService.js';
 
 let passed = 0;
 let failed = 0;

@@ -4,10 +4,10 @@
  * Price Ranges, Delivery Hubs, and Explainable Matching (Quality, Quantity, Logistics, Price Fit).
  */
 
-import { BuyerService } from './src/services/buyerService.js';
-import { MatchingService } from './src/services/matchingService.js';
-import { BuyerDemand, BuyerProfile } from './src/models/Buyer.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { BuyerService } from '../src/services/buyerService.js';
+import { MatchingService } from '../src/services/matchingService.js';
+import { BuyerDemand, BuyerProfile } from '../src/models/Buyer.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 let passed = 0;
 let failed = 0;

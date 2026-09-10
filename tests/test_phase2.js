@@ -3,10 +3,10 @@
  * Tests Market Intelligence Foundation, Data Freshness, Fallback Hierarchy, Price Analysis, and Transport Cost Service.
  */
 
-import { MarketDataService, DATA_STATUS } from './src/services/marketDataService.js';
-import { PriceAnalysisService } from './src/services/priceAnalysisService.js';
-import { TransportCostService } from './src/services/transportCostService.js';
-import { TransportEstimationService } from './src/services/transportEstimationService.js';
+import { MarketDataService, DATA_STATUS } from '../src/services/marketDataService.js';
+import { PriceAnalysisService } from '../src/services/priceAnalysisService.js';
+import { TransportCostService } from '../src/services/transportCostService.js';
+import { TransportEstimationService } from '../src/services/transportEstimationService.js';
 
 let passed = 0;
 let failed = 0;

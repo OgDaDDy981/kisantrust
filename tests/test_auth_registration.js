@@ -2,9 +2,9 @@
  * KisanTrust - Authentication, Customer Registration & Multilingual Verification Test Suite
  */
 
-import { AuthService, DEMO_ACCOUNTS } from './src/services/authService.js';
-import { USER_ROLES, CustomerProfile, FarmerProfile, BuyerProfileRecord } from './src/models/User.js';
-import { I18N_DICTIONARY, applyDOMTranslations } from './src/utils/i18n.js';
+import { AuthService, DEMO_ACCOUNTS } from '../src/services/authService.js';
+import { USER_ROLES, CustomerProfile, FarmerProfile, BuyerProfileRecord } from '../src/models/User.js';
+import { I18N_DICTIONARY, applyDOMTranslations } from '../src/utils/i18n.js';
 
 let passed = 0;
 let failed = 0;

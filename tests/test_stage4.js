@@ -3,12 +3,12 @@
  * Decision Recommendation Engine, Price Prediction, Gemini Advisory, and Smart Village Pooling
  */
 
-import { CropKnowledgeService } from './src/data/cropKnowledge.js';
-import { PricePredictionService } from './src/services/pricePredictionService.js';
-import { RecommendationService } from './src/services/recommendationService.js';
-import { GeminiAdvisoryService } from './src/services/geminiAdvisoryService.js';
-import { PoolingService } from './src/services/poolingService.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { CropKnowledgeService } from '../src/data/cropKnowledge.js';
+import { PricePredictionService } from '../src/services/pricePredictionService.js';
+import { RecommendationService } from '../src/services/recommendationService.js';
+import { GeminiAdvisoryService } from '../src/services/geminiAdvisoryService.js';
+import { PoolingService } from '../src/services/poolingService.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 console.log('🌱 Starting KisanTrust Stage 4 Automated Verification Suite...\n');
 

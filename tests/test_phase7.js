@@ -5,9 +5,9 @@
  * and Multilingual Grounded Explanations (Marathi, Hindi, English).
  */
 
-import { RecommendationService } from './src/services/recommendationService.js';
-import { GeminiAdvisoryService } from './src/services/geminiAdvisoryService.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
+import { RecommendationService } from '../src/services/recommendationService.js';
+import { GeminiAdvisoryService } from '../src/services/geminiAdvisoryService.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
 let passed = 0;
 let failed = 0;

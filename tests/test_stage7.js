@@ -4,20 +4,20 @@
  * Trust System, Audit Trail, Post-Transaction Ratings & Notification Engine
  */
 
-import { AuthService, DEMO_ACCOUNTS } from './src/services/authService.js';
-import { User, FarmerProfile, BuyerProfileRecord, USER_ROLES, ACCOUNT_STATUS, VERIFICATION_STATUS } from './src/models/User.js';
-import { VerificationService } from './src/services/verificationService.js';
-import { LotModerationService } from './src/services/lotModerationService.js';
-import { RatingService } from './src/services/ratingService.js';
-import { RiskService } from './src/services/riskService.js';
-import { AuditService } from './src/services/auditService.js';
-import { NotificationService } from './src/services/notificationService.js';
-import { AnalyticsService } from './src/services/analyticsService.js';
-import { DigitalAgriculturalLot } from './src/models/Lot.js';
-import { FarmerRatingRecord, BuyerRatingRecord } from './src/models/Rating.js';
-import { RISK_FLAG_TYPES } from './src/models/RiskFlag.js';
-import { AUDIT_ACTIONS } from './src/models/AuditLog.js';
-import { NOTIFICATION_TYPES } from './src/models/Notification.js';
+import { AuthService, DEMO_ACCOUNTS } from '../src/services/authService.js';
+import { User, FarmerProfile, BuyerProfileRecord, USER_ROLES, ACCOUNT_STATUS, VERIFICATION_STATUS } from '../src/models/User.js';
+import { VerificationService } from '../src/services/verificationService.js';
+import { LotModerationService } from '../src/services/lotModerationService.js';
+import { RatingService } from '../src/services/ratingService.js';
+import { RiskService } from '../src/services/riskService.js';
+import { AuditService } from '../src/services/auditService.js';
+import { NotificationService } from '../src/services/notificationService.js';
+import { AnalyticsService } from '../src/services/analyticsService.js';
+import { DigitalAgriculturalLot } from '../src/models/Lot.js';
+import { FarmerRatingRecord, BuyerRatingRecord } from '../src/models/Rating.js';
+import { RISK_FLAG_TYPES } from '../src/models/RiskFlag.js';
+import { AUDIT_ACTIONS } from '../src/models/AuditLog.js';
+import { NOTIFICATION_TYPES } from '../src/models/Notification.js';
 
 let passed = 0;
 let failed = 0;

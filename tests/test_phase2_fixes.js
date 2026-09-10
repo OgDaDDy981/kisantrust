@@ -16,13 +16,13 @@ import { handler as keysCheckHandler } from './netlify/functions/keys-check.js';
 import { handler as firebaseCheckHandler } from './netlify/functions/firebase-check.js';
 import { handler as statusHandler } from './netlify/functions/status.js';
 
-import { QualityService } from './src/services/qualityService.js';
-import { LotModerationService } from './src/services/lotModerationService.js';
-import { NotificationService } from './src/services/notificationService.js';
-import { PricingService } from './src/services/pricingService.js';
-import { PriceCalculationService } from './src/services/priceCalculationService.js';
-import { DigitalAgriculturalLot, LOT_STATUSES } from './src/models/Lot.js';
-import { firebaseService } from './src/services/firebaseService.js';
+import { QualityService } from '../src/services/qualityService.js';
+import { LotModerationService } from '../src/services/lotModerationService.js';
+import { NotificationService } from '../src/services/notificationService.js';
+import { PricingService } from '../src/services/pricingService.js';
+import { PriceCalculationService } from '../src/services/priceCalculationService.js';
+import { DigitalAgriculturalLot, LOT_STATUSES } from '../src/models/Lot.js';
+import { firebaseService } from '../src/services/firebaseService.js';
 
 let passed = 0;
 let failed = 0;

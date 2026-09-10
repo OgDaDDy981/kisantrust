@@ -7,8 +7,8 @@
  * - Accessible UI touch-target and high-contrast standards
  */
 
-import { I18N_DICTIONARY, SUPPORTED_LANGUAGES } from './src/utils/i18n.js';
-import { GeminiAdvisoryService } from './src/services/geminiAdvisoryService.js';
+import { I18N_DICTIONARY, SUPPORTED_LANGUAGES } from '../src/utils/i18n.js';
+import { GeminiAdvisoryService } from '../src/services/geminiAdvisoryService.js';
 
 let passed = 0;
 let failed = 0;

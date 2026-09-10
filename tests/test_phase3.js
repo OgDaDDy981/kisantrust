@@ -4,8 +4,8 @@
  * Road Distance Calculation, Data Freshness Badging, and Summary Spread Metrics.
  */
 
-import { MarketComparisonService } from './src/services/marketComparisonService.js';
-import { MarketDataService, DATA_STATUS } from './src/services/marketDataService.js';
+import { MarketComparisonService } from '../src/services/marketComparisonService.js';
+import { MarketDataService, DATA_STATUS } from '../src/services/marketDataService.js';
 
 let passed = 0;
 let failed = 0;

@@ -9,8 +9,8 @@
  * total lot payout, payment timeline, and risk level.
  */
 
-import { OpportunityComparisonService } from './src/services/opportunityComparisonService.js';
-import { PriceAnalysisService } from './src/services/priceAnalysisService.js';
+import { OpportunityComparisonService } from '../src/services/opportunityComparisonService.js';
+import { PriceAnalysisService } from '../src/services/priceAnalysisService.js';
 
 let passed = 0;
 let failed = 0;
