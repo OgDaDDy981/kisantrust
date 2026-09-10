@@ -881,6 +881,13 @@
                     </div>
                 </div>
 
+                <div class="data-provenance" id="summaryProvenance" style="font-size: 0.72rem; color: #94A3B8; margin-top: 8px; padding: 6px 12px; background: #F8FAFC; border-radius: 8px; display: flex; gap: 12px; flex-wrap: wrap;">
+                    <span>📡 Source: <strong id="provSource">Agmarknet / data.gov.in</strong></span>
+                    <span>📅 Coverage: <strong id="provCoverage">--</strong></span>
+                    <span>🕒 Last Updated: <strong id="provLastUpdated">--</strong></span>
+                    <span>🔵 Status: <strong id="provStatus">Loading...</strong></span>
+                </div>
+
                 <!-- Comparison Table -->
                 <div class="comparison-table-wrapper">
                     <table class="comparison-table" id="marketIntelTable">
@@ -889,6 +896,7 @@
                                 <th>Mandi / Market</th>
                                 <th>दूरी (किमी)</th>
                                 <th>कच्चा भाव (Min - Max)</th>
+                                <th>Price Trend</th>
                                 <th>दैनिक आवक</th>
                                 <th>Transport कपात</th>
                                 <th>निव्वळ प्राप्ती (Net Realization)</th>
@@ -901,6 +909,11 @@
                     </table>
                 </div>
 
+                <!-- Arrival Intelligence Correlation -->
+                <div class="arrival-intelligence-box" id="arrivalIntelBox" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #3B82F6; border-radius: 10px; padding: 14px 18px; margin-top: 16px;">
+                    <h4 style="margin: 0 0 6px 0; font-size: 0.9rem; color: #1E40AF;">📦 Arrival Intelligence</h4>
+                    <p id="arrivalCorrelationText" style="margin: 0; font-size: 0.85rem; color: #334155; line-height: 1.5;">Loading arrival-price correlation analysis...</p>
+                </div>
                 <!-- Recommendation Callout -->
                 <div class="action-tip-box" id="intelAdvantageBox" style="border-left-color:#2E7D32; background:rgba(46,125,50,0.06); margin-top:16px;">
                     💡 <strong>शेतकरी Opportunity & Action:</strong> डेटा लोड होत आहे...
@@ -915,6 +928,41 @@
                 </div>
                 <div class="trend-stats-grid" id="trendStatsGrid">
                     <!-- Trend Cards loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Selling Alternatives Comparison -->
+            <div class="custom-card" id="sellingAlternativesCard" style="margin-top: var(--s5);">
+                <div class="section-header-row">
+                    <h3>⚖️ Compare Your Selling Options</h3>
+                    <span style="font-size: 0.82rem; color: #777;">Side-by-side net realization</span>
+                </div>
+                <div class="selling-alternatives-grid" id="sellingAlternativesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 14px;">
+                    <!-- Option 1: Local Mandi -->
+                    <div class="alt-option-card" id="altLocalMandi" style="background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; padding: 16px; text-align: center;">
+                        <div style="font-size: 1.8rem; margin-bottom: 6px;">🏪</div>
+                        <h4 style="margin: 0 0 4px 0; color: #92400E; font-size: 0.95rem;">Local Mandi</h4>
+                        <div style="font-size: 0.8rem; color: #78716C;" id="altLocalName">--</div>
+                        <div style="font-size: 1.4rem; font-weight: 900; color: #B45309; margin: 8px 0;" id="altLocalPrice">₹--/kg</div>
+                        <div style="font-size: 0.75rem; color: #78716C;" id="altLocalNet">Net: ₹--/kg after transport</div>
+                    </div>
+                    <!-- Option 2: Best Nearby Mandi -->
+                    <div class="alt-option-card" id="altBestMandi" style="background: #F0FDF4; border: 2px solid #86EFAC; border-radius: 12px; padding: 16px; text-align: center; position: relative;">
+                        <span style="position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: #15803D; color: white; font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 10px;">⭐ BEST</span>
+                        <div style="font-size: 1.8rem; margin-bottom: 6px;">🏛️</div>
+                        <h4 style="margin: 0 0 4px 0; color: #166534; font-size: 0.95rem;">Best Nearby Mandi</h4>
+                        <div style="font-size: 0.8rem; color: #78716C;" id="altBestName">--</div>
+                        <div style="font-size: 1.4rem; font-weight: 900; color: #15803D; margin: 8px 0;" id="altBestPrice">₹--/kg</div>
+                        <div style="font-size: 0.75rem; color: #78716C;" id="altBestNet">Net: ₹--/kg after transport</div>
+                    </div>
+                    <!-- Option 3: Direct Buyer -->
+                    <div class="alt-option-card" id="altDirectBuyer" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 12px; padding: 16px; text-align: center;">
+                        <div style="font-size: 1.8rem; margin-bottom: 6px;">🤝</div>
+                        <h4 style="margin: 0 0 4px 0; color: #1E40AF; font-size: 0.95rem;">Direct Buyer Offer</h4>
+                        <div style="font-size: 0.8rem; color: #78716C;" id="altBuyerName">--</div>
+                        <div style="font-size: 1.4rem; font-weight: 900; color: #1D4ED8; margin: 8px 0;" id="altBuyerPrice">₹--/kg</div>
+                        <div style="font-size: 0.75rem; color: #78716C;" id="altBuyerNet">No transport cost (farm pickup)</div>
+                    </div>
                 </div>
             </div>
         </section>

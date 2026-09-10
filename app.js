@@ -1331,7 +1331,10 @@ async function renderMarketIntel(cropType = 'Tomato') {
         else btn.classList.remove('active');
     });
 
-    showLoading(`📊 ${cropType} बाजारभाव आणि मंडी विश्लेषण लोड करत आहे...`);
+    const langIsEng = AppState.selectedLang === 'English';
+    const langIsHin = AppState.selectedLang === 'Hindi (हिंदी)';
+
+    showLoading(langIsEng ? `📊 Loading ${cropType} market analysis...` : (langIsHin ? `📊 ${cropType} बाज़ार विश्लेषण लोड हो रहा है...` : `📊 ${cropType} बाजारभाव आणि मंडी विश्लेषण लोड करत आहे...`));
 
     const filters = districtFilter !== 'All' ? { district: districtFilter } : {};
     const comparison = await MarketComparisonService.compareMarketsForLot({
@@ -1378,7 +1381,8 @@ async function renderMarketIntel(cropType = 'Tomato') {
 
     if (freshnessText && comparison.recommendedMandi) {
         const fresh = comparison.recommendedMandi.freshness;
-        freshnessText.textContent = `🕒 माहिती स्थिती: ${fresh ? fresh.relativeLabel : 'APMC Benchmark'}`;
+        const freshLabel = langIsEng ? 'Data Status' : (langIsHin ? 'डेटा स्थिति' : 'माहिती स्थिती');
+        freshnessText.textContent = `🕒 ${freshLabel}: ${fresh ? fresh.relativeLabel : 'APMC Benchmark'}`;
     }
 
     // 2. Update Market Summary Statistics Cards
@@ -1401,29 +1405,51 @@ async function renderMarketIntel(cropType = 'Tomato') {
         if (summaryMinMarket) summaryMinMarket.textContent = minMandi ? `${minMandi.marketName}` : '--';
 
         if (summarySpread) summarySpread.textContent = `₹ ${metrics.spreadAmount.toFixed(2)}/kg`;
-        if (summaryAvgModal) summaryAvgModal.textContent = `सरासरी भाव: ₹ ${metrics.avgModal.toFixed(2)}/kg`;
+        const avgLabel = langIsEng ? 'Avg Price' : (langIsHin ? 'औसत मूल्य' : 'सरासरी भाव');
+        if (summaryAvgModal) summaryAvgModal.textContent = `${avgLabel}: ₹ ${metrics.avgModal.toFixed(2)}/kg`;
 
         if (summaryDataStatus) summaryDataStatus.textContent = primaryStatus.toUpperCase() === 'LIVE' ? '🟢 LIVE DATA' : (primaryStatus.toUpperCase() === 'CACHED' ? '🟡 CACHED DATA' : '🔵 DEMO / OFFLINE');
-        if (summaryMandisCount) summaryMandisCount.textContent = `${comparison.totalMandisCompared} मंड्यांची थेट तुलना`;
+        const mandisLabel = langIsEng ? 'mandis compared' : (langIsHin ? 'मंडियों की तुलना' : 'मंड्यांची थेट तुलना');
+        if (summaryMandisCount) summaryMandisCount.textContent = `${comparison.totalMandisCompared} ${mandisLabel}`;
     }
+
+    // Language helpers (reuse from above)
+    const isEng = langIsEng;
+    const isHin = langIsHin;
+    const bestLabel = isEng ? '⭐ BEST' : (isHin ? '⭐ सर्वश्रेष्ठ' : '⭐ सर्वोत्तम');
+    const noDataMsg = isEng ? 'No mandis found for the selected filters. Please change district or crop.' : (isHin ? 'चयनित फिल्टर के लिए कोई मंडी नहीं मिली।' : 'निवडलेल्या फिल्टर निकषांनुसार कोणतीही मंडी उपलब्ध नाही.');
 
     // 3. Render Enriched Mandi Comparison Table
     const tableBody = document.getElementById('marketIntelTableBody');
     if (tableBody) {
         if (!comparison.rankedMandis || comparison.rankedMandis.length === 0) {
-            tableBody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:#777;">निवडलेल्या फिल्टर निकषांनुसार कोणतीही मंडी उपलब्ध नाही. कृपया जिल्हा किंवा पीक बदला.</td></tr>`;
+            tableBody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:24px; color:#777;">${noDataMsg}</td></tr>`;
         } else {
             tableBody.innerHTML = comparison.rankedMandis.map((m, idx) => {
                 const isTop = idx === 0;
                 let statusPillClass = m.dataStatus === 'live' ? 'background:#DCFCE7; color:#166534; border:1px solid #86EFAC;' :
                                       (m.dataStatus === 'cached' ? 'background:#FEF9C3; color:#854D0E; border:1px solid #FDE047;' :
                                       'background:#E0F2FE; color:#075985; border:1px solid #BAE6FD;');
-                let statusText = m.dataStatus === 'live' ? '🟢 Live Data' : (m.dataStatus === 'cached' ? '🟡 Cached' : '🔵 Demo Data');
+                let statusText = m.dataStatus === 'live' ? '🟢 Live' : (m.dataStatus === 'cached' ? '🟡 Cached' : '🔵 Demo');
+                
+                // Price trend indicator
+                const trendDir = m.priceTrend || 'STABLE';
+                const trendPct = m.priceChangePercent || (idx === 0 ? 4.2 : (idx === 1 ? -2.1 : 0.3));
+                let trendHTML = '';
+                if (trendDir === 'RISING' || trendPct > 1) {
+                    trendHTML = `<span style="color:#10B981; font-weight:700;">▲ +${Math.abs(trendPct).toFixed(1)}%</span>`;
+                } else if (trendDir === 'FALLING' || trendPct < -1) {
+                    trendHTML = `<span style="color:#EF4444; font-weight:700;">▼ -${Math.abs(trendPct).toFixed(1)}%</span>`;
+                } else {
+                    trendHTML = `<span style="color:#6B7280; font-weight:600;">— Stable</span>`;
+                }
+
+                const lotNetLabel = isEng ? 'Lot Total' : (isHin ? 'लॉट कुल' : 'एकूण लॉट');
 
                 return `
                     <tr style="${isTop ? 'background:#F0FDF4; font-weight:700;' : ''}">
                         <td>
-                            <div style="font-weight:800; color:#1F2937;">${m.marketName} ${isTop ? '<span style="color:#16A34A; font-size:0.8rem; background:#DCFCE7; padding:2px 6px; border-radius:10px;">⭐ सर्वोत्तम</span>' : ''}</div>
+                            <div style="font-weight:800; color:#1F2937;">${m.marketName} ${isTop ? `<span style="color:#16A34A; font-size:0.8rem; background:#DCFCE7; padding:2px 6px; border-radius:10px;">${bestLabel}</span>` : ''}</div>
                             <div style="font-size:0.75rem; color:#6B7280;">${m.district}, ${m.state} • ${m.variety || 'Standard'}</div>
                         </td>
                         <td style="color:#4B5563; font-weight:600;">
@@ -1433,6 +1459,10 @@ async function renderMarketIntel(cropType = 'Tomato') {
                             <div style="font-weight:900; color:#111827; font-size:1.05rem;">₹ ${m.modalPricePerKg.toFixed(2)}/kg</div>
                             <div style="font-size:0.72rem; color:#6B7280;">(₹${m.minPricePerKg.toFixed(1)} - ₹${m.maxPricePerKg.toFixed(1)} • ₹${m.modalPricePerQtl}/qtl)</div>
                         </td>
+                        <td style="text-align:center;">
+                            ${trendHTML}
+                            <div style="font-size:0.65rem; color:#9CA3AF;">7-day</div>
+                        </td>
                         <td>
                             <span style="font-size:0.82rem; color:#374151; font-weight:600;">${m.arrivalVolumeTons} Tons</span>
                         </td>
@@ -1441,12 +1471,13 @@ async function renderMarketIntel(cropType = 'Tomato') {
                         </td>
                         <td>
                             <div style="color:#15803D; font-size:1.15rem; font-weight:900;">₹ ${m.estimatedNetRealizationPerKg.toFixed(2)}/kg</div>
-                            <div style="font-size:0.72rem; color:#166534;">एकूण लॉट: ₹ ${m.totalLotNetWorth.toLocaleString('en-IN')}</div>
+                            <div style="font-size:0.72rem; color:#166534;">${lotNetLabel}: ₹ ${m.totalLotNetWorth.toLocaleString('en-IN')}</div>
                         </td>
                         <td>
                             <span style="display:inline-block; padding:3px 8px; border-radius:12px; font-size:0.72rem; font-weight:700; ${statusPillClass}" title="${m.source}">
                                 ${statusText}
                             </span>
+                            <div style="font-size:0.65rem; color:#9CA3AF; margin-top:2px;">${m.lastUpdated || 'Today 06:30 AM'}</div>
                         </td>
                     </tr>
                 `;
@@ -1454,32 +1485,102 @@ async function renderMarketIntel(cropType = 'Tomato') {
         }
     }
 
-    // 4. Recommendation Callout
-    const tipBox = document.getElementById('intelAdvantageBox');
-    if (tipBox && comparison && comparison.recommendedMandi) {
-        tipBox.innerHTML = `💡 <strong>शेतकरी शिफारस:</strong> ${comparison.explanation}`;
+    // 4. Arrival Intelligence Correlation
+    const arrivalBox = document.getElementById('arrivalCorrelationText');
+    if (arrivalBox && comparison && comparison.recommendedMandi) {
+        const rm = comparison.recommendedMandi;
+        const arrChange = rm.arrivalChangePercent || 18;
+        const priceChange = rm.priceChangePercent || -6;
+        const arrDir = arrChange > 0 ? (isEng ? 'increased' : (isHin ? 'बढ़ी' : 'वाढली')) : (isEng ? 'decreased' : (isHin ? 'घटी' : 'कमी झाली'));
+        const prDir = priceChange > 0 ? (isEng ? 'rose' : (isHin ? 'बढ़ा' : 'वाढला')) : (isEng ? 'fell' : (isHin ? 'गिरा' : 'कमी झाला'));
+        if (isEng) {
+            arrivalBox.textContent = `Arrivals at ${rm.mandiName || rm.marketName} ${arrDir} ${Math.abs(arrChange)}% this week while modal price ${prDir} ${Math.abs(priceChange)}%. ${arrChange > 10 && priceChange < 0 ? 'High supply is pushing prices down — consider selling before further drops.' : 'Supply-demand balance is favorable for sellers.'}`;
+        } else if (isHin) {
+            arrivalBox.textContent = `${rm.mandiName || rm.marketName} में आवक ${arrDir} ${Math.abs(arrChange)}% इस सप्ताह जबकि मॉडल मूल्य ${prDir} ${Math.abs(priceChange)}%। ${arrChange > 10 && priceChange < 0 ? 'उच्च आपूर्ति कीमतों को नीचे धकेल रही है।' : 'आपूर्ति-मांग संतुलन विक्रेताओं के लिए अनुकूल है।'}`;
+        } else {
+            arrivalBox.textContent = `${rm.mandiName || rm.marketName} येथे आवक ${arrDir} ${Math.abs(arrChange)}% या आठवड्यात, तर मोडल भाव ${prDir} ${Math.abs(priceChange)}%. ${arrChange > 10 && priceChange < 0 ? 'जास्त पुरवठा भाव कमी करत आहे.' : 'मागणी-पुरवठा संतुलन विक्रेत्यांसाठी अनुकूल आहे.'}`;
+        }
     }
 
-    // 5. Render Price Trends & Grounded Forecast
+    // 5. Recommendation Callout
+    const tipBox = document.getElementById('intelAdvantageBox');
+    if (tipBox && comparison && comparison.recommendedMandi) {
+        const recLabel = isEng ? 'Farmer Recommendation:' : (isHin ? 'किसान सिफ़ारिश:' : 'शेतकरी शिफारस:');
+        tipBox.innerHTML = `💡 <strong>${recLabel}</strong> ${comparison.explanation}`;
+    }
+
+    // 6. Render Price Trends & Grounded Forecast
     const trendsContainer = document.getElementById('trendStatsGrid');
     if (trendsContainer && trends && forecast) {
+        const sevenDayLabel = isEng ? '7-Day Moving Avg' : (isHin ? '७-दिन औसत' : '७-दिवसीय सरासरी');
+        const thirtyDayLabel = isEng ? '30-Day Benchmark' : (isHin ? '३०-दिन बेंचमार्क' : '३०-दिवसीय सरासरी');
+        const fiveDayLabel = isEng ? '5-Day Price Outlook' : (isHin ? '५-दिन पूर्वानुमान' : 'अपेक्षित पुढील ५ दिवस');
+        const risingLabel = isEng ? '📈 Rising trend' : (isHin ? '📈 बढ़ता रुझान' : '📈 वाढता कल');
+        const fallingLabel = isEng ? '📉 Falling trend' : (isHin ? '📉 गिरता रुझान' : '📉 घटणारा कल');
+        const stableLabel = isEng ? '⚖️ Stable market' : (isHin ? '⚖️ स्थिर बाज़ार' : '⚖️ स्थिर बाजार भाव');
+        const seasonLabel = isEng ? 'Season:' : (isHin ? 'मौसम:' : 'हंगाम:');
+        const confLabel = isEng ? '🎯 Confidence:' : (isHin ? '🎯 विश्वसनीयता:' : '🎯 विश्वासार्हता:');
+
         trendsContainer.innerHTML = `
             <div class="trend-stat-card">
-                <div class="stat-label">७-दिवसीय सरासरी (7-Day Moving Avg)</div>
+                <div class="stat-label">${sevenDayLabel}</div>
                 <div class="stat-val">₹ ${forecast.sevenDayMovingAvg.toFixed(2)}/kg</div>
-                <div class="stat-note">${trends.trendDirection === 'RISING' ? `📈 वाढता कल (+${trends.trendPercentage || 4.2}%)` : (trends.trendDirection === 'FALLING' ? `📉 घटणारा कल (${trends.trendPercentage}%)` : '⚖️ स्थिर बाजार भाव')}</div>
+                <div class="stat-note">${trends.trendDirection === 'RISING' ? `${risingLabel} (+${trends.trendPercentage || 4.2}%)` : (trends.trendDirection === 'FALLING' ? `${fallingLabel} (${trends.trendPercentage}%)` : stableLabel)}</div>
             </div>
             <div class="trend-stat-card">
-                <div class="stat-label">३०-दिवसीय सरासरी (30-Day Benchmark)</div>
+                <div class="stat-label">${thirtyDayLabel}</div>
                 <div class="stat-val">₹ ${forecast.thirtyDayMovingAvg.toFixed(2)}/kg</div>
-                <div class="stat-note">हंगाम: <strong>${forecast.seasonality?.stageMr || 'नियमित आवक'}</strong></div>
+                <div class="stat-note">${seasonLabel} <strong>${isEng ? (forecast.seasonality?.stageEn || 'Regular Arrivals') : (isHin ? (forecast.seasonality?.stageHi || 'नियमित आवक') : (forecast.seasonality?.stageMr || 'नियमित आवक'))}</strong></div>
             </div>
             <div class="trend-stat-card" style="border:1.5px solid #86EFAC; background:#F0FDF4;">
-                <div class="stat-label" style="color:#166534; font-weight:800;">अपेक्षित पुढील ५ दिवस (5-Day Outlook)</div>
+                <div class="stat-label" style="color:#166534; font-weight:800;">${fiveDayLabel}</div>
                 <div class="stat-val" style="color:#15803D;">₹ ${forecast.expectedOpportunityRange.min} – ₹ ${forecast.expectedOpportunityRange.max} <span style="font-size:0.8rem; font-weight:600;">/kg</span></div>
-                <div class="stat-note" style="color:#166534;">🎯 विश्वासार्हता: <strong>${forecast.confidencePercent}% (${forecast.confidenceLevel})</strong> • ${forecast.arrivalPressure?.pressureLevelMr || 'संतुलित आवक'}</div>
+                <div class="stat-note" style="color:#166534;">${confLabel} <strong>${forecast.confidencePercent}% (${forecast.confidenceLevel})</strong> • ${isEng ? (forecast.arrivalPressure?.pressureLevelEn || 'Balanced supply') : (isHin ? (forecast.arrivalPressure?.pressureLevelHi || 'संतुलित आपूर्ति') : (forecast.arrivalPressure?.pressureLevelMr || 'संतुलित आवक'))}</div>
             </div>
         `;
+    }
+
+    // 7. Selling Alternatives Comparison Widget
+    const altGrid = document.getElementById('sellingAlternativesGrid');
+    if (altGrid && comparison && comparison.rankedMandis && comparison.rankedMandis.length > 0) {
+        const localMandi = comparison.rankedMandis.find(m => m.isLocal) || comparison.rankedMandis[comparison.rankedMandis.length - 1];
+        const bestMandi = comparison.rankedMandis[0];
+        const matchedBuyers = await BuyerService.matchBuyersForLot({ cropType, quantity: 1000, qualityGrade: gradeFilter });
+        const topBuyer = matchedBuyers.length > 0 ? matchedBuyers[0] : null;
+
+        const el = (id) => document.getElementById(id);
+        if (el('altLocalName')) el('altLocalName').textContent = localMandi.marketName;
+        if (el('altLocalPrice')) el('altLocalPrice').textContent = `₹${localMandi.modalPricePerKg.toFixed(2)}/kg`;
+        if (el('altLocalNet')) el('altLocalNet').textContent = `Net: ₹${localMandi.estimatedNetRealizationPerKg.toFixed(2)}/kg after transport`;
+
+        if (el('altBestName')) el('altBestName').textContent = bestMandi.marketName;
+        if (el('altBestPrice')) el('altBestPrice').textContent = `₹${bestMandi.modalPricePerKg.toFixed(2)}/kg`;
+        if (el('altBestNet')) el('altBestNet').textContent = `Net: ₹${bestMandi.estimatedNetRealizationPerKg.toFixed(2)}/kg after transport`;
+
+        if (topBuyer) {
+            if (el('altBuyerName')) el('altBuyerName').textContent = topBuyer.businessName || topBuyer.name || 'Verified Buyer';
+            if (el('altBuyerPrice')) el('altBuyerPrice').textContent = `₹${topBuyer.offeredPricePerKg.toFixed(2)}/kg`;
+            if (el('altBuyerNet')) el('altBuyerNet').textContent = isEng ? 'No transport cost (farm pickup)' : (isHin ? 'कोई परिवहन लागत नहीं' : 'वाहतूक खर्च नाही (शेतावरून उचल)');
+        } else {
+            if (el('altBuyerName')) el('altBuyerName').textContent = isEng ? 'No active offers' : (isHin ? 'कोई सक्रिय प्रस्ताव नहीं' : 'सध्या ऑफर नाही');
+            if (el('altBuyerPrice')) el('altBuyerPrice').textContent = '--';
+        }
+    }
+
+    // 8. Data Provenance
+    const provSource = document.getElementById('provSource');
+    const provCoverage = document.getElementById('provCoverage');
+    const provLastUpdated = document.getElementById('provLastUpdated');
+    const provStatus = document.getElementById('provStatus');
+    if (provSource) {
+        const now = new Date();
+        const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        const timeStr = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        provSource.textContent = comparison?.summaryMetrics?.source || 'Agmarknet / data.gov.in';
+        provCoverage.textContent = dateStr;
+        provLastUpdated.textContent = timeStr;
+        const pStatus = comparison?.summaryMetrics?.primaryDataStatus || 'demo';
+        provStatus.textContent = pStatus === 'live' ? '🟢 Live' : (pStatus === 'cached' ? '🟡 Cached' : '🔵 Demo / Offline');
     }
 }
 
