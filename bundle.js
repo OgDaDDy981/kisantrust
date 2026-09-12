@@ -1,7 +1,7 @@
 /**
  * KisanTrust Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-10T02:47:34.037Z
+ * Auto-generated on 2026-09-12T05:04:44.110Z
  */
 (function() {
     'use strict';
