@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Transport Estimation Service
+ * AgriLink - Transport Estimation Service
  * Provides realistic road freight estimation based on distance, lot weight, and vehicle capacity.
  * Abstraction layer designed for zero client-side API key exposure.
  */

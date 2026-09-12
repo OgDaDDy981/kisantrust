@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 2 Automated Verification Suite
+ * AgriLink - Stage 2 Automated Verification Suite
  * Market Intelligence, Mandi Normalization, Transport Estimation & Net Realization Engine
  */
 
@@ -9,7 +9,7 @@ import { PriceCalculationService } from '../src/services/priceCalculationService
 import { MarketComparisonService } from '../src/services/marketComparisonService.js';
 import { MarketTrendService } from '../src/services/marketTrendService.js';
 
-console.log('🌱 Starting KisanTrust Stage 2 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 2 Automated Verification Suite...\n');
 
 let passedTests = 0;
 let failedTests = 0;

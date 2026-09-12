@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Deterministic Farmer-to-Buyer Matching Engine (Stage 3)
+ * AgriLink - Deterministic Farmer-to-Buyer Matching Engine (Stage 3)
  * Computes an explainable Opportunity Compatibility Score (0 - 100%)
  * Evaluates Crop, Quality Grade, Distance, Volume, Price Net Realization, Deadline, and Buyer Reliability.
  */

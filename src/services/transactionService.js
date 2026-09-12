@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Transaction & Digital Certificate Management Service
+ * AgriLink - Transaction & Digital Certificate Management Service
  * Enforces controlled 9-stage lifecycle transitions, payment tracking,
  * and generates downloadable verifiable digital receipts.
  */
@@ -93,7 +93,7 @@ export class TransactionService {
                 userId: record.farmerId,
                 type: NOTIFICATION_TYPES.OFFER_ACCEPTED,
                 title: '💰 एस्क्रो पेमेंट जमा झाले!',
-                message: `खरेदीदार ${record.buyerName} यांनी ${record.cropType} (${record.quantityKg}kg) साठी ₹${totalAmount.toLocaleString('en-IN')} चे पेमेंट किसान ट्रस्ट एस्क्रो खात्यात सुरक्षितपणे जमा केले आहे.`,
+                message: `खरेदीदार ${record.buyerName} यांनी ${record.cropType} (${record.quantityKg}kg) साठी ₹${totalAmount.toLocaleString('en-IN')} चे पेमेंट अ‍ॅग्रीलिंक एस्क्रो खात्यात सुरक्षितपणे जमा केले आहे.`,
                 relatedEntityType: 'TRANSACTION',
                 relatedEntityId: transactionId
             });
@@ -240,7 +240,7 @@ export class TransactionService {
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
-    <title>KisanTrust Digital Certificate - ${txn.receiptNumber}</title>
+    <title>AgriLink Digital Certificate - ${txn.receiptNumber}</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fdfdfd; color: #333; padding: 30px; }
         .receipt-card { max-width: 720px; margin: auto; border: 2px solid #2E7D32; border-radius: 12px; padding: 24px; background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
@@ -261,7 +261,7 @@ export class TransactionService {
     <div class="receipt-card">
         <div class="header">
             <div>
-                <div class="brand">🌱 KisanTrust</div>
+                <div class="brand">🌱 AgriLink</div>
                 <div class="tagline">Smart India Hackathon PS 6132 • AI Market Intelligence & Farm-to-Buyer Network</div>
             </div>
             <div class="badge">✓ VERIFIED TRANSACTION</div>
@@ -309,7 +309,7 @@ export class TransactionService {
         </div>
 
         <div class="footer">
-            हे डिजिटल प्रमाणपत्र Smart India Hackathon PS 6132 अंतर्गत KisanTrust प्लॅटफॉर्मवर सुरक्षितरीत्या तयार करण्यात आले आहे.
+            हे डिजिटल प्रमाणपत्र Smart India Hackathon PS 6132 अंतर्गत AgriLink प्लॅटफॉर्मवर सुरक्षितरीत्या तयार करण्यात आले आहे.
         </div>
     </div>
     <script>window.print();</script>
@@ -320,7 +320,7 @@ export class TransactionService {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `KisanTrust_Receipt_${txn.receiptNumber}.html`;
+        a.download = `AgriLink_Receipt_${txn.receiptNumber}.html`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 5 Automated Verification Suite
+ * AgriLink - Stage 5 Automated Verification Suite
  * Transaction Lifecycle, Logistics Decision Support, Storage Feasibility, and Digital Certificates
  */
 
@@ -8,7 +8,7 @@ import { TransactionService } from '../src/services/transactionService.js';
 import { LogisticsService } from '../src/services/logisticsService.js';
 import { StorageService } from '../src/services/storageService.js';
 
-console.log('🌱 Starting KisanTrust Stage 5 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 5 Automated Verification Suite...\n');
 
 let passedTests = 0;
 let failedTests = 0;

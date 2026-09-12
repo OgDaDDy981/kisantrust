@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: Gemini AI Mitra Advisory
+ * AgriLink - Netlify Serverless Function: Gemini AI Mitra Advisory
  * Generates grounded, empathetic farmer selling explanations in Marathi, Hindi, and English.
  */
 
@@ -107,7 +107,7 @@ export async function handler(event, context) {
         const payload = JSON.parse(event.body || '{}');
         const lang = payload.targetLanguage || 'Marathi (मराठी)';
 
-        const prompt = `You are "KisanTrust AI Mitra", an expert empathetic agricultural market advisor helping an Indian farmer.
+        const prompt = `You are "AgriLink AI Mitra", an expert empathetic agricultural market advisor helping an Indian farmer.
 Explain the following calculated selling recommendation simply and clearly in ${lang}.
 DO NOT invent any numbers, prices, or false guarantees. Ground your response strictly in these calculated facts:
 

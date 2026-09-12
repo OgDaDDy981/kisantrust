@@ -1,5 +1,5 @@
 /**
- * KisanTrust - User & Role Domain Models
+ * AgriLink - User & Role Domain Models
  * Implements strict Role-Based Access Control (RBAC), lifecycle state machines,
  * and privacy separation between private sensitive details and public marketplace data.
  */
@@ -84,7 +84,7 @@ export class FarmerProfile {
             fullName: data.personalDetails?.fullName || data.name || 'Ramesh Patil',
             profilePhoto: data.personalDetails?.profilePhoto || data.profilePhoto || '',
             mobileNumber: data.personalDetails?.mobileNumber || data.phone || '+91 98224 56789',
-            emailAddress: data.personalDetails?.emailAddress || data.email || 'ramesh.patil@kisantrust.org',
+            emailAddress: data.personalDetails?.emailAddress || data.email || 'ramesh.patil@agrilink.org',
             fullAddress: data.personalDetails?.fullAddress || data.address || 'Gat No. 142, At Post Niphad',
             pincode: data.personalDetails?.pincode || '422303',
             state: data.personalDetails?.state || data.state || 'Maharashtra',
@@ -96,7 +96,7 @@ export class FarmerProfile {
             primaryCrops: Array.isArray(data.farmDetails?.primaryCrops) ? data.farmDetails.primaryCrops : (data.primaryCrops || ['Tomato', 'Onion']),
             farmSizeAcres: Number(data.farmDetails?.farmSizeAcres ?? data.farmSizeAcres) || 4.5,
             productionCapacityTons: Number(data.farmDetails?.productionCapacityTons ?? data.productionCapacityTons) || 25,
-            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'KisanMitra Producer Co.'
+            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'AgriMitra Producer Co.'
         };
 
         this.verificationStatus = data.verificationStatus || (data.verified ? VERIFICATION_STATUS.VERIFIED : VERIFICATION_STATUS.PENDING_VERIFICATION);
@@ -136,7 +136,7 @@ export class FarmerProfile {
             primaryCrops: this.farmDetails.primaryCrops,
             farmerRating: this.farmerRating > 0 ? this.farmerRating : null,
             isEstablished: this.isEstablished,
-            ratingLabel: this.isEstablished ? `${this.farmerRating} / 5.0 (${this.totalTransactionsCompleted} transactions)` : 'New to KisanTrust (No verified history yet)',
+            ratingLabel: this.isEstablished ? `${this.farmerRating} / 5.0 (${this.totalTransactionsCompleted} transactions)` : 'New to AgriLink (No verified history yet)',
             totalTransactionsCompleted: this.totalTransactionsCompleted,
             verificationStatus: this.verificationStatus
         };
@@ -172,7 +172,7 @@ export class BuyerProfileRecord {
     constructor(data = {}) {
         this.userId = data.userId || data.buyerId || 'buyer_sahyadri';
         this.businessDetails = {
-            companyName: data.businessDetails?.companyName || data.companyName || 'KisanMitra Agro Processing Hub',
+            companyName: data.businessDetails?.companyName || data.companyName || 'AgriMitra Agro Processing Hub',
             buyerType: data.businessDetails?.buyerType || data.buyerType || data.companyType || 'Food Processor',
             contactPerson: data.businessDetails?.contactPerson || data.contactPerson || data.name || 'Amit Joshi',
             mobileNumber: data.businessDetails?.mobileNumber || data.phone || '+91 98230 44556',

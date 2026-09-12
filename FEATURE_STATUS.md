@@ -1,4 +1,4 @@
-# KisanTrust — Feature Status Reference
+# AgriLink — Feature Status Reference
 
 > **Last Updated:** September 2026  
 > **Purpose:** Living reference documenting what is real, what is simulated, and what is missing.

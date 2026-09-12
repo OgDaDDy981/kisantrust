@@ -1,5 +1,5 @@
 /**
- * KisanTrust - User Verification & Account Moderation Service
+ * AgriLink - User Verification & Account Moderation Service
  * Manages administrative verification queues, approval workflows, suspensions,
  * and internal administrative notes with full audit trail logging.
  */
@@ -108,7 +108,7 @@ export class VerificationService {
             userId,
             type: NOTIFICATION_TYPES.PROFILE_VERIFIED,
             title: '🎉 आपले शेतकरी खाते प्रमाणित झाले आहे!',
-            message: 'अभिनंदन! आपले किसान ट्रस्ट शेतकरी खाते यशस्वीरीत्या सत्यापित झाले आहे. आता आपण डिजिटल लॉट तयार करून बाजारात थेट विक्री करू शकता.',
+            message: 'अभिनंदन! आपले अ‍ॅग्रीलिंक शेतकरी खाते यशस्वीरीत्या सत्यापित झाले आहे. आता आपण डिजिटल लॉट तयार करून बाजारात थेट विक्री करू शकता.',
             relatedEntityType: 'PROFILE',
             relatedEntityId: userId
         });

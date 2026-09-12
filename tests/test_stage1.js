@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 1 Automated Verification Suite
+ * AgriLink - Stage 1 Automated Verification Suite
  */
 
 import { QualityService } from '../src/services/qualityService.js';
@@ -8,7 +8,7 @@ import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 import { I18N_DICTIONARY, SUPPORTED_LANGUAGES } from '../src/utils/i18n.js';
 import { mockMandiBenchmarks, mockBuyerDemands, mockPoolingClusters } from '../src/data/mockMandis.js';
 
-console.log('🌱 Starting KisanTrust Stage 1 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 1 Automated Verification Suite...\n');
 
 let passedTests = 0;
 let failedTests = 0;

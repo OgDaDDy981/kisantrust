@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 2 Automated Verification Suite
+ * AgriLink - Phase 2 Automated Verification Suite
  * Tests Market Intelligence Foundation, Data Freshness, Fallback Hierarchy, Price Analysis, and Transport Cost Service.
  */
 
@@ -21,7 +21,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 2 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 2 Automated Verification Suite...\n');
 
 console.log('1. Testing MarketDataService Normalization, Status & Freshness:');
 const rawRecord = {

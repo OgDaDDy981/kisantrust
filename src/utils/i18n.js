@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Multilingual Dictionary & Localization Engine
+ * AgriLink - Multilingual Dictionary & Localization Engine
  * Priority Languages:
  * 1. Marathi (मराठी)
  * 2. Hindi (हिंदी)
@@ -8,7 +8,7 @@
 
 export const I18N_DICTIONARY = {
     "Marathi (मराठी)": {
-        brand: "किसान ट्रस्ट",
+        brand: "अ‍ॅग्रीलिंक",
         tagline: "आपले पीक ओळखा. योग्य भाव जाणा. कुठे विकायचे ते ठरवा.",
         subDescription: "गुणवत्ता, बाजारभाव, मागणी आणि वाहतूक विश्लेषणाद्वारे शेतकऱ्यांचे सक्षमीकरण.",
         nav: {
@@ -157,10 +157,10 @@ export const I18N_DICTIONARY = {
             spoilageRiskLabel: "नासाडी धोका:",
             safeDaysLabel: "सुरक्षित टिकवण क्षमता:",
             forecastTitle: "अपेक्षित भाव कक्षा (Price Forecast):",
-            aiMitraAdviceTitle: "🤖 किसान ट्रस्ट AI मित्र सल्ला (Grounded Advisory)"
+            aiMitraAdviceTitle: "🤖 अ‍ॅग्रीलिंक AI मित्र सल्ला (Grounded Advisory)"
         },
         trustAndDisputes: {
-            trustScoreLabel: "किसान ट्रस्ट विश्वासार्हता स्कोअर:",
+            trustScoreLabel: "अ‍ॅग्रीलिंक विश्वासार्हता स्कोअर:",
             highlyTrusted: "अति-विश्वासू खरेदीदार (Highly Trusted)",
             trusted: "विश्वासू खरेदीदार (Trusted)",
             moderateRisk: "मध्यम जोखीम (Moderate Risk)",
@@ -173,7 +173,7 @@ export const I18N_DICTIONARY = {
             paymentReliabilityLabel: "वेळेवर पेमेंट दर:"
         },
         adminPortal: {
-            title: "🛡️ किसान ट्रस्ट प्रशासकीय नियंत्रण कक्ष (Admin Portal)",
+            title: "🛡️ अ‍ॅग्रीलिंक प्रशासकीय नियंत्रण कक्ष (Admin Portal)",
             subTitle: "शेतकरी व खरेदीदार पडताळणी, लॉट मॉडरेशन, व्यवहार आणि वाद निवारण केंद्र",
             tabOverview: "📊 आढावा (Overview)",
             tabFarmers: "👨‍🌾 शेतकरी पडताळणी",
@@ -239,7 +239,7 @@ export const I18N_DICTIONARY = {
             emptyNoRisk: "सध्या कोणताही संशयास्पद किंवा फसवणुकीचा फ्लॅग आढळलेला नाही."
         },
         auth: {
-            portalTitle: "किसान ट्रस्ट प्रवेश (Login & Register)",
+            portalTitle: "अ‍ॅग्रीलिंक प्रवेश (Login & Register)",
             tabLogin: "लॉगिन (Sign In)",
             tabRegister: "नवीन नोंदणी (Register)",
             lblIdentifier: "मोबाईल नंबर किंवा ईमेल (Mobile / Email)",
@@ -289,14 +289,14 @@ export const I18N_DICTIONARY = {
             navPayments: "पेमेंट्स"
         },
         payment: {
-            modalTitle: "किसान ट्रस्ट एस्क्रो पेमेंट (Escrow Checkout)",
+            modalTitle: "अ‍ॅग्रीलिंक एस्क्रो पेमेंट (Escrow Checkout)",
             modalSubtitle: "१००% सुरक्षित बँक एस्क्रो संरक्षण (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "वजन (Quantity)",
             pricePerKg: "दर (Price / kg)",
             totalAmount: "एकूण रक्कम (Total)",
-            escrowTitle: "किसान ट्रस्ट स्मार्ट एस्क्रो शील्ड",
-            escrowDesc: "तुमचे पैसे किसान ट्रस्टच्या अधिकृत बँकेत (ICICI/SBI) सुरक्षितपणे लॉक केले जातील. पिकाची डिलिव्हरी आणि गुणवत्ता तपासणी पूर्ण झाल्यावरच रक्कम शेतकऱ्याच्या थेट बँक खात्यात वितरित होईल.",
+            escrowTitle: "अ‍ॅग्रीलिंक स्मार्ट एस्क्रो शील्ड",
+            escrowDesc: "तुमचे पैसे अ‍ॅग्रीलिंकच्या अधिकृत बँकेत (ICICI/SBI) सुरक्षितपणे लॉक केले जातील. पिकाची डिलिव्हरी आणि गुणवत्ता तपासणी पूर्ण झाल्यावरच रक्कम शेतकऱ्याच्या थेट बँक खात्यात वितरित होईल.",
             selectMethod: "पेमेंट पद्धत निवडा (Select Payment Method):",
             scanQr: "कोणत्याही UPI App द्वारे QR कोड स्कॅन करा (GPay / PhonePe / Paytm / BHIM):",
             copyUpi: "UPI आयडी कॉपी केला!",
@@ -333,7 +333,7 @@ export const I18N_DICTIONARY = {
             btnListen: "🔊 ऐका (AI Voice)",
             btnSpeaking: "🔊 सल्ला वाचत आहे...",
             btnStop: "⏹️ आवाज थांबवा",
-            adviceSpoken: "किसान ट्रस्ट AI सल्ला ऐकवला जात आहे."
+            adviceSpoken: "अ‍ॅग्रीलिंक AI सल्ला ऐकवला जात आहे."
         },
         sampleLots: {
             quickLoadTitle: "✨ त्वरित चाचणीसाठी नमुना पिके लोड करा (1-Click Sample Lots):",
@@ -355,7 +355,7 @@ export const I18N_DICTIONARY = {
         },
         whatsappShare: {
             btnShare: "💬 WhatsApp वर शेअर करा",
-            lotSummaryTitle: "🌾 किसान ट्रस्ट - डिजिटल शेती लॉट अहवाल"
+            lotSummaryTitle: "🌾 अ‍ॅग्रीलिंक - डिजिटल शेती लॉट अहवाल"
         },
         certificate: {
             btnViewCert: "📜 अधिकृत गुणवत्ता प्रमाणपत्र पहा / प्रिंट करा",
@@ -368,7 +368,7 @@ export const I18N_DICTIONARY = {
     },
 
     "Hindi (हिंदी)": {
-        brand: "किसान ट्रस्ट",
+        brand: "अ‍ॅग्रीलिंक",
         tagline: "अपनी फसल को जानें. सही मूल्य समझें. सही बाजार चुनें.",
         subDescription: "गुणवत्ता, बाजार मूल्य, मांग और लॉजिस्टिक्स विश्लेषण से किसानों का सशक्तिकरण.",
         nav: {
@@ -517,10 +517,10 @@ export const I18N_DICTIONARY = {
             spoilageRiskLabel: "खराबी जोखिम:",
             safeDaysLabel: "सुरक्षित शेल्फ-लाइफ:",
             forecastTitle: "अनुमानित मूल्य सीमा (Price Forecast):",
-            aiMitraAdviceTitle: "🤖 किसान ट्रस्ट AI मित्र सलाह (Grounded Advisory)"
+            aiMitraAdviceTitle: "🤖 अ‍ॅग्रीलिंक AI मित्र सलाह (Grounded Advisory)"
         },
         trustAndDisputes: {
-            trustScoreLabel: "किसान ट्रस्ट विश्वसनीयता स्कोर:",
+            trustScoreLabel: "अ‍ॅग्रीलिंक विश्वसनीयता स्कोर:",
             highlyTrusted: "अत्यधिक विश्वसनीय (Highly Trusted)",
             trusted: "विश्वसनीय खरीदार (Trusted)",
             moderateRisk: "मध्यम जोखिम (Moderate Risk)",
@@ -533,7 +533,7 @@ export const I18N_DICTIONARY = {
             paymentReliabilityLabel: "समय पर भुगतान दर:"
         },
         adminPortal: {
-            title: "🛡️ किसान ट्रस्ट प्रशासनिक नियंत्रण कक्ष (Admin Portal)",
+            title: "🛡️ अ‍ॅग्रीलिंक प्रशासनिक नियंत्रण कक्ष (Admin Portal)",
             subTitle: "किसान व खरीदार सत्यापन, लॉट मॉडरेशन, लेनदेन एवं विवाद समाधान केंद्र",
             tabOverview: "📊 अवलोकन (Overview)",
             tabFarmers: "👨‍🌾 किसान सत्यापन",
@@ -599,7 +599,7 @@ export const I18N_DICTIONARY = {
             emptyNoRisk: "वर्तमान में कोई संदिग्ध या धोखाधड़ी गतिविधि नहीं मिली।"
         },
         auth: {
-            portalTitle: "किसान ट्रस्ट प्रवेश (Login & Register)",
+            portalTitle: "अ‍ॅग्रीलिंक प्रवेश (Login & Register)",
             tabLogin: "लॉगिन (Sign In)",
             tabRegister: "नया पंजीकरण (Register)",
             lblIdentifier: "मोबाइल नंबर या ईमेल (Mobile / Email)",
@@ -649,14 +649,14 @@ export const I18N_DICTIONARY = {
             navPayments: "पेमेंट्स"
         },
         payment: {
-            modalTitle: "किसान ट्रस्ट एस्क्रो भुगतान (Escrow Checkout)",
+            modalTitle: "अ‍ॅग्रीलिंक एस्क्रो भुगतान (Escrow Checkout)",
             modalSubtitle: "१००% सुरक्षित बैंक एस्क्रो सुरक्षा (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "मात्रा (Quantity)",
             pricePerKg: "दर (Price / kg)",
             totalAmount: "कुल राशि (Total)",
-            escrowTitle: "किसान ट्रस्ट स्मार्ट एस्क्रो शील्ड",
-            escrowDesc: "आपका भुगतान किसान ट्रस्ट के अधिकृत बैंक (ICICI/SBI) में सुरक्षित रूप से लॉक रहेगा। फसल की डिलीवरी और गुणवत्ता सत्यापन के बाद ही राशि सीधे किसान के बैंक खाते में जाएगी।",
+            escrowTitle: "अ‍ॅग्रीलिंक स्मार्ट एस्क्रो शील्ड",
+            escrowDesc: "आपका भुगतान अ‍ॅग्रीलिंक के अधिकृत बैंक (ICICI/SBI) में सुरक्षित रूप से लॉक रहेगा। फसल की डिलीवरी और गुणवत्ता सत्यापन के बाद ही राशि सीधे किसान के बैंक खाते में जाएगी।",
             selectMethod: "भुगतान विधि चुनें (Select Payment Method):",
             scanQr: "किसी भी UPI ऐप से QR कोड स्कैन करें (GPay / PhonePe / Paytm / BHIM):",
             copyUpi: "UPI आईडी कॉपी हो गई!",
@@ -693,7 +693,7 @@ export const I18N_DICTIONARY = {
             btnListen: "🔊 सुनें (AI Voice)",
             btnSpeaking: "🔊 सलाह बोली जा रही है...",
             btnStop: "⏹️ आवाज बंद करें",
-            adviceSpoken: "किसान ट्रस्ट AI सलाह सुनाई जा रही है।"
+            adviceSpoken: "अ‍ॅग्रीलिंक AI सलाह सुनाई जा रही है।"
         },
         sampleLots: {
             quickLoadTitle: "✨ त्वरित परीक्षण हेतु नमूने (1-Click Sample Lots):",
@@ -715,7 +715,7 @@ export const I18N_DICTIONARY = {
         },
         whatsappShare: {
             btnShare: "💬 WhatsApp पर साझा करें",
-            lotSummaryTitle: "🌾 किसान ट्रस्ट - डिजिटल कृषि लॉट रिपोर्ट"
+            lotSummaryTitle: "🌾 अ‍ॅग्रीलिंक - डिजिटल कृषि लॉट रिपोर्ट"
         },
         certificate: {
             btnViewCert: "📜 आधिकारिक गुणवत्ता प्रमाण पत्र देखें / प्रिंट करें",
@@ -728,7 +728,7 @@ export const I18N_DICTIONARY = {
     },
 
     "English": {
-        brand: "KisanTrust",
+        brand: "AgriLink",
         tagline: "Know Your Crop. Know Its Worth. Know Where to Sell.",
         subDescription: "AI-Powered Market Intelligence and Trusted Farm-to-Buyer Network.",
         nav: {
@@ -877,10 +877,10 @@ export const I18N_DICTIONARY = {
             spoilageRiskLabel: "Spoilage Risk:",
             safeDaysLabel: "Safe Shelf Life:",
             forecastTitle: "Expected Opportunity Range:",
-            aiMitraAdviceTitle: "🤖 KisanTrust AI Mitra (Grounded Advisory)"
+            aiMitraAdviceTitle: "🤖 AgriLink AI Mitra (Grounded Advisory)"
         },
         trustAndDisputes: {
-            trustScoreLabel: "KisanTrust Score:",
+            trustScoreLabel: "AgriLink Score:",
             highlyTrusted: "Highly Trusted",
             trusted: "Trusted",
             moderateRisk: "Moderate Risk",
@@ -893,7 +893,7 @@ export const I18N_DICTIONARY = {
             paymentReliabilityLabel: "On-Time Payment Rate:"
         },
         adminPortal: {
-            title: "🛡️ KisanTrust Administrative Control Center (Admin Portal)",
+            title: "🛡️ AgriLink Administrative Control Center (Admin Portal)",
             subTitle: "Farmer & Buyer verification, lot moderation, transactions, and dispute resolution hub",
             tabOverview: "📊 Overview",
             tabFarmers: "👨‍🌾 Farmer Verifications",
@@ -959,7 +959,7 @@ export const I18N_DICTIONARY = {
             emptyNoRisk: "No active risk or fraud flags detected."
         },
         auth: {
-            portalTitle: "KisanTrust Portal (Login & Register)",
+            portalTitle: "AgriLink Portal (Login & Register)",
             tabLogin: "Sign In",
             tabRegister: "Register",
             lblIdentifier: "Mobile Number or Email",
@@ -992,7 +992,7 @@ export const I18N_DICTIONARY = {
             lblCrops: "Primary Crops",
             lblAcres: "Farm Size (Acres)",
             lblCompanyName: "Company / Business Name",
-            placeholderCompany: "e.g. KisanMitra Agro Foods Pvt. Ltd.",
+            placeholderCompany: "e.g. AgriMitra Agro Foods Pvt. Ltd.",
             lblBuyerType: "Buyer Category",
             lblGstin: "GSTIN / Trade License",
             placeholderGstin: "27AABCS1429B1Z",
@@ -1009,14 +1009,14 @@ export const I18N_DICTIONARY = {
             navPayments: "Payments"
         },
         payment: {
-            modalTitle: "KisanTrust Escrow Checkout",
+            modalTitle: "AgriLink Escrow Checkout",
             modalSubtitle: "Secure Escrow Protection Banking Gateway",
             orderSummary: "Order Summary",
             quantity: "Quantity",
             pricePerKg: "Price / kg",
             totalAmount: "Total Amount",
-            escrowTitle: "KisanTrust Smart Escrow Shield",
-            escrowDesc: "Your funds are securely locked in KisanTrust's escrow account (ICICI/SBI). Money is disbursed to the farmer only upon produce delivery and destination QC verification.",
+            escrowTitle: "AgriLink Smart Escrow Shield",
+            escrowDesc: "Your funds are securely locked in AgriLink's escrow account (ICICI/SBI). Money is disbursed to the farmer only upon produce delivery and destination QC verification.",
             selectMethod: "Select Payment Method:",
             scanQr: "Scan QR with any UPI App (GPay / PhonePe / Paytm / BHIM):",
             copyUpi: "UPI ID Copied!",
@@ -1053,7 +1053,7 @@ export const I18N_DICTIONARY = {
             btnListen: "🔊 Listen (AI Voice)",
             btnSpeaking: "🔊 Speaking Advice...",
             btnStop: "⏹️ Stop Audio",
-            adviceSpoken: "KisanTrust AI Grounded Advisory is now speaking."
+            adviceSpoken: "AgriLink AI Grounded Advisory is now speaking."
         },
         sampleLots: {
             quickLoadTitle: "✨ Quick Test Sample Produce (1-Click Loaders):",
@@ -1075,7 +1075,7 @@ export const I18N_DICTIONARY = {
         },
         whatsappShare: {
             btnShare: "💬 Share on WhatsApp",
-            lotSummaryTitle: "🌾 KisanTrust - Verified Agricultural Lot Report"
+            lotSummaryTitle: "🌾 AgriLink - Verified Agricultural Lot Report"
         },
         certificate: {
             btnViewCert: "📜 View & Print Official Quality Certificate",
@@ -1198,17 +1198,17 @@ export function applyDOMTranslations(lang = "Marathi (मराठी)") {
 
     // Header Branding & Actions
     if (lang === "English") {
-        setTxt('brandName', "KisanTrust");
+        setTxt('brandName', "AgriLink");
         setTxt('tagline', "Know Your Crop. Know Its Worth. Know Where to Sell.");
         setTxt('headerHelplineText', "Helpline: 1800-123-4567");
         setTxt('adminQuickBtnText', "Admin Mode");
     } else if (lang === "Hindi (हिंदी)") {
-        setTxt('brandName', "किसान ट्रस्ट");
+        setTxt('brandName', "अ‍ॅग्रीलिंक");
         setTxt('tagline', "अपनी फसल पहचानें. सही भाव जानें. कहाँ बेचना है तय करें.");
         setTxt('headerHelplineText', "हेल्पलाइन: 1800-123-4567");
         setTxt('adminQuickBtnText', "एडमिन मोड");
     } else {
-        setTxt('brandName', "किसान ट्रस्ट");
+        setTxt('brandName', "अ‍ॅग्रीलिंक");
         setTxt('tagline', "आपले पीक ओळखा. योग्य भाव जाणा. कुठे विकायचे ते ठरवा.");
         setTxt('headerHelplineText', "हेल्पलाइन: 1800-123-4567");
         setTxt('adminQuickBtnText', "अ‍ॅडमिन मोड");
@@ -1228,15 +1228,15 @@ export function applyDOMTranslations(lang = "Marathi (मराठी)") {
     // View 1: Dashboard Hero
     if (lang === "English") {
         setTxt('dashWelcomeText', "Welcome, Ramesh Patil 👋");
-        setTxt('dashSubDesc', "KisanTrust helps you accurately assess crop quality, discover transparent market prices, and connect directly with trusted verified buyers.");
+        setTxt('dashSubDesc', "AgriLink helps you accurately assess crop quality, discover transparent market prices, and connect directly with trusted verified buyers.");
         setTxt('dashAssessBtnText', "Assess & Register New Lot");
     } else if (lang === "Hindi (हिंदी)") {
         setTxt('dashWelcomeText', "स्वागत है, रमेश पाटिल 👋");
-        setTxt('dashSubDesc', "किसान ट्रस्ट आपको फसल की सटीक गुणवत्ता, पारदर्शी बाजार भाव और सीधे सत्यापित खरीदारों से जुड़ने में मदद करता है।");
+        setTxt('dashSubDesc', "अ‍ॅग्रीलिंक आपको फसल की सटीक गुणवत्ता, पारदर्शी बाजार भाव और सीधे सत्यापित खरीदारों से जुड़ने में मदद करता है।");
         setTxt('dashAssessBtnText', "नई फसल जांचें और पंजीकृत करें");
     } else {
         setTxt('dashWelcomeText', "नमस्कार, रमेश पाटील 👋");
-        setTxt('dashSubDesc', "KisanTrust आपल्याला पिकाची अचूक गुणवत्ता, पारदर्शक बाजारभाव आणि थेट विश्वासू खरेदीदार जोडण्यास मदत करते.");
+        setTxt('dashSubDesc', "AgriLink आपल्याला पिकाची अचूक गुणवत्ता, पारदर्शक बाजारभाव आणि थेट विश्वासू खरेदीदार जोडण्यास मदत करते.");
         setTxt('dashAssessBtnText', "नवीन लॉट तपासा व नोंदवा");
     }
 
@@ -1373,7 +1373,7 @@ export function applyDOMTranslations(lang = "Marathi (मराठी)") {
     setTxt('poolingSub', dict.smartPooling?.subtitle || "Smallholder farmers aggregate compatible lots into full truckloads to save 50-60% on transport");
 
     // View 8: Admin Portal
-    setTxt('adminBannerTitle', dict.adminPortal?.title || "🛡️ KisanTrust Administrative Control Center");
+    setTxt('adminBannerTitle', dict.adminPortal?.title || "🛡️ AgriLink Administrative Control Center");
     setTxt('adminBannerSub', dict.adminPortal?.subTitle || "Centralized Farmer & Buyer verification, lot moderation, and dispute resolution hub");
     setTxt('adminTabOverview', dict.adminPortal?.tabOverview);
     setTxt('adminTabFarmers', dict.adminPortal?.tabFarmers);
@@ -1386,7 +1386,7 @@ export function applyDOMTranslations(lang = "Marathi (मराठी)") {
 
     // Auth Modal
     if (dict.auth) {
-        setTxt('authModalTitle', dict.auth.portalTitle || "KisanTrust Portal");
+        setTxt('authModalTitle', dict.auth.portalTitle || "AgriLink Portal");
         setTxt('authTabLogin', dict.auth.tabLogin || "Sign In");
         setTxt('authTabRegister', dict.auth.tabRegister || "Register");
         setTxt('lblLoginIdentifier', dict.auth.lblIdentifier || "Mobile Number or Email");

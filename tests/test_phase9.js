@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 9 Automated Verification Suite
+ * AgriLink - Phase 9 Automated Verification Suite
  * Tests 4-Pathway Offer and Opportunity Comparison:
  * - Option A: Local Mandi
  * - Option B: Distant Major APMC
@@ -25,7 +25,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 9 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 9 Automated Verification Suite...\n');
 
 console.log('1. Testing 4-Pathway Comparison Engine (Tomato, 500kg):');
 const comparison = await OpportunityComparisonService.compareSellingPathways({

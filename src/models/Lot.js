@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Digital Agricultural Lot Data Model
+ * AgriLink - Digital Agricultural Lot Data Model
  * Represents a verified agricultural produce lot created by a farmer.
  * Stores crop details, verified quality metrics, location, automated pre-checks,
  * and admin moderation lifecycle state.

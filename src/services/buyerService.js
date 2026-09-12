@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Buyer Service & Demand Management
+ * AgriLink - Buyer Service & Demand Management
  * Manages buyer profiles, purchase requirement postings, and lot-to-buyer matching.
  */
 

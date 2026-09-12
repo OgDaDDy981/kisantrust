@@ -1,5 +1,5 @@
 /* ============================================================== */
-/* KISAN TRUST — COMMERCIAL AGRICULTURAL ENTERPRISE SYSTEM v3      */
+/* AGRILINK — COMMERCIAL AGRICULTURAL ENTERPRISE SYSTEM v3      */
 /* Production-Grade, High-Contrast, Farmer-Accessible UI/UX       */
 /* ============================================================== */
 
@@ -2026,7 +2026,7 @@ body::before {
 }
 
 /* ===================================================
-   KISAN TRUST - SIH 6132 STAGE 1 NAVIGATION & DASHBOARD
+   AGRILINK - SIH 6132 STAGE 1 NAVIGATION & DASHBOARD
    =================================================== */
 
 /* Main Navigation Bar */
@@ -2354,7 +2354,7 @@ body::before {
 }
 
 .dashboard-hero-banner {
-    background: linear-gradient(135deg, rgba(27, 94, 32, 0.95), rgba(46, 125, 50, 0.85)), url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1200&auto=format&fit=crop&q=80');
+    background: linear-gradient(135deg, rgba(27, 94, 32, 0.5), rgba(46, 125, 50, 0.4)), url('assets/hero_banner.jpg');
     background-size: cover;
     background-position: center;
     border-radius: var(--r3);
@@ -2662,7 +2662,7 @@ body::before {
 }
 
 /* ===================================================
-   KISAN TRUST - STAGE 2 MARKET COMPARISON & TRENDS
+   AGRILINK - STAGE 2 MARKET COMPARISON & TRENDS
    =================================================== */
 
 /* Crop Filter Pills */
@@ -2830,7 +2830,7 @@ body::before {
 .data-status-pill.demo { background: #E3F2FD; color: #1565C0; border: 1px solid #90CAF9; }
 
 /* ===================================================
-   KISAN TRUST - STAGE 3 BUYER MARKETPLACE & NEGOTIATION
+   AGRILINK - STAGE 3 BUYER MARKETPLACE & NEGOTIATION
    =================================================== */
 
 /* Buyer Demand Cards Grid */
@@ -3071,7 +3071,7 @@ body::before {
 }
 
 /* ===================================================
-   KISAN TRUST - STAGE 4 DECISION SUPPORT & SMART POOLING
+   AGRILINK - STAGE 4 DECISION SUPPORT & SMART POOLING
    =================================================== */
 
 /* Decision Recommendation Card */
@@ -3255,10 +3255,10 @@ body::before {
 }
 
 /* ===================================================
-   KISAN TRUST - STAGE 6 TRUST SCORE & DISPUTE RESOLUTION
+   AGRILINK - STAGE 6 TRUST SCORE & DISPUTE RESOLUTION
    =================================================== */
 
-/* KisanTrust Score Badges */
+/* AgriLink Score Badges */
 .trust-score-badge {
     padding: 4px 10px;
     border-radius: var(--r4);
@@ -3327,7 +3327,7 @@ body::before {
 }
 
 /* ===================================================
-   KISAN TRUST - ADMIN PORTAL & CONNECTED ECOSYSTEM STYLES
+   AGRILINK - ADMIN PORTAL & CONNECTED ECOSYSTEM STYLES
    =================================================== */
 
 /* Notification Bell & Drawer */
@@ -4178,10 +4178,11 @@ body::before {
     body * {
         visibility: hidden;
     }
-    .official-cert-card, .official-cert-card * {
-        visibility: visible;
+    .official-cert-card, .official-cert-card *,
+    #paymentSuccessReceiptView, #paymentSuccessReceiptView * {
+        visibility: visible !important;
     }
-    .official-cert-card {
+    .official-cert-card, #paymentSuccessReceiptView {
         position: absolute;
         left: 0;
         top: 0;
@@ -4189,7 +4190,7 @@ body::before {
         border: 2px solid #000;
         box-shadow: none;
     }
-    .modal-close-btn, .btn, .sidebar, header, nav, footer {
+    .modal-close-btn, .btn, .sidebar, header, nav, footer, button {
         display: none !important;
     }
 }
@@ -4982,78 +4983,101 @@ body.role-super_admin .admin-only {
 /* Main Decision Card */
 .decision-engine-card {
     background: #ffffff;
-    border-radius: var(--r3);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--border-light);
+    border-radius: 16px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(0,0,0,0.05);
     overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.decision-engine-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 45px rgba(0, 0, 0, 0.12);
 }
 
 .decision-header {
-    background: linear-gradient(135deg, #15803D, #047857);
+    background: linear-gradient(135deg, #10B981, #047857);
     color: white;
-    padding: var(--s4) var(--s5);
+    padding: 16px 24px;
     display: flex;
     align-items: center;
-    gap: var(--s3);
+    gap: 12px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
 .pulse-indicator {
-    width: 10px;
-    height: 10px;
-    background-color: #4ADE80;
+    width: 12px;
+    height: 12px;
+    background-color: #A7F3D0;
     border-radius: 50%;
-    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
+    box-shadow: 0 0 0 0 rgba(167, 243, 208, 0.7);
     animation: pulse 1.5s infinite;
 }
 @keyframes pulse {
-    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
-    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
-    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(167, 243, 208, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(167, 243, 208, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(167, 243, 208, 0); }
 }
 
 .decision-header h3 {
     margin: 0;
-    font-size: 1.15rem;
-    font-weight: 700;
+    font-size: 1.25rem;
+    font-weight: 800;
     flex-grow: 1;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.opp-badge {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border: 1px solid rgba(255,255,255,0.4);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .decision-core {
-    padding: var(--s5);
+    padding: 24px;
     display: grid;
-    grid-template-columns: 1fr 1fr 1.2fr;
-    gap: var(--s5);
+    grid-template-columns: 1.2fr 1fr 1.2fr;
+    gap: 24px;
     align-items: center;
+    background: linear-gradient(180deg, #ffffff 0%, #F8FAFC 100%);
 }
 
 .decision-commodity {
     display: flex;
     align-items: center;
-    gap: var(--s3);
+    gap: 16px;
 }
 .decision-commodity .crop-icon {
-    font-size: 2.5rem;
-    background: var(--surface-bg);
-    padding: var(--s3);
-    border-radius: var(--r2);
+    font-size: 3rem;
+    background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.8), 0 4px 10px rgba(0,0,0,0.04);
+    border: 1px solid #BBF7D0;
 }
 .decision-commodity h4 {
-    margin: 0 0 var(--s1) 0;
-    color: var(--text-dark);
+    margin: 0 0 4px 0;
+    color: #1E293B;
+    font-size: 1.15rem;
+    font-weight: 700;
 }
 .decision-commodity p {
     margin: 0;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
     color: #64748B;
+    font-weight: 500;
 }
 
 .decision-metrics {
     display: flex;
     flex-direction: column;
-    gap: var(--s3);
-    border-left: 1px solid var(--border-light);
-    border-right: 1px solid var(--border-light);
-    padding: 0 var(--s4);
+    gap: 12px;
+    border-left: 1px dashed #CBD5E1;
+    border-right: 1px dashed #CBD5E1;
+    padding: 0 20px;
 }
 .decision-metrics .metric {
     display: flex;
@@ -5063,90 +5087,151 @@ body.role-super_admin .admin-only {
 .decision-metrics .label {
     font-size: 0.85rem;
     color: #64748B;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 .decision-metrics .value {
-    font-weight: 700;
-    color: var(--text-dark);
+    font-weight: 800;
+    color: #334155;
+    font-size: 1.05rem;
 }
 .decision-metrics .value.highlight {
-    color: var(--leaf-deep);
-    font-size: 1.1rem;
+    color: #059669;
+    font-size: 1.25rem;
+    background: #ECFDF5;
+    padding: 4px 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
 }
 .trend.up { color: #10B981; }
 .trend.down { color: #EF4444; }
 
 .decision-action-box {
-    background: #F8FAFC;
-    padding: var(--s4);
-    border-radius: var(--r2);
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
     border: 1px solid #E2E8F0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+}
+.decision-action-box::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 4px; height: 100%;
+    background: #10B981;
 }
 .decision-action-box strong {
-    color: var(--leaf-deep);
-    display: block;
-    margin-bottom: var(--s2);
+    color: #047857;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+    font-size: 1rem;
 }
+
+#decisionCtaBtn {
+    background: linear-gradient(135deg, #059669, #047857) !important;
+    border: none !important;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3) !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease !important;
+    color: white !important;
+}
+#decisionCtaBtn:hover {
+    background: linear-gradient(135deg, #047857, #064E3B) !important;
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.4) !important;
+    transform: translateY(-2px);
+}
+
 .decision-action-box p {
     margin: 0;
-    font-size: 0.85rem;
-    color: #334155;
-    line-height: 1.4;
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.5;
+    font-weight: 500;
 }
 
 /* Opportunity Score Breakdown */
 .opportunity-breakdown {
-    background: #F1F5F9;
-    padding: var(--s5);
+    background: #F8FAFC;
+    padding: 24px;
     border-top: 1px solid #E2E8F0;
 }
 .opp-score-header {
-    margin-bottom: var(--s4);
+    margin-bottom: 20px;
 }
 .opp-score-header h4 {
     margin: 0;
-    color: var(--text-dark);
+    color: #1E293B;
+    font-size: 1.1rem;
+    font-weight: 700;
 }
-.score-high { color: #15803D; }
-.score-med { color: #B45309; }
 
 .opp-factors {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--s4);
+    gap: 20px;
 }
 .factor {
     background: white;
-    padding: var(--s3) var(--s4);
-    border-radius: var(--r2);
+    padding: 16px;
+    border-radius: 12px;
     display: flex;
-    gap: var(--s3);
+    gap: 12px;
     align-items: flex-start;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.2s ease;
 }
-.factor.positive { border-left: 3px solid #10B981; }
-.factor.negative { border-left: 3px solid #EF4444; }
-.factor.neutral { border-left: 3px solid #F59E0B; }
+.factor:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+}
+.factor.positive { border-top: 4px solid #10B981; }
+.factor.negative { border-top: 4px solid #F43F5E; }
+.factor.neutral { border-top: 4px solid #F59E0B; }
 
-.factor .icon { font-size: 1.1rem; }
-.factor .text { font-size: 0.85rem; color: #475569; line-height: 1.4; }
-.factor .text strong { display: block; margin-bottom: 2px; color: var(--text-dark); }
+.factor .icon { 
+    font-size: 1.25rem; 
+    background: #F1F5F9;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.factor.positive .icon { background: #ECFDF5; color: #10B981; }
+.factor.negative .icon { background: #FFF1F2; color: #F43F5E; }
+.factor.neutral .icon { background: #FFFBEB; color: #F59E0B; }
+
+.factor .text { font-size: 0.85rem; color: #64748B; line-height: 1.5; }
+.factor .text strong { 
+    display: block; 
+    margin-bottom: 4px; 
+    color: #334155; 
+    font-size: 0.95rem;
+    font-weight: 700;
+}
 
 @media(max-width: 992px) {
     .decision-core {
         grid-template-columns: 1fr;
-        gap: var(--s4);
+        gap: 20px;
     }
     .decision-metrics {
         border-left: none; border-right: none;
-        border-top: 1px solid var(--border-light);
-        border-bottom: 1px solid var(--border-light);
-        padding: var(--s4) 0;
+        border-top: 1px dashed #CBD5E1;
+        border-bottom: 1px dashed #CBD5E1;
+        padding: 20px 0;
     }
     .opp-factors {
         grid-template-columns: 1fr;
     }
 }
-
 /* =========================================================
    STAGE 6 - STORAGE MODULE STYLES
    ========================================================= */
@@ -5339,4 +5424,62 @@ body.role-super_admin .admin-only {
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+
+
+
+/* =========================================================
+   CLASSY, SUBTLE ANIMATIONS (HOMEPAGE & DASHBOARD)
+   ========================================================= */
+
+/* 1. Elegant View Fade In */
+.view-section {
+    animation: gentleFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes gentleFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 2. Soft Staggered Card Entrances */
+.dashboard-grid-lots .custom-card,
+.dashboard-grid-market .custom-card {
+    opacity: 0;
+    animation: gentleFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.dashboard-grid-lots .custom-card:nth-child(1), .dashboard-grid-market .custom-card:nth-child(1) { animation-delay: 0.05s; }
+.dashboard-grid-lots .custom-card:nth-child(2), .dashboard-grid-market .custom-card:nth-child(2) { animation-delay: 0.1s; }
+.dashboard-grid-lots .custom-card:nth-child(3), .dashboard-grid-market .custom-card:nth-child(3) { animation-delay: 0.15s; }
+.dashboard-grid-lots .custom-card:nth-child(4), .dashboard-grid-market .custom-card:nth-child(4) { animation-delay: 0.2s; }
+.dashboard-grid-lots .custom-card:nth-child(5), .dashboard-grid-market .custom-card:nth-child(5) { animation-delay: 0.25s; }
+
+/* 3. Refined Hover for Cards */
+.custom-card {
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.custom-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* 4. Elegant Hero Banner Fade */
+.dashboard-hero-banner {
+    animation: gentleFadeIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* 5. Smooth Action Box Hover */
+.decision-action-box {
+    transition: background-color 0.4s ease;
+}
+.decision-action-box:hover {
+    background-color: #F8FAFC;
 }

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 7 Automated Verification Suite
+ * AgriLink - Stage 7 Automated Verification Suite
  * Connected Ecosystem: Role-Based Access Control, Admin Portal, Moderation Queues,
  * Trust System, Audit Trail, Post-Transaction Ratings & Notification Engine
  */
@@ -32,7 +32,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Stage 7 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 7 Automated Verification Suite...\n');
 
 async function runStage7Tests() {
     // ==========================================

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: Telemetry Event Logger
+ * AgriLink - Netlify Serverless Function: Telemetry Event Logger
  */
 
 export async function handler(event, context) {
@@ -16,7 +16,7 @@ export async function handler(event, context) {
 
     try {
         const payload = JSON.parse(event.body || '{}');
-        console.log(`🌾 [KISANTRUST EVENT] ${new Date().toISOString()}`, JSON.stringify(payload));
+        console.log(`🌾 [AGRILINK EVENT] ${new Date().toISOString()}`, JSON.stringify(payload));
         return {
             statusCode: 200,
             headers,

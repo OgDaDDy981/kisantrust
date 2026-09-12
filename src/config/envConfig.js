@@ -40,7 +40,7 @@ function getEnvVar(k, d = '') {
         if (window['__' + k + '__']) return window['__' + k + '__'];
     }
     if (typeof localStorage !== 'undefined') {
-        const stored = localStorage.getItem('kisantrust_' + k.toLowerCase());
+        const stored = localStorage.getItem('agrilink_' + k.toLowerCase());
         if (stored) return stored;
     }
     return d;

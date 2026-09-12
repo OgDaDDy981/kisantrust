@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: Agmarknet APMC Proxy
+ * AgriLink - Netlify Serverless Function: Agmarknet APMC Proxy
  * Proxies requests to Open Government Data India (api.data.gov.in)
  * Keeps AGMARKNET_API_KEY / DATA_GOV_IN_API_KEY secure on the server.
  */

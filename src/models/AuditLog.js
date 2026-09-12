@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Admin Audit Log Domain Model
+ * AgriLink - Admin Audit Log Domain Model
  * Records immutable, tamper-evident logs of critical administrative actions
  * such as verification decisions, lot approvals/rejections, suspensions, and score adjustments.
  */

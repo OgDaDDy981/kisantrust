@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Buyer Profiles, Purchase Demands, and Negotiation Domain Models
+ * AgriLink - Buyer Profiles, Purchase Demands, and Negotiation Domain Models
  */
 
 export class BuyerProfile {
@@ -8,7 +8,7 @@ export class BuyerProfile {
      */
     constructor(data = {}) {
         this.buyerId = data.buyerId || `buyer_${Date.now().toString().slice(-4)}`;
-        this.companyName = data.companyName || 'KisanMitra Agro Processing';
+        this.companyName = data.companyName || 'AgriMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor'; 
         // 'Wholesaler' | 'Retailer' | 'Food Processor' | 'Restaurant' | 'Institutional Buyer' | 'Exporter' | 'Aggregator'
         this.contactPerson = data.contactPerson || 'Vilas Shinde';
@@ -34,7 +34,7 @@ export class BuyerDemand {
     constructor(data = {}) {
         this.demandId = data.demandId || `DEM-${new Date().getFullYear()}-${Date.now().toString().slice(-5)}`;
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
+        this.buyerName = data.buyerName || 'AgriMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor';
         this.verifiedBuyer = Boolean(data.verifiedBuyer ?? true);
         this.reliabilityScore = Number(data.reliabilityScore) || 4.8;

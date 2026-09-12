@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Platform Analytics & Operational Overview Service
+ * AgriLink - Platform Analytics & Operational Overview Service
  * Aggregates operational platform statistics, verification queues, and risk health metrics.
  */
 

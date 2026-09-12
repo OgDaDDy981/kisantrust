@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Net Realization Calculation Engine (Stage 2)
+ * AgriLink - Net Realization Calculation Engine (Stage 2)
  * Computes explainable, itemized net farm-gate realizations.
  * Transparent formula:
  *   Base Market Price
@@ -125,7 +125,7 @@ export class PriceCalculationService {
             estimatedNetRealization: {
                 value: estimatedNetRealizationPerKg,
                 unit: "₹/kg",
-                source: "KisanTrust Deterministic Realization Engine",
+                source: "AgriLink Deterministic Realization Engine",
                 explanation: "Estimated net farm-gate payout per kg after all quality adjustments and logistics deductions."
             },
             totalLotEstimatedNetWorth: {

@@ -1,6 +1,6 @@
 /**
- * KisanTrust - Rating & Reputation Engine
- * Calculates tamper-proof KisanTrust Farmer Ratings (0-5.0) and Buyer Trust Scores (0-100)
+ * AgriLink - Rating & Reputation Engine
+ * Calculates tamper-proof AgriLink Farmer Ratings (0-5.0) and Buyer Trust Scores (0-100)
  * based strictly on verified post-transaction feedback, delivery performance, and dispute history.
  */
 
@@ -256,7 +256,7 @@ export class RatingService {
             ? (buyerRatings.reduce((sum, r) => sum + r.compositeRating, 0) / buyerRatings.length)
             : 4.8;
 
-        const scoreObj = TrustScoreService.calculateKisanTrustScore({
+        const scoreObj = TrustScoreService.calculateAgriLinkScore({
             ...buyerData,
             totalTransactionsCompleted: buyerTxns.length || 24,
             defaultedTransactions: 0,

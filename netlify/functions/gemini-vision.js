@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: Gemini Multimodal Vision Quality & Commodity Verifier
+ * AgriLink - Netlify Serverless Function: Gemini Multimodal Vision Quality & Commodity Verifier
  * Verifies that uploaded harvest photos contain the claimed crop, checks clarity/suitability,
  * and performs deep agricultural grading conforming to AGMARKNET & NHB commercial standards.
  */
@@ -219,7 +219,7 @@ export async function handler(event, context) {
 
         // --- 1. EXTERIOR HARVEST QUALITY VERIFICATION ---
         if (verificationType === 'exterior') {
-            const prompt = `You are "KisanTrust AI Chief Quality Inspector", a senior agricultural auditor strictly enforcing Indian AGMARKNET and National Horticulture Board (NHB) commercial grading standards.
+            const prompt = `You are "AgriLink AI Chief Quality Inspector", a senior agricultural auditor strictly enforcing Indian AGMARKNET and National Horticulture Board (NHB) commercial grading standards.
 
 The farmer has uploaded ${inlineParts.length} photo(s) claiming this lot is: "${cropType}".
 
@@ -308,7 +308,7 @@ Strictly return JSON matching this schema:
 
         // --- 2. INTERNAL CROSS-SECTION CUT VERIFICATION ---
         else if (verificationType === 'cut') {
-            const prompt = `You are "KisanTrust AI Internal Cut Inspector".
+            const prompt = `You are "AgriLink AI Internal Cut Inspector".
 The farmer has submitted a close-up photo of an internal half-cut cross-section slice of their harvest, claimed to be "${cropType}".
 
 Analyze the cross-section slice:

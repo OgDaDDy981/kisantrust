@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 10 Automated Verification Suite
+ * AgriLink - Phase 10 Automated Verification Suite
  * Tests Price Trends & Forecast Foundation:
  * - Historical moving averages (7-day / 30-day)
  * - Regional arrival pressure (volume impact)
@@ -24,7 +24,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 10 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 10 Automated Verification Suite...\n');
 
 console.log('1. Testing Historical Moving Averages & Trend Velocity:');
 const trend = await MarketTrendService.getTrendForCrop('Tomato', 'Pune APMC (Gultekdi)');

@@ -1,16 +1,16 @@
 /**
- * KisanTrust - Seed Buyer Profiles and Verified Demands
+ * AgriLink - Seed Buyer Profiles and Verified Demands
  * Covers Indian agricultural supply chain: Processors, Retailers, Exporters, Wholesalers, Restaurants.
  */
 
 export const mockBuyerProfiles = [
     {
         buyerId: "buyer_sahyadri",
-        companyName: "KisanMitra Producer Co.",
+        companyName: "AgriMitra Producer Co.",
         companyType: "Food Processor",
         contactPerson: "Vikram Deshmukh",
         phone: "+91 00000 55667",
-        email: "orders@kisanmitra.example.com",
+        email: "orders@agrimitra.example.com",
         district: "Nashik",
         state: "Maharashtra",
         pincode: "422001",
@@ -85,7 +85,7 @@ export const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00101",
         buyerId: "buyer_sahyadri",
-        buyerName: "KisanMitra Producer Co.",
+        buyerName: "AgriMitra Producer Co.",
         companyType: "Food Processor",
         verifiedBuyer: true,
         reliabilityScore: 4.9,
@@ -217,7 +217,7 @@ export const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00107",
         buyerId: "buyer_sahyadri",
-        buyerName: "KisanMitra",
+        buyerName: "AgriMitra",
         companyType: "Food Processor",
         verifiedBuyer: true,
         reliabilityScore: 4.9,

@@ -1,11 +1,11 @@
-# 🚜 KisanTrust
+# 🚜 AgriLink
 
 > **AI-Powered Market Intelligence and Trusted Farm-to-Buyer Network**  
 > *"Know Your Crop. Know Its Worth. Know Where to Sell."*
 
 **Smart India Hackathon (SIH) Problem Statement 6132**
 
-KisanTrust is an AI-assisted market intelligence and trusted farm-to-buyer platform that helps farmers discover fair prices, compare markets based on net realization, identify the right time and place to sell, connect with reliable buyers, aggregate produce for larger opportunities, optimize logistics, and track transactions through payment.
+AgriLink is an AI-assisted market intelligence and trusted farm-to-buyer platform that helps farmers discover fair prices, compare markets based on net realization, identify the right time and place to sell, connect with reliable buyers, aggregate produce for larger opportunities, optimize logistics, and track transactions through payment.
 
 ---
 
@@ -15,7 +15,7 @@ KisanTrust is an AI-assisted market intelligence and trusted farm-to-buyer platf
 2. **Transparent Price Discovery Architecture**: Deterministic, explainable net realization calculation removing arbitrary guarantees:
    $$\text{Estimated Net Realization} = \text{Base Market Price} + \text{Quality Premium} + \text{Buyer Demand Index} - \text{Transport Cost} - \text{Storage Cost}$$
 3. **Mandi Market Intelligence & APMC Comparison**: Live benchmark comparison across APMC Mandis (Lasalgaon, Pune, Vashi/Mumbai, Pimpalgaon) ranked strictly by net farmer realization.
-4. **Verified Buyer Marketplace & KisanTrust Score**: Direct linkages with food processors, bulk retailers, and exporters scored via a multi-factor Opportunity Compatibility algorithm and transparent Buyer Reliability Rating (0–100).
+4. **Verified Buyer Marketplace & AgriLink Score**: Direct linkages with food processors, bulk retailers, and exporters scored via a multi-factor Opportunity Compatibility algorithm and transparent Buyer Reliability Rating (0–100).
 5. **Multi-Round Deal Negotiations**: Direct buyer-to-farmer price counter-proposals with automated transition to official Transaction Records and Escrow locking upon deal acceptance.
 6. **Intelligent Decision Support & Opportunity Scoring**: Deterministic multi-factor decision engine generating clear recommendations (`SELL_NOW`, `WAIT`, `SELL_TO_ANOTHER_MARKET`, `SELL_TO_VERIFIED_BUYER`) with a 6-factor Opportunity Score (0–100%).
 7. **Gemini Grounded Advisory Layer**: Conversational explanation layer providing empathetic, localized guidance in Marathi, Hindi, and English without hallucinating market prices or future certainty.
@@ -71,7 +71,7 @@ Kisan_Trust/
     │   ├── negotiationService.js # Multi-round counter-offers & deal acceptance
     │   ├── poolingService.js  # Smart village lot pooling and shared freight engine
     │   ├── transactionService.js # Deal milestone tracking & digital receipt generator
-    │   ├── trustScoreService.js # Transparent KisanTrust Score (0–100) for buyers
+    │   ├── trustScoreService.js # Transparent AgriLink Score (0–100) for buyers
     │   └── disputeService.js  # Evidence-assisted dispute creation and resolution
     ├── data/
     │   ├── mockLots.js        # Seed active digital agricultural lots
@@ -108,7 +108,7 @@ npx serve .
 ## 🎬 Suggested 3–5 Minute SIH Hackathon Demo Script
 
 1. **Introduction & Identity (30s)**:
-   - Introduce **KisanTrust** (*"Know Your Crop. Know Its Worth. Know Where to Sell."*), addressing SIH Problem Statement 6132.
+   - Introduce **AgriLink** (*"Know Your Crop. Know Its Worth. Know Where to Sell."*), addressing SIH Problem Statement 6132.
    - Switch language to **Marathi (मराठी)** or **Hindi (हिंदी)** in the header to demonstrate multilingual accessibility.
 2. **AI Quality Assessment & Digital Lot Creation (60s)**:
    - Click *"नवीन लॉट तयार करा (Assess New Lot)"*.
@@ -121,10 +121,10 @@ npx serve .
 4. **Intelligent Decision Support & Grounded Gemini Advisory (45s)**:
    - Highlight the **Selling Recommendation Card**: Action `SELL_TO_VERIFIED_BUYER` (Opportunity Score $94/100$).
    - Show Spoilage Risk Meter ($15\%$ risk, 6 safe days remaining) and Forecast Range (₹34–₹38/kg).
-   - Read the **KisanTrust AI Mitra Grounded Advisory** in Marathi explaining the exact gain.
+   - Read the **AgriLink AI Mitra Grounded Advisory** in Marathi explaining the exact gain.
 5. **Verified Buyer Matching, Trust Score & Negotiation (60s)**:
    - Navigate to *"सत्यापित खरेदीदार (Buyer Marketplace)"*.
-   - Point out **Sahyadri Agro Processing Hub** with **KisanTrust Score: 🛡️ 96.3 / 100 Highly Trusted (98.2% On-Time Payment)**.
+   - Point out **Sahyadri Agro Processing Hub** with **AgriLink Score: 🛡️ 96.3 / 100 Highly Trusted (98.2% On-Time Payment)**.
    - Click *"वाटाघाटी करा (Negotiate)"*, submit a counter-offer @ ₹38.00/kg, and click *"करार करा (Accept Deal)"*.
 6. **Smart Village Pooling & Logistics Optimization (45s)**:
    - Open *"गाव पूलिंग (Smart Pooling)"*.

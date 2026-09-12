@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Market Data Service (Agmarknet & Open Data Normalization)
+ * AgriLink - Market Data Service (Agmarknet & Open Data Normalization)
  * Integrates legitimate Open Government Data (data.gov.in / Agmarknet) via secure serverless proxy.
  * Implements a strict fallback hierarchy: Live API -> Firestore Cache -> Structured Demo Data.
  * 
@@ -93,7 +93,7 @@ export class MarketDataService {
             modalPricePerKg: modalKg,
             arrivalVolumeTons: Number(raw.arrivalVolumeTons || (raw.arrivals_in_qtl ? (Number(raw.arrivals_in_qtl) / 10) : 150)),
             source: dataStatus === DATA_STATUS.LIVE ? "Open Government Data (Agmarknet API)" :
-                    dataStatus === DATA_STATUS.CACHED ? "Firestore Mandi Cache (Agmarknet Synced)" : "KisanTrust APMC Benchmark",
+                    dataStatus === DATA_STATUS.CACHED ? "Firestore Mandi Cache (Agmarknet Synced)" : "AgriLink APMC Benchmark",
             lastUpdated: raw.lastUpdated || new Date().toISOString(),
             dataStatus: dataStatus,
             dataStatusLabel: DATA_STATUS_LABELS[dataStatus] || DATA_STATUS_LABELS[DATA_STATUS.DEMO],

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 6 Automated Verification Suite
+ * AgriLink - Stage 6 Automated Verification Suite
  * TrustScoreService, Payment Reliability, Evidence-Assisted Dispute Support, and Final Security Audit
  */
 
@@ -10,7 +10,7 @@ import { TransactionService } from '../src/services/transactionService.js';
 import { TransactionRecord } from '../src/models/Transaction.js';
 import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
-console.log('🌱 Starting KisanTrust Stage 6 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 6 Automated Verification Suite...\n');
 
 let passedTests = 0;
 let failedTests = 0;
@@ -26,7 +26,7 @@ function assert(condition, message) {
 }
 
 // ==========================================
-// 1. KisanTrust Buyer Reliability Score
+// 1. AgriLink Buyer Reliability Score
 // ==========================================
 console.log('1. Testing TrustScoreService (Buyer Reliability & Scoring Tiers):');
 const verifiedBuyer = {
@@ -41,7 +41,7 @@ const verifiedBuyer = {
     farmerRating: 4.9
 };
 
-const verifiedScore = TrustScoreService.calculateKisanTrustScore(verifiedBuyer);
+const verifiedScore = TrustScoreService.calculateAgriLinkScore(verifiedBuyer);
 assert(verifiedScore.overallScore >= 90, `Verified buyer achieved Highly Trusted score (${verifiedScore.overallScore}/100)`);
 assert(verifiedScore.tier === 'Highly Trusted', 'Tier correctly assigned as Highly Trusted');
 assert(verifiedScore.factorBreakdown.verification.score === 100, 'Verification factor awarded 100%');
@@ -60,7 +60,7 @@ const newBuyer = {
     farmerRating: 3.2
 };
 
-const moderateScore = TrustScoreService.calculateKisanTrustScore(newBuyer);
+const moderateScore = TrustScoreService.calculateAgriLinkScore(newBuyer);
 assert(moderateScore.overallScore < 75, `New unverified buyer scored lower (${moderateScore.overallScore}/100)`);
 assert(moderateScore.tier === 'Moderate Risk' || moderateScore.tier === 'Caution', 'Assigned Moderate Risk or Caution tier');
 

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Firebase Configuration & SDK Initialization
+ * AgriLink - Firebase Configuration & SDK Initialization
  * Connects directly to Google Cloud Firestore, Firebase Auth, and Firebase Analytics
  * for Smart India Hackathon 2026 Project (sih2026-622a0).
  * Includes resilient offline sync adapter for local development, node tests, and poor rural connectivity.
@@ -52,7 +52,7 @@ if (typeof window !== 'undefined' && window.firebase) {
         }
         liveFirestore = window.firebase.firestore();
         liveAuth = window.firebase.auth();
-        console.log('🔥 KisanTrust Connected to Live Cloud Firestore:', firebaseConfig.projectId);
+        console.log('🔥 AgriLink Connected to Live Cloud Firestore:', firebaseConfig.projectId);
     } catch (err) {
         console.warn('⚠️ Cloud Firestore notice (using resilient local adapter):', err.message);
     }
@@ -63,7 +63,7 @@ if (typeof window !== 'undefined' && window.firebase) {
  */
 class LocalFirestoreAdapter {
     constructor() {
-        this.storageKey = 'kisantrust_firestore_db';
+        this.storageKey = 'agrilink_firestore_db';
         this._initDB();
     }
 
@@ -241,7 +241,7 @@ class LocalStorageAdapter {
  */
 class LocalAuthAdapter {
     constructor() {
-        this.currentUser = JSON.parse(safeGetStorage('kisantrust_auth_user') || 'null') || {
+        this.currentUser = JSON.parse(safeGetStorage('agrilink_auth_user') || 'null') || {
             uid: 'farmer_mh_001',
             name: 'Ramesh Patil (रमेश पाटील)',
             phone: '+91 98220 12345',
@@ -259,7 +259,7 @@ class LocalAuthAdapter {
 
     setUser(user) {
         this.currentUser = user;
-        safeSetStorage('kisantrust_auth_user', JSON.stringify(user));
+        safeSetStorage('agrilink_auth_user', JSON.stringify(user));
     }
 }
 

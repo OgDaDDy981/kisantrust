@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Extended Transaction Record & Lifecycle State Model (Stage 5 & Centralized System)
+ * AgriLink - Extended Transaction Record & Lifecycle State Model (Stage 5 & Centralized System)
  */
 
 export const TRANSACTION_STAGES = [
@@ -34,7 +34,7 @@ export class TransactionRecord {
         this.farmerId = data.farmerId || 'farmer_mh_001';
         this.farmerName = data.farmerName || 'Ramesh Patil (रमेश पाटील)';
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'KisanMitra Agro Processing Hub';
+        this.buyerName = data.buyerName || 'AgriMitra Agro Processing Hub';
         
         // Commodity details
         this.cropType = data.cropType || 'Tomato';
@@ -68,7 +68,7 @@ export class TransactionRecord {
             driverName: 'Kailash Sonawane',
             driverPhone: '+91 98224 77889',
             pickupLocation: 'Niphad Village Hub, Nashik',
-            deliveryLocation: 'KisanMitra Agro Hub, Dindori',
+            deliveryLocation: 'AgriMitra Agro Hub, Dindori',
             estimatedDistanceKm: 42,
             estimatedTravelTimeHours: 1.5,
             freightCostTotal: 1200,

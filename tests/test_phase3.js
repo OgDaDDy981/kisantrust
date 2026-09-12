@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 3 Automated Verification Suite
+ * AgriLink - Phase 3 Automated Verification Suite
  * Tests Market Price Comparison, Multi-Parameter Filtering, Min/Modal/Max Range,
  * Road Distance Calculation, Data Freshness Badging, and Summary Spread Metrics.
  */
@@ -20,7 +20,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 3 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 3 Automated Verification Suite...\n');
 
 console.log('1. Testing Multi-Mandi Price Comparison & Ranking:');
 const comparison = await MarketComparisonService.compareMarketsForLot({

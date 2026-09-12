@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Browser Bundle DOM Simulation Verification
+ * AgriLink - Browser Bundle DOM Simulation Verification
  * Verifies that bundle.js executes cleanly in browser environments and that
  * language switching, view navigation, and sample loading work without errors.
  */
@@ -20,7 +20,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Standalone Browser Bundle Simulation...\n');
+console.log('🌱 Starting AgriLink Standalone Browser Bundle Simulation...\n');
 
 // Set up mock window and document environment
 global.window = global;

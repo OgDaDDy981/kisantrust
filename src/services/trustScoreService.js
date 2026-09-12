@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Buyer Reliability & KisanTrust Score Service (Stage 6)
+ * AgriLink - Buyer Reliability & AgriLink Score Service (Stage 6)
  * Calculates a transparent, multi-factor reliability rating (0–100) for buyers
  * based on document verification, settlement history, dispute ratios, and farmer feedback.
  */
@@ -37,11 +37,11 @@ export const TRUST_TIERS = {
 
 export class TrustScoreService {
     /**
-     * Calculates the KisanTrust Reliability Score for a buyer profile
+     * Calculates the AgriLink Reliability Score for a buyer profile
      * @param {Object} buyer BuyerProfile or buyer statistics
      * @returns {Object} Transparent score breakdown and tier
      */
-    static calculateKisanTrustScore(buyer) {
+    static calculateAgriLinkScore(buyer) {
         // Factor 1: Verification Status (Weight 20%)
         let verificationScore = 60;
         let verificationLabel = 'Standard Registration';
@@ -119,7 +119,7 @@ export class TrustScoreService {
     }
 
     /**
-     * Calculates the KisanTrust Reliability Score for a farmer profile
+     * Calculates the AgriLink Reliability Score for a farmer profile
      * @param {Object} farmer FarmerProfile or farmer statistics
      * @returns {Object} Transparent farmer score breakdown and verification tier
      */

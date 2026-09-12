@@ -1,5 +1,5 @@
 /**
- * KisanTrust - In-App Notification Service
+ * AgriLink - In-App Notification Service
  * Manages notification dispatch, retrieval, unread counts, and status updates for all roles.
  */
 

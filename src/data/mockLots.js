@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Initial Seed Active Agricultural Lots
+ * AgriLink - Initial Seed Active Agricultural Lots
  */
 export const initialMockLots = [
     {

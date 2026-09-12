@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 3 Automated Verification Suite
+ * AgriLink - Stage 3 Automated Verification Suite
  * Buyer Profiles, Demands, Deterministic Matching Engine & Multi-Round Negotiations
  */
 
@@ -9,7 +9,7 @@ import { MatchingService } from '../src/services/matchingService.js';
 import { NegotiationService } from '../src/services/negotiationService.js';
 import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
-console.log('🌱 Starting KisanTrust Stage 3 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 3 Automated Verification Suite...\n');
 
 let passedTests = 0;
 let failedTests = 0;

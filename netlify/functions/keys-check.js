@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: API Keys Health Check
+ * AgriLink - Netlify Serverless Function: API Keys Health Check
  * Inspects server-side environment variables without exposing secret values.
  */
 

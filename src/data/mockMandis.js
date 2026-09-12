@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Structured Mandi Benchmarks, Buyer Demands, and Pooling Clusters
+ * AgriLink - Structured Mandi Benchmarks, Buyer Demands, and Pooling Clusters
  * Provides realistic data across Maharashtra and national APMCs.
  */
 
@@ -106,7 +106,7 @@ export const mockBuyerDemands = [
     {
         demandId: "DEM-9081",
         buyerId: "buyer_sahyadri",
-        buyerName: "KisanMitra Producer Co.",
+        buyerName: "AgriMitra Producer Co.",
         companyType: "FPO / Processor",
         verifiedBuyer: true,
         requiredCrop: "Tomato",

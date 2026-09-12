@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Evidence-Assisted Dispute Support Service
+ * AgriLink - Evidence-Assisted Dispute Support Service
  * Enables farmers and buyers to log transparent disputes referencing certified
  * Digital Agricultural Lot quality scans and timestamps, with full administrative resolution workflows.
  */

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Authentication & RBAC User Profile Service
+ * AgriLink - Authentication & RBAC User Profile Service
  * Implements strict Role-Based Access Control (RBAC), multi-role demo profiles,
  * and secure credential handling across Farmers, Buyers, Customers, FPOs, and Administrators.
  */
@@ -7,14 +7,14 @@
 import { localDb } from '../config/firebaseConfig.js';
 import { User, FarmerProfile, BuyerProfileRecord, CustomerProfile, USER_ROLES, VERIFICATION_STATUS, ACCOUNT_STATUS } from '../models/User.js';
 
-const STORAGE_KEY_USER = 'kisantrust_active_user';
+const STORAGE_KEY_USER = 'agrilink_active_user';
 
 // Pre-seeded multi-role demo accounts for comprehensive evaluation
 export const DEMO_ACCOUNTS = {
     farmer: new User({
         uid: 'farmer_mh_001',
         displayName: 'रमेश मारुती पाटील (Ramesh Patil)',
-        email: 'ramesh.patil@kisantrust.org',
+        email: 'ramesh.patil@agrilink.org',
         phone: '+91 98224 56789',
         role: USER_ROLES.FARMER,
         accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -25,7 +25,7 @@ export const DEMO_ACCOUNTS = {
     }),
     buyer: new User({
         uid: 'buyer_sahyadri',
-        displayName: 'अमित जोशी (Amit Joshi - KisanMitra Agro)',
+        displayName: 'अमित जोशी (Amit Joshi - AgriMitra Agro)',
         email: 'amit.joshi@sahyadriagro.com',
         phone: '+91 98230 44556',
         role: USER_ROLES.BUYER,
@@ -50,7 +50,7 @@ export const DEMO_ACCOUNTS = {
     admin: new User({
         uid: 'admin_mh_001',
         displayName: 'पूजा देशमुख (Pooja Deshmukh - Admin)',
-        email: 'admin.moderation@kisantrust.org',
+        email: 'admin.moderation@agrilink.org',
         phone: '+91 98220 99887',
         role: USER_ROLES.ADMIN,
         accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -62,7 +62,7 @@ export const DEMO_ACCOUNTS = {
     super_admin: new User({
         uid: 'admin_super',
         displayName: 'विक्रम शिंदे (Vikram Shinde - Super Admin)',
-        email: 'security.lead@kisantrust.org',
+        email: 'security.lead@agrilink.org',
         phone: '+91 98221 00112',
         role: USER_ROLES.SUPER_ADMIN,
         accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -163,7 +163,7 @@ class AuthServiceClass {
             user = new User({
                 uid: `user_${Date.now().toString().slice(-6)}`,
                 displayName: identifier.includes('@') ? identifier.split('@')[0] : identifier,
-                email: identifier.includes('@') ? identifier : `${identifier}@kisantrust.org`,
+                email: identifier.includes('@') ? identifier : `${identifier}@agrilink.org`,
                 phone: identifier.match(/^\d+$/) ? identifier : '+91 98000 00000',
                 role: USER_ROLES.FARMER,
                 accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -224,7 +224,7 @@ class AuthServiceClass {
         const newUser = new User({
             uid,
             displayName: data.name,
-            email: data.email || `${data.phone || 'user'}@kisantrust.org`,
+            email: data.email || `${data.phone || 'user'}@agrilink.org`,
             phone: data.phone || '',
             role,
             accountStatus: ACCOUNT_STATUS.ACTIVE,

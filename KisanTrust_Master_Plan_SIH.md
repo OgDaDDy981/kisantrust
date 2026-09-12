@@ -1,7 +1,7 @@
-# KisanTrust — Master Product Improvement Plan
+# AgriLink — Master Product Improvement Plan
 ## SIH-Ready, Farmer-First, Mobile-First Roadmap
 
-**Purpose:** Transform the current KisanTrust prototype into a polished, credible, farmer-first market-linkage platform that directly addresses the SIH problem statement and is strong enough for a live judging/demo environment.
+**Purpose:** Transform the current AgriLink prototype into a polished, credible, farmer-first market-linkage platform that directly addresses the SIH problem statement and is strong enough for a live judging/demo environment.
 
 **Core principle:** Do not keep adding disconnected features. First make the existing product coherent and reliable, then close the SIH-critical gaps, then strengthen trust, intelligence, and polish.
 
@@ -9,7 +9,7 @@
 
 # 0. Product North Star
 
-KisanTrust should make one promise extremely clear:
+AgriLink should make one promise extremely clear:
 
 > **Help a farmer decide where, when, and to whom to sell, based on price, demand, quality, logistics, storage, and expected net realization.**
 
@@ -210,7 +210,7 @@ Create clear experiences for:
 
 # STAGE 4 — FARMER HOME & DECISION ENGINE
 ## Priority: P1
-## Goal: Make KisanTrust's unique value obvious within seconds.
+## Goal: Make AgriLink's unique value obvious within seconds.
 
 ### Deliverables
 
@@ -1058,7 +1058,7 @@ Build one "golden path" that takes the judge through:
 
 Create a final compliance matrix.
 
-| SIH Need | KisanTrust Feature | Status | Evidence in Demo |
+| SIH Need | AgriLink Feature | Status | Evidence in Demo |
 |---|---|---|---|
 | Mandi prices | Market Intelligence | ✅ | Price screen |
 | Buyer demand | Buyer Marketplace | ✅ | Demand screen |
@@ -1185,7 +1185,7 @@ Farmers often face fragmented information about:
 
 Finding the best selling decision requires multiple disconnected sources and manual decisions.
 
-## KisanTrust solution
+## AgriLink solution
 
 One decision and transaction layer connecting:
 
@@ -1193,16 +1193,16 @@ One decision and transaction layer connecting:
 
 ## Key differentiator
 
-> **KisanTrust does not merely show prices. It converts market information into an actionable selling decision and then helps execute that decision.**
+> **AgriLink does not merely show prices. It converts market information into an actionable selling decision and then helps execute that decision.**
 
 ### Demo ending
 
 End with measurable output:
 
-> Before KisanTrust  
+> Before AgriLink  
 > Farmer sees fragmented information.
 
-> With KisanTrust  
+> With AgriLink  
 > Farmer sees:
 > - best market
 > - best buyer
@@ -1274,7 +1274,7 @@ End with measurable output:
 
 ## 1. Do not add features just to make the feature list longer.
 
-Breadth is already one of KisanTrust's strengths.
+Breadth is already one of AgriLink's strengths.
 
 ## 2. Do not call something "AI-powered" unless the AI meaningfully contributes.
 
@@ -1304,7 +1304,7 @@ The product itself must make the value obvious.
 
 # DEFINITION OF "BEST VERSION"
 
-KisanTrust is ready when all of the following are true:
+AgriLink is ready when all of the following are true:
 
 - A farmer can complete the core journey on a phone.
 - The UI is simple enough to understand without training.
@@ -1354,10 +1354,10 @@ The final experience should mentally read as:
 **AGGREGATE**
 → FPO lots + demand fulfillment + pooled logistics
 
-That is the KisanTrust product story.
+That is the AgriLink product story.
 
 ---
 
 # One-Sentence Strategic Direction
 
-> **Stop making KisanTrust bigger; make it deeper, more credible, more mobile-first, and more tightly connected from market discovery to completed farmer sale.**
+> **Stop making AgriLink bigger; make it deeper, more credible, more mobile-first, and more tightly connected from market discovery to completed farmer sale.**

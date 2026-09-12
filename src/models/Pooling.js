@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Smart Village Pooling & Aggregation Domain Models (Stage 4)
+ * AgriLink - Smart Village Pooling & Aggregation Domain Models (Stage 4)
  */
 
 export class PoolingCluster {
@@ -26,7 +26,7 @@ export class PoolingCluster {
         // Destination & Buyer Linkage
         this.destinationMarket = data.destinationMarket || 'Vashi APMC (Navi Mumbai)';
         this.destinationBuyerDemandId = data.destinationBuyerDemandId || null;
-        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
+        this.buyerName = data.buyerName || 'AgriMitra Agro Processing';
 
         // Logistics & Savings Breakdown
         this.individualFreightPerKg = Number(data.individualFreightPerKg) || 2.40; // 1-Ton Pickup rate

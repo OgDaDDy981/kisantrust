@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 11 Automated Verification Suite
+ * AgriLink - Phase 11 Automated Verification Suite
  * Tests Farmer Experience, Language, and Accessibility:
  * - Marathi / Hindi / English dictionary completeness & localization
  * - Voice assistance prompt formulation across languages
@@ -23,7 +23,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 11 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 11 Automated Verification Suite...\n');
 
 console.log('1. Testing Supported Languages & Dictionary Keys:');
 assert(Array.isArray(SUPPORTED_LANGUAGES), 'Supported languages array defined');

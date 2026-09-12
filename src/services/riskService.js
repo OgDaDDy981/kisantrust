@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Fraud & Risk Flag Management Service
+ * AgriLink - Fraud & Risk Flag Management Service
  * Detects suspicious activity, manages internal risk flags, and supports admin resolution.
  */
 

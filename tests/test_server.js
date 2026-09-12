@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Local Server & Firebase Health Check Test Suite
+ * AgriLink - Local Server & Firebase Health Check Test Suite
  */
 
 import http from 'http';
@@ -18,7 +18,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Server & Firebase Integration Test...\n');
+console.log('🌱 Starting AgriLink Server & Firebase Integration Test...\n');
 
 // Start server child process
 const serverProcess = spawn('node', ['server.js'], { stdio: 'pipe' });
@@ -103,7 +103,7 @@ setTimeout(async () => {
         console.log('\n5. Testing Static Web App Serving:');
         const indexRes = await httpGet('/');
         assert(indexRes.statusCode === 200, 'GET / (index.html) returned HTTP 200');
-        assert(indexRes.body.includes('KisanTrust') || indexRes.body.includes('किसान ट्रस्ट'), 'index.html contains KisanTrust branding');
+        assert(indexRes.body.includes('AgriLink') || indexRes.body.includes('अ‍ॅग्रीलिंक'), 'index.html contains AgriLink branding');
 
         const bundleRes = await httpGet('/bundle.js');
         assert(bundleRes.statusCode === 200, 'GET /bundle.js returned HTTP 200');

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - In-App Notification Domain Model
+ * AgriLink - In-App Notification Domain Model
  * Manages multi-role in-app alerts and status updates for Farmers, Buyers, and Admins.
  */
 

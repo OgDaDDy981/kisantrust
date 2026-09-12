@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Market Trend Service (7-Day & 30-Day APMC Trends)
+ * AgriLink - Market Trend Service (7-Day & 30-Day APMC Trends)
  * Stores and analyzes normalized historical prices in Firestore.
  * Calculates price velocity, percentage change, and trend direction (RISING / STABLE / FALLING).
  */

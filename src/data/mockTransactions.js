@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Seed Transactions Data
+ * AgriLink - Seed Transactions Data
  * Realistic seed transactions at different lifecycle stages.
  */
 
@@ -10,7 +10,7 @@ export const mockTransactions = [
     farmerId: "farmer_mh_001",
     farmerName: "Ramesh Patil",
     buyerId: "buyer_sahyadri",
-    buyerName: "KisanMitra",
+    buyerName: "AgriMitra",
     cropType: "Tomato",
     variety: "Himsona",
     quantityKg: 500,

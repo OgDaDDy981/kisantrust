@@ -1,9 +1,9 @@
 @echo off
-title KisanTrust 🌱 (SIH26132) - Farm-to-Buyer Platform
+title AgriLink 🌱 (SIH26132) - Farm-to-Buyer Platform
 color 0A
 
 echo ===================================================================
-echo   🌱 KisanTrust - SIH2026 AI-Powered Market Intelligence Platform
+echo   🌱 AgriLink - SIH2026 AI-Powered Market Intelligence Platform
 echo   Smart India Hackathon Problem Statement 6132
 echo ===================================================================
 echo.
@@ -12,7 +12,7 @@ echo.
 where node >nul 2>nul
 if %errorlevel% neq 0 (
     echo [WARNING] Node.js is not found in PATH!
-    echo Opening KisanTrust standalone client directly in your browser...
+    echo Opening AgriLink standalone client directly in your browser...
     echo.
     start "" "index.html"
     echo.
@@ -28,7 +28,7 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-echo [2/2] Starting KisanTrust server on http://localhost:5000 ...
+echo [2/2] Starting AgriLink server on http://localhost:5000 ...
 echo [INFO] Your default web browser will open automatically.
 echo [INFO] Press Ctrl+C in this window at any time to stop the server.
 echo.

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Escrow Payment, Smallholder Micro-Lots & Multilingual Voice Verification Suite
+ * AgriLink - Escrow Payment, Smallholder Micro-Lots & Multilingual Voice Verification Suite
  */
 
 import { TransactionService } from '../src/services/transactionService.js';

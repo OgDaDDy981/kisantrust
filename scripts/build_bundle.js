@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Bundler Script
+ * AgriLink - Bundler Script
  * Bundles all ES modules into a self-contained browser bundle (bundle.js)
  * that works across file:// protocol (direct double click) as well as http:// servers.
  */
@@ -7,7 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 
-console.log('📦 Starting KisanTrust standalone bundle build...');
+console.log('📦 Starting AgriLink standalone bundle build...');
 
 // Automatic .env file reader for bundle build
 const envVars = {};
@@ -86,7 +86,7 @@ const filesToBundle = [
 ];
 
 let bundleContent = `/**
- * KisanTrust Standalone Browser Bundle
+ * AgriLink Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
  * Auto-generated on ${new Date().toISOString()}
  */
@@ -181,13 +181,13 @@ bundleContent += `
     window.closeOfficialCertificate = closeOfficialCertificate;
     window.openHowCalculatedModal = openHowCalculatedModal;
     window.closeHowCalculatedModal = closeHowCalculatedModal;
-    window.initKisanTrustApp = initKisanTrustApp;
+    window.initAgriLinkApp = initAgriLinkApp;
 
     // Ensure initialization runs immediately
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initKisanTrustApp);
+        document.addEventListener('DOMContentLoaded', initAgriLinkApp);
     } else {
-        initKisanTrustApp();
+        initAgriLinkApp();
     }
 })();
 `;

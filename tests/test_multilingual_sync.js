@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Multilingual Translation & Voice Narration Synchronization Test
+ * AgriLink - Multilingual Translation & Voice Narration Synchronization Test
  */
 
 import { I18N_DICTIONARY, applyDOMTranslations } from '../src/utils/i18n.js';

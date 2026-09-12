@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Logistics Decision Support & Freight Estimator (Stage 5)
+ * AgriLink - Logistics Decision Support & Freight Estimator (Stage 5)
  * Provides transparent transport options, transit time estimations, and pooled logistics savings.
  * Grounded in commercial road freight benchmarks across Western India / Maharashtra corridors.
  */

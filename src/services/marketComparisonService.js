@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Market Comparison & Intelligent Routing Service (Stage 3)
+ * AgriLink - Market Comparison & Intelligent Routing Service (Stage 3)
  * Compares multiple APMC Mandis across Maharashtra & neighboring agricultural centers.
  * Displays transparent Min, Modal, Max prices, road distance, data source, and freshness.
  * Ranks markets based on ESTIMATED NET REALIZATION (accounting for road distance and transport).

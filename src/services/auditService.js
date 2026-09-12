@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Admin Audit Trail Service
+ * AgriLink - Admin Audit Trail Service
  * Records and queries immutable logs of administrative actions for transparency and governance.
  */
 

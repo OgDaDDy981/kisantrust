@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Application Controller (Stage 7: Connected Ecosystem, Admin Portal & Trust System)
+ * AgriLink - Application Controller (Stage 7: Connected Ecosystem, Admin Portal & Trust System)
  * AI-Powered Market Intelligence and Trusted Farm-to-Buyer Network
  */
 
@@ -427,11 +427,11 @@ function readAdviceAloud() {
 
     let speechPrompt = '';
     if (isMarathi) {
-        speechPrompt = `किसान ट्रस्ट AI सल्ला: ${decisionBadge}. ${adviceText}`;
+        speechPrompt = `अ‍ॅग्रीलिंक AI सल्ला: ${decisionBadge}. ${adviceText}`;
     } else if (isHindi) {
-        speechPrompt = `किसान ट्रस्ट AI सलाह: ${decisionBadge}. ${adviceText}`;
+        speechPrompt = `अ‍ॅग्रीलिंक AI सलाह: ${decisionBadge}. ${adviceText}`;
     } else {
-        speechPrompt = `KisanTrust AI Advisory: ${decisionBadge}. ${adviceText}`;
+        speechPrompt = `AgriLink AI Advisory: ${decisionBadge}. ${adviceText}`;
     }
 
     speakText(speechPrompt, btn);
@@ -547,15 +547,15 @@ function shareLotOnWhatsApp() {
     const grade = AppState.currentQualityAnalysis?.overallGrade || 'Grade A';
     const freshness = AppState.currentQualityAnalysis?.freshnessScore || 94;
 
-    const message = `🌾 *किसान ट्रस्ट (KisanTrust) प्रमाणित शेती लॉट* 🌾\n\n` +
+    const message = `🌾 *अ‍ॅग्रीलिंक (AgriLink) प्रमाणित शेती लॉट* 🌾\n\n` +
         `📦 *पीक:* ${cropType} (${variety})\n` +
         `⚖️ *वजन:* ${quantity} kg\n` +
         `🌟 *प्रमाणित दर्जा:* ${grade} (${freshness}% ताजेपणा)\n` +
         `💰 *अंदाजे निव्वळ प्राप्ती:* ${netPrice} / kg\n` +
         `💵 *एकूण मूल्य:* ${lotValue}\n` +
         `🚚 *वाहतूक:* गाव पूलिंगद्वारे ६०% बचत उपलब्ध\n\n` +
-        `🛡️ *सत्यापित डिजिटल पावती पाहण्यासाठी लिंक:* https://kisantrust.org/verify/LOT-2026-089101\n` +
-        `_KisanTrust - Know Your Crop. Know Its Worth. Know Where to Sell._`;
+        `🛡️ *सत्यापित डिजिटल पावती पाहण्यासाठी लिंक:* https://agrilink.org/verify/LOT-2026-089101\n` +
+        `_AgriLink - Know Your Crop. Know Its Worth. Know Where to Sell._`;
 
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -2179,7 +2179,7 @@ async function renderTransactionsList() {
                             ⭐ शेतकऱ्याला रेटिंग द्या
                         </button>
                     ` : ''}
-                    <button class="btn btn-primary" onclick="alert('डिजिटल पावती डाउनलोड होत आहे: ' + '${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
+                    <button class="btn btn-primary" onclick="window.downloadReceiptHandler('${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
                         📄 पावती डाउनलोड करा
                     </button>
                 </div>
@@ -3064,7 +3064,7 @@ window.closeHowCalculatedModal = closeHowCalculatedModal;
 function attachAllEventListeners() {
     if (window._eventListenersAttached) return;
     window._eventListenersAttached = true;
-    console.log('🌾 KisanTrust Initializing Event Handlers...');
+    console.log('🌾 AgriLink Initializing Event Handlers...');
 
     // Navigation Tab Clicks
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
@@ -4220,7 +4220,7 @@ function attachAllEventListeners() {
 
     // Confirm Payment & Lock in Escrow
     document.getElementById('btnConfirmEscrowPayment')?.addEventListener('click', async () => {
-        showLoading('🔒 किसान ट्रस्ट एस्क्रो पेमेंट सुरक्षितपणे पडताळत आहे...');
+        showLoading('🔒 अ‍ॅग्रीलिंक एस्क्रो पेमेंट सुरक्षितपणे पडताळत आहे...');
         try {
             const lot = currentPaymentLotData || {
                 lotId: 'LOT-MH-2026-089',
@@ -4395,9 +4395,9 @@ window.closeDemandModal = function() { const m = document.getElementById('postDe
 
 
 // Global App Initialization
-async function initKisanTrustApp() {
+async function initAgriLinkApp() {
     try {
-        console.log('🌾 KisanTrust Initializing App...');
+        console.log('🌾 AgriLink Initializing App...');
         attachAllEventListeners();
 
         const harvestDateInput = document.getElementById('inputHarvestDate');
@@ -4433,14 +4433,23 @@ async function initKisanTrustApp() {
 
         syncAuthUI();
         renderDashboard();
-        console.log('✅ KisanTrust Fully Ready & Active');
+        console.log('✅ AgriLink Fully Ready & Active');
     } catch (err) {
-        console.error('KisanTrust Init Error:', err);
+        console.error('AgriLink Init Error:', err);
     }
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initKisanTrustApp);
+    document.addEventListener('DOMContentLoaded', initAgriLinkApp);
 } else {
-    initKisanTrustApp();
+    initAgriLinkApp();
 }
+
+// Added for receipt printing feature
+window.downloadReceiptHandler = async function(txnId) {
+    const txns = await TransactionService.getTransactions();
+    const txn = txns.find(t => t.transactionId === txnId);
+    if (txn) {
+        TransactionService.downloadReceipt(txn);
+    }
+};

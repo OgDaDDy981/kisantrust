@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Admin Seed Data
+ * AgriLink - Admin Seed Data
  * Data for admin panel workflows.
  */
 

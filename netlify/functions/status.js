@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: System Status
+ * AgriLink - Netlify Serverless Function: System Status
  */
 
 export async function handler(event, context) {
@@ -18,7 +18,7 @@ export async function handler(event, context) {
         statusCode: 200,
         headers,
         body: JSON.stringify({
-            app: "KisanTrust - SIH26132 Market Linkage Platform",
+            app: "AgriLink - SIH26132 Market Linkage Platform",
             version: "2.1.0",
             deployment: "Netlify Serverless Production",
             firebaseProject: process.env.FIREBASE_PROJECT_ID || "sih2026-622a0",

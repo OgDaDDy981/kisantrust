@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Transparent Price Architecture & Estimation Service
+ * AgriLink - Transparent Price Architecture & Estimation Service
  * Implements deterministic calculation formula without arbitrary or guaranteed claims:
  * 
  * Estimated Net Realization = Base Market Price

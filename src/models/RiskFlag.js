@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Fraud & Risk Flag Domain Model
+ * AgriLink - Fraud & Risk Flag Domain Model
  * Tracks internal risk flags created by automated pre-checks or admin reviews.
  */
 

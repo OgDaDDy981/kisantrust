@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Smart Village Pooling & Aggregation Service (Stage 4)
+ * AgriLink - Smart Village Pooling & Aggregation Service (Stage 4)
  * Enables smallholder farmers in the same village cluster to aggregate compatible produce,
  * unlock high-volume bulk buyer purchase orders, and save 50–60% on shared road freight.
  */

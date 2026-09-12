@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Transport Cost & Route Calculation Service
+ * AgriLink - Transport Cost & Route Calculation Service
  * Computes transparent, itemized road freight expenses based on distance, quantity, and vehicle fleet options.
  * Differentiates between Partial LTL (Less-Than-Truckload) and Full FTL (Full-Truckload) economics.
  */

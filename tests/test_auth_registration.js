@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Authentication, Customer Registration & Multilingual Verification Test Suite
+ * AgriLink - Authentication, Customer Registration & Multilingual Verification Test Suite
  */
 
 import { AuthService, DEMO_ACCOUNTS } from '../src/services/authService.js';
@@ -102,7 +102,7 @@ async function runTests() {
 
     // 7. General Login and Alias Methods
     console.log('\n🔹 7. General Login & Aliases:');
-    const loginUser = await AuthService.login('super.admin@kisantrust.org', 'anypass');
+    const loginUser = await AuthService.login('super.admin@agrilink.org', 'anypass');
     assert(loginUser.role === USER_ROLES.SUPER_ADMIN, 'Login resolves super admin');
     assert(typeof AuthService.setCurrentUser === 'function', 'AuthService.setCurrentUser alias exists');
 

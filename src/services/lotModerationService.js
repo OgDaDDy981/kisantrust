@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Lot & Buyer Demand Moderation Service
+ * AgriLink - Lot & Buyer Demand Moderation Service
  * Performs automated pre-checks (duplicate detection, image validation, quantity thresholds)
  * and powers the Admin Review Queues to ensure only verified listings enter the marketplace.
  */
@@ -242,7 +242,7 @@ export class LotModerationService {
         });
 
         const farmerName = lotData.farmerName || 'शेतकरी मित्र';
-        const politeMessage = `प्रिय ${farmerName}, आपल्या ${lotData.cropType} (${lotData.quantity}kg) लॉटच्या नोंदणीबाबत प्रशासकीय पुनरावलोकन पूर्ण झाले आहे.\n\n📝 प्रशासकीय शेरा (Admin Remarks): "${rejectionReason}"\n\n💡 आपण आपल्या उत्पादनाचे नवीन/स्पष्ट फोटो किंवा सुधारित माहितीसह पुन्हा नोंदणी करू शकता. किसान ट्रस्ट आपल्या मदतीसाठी सदैव तयार आहे.`;
+        const politeMessage = `प्रिय ${farmerName}, आपल्या ${lotData.cropType} (${lotData.quantity}kg) लॉटच्या नोंदणीबाबत प्रशासकीय पुनरावलोकन पूर्ण झाले आहे.\n\n📝 प्रशासकीय शेरा (Admin Remarks): "${rejectionReason}"\n\n💡 आपण आपल्या उत्पादनाचे नवीन/स्पष्ट फोटो किंवा सुधारित माहितीसह पुन्हा नोंदणी करू शकता. अ‍ॅग्रीलिंक आपल्या मदतीसाठी सदैव तयार आहे.`;
 
         const farmerId = lotData.farmerId || 'farmer_mh_001';
         await NotificationService.sendNotification({

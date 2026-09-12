@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 8 Automated Verification Suite
+ * AgriLink - Phase 8 Automated Verification Suite
  * Tests Trust & Verification Enhancement:
  * Farmer Verification (Aadhaar, Land Record), Buyer Verification (GSTIN, License, Payment History),
  * Trust Score 5-Factor Breakdown, Verified Produce Badges, and Transparent Trust Signals.
@@ -24,7 +24,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 8 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 8 Automated Verification Suite...\n');
 
 console.log('1. Testing Farmer Verification Badges & Credentials:');
 const verifiedFarmer = new FarmerProfile({
@@ -59,7 +59,7 @@ assert(farmerTrust.factorBreakdown.idVerification.score === 100, 'Aadhaar + 7/12
 assert(farmerTrust.factorBreakdown.qualityAccuracy.score === 96, 'Produce quality grading accuracy is 96%');
 assert(farmerTrust.factorBreakdown.fulfillmentRate.score === 98, 'Fulfillment rate is 98%');
 
-console.log('\n3. Testing Buyer Verification & Trust Breakdown (calculateKisanTrustScore):');
+console.log('\n3. Testing Buyer Verification & Trust Breakdown (calculateAgriLinkScore):');
 const buyerProfile = new BuyerProfileRecord({
     userId: 'BUYER-SAHYADRI-01',
     companyName: 'Sahyadri Agro Processing Hub',
@@ -76,7 +76,7 @@ const buyerProfile = new BuyerProfileRecord({
     farmerRating: 4.9
 });
 
-const buyerTrust = TrustScoreService.calculateKisanTrustScore(buyerProfile);
+const buyerTrust = TrustScoreService.calculateAgriLinkScore(buyerProfile);
 assert(buyerTrust.overallScore >= 90, `Buyer achieved Highly Trusted score (${buyerTrust.overallScore}/100)`);
 assert(buyerTrust.tier === 'Highly Trusted', 'Buyer categorized as Highly Trusted');
 assert(buyerTrust.metrics.onTimePaymentPercentage === 98.5, 'On-time payment percentage is 98.5%');
@@ -104,7 +104,7 @@ const newBuyer = new BuyerProfileRecord({
     farmerRating: 3.2
 });
 
-const newBuyerTrust = TrustScoreService.calculateKisanTrustScore(newBuyer);
+const newBuyerTrust = TrustScoreService.calculateAgriLinkScore(newBuyer);
 assert(newBuyerTrust.overallScore < 70, `Unverified buyer receives caution score: ${newBuyerTrust.overallScore}/100`);
 assert(newBuyerTrust.tier === 'Caution' || newBuyerTrust.tier === 'Moderate Risk', `Assigned appropriate risk tier: ${newBuyerTrust.tier}`);
 

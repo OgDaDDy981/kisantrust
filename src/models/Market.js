@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Domain Models for Users, Market Benchmarks, Buyers, Pooling, and Transactions
+ * AgriLink - Domain Models for Users, Market Benchmarks, Buyers, Pooling, and Transactions
  */
 
 export class UserProfile {

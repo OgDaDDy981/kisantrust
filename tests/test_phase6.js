@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 6 Automated Verification Suite
+ * AgriLink - Phase 6 Automated Verification Suite
  * Tests Smart Buyer Requirements, Demand Posting, Variety Preferences,
  * Price Ranges, Delivery Hubs, and Explainable Matching (Quality, Quantity, Logistics, Price Fit).
  */
@@ -22,7 +22,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 6 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 6 Automated Verification Suite...\n');
 
 console.log('1. Testing Smart Buyer Demand Model & Parameter Support:');
 const demand = new BuyerDemand({

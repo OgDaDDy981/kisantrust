@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Negotiation & Direct Deal Service (Stage 3)
+ * AgriLink - Negotiation & Direct Deal Service (Stage 3)
  * Manages multi-round price negotiations between Farmers and Verified Buyers.
  * Automatically transitions to an official TransactionRecord upon Deal Acceptance.
  */

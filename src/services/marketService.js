@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Market Intelligence Service
+ * AgriLink - Market Intelligence Service
  * Provides mandi benchmarks, modal price trends, and best market comparisons.
  */
 

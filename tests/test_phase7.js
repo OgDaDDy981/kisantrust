@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 7 Automated Verification Suite
+ * AgriLink - Phase 7 Automated Verification Suite
  * Tests Opportunity Score & Recommendations Engine, 6-Factor Weights,
  * 4 Actionable Decision Routes, Transparent "Why This Recommendation" Justifications,
  * and Multilingual Grounded Explanations (Marathi, Hindi, English).
@@ -22,7 +22,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 7 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 7 Automated Verification Suite...\n');
 
 console.log('1. Testing 6-Factor Opportunity Score Breakdown & Weights:');
 const lot = new DigitalAgriculturalLot({

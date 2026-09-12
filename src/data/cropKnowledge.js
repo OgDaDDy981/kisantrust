@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Structured Agricultural Knowledge Base (Stage 4)
+ * AgriLink - Structured Agricultural Knowledge Base (Stage 4)
  * Grounded in verified datasets from ICAR (Indian Council of Agricultural Research),
  * NHB (National Horticulture Board), and APEDA standards.
  */

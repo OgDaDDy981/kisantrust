@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 5 Automated Verification Suite
+ * AgriLink - Phase 5 Automated Verification Suite
  * Tests Listing Market Insights ("Before You Publish"), Real-Time Dynamic Updates,
  * Expected Net Price Range by Grade, Active Buyer Demand, and Logistics Context.
  */
@@ -23,7 +23,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 5 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 5 Automated Verification Suite...\n');
 
 console.log('1. Testing Before You Publish Insights Payload (Tomato):');
 const tomatoInsights = await PriceAnalysisService.getListingMarketInsights({

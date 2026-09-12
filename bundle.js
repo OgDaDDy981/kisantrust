@@ -1,7 +1,7 @@
 /**
- * KisanTrust Standalone Browser Bundle
+ * AgriLink Standalone Browser Bundle
  * Works seamlessly on file:/// (direct Explorer launch) and http:// web servers.
- * Auto-generated on 2026-09-12T05:04:44.110Z
+ * Auto-generated on 2026-09-12T05:47:44.440Z
  */
 (function() {
     'use strict';
@@ -11,7 +11,7 @@
 
 // --- MODULE: src/utils/i18n.js ---
 /**
- * KisanTrust - Multilingual Dictionary & Localization Engine
+ * AgriLink - Multilingual Dictionary & Localization Engine
  * Priority Languages:
  * 1. Marathi (मराठी)
  * 2. Hindi (हिंदी)
@@ -19,7 +19,7 @@
  */
 const I18N_DICTIONARY = {
     "Marathi (मराठी)": {
-        brand: "किसान ट्रस्ट",
+        brand: "अ‍ॅग्रीलिंक",
         tagline: "आपले पीक ओळखा. योग्य भाव जाणा. कुठे विकायचे ते ठरवा.",
         subDescription: "गुणवत्ता, बाजारभाव, मागणी आणि वाहतूक विश्लेषणाद्वारे शेतकऱ्यांचे सक्षमीकरण.",
         nav: {
@@ -168,10 +168,10 @@ const I18N_DICTIONARY = {
             spoilageRiskLabel: "नासाडी धोका:",
             safeDaysLabel: "सुरक्षित टिकवण क्षमता:",
             forecastTitle: "अपेक्षित भाव कक्षा (Price Forecast):",
-            aiMitraAdviceTitle: "🤖 किसान ट्रस्ट AI मित्र सल्ला (Grounded Advisory)"
+            aiMitraAdviceTitle: "🤖 अ‍ॅग्रीलिंक AI मित्र सल्ला (Grounded Advisory)"
         },
         trustAndDisputes: {
-            trustScoreLabel: "किसान ट्रस्ट विश्वासार्हता स्कोअर:",
+            trustScoreLabel: "अ‍ॅग्रीलिंक विश्वासार्हता स्कोअर:",
             highlyTrusted: "अति-विश्वासू खरेदीदार (Highly Trusted)",
             trusted: "विश्वासू खरेदीदार (Trusted)",
             moderateRisk: "मध्यम जोखीम (Moderate Risk)",
@@ -184,7 +184,7 @@ const I18N_DICTIONARY = {
             paymentReliabilityLabel: "वेळेवर पेमेंट दर:"
         },
         adminPortal: {
-            title: "🛡️ किसान ट्रस्ट प्रशासकीय नियंत्रण कक्ष (Admin Portal)",
+            title: "🛡️ अ‍ॅग्रीलिंक प्रशासकीय नियंत्रण कक्ष (Admin Portal)",
             subTitle: "शेतकरी व खरेदीदार पडताळणी, लॉट मॉडरेशन, व्यवहार आणि वाद निवारण केंद्र",
             tabOverview: "📊 आढावा (Overview)",
             tabFarmers: "👨‍🌾 शेतकरी पडताळणी",
@@ -250,7 +250,7 @@ const I18N_DICTIONARY = {
             emptyNoRisk: "सध्या कोणताही संशयास्पद किंवा फसवणुकीचा फ्लॅग आढळलेला नाही."
         },
         auth: {
-            portalTitle: "किसान ट्रस्ट प्रवेश (Login & Register)",
+            portalTitle: "अ‍ॅग्रीलिंक प्रवेश (Login & Register)",
             tabLogin: "लॉगिन (Sign In)",
             tabRegister: "नवीन नोंदणी (Register)",
             lblIdentifier: "मोबाईल नंबर किंवा ईमेल (Mobile / Email)",
@@ -300,14 +300,14 @@ const I18N_DICTIONARY = {
             navPayments: "पेमेंट्स"
         },
         payment: {
-            modalTitle: "किसान ट्रस्ट एस्क्रो पेमेंट (Escrow Checkout)",
+            modalTitle: "अ‍ॅग्रीलिंक एस्क्रो पेमेंट (Escrow Checkout)",
             modalSubtitle: "१००% सुरक्षित बँक एस्क्रो संरक्षण (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "वजन (Quantity)",
             pricePerKg: "दर (Price / kg)",
             totalAmount: "एकूण रक्कम (Total)",
-            escrowTitle: "किसान ट्रस्ट स्मार्ट एस्क्रो शील्ड",
-            escrowDesc: "तुमचे पैसे किसान ट्रस्टच्या अधिकृत बँकेत (ICICI/SBI) सुरक्षितपणे लॉक केले जातील. पिकाची डिलिव्हरी आणि गुणवत्ता तपासणी पूर्ण झाल्यावरच रक्कम शेतकऱ्याच्या थेट बँक खात्यात वितरित होईल.",
+            escrowTitle: "अ‍ॅग्रीलिंक स्मार्ट एस्क्रो शील्ड",
+            escrowDesc: "तुमचे पैसे अ‍ॅग्रीलिंकच्या अधिकृत बँकेत (ICICI/SBI) सुरक्षितपणे लॉक केले जातील. पिकाची डिलिव्हरी आणि गुणवत्ता तपासणी पूर्ण झाल्यावरच रक्कम शेतकऱ्याच्या थेट बँक खात्यात वितरित होईल.",
             selectMethod: "पेमेंट पद्धत निवडा (Select Payment Method):",
             scanQr: "कोणत्याही UPI App द्वारे QR कोड स्कॅन करा (GPay / PhonePe / Paytm / BHIM):",
             copyUpi: "UPI आयडी कॉपी केला!",
@@ -344,7 +344,7 @@ const I18N_DICTIONARY = {
             btnListen: "🔊 ऐका (AI Voice)",
             btnSpeaking: "🔊 सल्ला वाचत आहे...",
             btnStop: "⏹️ आवाज थांबवा",
-            adviceSpoken: "किसान ट्रस्ट AI सल्ला ऐकवला जात आहे."
+            adviceSpoken: "अ‍ॅग्रीलिंक AI सल्ला ऐकवला जात आहे."
         },
         sampleLots: {
             quickLoadTitle: "✨ त्वरित चाचणीसाठी नमुना पिके लोड करा (1-Click Sample Lots):",
@@ -366,7 +366,7 @@ const I18N_DICTIONARY = {
         },
         whatsappShare: {
             btnShare: "💬 WhatsApp वर शेअर करा",
-            lotSummaryTitle: "🌾 किसान ट्रस्ट - डिजिटल शेती लॉट अहवाल"
+            lotSummaryTitle: "🌾 अ‍ॅग्रीलिंक - डिजिटल शेती लॉट अहवाल"
         },
         certificate: {
             btnViewCert: "📜 अधिकृत गुणवत्ता प्रमाणपत्र पहा / प्रिंट करा",
@@ -379,7 +379,7 @@ const I18N_DICTIONARY = {
     },
 
     "Hindi (हिंदी)": {
-        brand: "किसान ट्रस्ट",
+        brand: "अ‍ॅग्रीलिंक",
         tagline: "अपनी फसल को जानें. सही मूल्य समझें. सही बाजार चुनें.",
         subDescription: "गुणवत्ता, बाजार मूल्य, मांग और लॉजिस्टिक्स विश्लेषण से किसानों का सशक्तिकरण.",
         nav: {
@@ -528,10 +528,10 @@ const I18N_DICTIONARY = {
             spoilageRiskLabel: "खराबी जोखिम:",
             safeDaysLabel: "सुरक्षित शेल्फ-लाइफ:",
             forecastTitle: "अनुमानित मूल्य सीमा (Price Forecast):",
-            aiMitraAdviceTitle: "🤖 किसान ट्रस्ट AI मित्र सलाह (Grounded Advisory)"
+            aiMitraAdviceTitle: "🤖 अ‍ॅग्रीलिंक AI मित्र सलाह (Grounded Advisory)"
         },
         trustAndDisputes: {
-            trustScoreLabel: "किसान ट्रस्ट विश्वसनीयता स्कोर:",
+            trustScoreLabel: "अ‍ॅग्रीलिंक विश्वसनीयता स्कोर:",
             highlyTrusted: "अत्यधिक विश्वसनीय (Highly Trusted)",
             trusted: "विश्वसनीय खरीदार (Trusted)",
             moderateRisk: "मध्यम जोखिम (Moderate Risk)",
@@ -544,7 +544,7 @@ const I18N_DICTIONARY = {
             paymentReliabilityLabel: "समय पर भुगतान दर:"
         },
         adminPortal: {
-            title: "🛡️ किसान ट्रस्ट प्रशासनिक नियंत्रण कक्ष (Admin Portal)",
+            title: "🛡️ अ‍ॅग्रीलिंक प्रशासनिक नियंत्रण कक्ष (Admin Portal)",
             subTitle: "किसान व खरीदार सत्यापन, लॉट मॉडरेशन, लेनदेन एवं विवाद समाधान केंद्र",
             tabOverview: "📊 अवलोकन (Overview)",
             tabFarmers: "👨‍🌾 किसान सत्यापन",
@@ -610,7 +610,7 @@ const I18N_DICTIONARY = {
             emptyNoRisk: "वर्तमान में कोई संदिग्ध या धोखाधड़ी गतिविधि नहीं मिली।"
         },
         auth: {
-            portalTitle: "किसान ट्रस्ट प्रवेश (Login & Register)",
+            portalTitle: "अ‍ॅग्रीलिंक प्रवेश (Login & Register)",
             tabLogin: "लॉगिन (Sign In)",
             tabRegister: "नया पंजीकरण (Register)",
             lblIdentifier: "मोबाइल नंबर या ईमेल (Mobile / Email)",
@@ -660,14 +660,14 @@ const I18N_DICTIONARY = {
             navPayments: "पेमेंट्स"
         },
         payment: {
-            modalTitle: "किसान ट्रस्ट एस्क्रो भुगतान (Escrow Checkout)",
+            modalTitle: "अ‍ॅग्रीलिंक एस्क्रो भुगतान (Escrow Checkout)",
             modalSubtitle: "१००% सुरक्षित बैंक एस्क्रो सुरक्षा (Secure Escrow Protection)",
             orderSummary: "ऑर्डर सारांश",
             quantity: "मात्रा (Quantity)",
             pricePerKg: "दर (Price / kg)",
             totalAmount: "कुल राशि (Total)",
-            escrowTitle: "किसान ट्रस्ट स्मार्ट एस्क्रो शील्ड",
-            escrowDesc: "आपका भुगतान किसान ट्रस्ट के अधिकृत बैंक (ICICI/SBI) में सुरक्षित रूप से लॉक रहेगा। फसल की डिलीवरी और गुणवत्ता सत्यापन के बाद ही राशि सीधे किसान के बैंक खाते में जाएगी।",
+            escrowTitle: "अ‍ॅग्रीलिंक स्मार्ट एस्क्रो शील्ड",
+            escrowDesc: "आपका भुगतान अ‍ॅग्रीलिंक के अधिकृत बैंक (ICICI/SBI) में सुरक्षित रूप से लॉक रहेगा। फसल की डिलीवरी और गुणवत्ता सत्यापन के बाद ही राशि सीधे किसान के बैंक खाते में जाएगी।",
             selectMethod: "भुगतान विधि चुनें (Select Payment Method):",
             scanQr: "किसी भी UPI ऐप से QR कोड स्कैन करें (GPay / PhonePe / Paytm / BHIM):",
             copyUpi: "UPI आईडी कॉपी हो गई!",
@@ -704,7 +704,7 @@ const I18N_DICTIONARY = {
             btnListen: "🔊 सुनें (AI Voice)",
             btnSpeaking: "🔊 सलाह बोली जा रही है...",
             btnStop: "⏹️ आवाज बंद करें",
-            adviceSpoken: "किसान ट्रस्ट AI सलाह सुनाई जा रही है।"
+            adviceSpoken: "अ‍ॅग्रीलिंक AI सलाह सुनाई जा रही है।"
         },
         sampleLots: {
             quickLoadTitle: "✨ त्वरित परीक्षण हेतु नमूने (1-Click Sample Lots):",
@@ -726,7 +726,7 @@ const I18N_DICTIONARY = {
         },
         whatsappShare: {
             btnShare: "💬 WhatsApp पर साझा करें",
-            lotSummaryTitle: "🌾 किसान ट्रस्ट - डिजिटल कृषि लॉट रिपोर्ट"
+            lotSummaryTitle: "🌾 अ‍ॅग्रीलिंक - डिजिटल कृषि लॉट रिपोर्ट"
         },
         certificate: {
             btnViewCert: "📜 आधिकारिक गुणवत्ता प्रमाण पत्र देखें / प्रिंट करें",
@@ -739,7 +739,7 @@ const I18N_DICTIONARY = {
     },
 
     "English": {
-        brand: "KisanTrust",
+        brand: "AgriLink",
         tagline: "Know Your Crop. Know Its Worth. Know Where to Sell.",
         subDescription: "AI-Powered Market Intelligence and Trusted Farm-to-Buyer Network.",
         nav: {
@@ -888,10 +888,10 @@ const I18N_DICTIONARY = {
             spoilageRiskLabel: "Spoilage Risk:",
             safeDaysLabel: "Safe Shelf Life:",
             forecastTitle: "Expected Opportunity Range:",
-            aiMitraAdviceTitle: "🤖 KisanTrust AI Mitra (Grounded Advisory)"
+            aiMitraAdviceTitle: "🤖 AgriLink AI Mitra (Grounded Advisory)"
         },
         trustAndDisputes: {
-            trustScoreLabel: "KisanTrust Score:",
+            trustScoreLabel: "AgriLink Score:",
             highlyTrusted: "Highly Trusted",
             trusted: "Trusted",
             moderateRisk: "Moderate Risk",
@@ -904,7 +904,7 @@ const I18N_DICTIONARY = {
             paymentReliabilityLabel: "On-Time Payment Rate:"
         },
         adminPortal: {
-            title: "🛡️ KisanTrust Administrative Control Center (Admin Portal)",
+            title: "🛡️ AgriLink Administrative Control Center (Admin Portal)",
             subTitle: "Farmer & Buyer verification, lot moderation, transactions, and dispute resolution hub",
             tabOverview: "📊 Overview",
             tabFarmers: "👨‍🌾 Farmer Verifications",
@@ -970,7 +970,7 @@ const I18N_DICTIONARY = {
             emptyNoRisk: "No active risk or fraud flags detected."
         },
         auth: {
-            portalTitle: "KisanTrust Portal (Login & Register)",
+            portalTitle: "AgriLink Portal (Login & Register)",
             tabLogin: "Sign In",
             tabRegister: "Register",
             lblIdentifier: "Mobile Number or Email",
@@ -1003,7 +1003,7 @@ const I18N_DICTIONARY = {
             lblCrops: "Primary Crops",
             lblAcres: "Farm Size (Acres)",
             lblCompanyName: "Company / Business Name",
-            placeholderCompany: "e.g. KisanMitra Agro Foods Pvt. Ltd.",
+            placeholderCompany: "e.g. AgriMitra Agro Foods Pvt. Ltd.",
             lblBuyerType: "Buyer Category",
             lblGstin: "GSTIN / Trade License",
             placeholderGstin: "27AABCS1429B1Z",
@@ -1020,14 +1020,14 @@ const I18N_DICTIONARY = {
             navPayments: "Payments"
         },
         payment: {
-            modalTitle: "KisanTrust Escrow Checkout",
+            modalTitle: "AgriLink Escrow Checkout",
             modalSubtitle: "Secure Escrow Protection Banking Gateway",
             orderSummary: "Order Summary",
             quantity: "Quantity",
             pricePerKg: "Price / kg",
             totalAmount: "Total Amount",
-            escrowTitle: "KisanTrust Smart Escrow Shield",
-            escrowDesc: "Your funds are securely locked in KisanTrust's escrow account (ICICI/SBI). Money is disbursed to the farmer only upon produce delivery and destination QC verification.",
+            escrowTitle: "AgriLink Smart Escrow Shield",
+            escrowDesc: "Your funds are securely locked in AgriLink's escrow account (ICICI/SBI). Money is disbursed to the farmer only upon produce delivery and destination QC verification.",
             selectMethod: "Select Payment Method:",
             scanQr: "Scan QR with any UPI App (GPay / PhonePe / Paytm / BHIM):",
             copyUpi: "UPI ID Copied!",
@@ -1064,7 +1064,7 @@ const I18N_DICTIONARY = {
             btnListen: "🔊 Listen (AI Voice)",
             btnSpeaking: "🔊 Speaking Advice...",
             btnStop: "⏹️ Stop Audio",
-            adviceSpoken: "KisanTrust AI Grounded Advisory is now speaking."
+            adviceSpoken: "AgriLink AI Grounded Advisory is now speaking."
         },
         sampleLots: {
             quickLoadTitle: "✨ Quick Test Sample Produce (1-Click Loaders):",
@@ -1086,7 +1086,7 @@ const I18N_DICTIONARY = {
         },
         whatsappShare: {
             btnShare: "💬 Share on WhatsApp",
-            lotSummaryTitle: "🌾 KisanTrust - Verified Agricultural Lot Report"
+            lotSummaryTitle: "🌾 AgriLink - Verified Agricultural Lot Report"
         },
         certificate: {
             btnViewCert: "📜 View & Print Official Quality Certificate",
@@ -1208,17 +1208,17 @@ function applyDOMTranslations(lang = "Marathi (मराठी)") {
 
     // Header Branding & Actions
     if (lang === "English") {
-        setTxt('brandName', "KisanTrust");
+        setTxt('brandName', "AgriLink");
         setTxt('tagline', "Know Your Crop. Know Its Worth. Know Where to Sell.");
         setTxt('headerHelplineText', "Helpline: 1800-123-4567");
         setTxt('adminQuickBtnText', "Admin Mode");
     } else if (lang === "Hindi (हिंदी)") {
-        setTxt('brandName', "किसान ट्रस्ट");
+        setTxt('brandName', "अ‍ॅग्रीलिंक");
         setTxt('tagline', "अपनी फसल पहचानें. सही भाव जानें. कहाँ बेचना है तय करें.");
         setTxt('headerHelplineText', "हेल्पलाइन: 1800-123-4567");
         setTxt('adminQuickBtnText', "एडमिन मोड");
     } else {
-        setTxt('brandName', "किसान ट्रस्ट");
+        setTxt('brandName', "अ‍ॅग्रीलिंक");
         setTxt('tagline', "आपले पीक ओळखा. योग्य भाव जाणा. कुठे विकायचे ते ठरवा.");
         setTxt('headerHelplineText', "हेल्पलाइन: 1800-123-4567");
         setTxt('adminQuickBtnText', "अ‍ॅडमिन मोड");
@@ -1238,15 +1238,15 @@ function applyDOMTranslations(lang = "Marathi (मराठी)") {
     // View 1: Dashboard Hero
     if (lang === "English") {
         setTxt('dashWelcomeText', "Welcome, Ramesh Patil 👋");
-        setTxt('dashSubDesc', "KisanTrust helps you accurately assess crop quality, discover transparent market prices, and connect directly with trusted verified buyers.");
+        setTxt('dashSubDesc', "AgriLink helps you accurately assess crop quality, discover transparent market prices, and connect directly with trusted verified buyers.");
         setTxt('dashAssessBtnText', "Assess & Register New Lot");
     } else if (lang === "Hindi (हिंदी)") {
         setTxt('dashWelcomeText', "स्वागत है, रमेश पाटिल 👋");
-        setTxt('dashSubDesc', "किसान ट्रस्ट आपको फसल की सटीक गुणवत्ता, पारदर्शी बाजार भाव और सीधे सत्यापित खरीदारों से जुड़ने में मदद करता है।");
+        setTxt('dashSubDesc', "अ‍ॅग्रीलिंक आपको फसल की सटीक गुणवत्ता, पारदर्शी बाजार भाव और सीधे सत्यापित खरीदारों से जुड़ने में मदद करता है।");
         setTxt('dashAssessBtnText', "नई फसल जांचें और पंजीकृत करें");
     } else {
         setTxt('dashWelcomeText', "नमस्कार, रमेश पाटील 👋");
-        setTxt('dashSubDesc', "KisanTrust आपल्याला पिकाची अचूक गुणवत्ता, पारदर्शक बाजारभाव आणि थेट विश्वासू खरेदीदार जोडण्यास मदत करते.");
+        setTxt('dashSubDesc', "AgriLink आपल्याला पिकाची अचूक गुणवत्ता, पारदर्शक बाजारभाव आणि थेट विश्वासू खरेदीदार जोडण्यास मदत करते.");
         setTxt('dashAssessBtnText', "नवीन लॉट तपासा व नोंदवा");
     }
 
@@ -1383,7 +1383,7 @@ function applyDOMTranslations(lang = "Marathi (मराठी)") {
     setTxt('poolingSub', dict.smartPooling?.subtitle || "Smallholder farmers aggregate compatible lots into full truckloads to save 50-60% on transport");
 
     // View 8: Admin Portal
-    setTxt('adminBannerTitle', dict.adminPortal?.title || "🛡️ KisanTrust Administrative Control Center");
+    setTxt('adminBannerTitle', dict.adminPortal?.title || "🛡️ AgriLink Administrative Control Center");
     setTxt('adminBannerSub', dict.adminPortal?.subTitle || "Centralized Farmer & Buyer verification, lot moderation, and dispute resolution hub");
     setTxt('adminTabOverview', dict.adminPortal?.tabOverview);
     setTxt('adminTabFarmers', dict.adminPortal?.tabFarmers);
@@ -1396,7 +1396,7 @@ function applyDOMTranslations(lang = "Marathi (मराठी)") {
 
     // Auth Modal
     if (dict.auth) {
-        setTxt('authModalTitle', dict.auth.portalTitle || "KisanTrust Portal");
+        setTxt('authModalTitle', dict.auth.portalTitle || "AgriLink Portal");
         setTxt('authTabLogin', dict.auth.tabLogin || "Sign In");
         setTxt('authTabRegister', dict.auth.tabRegister || "Register");
         setTxt('lblLoginIdentifier', dict.auth.lblIdentifier || "Mobile Number or Email");
@@ -1616,7 +1616,7 @@ function getEnvVar(k, d = '') {
         if (window['__' + k + '__']) return window['__' + k + '__'];
     }
     if (typeof localStorage !== 'undefined') {
-        const stored = localStorage.getItem('kisantrust_' + k.toLowerCase());
+        const stored = localStorage.getItem('agrilink_' + k.toLowerCase());
         if (stored) return stored;
     }
     return d;
@@ -1646,7 +1646,7 @@ const ENV_CONFIG = {
 
 // --- MODULE: src/config/firebaseConfig.js ---
 /**
- * KisanTrust - Firebase Configuration & SDK Initialization
+ * AgriLink - Firebase Configuration & SDK Initialization
  * Connects directly to Google Cloud Firestore, Firebase Auth, and Firebase Analytics
  * for Smart India Hackathon 2026 Project (sih2026-622a0).
  * Includes resilient offline sync adapter for local development, node tests, and poor rural connectivity.
@@ -1699,7 +1699,7 @@ if (typeof window !== 'undefined' && window.firebase) {
         }
         liveFirestore = window.firebase.firestore();
         liveAuth = window.firebase.auth();
-        console.log('🔥 KisanTrust Connected to Live Cloud Firestore:', firebaseConfig.projectId);
+        console.log('🔥 AgriLink Connected to Live Cloud Firestore:', firebaseConfig.projectId);
     } catch (err) {
         console.warn('⚠️ Cloud Firestore notice (using resilient local adapter):', err.message);
     }
@@ -1710,7 +1710,7 @@ if (typeof window !== 'undefined' && window.firebase) {
  */
 class LocalFirestoreAdapter {
     constructor() {
-        this.storageKey = 'kisantrust_firestore_db';
+        this.storageKey = 'agrilink_firestore_db';
         this._initDB();
     }
 
@@ -1888,7 +1888,7 @@ class LocalStorageAdapter {
  */
 class LocalAuthAdapter {
     constructor() {
-        this.currentUser = JSON.parse(safeGetStorage('kisantrust_auth_user') || 'null') || {
+        this.currentUser = JSON.parse(safeGetStorage('agrilink_auth_user') || 'null') || {
             uid: 'farmer_mh_001',
             name: 'Ramesh Patil (रमेश पाटील)',
             phone: '+91 98220 12345',
@@ -1906,7 +1906,7 @@ class LocalAuthAdapter {
 
     setUser(user) {
         this.currentUser = user;
-        safeSetStorage('kisantrust_auth_user', JSON.stringify(user));
+        safeSetStorage('agrilink_auth_user', JSON.stringify(user));
     }
 }
 const localDb = new LocalFirestoreAdapter();
@@ -1916,7 +1916,7 @@ const localStorageService = new LocalStorageAdapter();
 
 // --- MODULE: src/models/User.js ---
 /**
- * KisanTrust - User & Role Domain Models
+ * AgriLink - User & Role Domain Models
  * Implements strict Role-Based Access Control (RBAC), lifecycle state machines,
  * and privacy separation between private sensitive details and public marketplace data.
  */
@@ -1998,7 +1998,7 @@ class FarmerProfile {
             fullName: data.personalDetails?.fullName || data.name || 'Ramesh Patil',
             profilePhoto: data.personalDetails?.profilePhoto || data.profilePhoto || '',
             mobileNumber: data.personalDetails?.mobileNumber || data.phone || '+91 98224 56789',
-            emailAddress: data.personalDetails?.emailAddress || data.email || 'ramesh.patil@kisantrust.org',
+            emailAddress: data.personalDetails?.emailAddress || data.email || 'ramesh.patil@agrilink.org',
             fullAddress: data.personalDetails?.fullAddress || data.address || 'Gat No. 142, At Post Niphad',
             pincode: data.personalDetails?.pincode || '422303',
             state: data.personalDetails?.state || data.state || 'Maharashtra',
@@ -2010,7 +2010,7 @@ class FarmerProfile {
             primaryCrops: Array.isArray(data.farmDetails?.primaryCrops) ? data.farmDetails.primaryCrops : (data.primaryCrops || ['Tomato', 'Onion']),
             farmSizeAcres: Number(data.farmDetails?.farmSizeAcres ?? data.farmSizeAcres) || 4.5,
             productionCapacityTons: Number(data.farmDetails?.productionCapacityTons ?? data.productionCapacityTons) || 25,
-            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'KisanMitra Producer Co.'
+            fpoMembership: data.farmDetails?.fpoMembership || data.fpoMembership || 'AgriMitra Producer Co.'
         };
 
         this.verificationStatus = data.verificationStatus || (data.verified ? VERIFICATION_STATUS.VERIFIED : VERIFICATION_STATUS.PENDING_VERIFICATION);
@@ -2050,7 +2050,7 @@ class FarmerProfile {
             primaryCrops: this.farmDetails.primaryCrops,
             farmerRating: this.farmerRating > 0 ? this.farmerRating : null,
             isEstablished: this.isEstablished,
-            ratingLabel: this.isEstablished ? `${this.farmerRating} / 5.0 (${this.totalTransactionsCompleted} transactions)` : 'New to KisanTrust (No verified history yet)',
+            ratingLabel: this.isEstablished ? `${this.farmerRating} / 5.0 (${this.totalTransactionsCompleted} transactions)` : 'New to AgriLink (No verified history yet)',
             totalTransactionsCompleted: this.totalTransactionsCompleted,
             verificationStatus: this.verificationStatus
         };
@@ -2086,7 +2086,7 @@ class BuyerProfileRecord {
     constructor(data = {}) {
         this.userId = data.userId || data.buyerId || 'buyer_sahyadri';
         this.businessDetails = {
-            companyName: data.businessDetails?.companyName || data.companyName || 'KisanMitra Agro Processing Hub',
+            companyName: data.businessDetails?.companyName || data.companyName || 'AgriMitra Agro Processing Hub',
             buyerType: data.businessDetails?.buyerType || data.buyerType || data.companyType || 'Food Processor',
             contactPerson: data.businessDetails?.contactPerson || data.contactPerson || data.name || 'Amit Joshi',
             mobileNumber: data.businessDetails?.mobileNumber || data.phone || '+91 98230 44556',
@@ -2206,7 +2206,7 @@ class CustomerProfile {
 
 // --- MODULE: src/models/AuditLog.js ---
 /**
- * KisanTrust - Admin Audit Log Domain Model
+ * AgriLink - Admin Audit Log Domain Model
  * Records immutable, tamper-evident logs of critical administrative actions
  * such as verification decisions, lot approvals/rejections, suspensions, and score adjustments.
  */
@@ -2284,7 +2284,7 @@ class AuditLogRecord {
 
 // --- MODULE: src/models/Notification.js ---
 /**
- * KisanTrust - In-App Notification Domain Model
+ * AgriLink - In-App Notification Domain Model
  * Manages multi-role in-app alerts and status updates for Farmers, Buyers, and Admins.
  */
 const NOTIFICATION_TYPES = {
@@ -2346,7 +2346,7 @@ class NotificationRecord {
 
 // --- MODULE: src/models/RiskFlag.js ---
 /**
- * KisanTrust - Fraud & Risk Flag Domain Model
+ * AgriLink - Fraud & Risk Flag Domain Model
  * Tracks internal risk flags created by automated pre-checks or admin reviews.
  */
 const RISK_FLAG_TYPES = {
@@ -2426,7 +2426,7 @@ class RiskFlagRecord {
 
 // --- MODULE: src/models/Rating.js ---
 /**
- * KisanTrust - Transaction Rating & Review Domain Models
+ * AgriLink - Transaction Rating & Review Domain Models
  * Implements transaction-specific rating records to prevent manipulation,
  * self-rating, and arbitrary external reviews.
  */
@@ -2538,7 +2538,7 @@ class BuyerRatingRecord {
 
 // --- MODULE: src/models/Lot.js ---
 /**
- * KisanTrust - Digital Agricultural Lot Data Model
+ * AgriLink - Digital Agricultural Lot Data Model
  * Represents a verified agricultural produce lot created by a farmer.
  * Stores crop details, verified quality metrics, location, automated pre-checks,
  * and admin moderation lifecycle state.
@@ -2701,7 +2701,7 @@ class DigitalAgriculturalLot {
 
 // --- MODULE: src/models/Market.js ---
 /**
- * KisanTrust - Domain Models for Users, Market Benchmarks, Buyers, Pooling, and Transactions
+ * AgriLink - Domain Models for Users, Market Benchmarks, Buyers, Pooling, and Transactions
  */
 class UserProfile {
     constructor(data = {}) {
@@ -2738,7 +2738,7 @@ class MandiBenchmark {
 
 // --- MODULE: src/models/Buyer.js ---
 /**
- * KisanTrust - Buyer Profiles, Purchase Demands, and Negotiation Domain Models
+ * AgriLink - Buyer Profiles, Purchase Demands, and Negotiation Domain Models
  */
 class BuyerProfile {
     /**
@@ -2746,7 +2746,7 @@ class BuyerProfile {
      */
     constructor(data = {}) {
         this.buyerId = data.buyerId || `buyer_${Date.now().toString().slice(-4)}`;
-        this.companyName = data.companyName || 'KisanMitra Agro Processing';
+        this.companyName = data.companyName || 'AgriMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor'; 
         // 'Wholesaler' | 'Retailer' | 'Food Processor' | 'Restaurant' | 'Institutional Buyer' | 'Exporter' | 'Aggregator'
         this.contactPerson = data.contactPerson || 'Vilas Shinde';
@@ -2771,7 +2771,7 @@ class BuyerDemand {
     constructor(data = {}) {
         this.demandId = data.demandId || `DEM-${new Date().getFullYear()}-${Date.now().toString().slice(-5)}`;
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
+        this.buyerName = data.buyerName || 'AgriMitra Agro Processing';
         this.companyType = data.companyType || 'Food Processor';
         this.verifiedBuyer = Boolean(data.verifiedBuyer ?? true);
         this.reliabilityScore = Number(data.reliabilityScore) || 4.8;
@@ -2904,7 +2904,7 @@ class NegotiationRecord {
 
 // --- MODULE: src/models/Pooling.js ---
 /**
- * KisanTrust - Smart Village Pooling & Aggregation Domain Models (Stage 4)
+ * AgriLink - Smart Village Pooling & Aggregation Domain Models (Stage 4)
  */
 class PoolingCluster {
     /**
@@ -2930,7 +2930,7 @@ class PoolingCluster {
         // Destination & Buyer Linkage
         this.destinationMarket = data.destinationMarket || 'Vashi APMC (Navi Mumbai)';
         this.destinationBuyerDemandId = data.destinationBuyerDemandId || null;
-        this.buyerName = data.buyerName || 'KisanMitra Agro Processing';
+        this.buyerName = data.buyerName || 'AgriMitra Agro Processing';
 
         // Logistics & Savings Breakdown
         this.individualFreightPerKg = Number(data.individualFreightPerKg) || 2.40; // 1-Ton Pickup rate
@@ -2976,7 +2976,7 @@ class PoolingCluster {
 
 // --- MODULE: src/models/Transaction.js ---
 /**
- * KisanTrust - Extended Transaction Record & Lifecycle State Model (Stage 5 & Centralized System)
+ * AgriLink - Extended Transaction Record & Lifecycle State Model (Stage 5 & Centralized System)
  */
 const TRANSACTION_STAGES = [
     'LOT_CREATED',
@@ -3008,7 +3008,7 @@ class TransactionRecord {
         this.farmerId = data.farmerId || 'farmer_mh_001';
         this.farmerName = data.farmerName || 'Ramesh Patil (रमेश पाटील)';
         this.buyerId = data.buyerId || 'buyer_sahyadri';
-        this.buyerName = data.buyerName || 'KisanMitra Agro Processing Hub';
+        this.buyerName = data.buyerName || 'AgriMitra Agro Processing Hub';
         
         // Commodity details
         this.cropType = data.cropType || 'Tomato';
@@ -3042,7 +3042,7 @@ class TransactionRecord {
             driverName: 'Kailash Sonawane',
             driverPhone: '+91 98224 77889',
             pickupLocation: 'Niphad Village Hub, Nashik',
-            deliveryLocation: 'KisanMitra Agro Hub, Dindori',
+            deliveryLocation: 'AgriMitra Agro Hub, Dindori',
             estimatedDistanceKm: 42,
             estimatedTravelTimeHours: 1.5,
             freightCostTotal: 1200,
@@ -3113,7 +3113,7 @@ class TransactionRecord {
 
 // --- MODULE: src/models/Dispute.js ---
 /**
- * KisanTrust - Dispute Domain Model (Stage 6 & Centralized System)
+ * AgriLink - Dispute Domain Model (Stage 6 & Centralized System)
  */
 const DISPUTE_CATEGORIES = [
     { id: 'QUALITY_MISMATCH', label: 'Quality Mismatch', labelMr: 'गुणवत्ता तफावत (Quality Mismatch)' },
@@ -3140,7 +3140,7 @@ class DisputeRecord {
         this.transactionId = data.transactionId || '';
         this.raisedBy = data.raisedBy || 'FARMER'; // 'FARMER' | 'BUYER'
         this.claimantName = data.claimantName || 'Ramesh Patil';
-        this.respondentName = data.respondentName || 'KisanMitra Agro Processing Hub';
+        this.respondentName = data.respondentName || 'AgriMitra Agro Processing Hub';
         
         this.category = data.category || 'QUALITY_MISMATCH';
         this.categoryLabel = DISPUTE_CATEGORIES.find(c => c.id === this.category)?.label || 'Quality Issue';
@@ -3199,7 +3199,7 @@ class DisputeRecord {
 
 // --- MODULE: src/data/mockLots.js ---
 /**
- * KisanTrust - Initial Seed Active Agricultural Lots
+ * AgriLink - Initial Seed Active Agricultural Lots
  */
 const initialMockLots = [
     {
@@ -3558,7 +3558,7 @@ const initialMockLots = [
 
 // --- MODULE: src/data/mockMandis.js ---
 /**
- * KisanTrust - Structured Mandi Benchmarks, Buyer Demands, and Pooling Clusters
+ * AgriLink - Structured Mandi Benchmarks, Buyer Demands, and Pooling Clusters
  * Provides realistic data across Maharashtra and national APMCs.
  */
 const mockMandiBenchmarks = [
@@ -3663,7 +3663,7 @@ const mockBuyerDemands = [
     {
         demandId: "DEM-9081",
         buyerId: "buyer_sahyadri",
-        buyerName: "KisanMitra Producer Co.",
+        buyerName: "AgriMitra Producer Co.",
         companyType: "FPO / Processor",
         verifiedBuyer: true,
         requiredCrop: "Tomato",
@@ -3762,17 +3762,17 @@ const mockPoolingClusters = [
 
 // --- MODULE: src/data/mockBuyers.js ---
 /**
- * KisanTrust - Seed Buyer Profiles and Verified Demands
+ * AgriLink - Seed Buyer Profiles and Verified Demands
  * Covers Indian agricultural supply chain: Processors, Retailers, Exporters, Wholesalers, Restaurants.
  */
 const mockBuyerProfiles = [
     {
         buyerId: "buyer_sahyadri",
-        companyName: "KisanMitra Producer Co.",
+        companyName: "AgriMitra Producer Co.",
         companyType: "Food Processor",
         contactPerson: "Vikram Deshmukh",
         phone: "+91 00000 55667",
-        email: "orders@kisanmitra.example.com",
+        email: "orders@agrimitra.example.com",
         district: "Nashik",
         state: "Maharashtra",
         pincode: "422001",
@@ -3846,7 +3846,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00101",
         buyerId: "buyer_sahyadri",
-        buyerName: "KisanMitra Producer Co.",
+        buyerName: "AgriMitra Producer Co.",
         companyType: "Food Processor",
         verifiedBuyer: true,
         reliabilityScore: 4.9,
@@ -3978,7 +3978,7 @@ const initialBuyerDemands = [
     {
         demandId: "DEM-2026-00107",
         buyerId: "buyer_sahyadri",
-        buyerName: "KisanMitra",
+        buyerName: "AgriMitra",
         companyType: "Food Processor",
         verifiedBuyer: true,
         reliabilityScore: 4.9,
@@ -4002,7 +4002,7 @@ const initialBuyerDemands = [
 
 // --- MODULE: src/data/cropKnowledge.js ---
 /**
- * KisanTrust - Structured Agricultural Knowledge Base (Stage 4)
+ * AgriLink - Structured Agricultural Knowledge Base (Stage 4)
  * Grounded in verified datasets from ICAR (Indian Council of Agricultural Research),
  * NHB (National Horticulture Board), and APEDA standards.
  */
@@ -4178,7 +4178,7 @@ class CropKnowledgeService {
 
 // --- MODULE: src/data/mockTransactions.js ---
 /**
- * KisanTrust - Seed Transactions Data
+ * AgriLink - Seed Transactions Data
  * Realistic seed transactions at different lifecycle stages.
  */
 const mockTransactions = [
@@ -4188,7 +4188,7 @@ const mockTransactions = [
     farmerId: "farmer_mh_001",
     farmerName: "Ramesh Patil",
     buyerId: "buyer_sahyadri",
-    buyerName: "KisanMitra",
+    buyerName: "AgriMitra",
     cropType: "Tomato",
     variety: "Himsona",
     quantityKg: 500,
@@ -4301,7 +4301,7 @@ const initialMockTransactions = mockTransactions;
 
 // --- MODULE: src/data/mockDisputes.js ---
 /**
- * KisanTrust - Seed Disputes Data
+ * AgriLink - Seed Disputes Data
  * Realistic disputes for resolution workflows.
  */
 const mockDisputes = [
@@ -4346,7 +4346,7 @@ const initialMockDisputes = mockDisputes;
 
 // --- MODULE: src/data/mockAdminData.js ---
 /**
- * KisanTrust - Admin Seed Data
+ * AgriLink - Admin Seed Data
  * Data for admin panel workflows.
  */
 const initialPendingFarmers = [
@@ -4502,7 +4502,7 @@ const initialNotifications = [
 
 // --- MODULE: src/services/firebaseService.js ---
 /**
- * KisanTrust - Centralized Firebase Service
+ * AgriLink - Centralized Firebase Service
  * Manages Firestore collections, storage adapters, and seed datasets for the connected ecosystem.
  */
 
@@ -4584,7 +4584,7 @@ class FirebaseService {
                 personalDetails: {
                     fullName: 'रमेश मारुती पाटील (Ramesh Patil)',
                     mobileNumber: '+91 98224 56789',
-                    emailAddress: 'ramesh.patil@kisantrust.org',
+                    emailAddress: 'ramesh.patil@agrilink.org',
                     fullAddress: 'Gat No. 142, At Post Niphad',
                     pincode: '422303',
                     state: 'Maharashtra',
@@ -4595,7 +4595,7 @@ class FirebaseService {
                     primaryCrops: ['Tomato', 'Onion'],
                     farmSizeAcres: 4.5,
                     productionCapacityTons: 25,
-                    fpoMembership: 'KisanMitra Producer Co.'
+                    fpoMembership: 'AgriMitra Producer Co.'
                 },
                 verificationStatus: VERIFICATION_STATUS.VERIFIED,
                 farmerRating: 4.8,
@@ -4787,7 +4787,7 @@ const firebaseService = new FirebaseService();
 
 // --- MODULE: src/services/notificationService.js ---
 /**
- * KisanTrust - In-App Notification Service
+ * AgriLink - In-App Notification Service
  * Manages notification dispatch, retrieval, unread counts, and status updates for all roles.
  */
 class NotificationService {
@@ -4896,7 +4896,7 @@ class NotificationService {
 
 // --- MODULE: src/services/auditService.js ---
 /**
- * KisanTrust - Admin Audit Trail Service
+ * AgriLink - Admin Audit Trail Service
  * Records and queries immutable logs of administrative actions for transparency and governance.
  */
 class AuditService {
@@ -4948,7 +4948,7 @@ class AuditService {
 
 // --- MODULE: src/services/riskService.js ---
 /**
- * KisanTrust - Fraud & Risk Flag Management Service
+ * AgriLink - Fraud & Risk Flag Management Service
  * Detects suspicious activity, manages internal risk flags, and supports admin resolution.
  */
 class RiskService {
@@ -5114,8 +5114,8 @@ class RiskService {
 
 // --- MODULE: src/services/ratingService.js ---
 /**
- * KisanTrust - Rating & Reputation Engine
- * Calculates tamper-proof KisanTrust Farmer Ratings (0-5.0) and Buyer Trust Scores (0-100)
+ * AgriLink - Rating & Reputation Engine
+ * Calculates tamper-proof AgriLink Farmer Ratings (0-5.0) and Buyer Trust Scores (0-100)
  * based strictly on verified post-transaction feedback, delivery performance, and dispute history.
  */
 class RatingService {
@@ -5364,7 +5364,7 @@ class RatingService {
             ? (buyerRatings.reduce((sum, r) => sum + r.compositeRating, 0) / buyerRatings.length)
             : 4.8;
 
-        const scoreObj = TrustScoreService.calculateKisanTrustScore({
+        const scoreObj = TrustScoreService.calculateAgriLinkScore({
             ...buyerData,
             totalTransactionsCompleted: buyerTxns.length || 24,
             defaultedTransactions: 0,
@@ -5394,7 +5394,7 @@ class RatingService {
 
 // --- MODULE: src/services/qualityService.js ---
 /**
- * KisanTrust - Quality Grading & Multimodal Produce Verification Service
+ * AgriLink - Quality Grading & Multimodal Produce Verification Service
  * Strictly enforces AGMARKNET & NHB commercial produce standards via Gemini Multimodal Vision.
  * Genuinely verifies claimed commodity, detects random/unrelated objects, analyzes multi-angle photos
  * and internal cross-section cut slices.
@@ -5622,7 +5622,7 @@ class QualityService {
 
 // --- MODULE: src/services/pricingService.js ---
 /**
- * KisanTrust - Transparent Price Architecture & Estimation Service
+ * AgriLink - Transparent Price Architecture & Estimation Service
  * Implements deterministic calculation formula without arbitrary or guaranteed claims:
  * 
  * Estimated Net Realization = Base Market Price
@@ -5704,7 +5704,7 @@ class PricingService {
 
 // --- MODULE: src/services/marketService.js ---
 /**
- * KisanTrust - Market Intelligence Service
+ * AgriLink - Market Intelligence Service
  * Provides mandi benchmarks, modal price trends, and best market comparisons.
  */
 class MarketService {
@@ -5772,7 +5772,7 @@ class MarketService {
 
 // --- MODULE: src/services/transportEstimationService.js ---
 /**
- * KisanTrust - Transport Estimation Service
+ * AgriLink - Transport Estimation Service
  * Provides realistic road freight estimation based on distance, lot weight, and vehicle capacity.
  * Abstraction layer designed for zero client-side API key exposure.
  */
@@ -5886,7 +5886,7 @@ class TransportEstimationService {
 
 // --- MODULE: src/services/transportCostService.js ---
 /**
- * KisanTrust - Transport Cost & Route Calculation Service
+ * AgriLink - Transport Cost & Route Calculation Service
  * Computes transparent, itemized road freight expenses based on distance, quantity, and vehicle fleet options.
  * Differentiates between Partial LTL (Less-Than-Truckload) and Full FTL (Full-Truckload) economics.
  */
@@ -5968,7 +5968,7 @@ class TransportCostService {
 
 // --- MODULE: src/services/marketDataService.js ---
 /**
- * KisanTrust - Market Data Service (Agmarknet & Open Data Normalization)
+ * AgriLink - Market Data Service (Agmarknet & Open Data Normalization)
  * Integrates legitimate Open Government Data (data.gov.in / Agmarknet) via secure serverless proxy.
  * Implements a strict fallback hierarchy: Live API -> Firestore Cache -> Structured Demo Data.
  * 
@@ -6056,7 +6056,7 @@ class MarketDataService {
             modalPricePerKg: modalKg,
             arrivalVolumeTons: Number(raw.arrivalVolumeTons || (raw.arrivals_in_qtl ? (Number(raw.arrivals_in_qtl) / 10) : 150)),
             source: dataStatus === DATA_STATUS.LIVE ? "Open Government Data (Agmarknet API)" :
-                    dataStatus === DATA_STATUS.CACHED ? "Firestore Mandi Cache (Agmarknet Synced)" : "KisanTrust APMC Benchmark",
+                    dataStatus === DATA_STATUS.CACHED ? "Firestore Mandi Cache (Agmarknet Synced)" : "AgriLink APMC Benchmark",
             lastUpdated: raw.lastUpdated || new Date().toISOString(),
             dataStatus: dataStatus,
             dataStatusLabel: DATA_STATUS_LABELS[dataStatus] || DATA_STATUS_LABELS[DATA_STATUS.DEMO],
@@ -6180,7 +6180,7 @@ class MarketDataService {
 
 // --- MODULE: src/services/priceCalculationService.js ---
 /**
- * KisanTrust - Net Realization Calculation Engine (Stage 2)
+ * AgriLink - Net Realization Calculation Engine (Stage 2)
  * Computes explainable, itemized net farm-gate realizations.
  * Transparent formula:
  *   Base Market Price
@@ -6303,7 +6303,7 @@ class PriceCalculationService {
             estimatedNetRealization: {
                 value: estimatedNetRealizationPerKg,
                 unit: "₹/kg",
-                source: "KisanTrust Deterministic Realization Engine",
+                source: "AgriLink Deterministic Realization Engine",
                 explanation: "Estimated net farm-gate payout per kg after all quality adjustments and logistics deductions."
             },
             totalLotEstimatedNetWorth: {
@@ -6320,7 +6320,7 @@ class PriceCalculationService {
 
 // --- MODULE: src/services/opportunityComparisonService.js ---
 /**
- * KisanTrust - Multi-Pathway Opportunity Comparison Service (Stage 5 / Phase 9)
+ * AgriLink - Multi-Pathway Opportunity Comparison Service (Stage 5 / Phase 9)
  * Enables farmers to evaluate and compare 4 selling routes side-by-side:
  * - Option A: Local Mandi
  * - Option B: Distant Major APMC
@@ -6381,7 +6381,7 @@ class OpportunityComparisonService {
         }, farmerDistrict);
 
         const topBuyer = (matchedBuyers && matchedBuyers.length > 0) ? matchedBuyers[0] : {
-            buyerName: 'KisanMitra Agro Processing Hub',
+            buyerName: 'AgriMitra Agro Processing Hub',
             offeredPricePerKg: 37.50,
             pickupProvided: true,
             estimatedNetRealization: 37.20,
@@ -6476,11 +6476,11 @@ class OpportunityComparisonService {
             storageHoldingCostPerKg: 0.00,
             netRealizationPerKg: buyerNetPerKg,
             totalLotPayout: buyerTotalPayout,
-            paymentTimeline: '12 Hours (KisanTrust Escrow)',
+            paymentTimeline: '12 Hours (AgriLink Escrow)',
             paymentTimelineMr: '१२ तास (किसानट्रस्ट बँक एस्क्रो)',
             riskLevel: 'LOW',
             riskLevelMr: 'कमी (निश्चित करार दर व बँक सुरक्षा)',
-            settlementMethod: 'KisanTrust Direct Escrow Settlement',
+            settlementMethod: 'AgriLink Direct Escrow Settlement',
             features: [
                 'शेतावर थेट पिकअप (शून्य वाहतूक खर्च)',
                 'कोणतीही मंडी सेस किंवा दलाली नाही',
@@ -6556,7 +6556,7 @@ class OpportunityComparisonService {
 
 // --- MODULE: src/services/priceAnalysisService.js ---
 /**
- * KisanTrust - Price Analysis Service (Stage 2 Foundation)
+ * AgriLink - Price Analysis Service (Stage 2 Foundation)
  * Unified architectural entry point for all price calculations, net realization analysis,
  * regional price spread comparison, and transparent formula explanations.
  */
@@ -6780,7 +6780,7 @@ class PriceAnalysisService {
 
 // --- MODULE: src/services/marketComparisonService.js ---
 /**
- * KisanTrust - Market Comparison & Intelligent Routing Service (Stage 3)
+ * AgriLink - Market Comparison & Intelligent Routing Service (Stage 3)
  * Compares multiple APMC Mandis across Maharashtra & neighboring agricultural centers.
  * Displays transparent Min, Modal, Max prices, road distance, data source, and freshness.
  * Ranks markets based on ESTIMATED NET REALIZATION (accounting for road distance and transport).
@@ -6935,7 +6935,7 @@ class MarketComparisonService {
 
 // --- MODULE: src/services/marketTrendService.js ---
 /**
- * KisanTrust - Market Trend Service (7-Day & 30-Day APMC Trends)
+ * AgriLink - Market Trend Service (7-Day & 30-Day APMC Trends)
  * Stores and analyzes normalized historical prices in Firestore.
  * Calculates price velocity, percentage change, and trend direction (RISING / STABLE / FALLING).
  */
@@ -7258,7 +7258,7 @@ class PricePredictionService {
 
 // --- MODULE: src/services/recommendationService.js ---
 /**
- * KisanTrust - Intelligent Selling Decision Recommendation Engine (Stage 4)
+ * AgriLink - Intelligent Selling Decision Recommendation Engine (Stage 4)
  * Deterministically evaluates whether the farmer should:
  * - SELL NOW (आत्ताच विका)
  * - WAIT (काही दिवस थांबा)
@@ -7470,7 +7470,7 @@ class RecommendationService {
 
 // --- MODULE: src/services/geminiAdvisoryService.js ---
 /**
- * KisanTrust - Gemini Advisory & Multilingual Explanation Service (Stage 4)
+ * AgriLink - Gemini Advisory & Multilingual Explanation Service (Stage 4)
  * Translates structured deterministic recommendation results into empathetic, actionable farmer advice.
  * Supported languages: Marathi (मराठी), Hindi (हिंदी), English.
  * 
@@ -7512,7 +7512,7 @@ class GeminiAdvisoryService {
             totalLotValue: recommendation.totalExpectedNetPayout || (36 * (lot.quantity || 500)),
             bestMandi: recommendation.bestMandi?.marketName || 'Vashi APMC',
             mandiRate: recommendation.bestMandi?.rawModalPricePerKg || 34,
-            topBuyerName: recommendation.topBuyer?.buyerName || 'KisanMitra Agro Processing',
+            topBuyerName: recommendation.topBuyer?.buyerName || 'AgriMitra Agro Processing',
             buyerOfferedPrice: recommendation.topBuyer?.offeredPricePerKg || 37.5,
             pickupProvided: Boolean(recommendation.topBuyer?.pickupProvided ?? true),
             safeHoldingDaysRemaining: recommendation.spoilage?.safeHoldingDaysRemaining || 7,
@@ -7641,7 +7641,7 @@ class GeminiAdvisoryService {
 
 // --- MODULE: src/services/buyerService.js ---
 /**
- * KisanTrust - Buyer Service & Demand Management
+ * AgriLink - Buyer Service & Demand Management
  * Manages buyer profiles, purchase requirement postings, and lot-to-buyer matching.
  */
 class BuyerService {
@@ -7753,7 +7753,7 @@ class BuyerService {
 
 // --- MODULE: src/services/matchingService.js ---
 /**
- * KisanTrust - Deterministic Farmer-to-Buyer Matching Engine (Stage 3)
+ * AgriLink - Deterministic Farmer-to-Buyer Matching Engine (Stage 3)
  * Computes an explainable Opportunity Compatibility Score (0 - 100%)
  * Evaluates Crop, Quality Grade, Distance, Volume, Price Net Realization, Deadline, and Buyer Reliability.
  */
@@ -7994,7 +7994,7 @@ class MatchingService {
 
 // --- MODULE: src/services/negotiationService.js ---
 /**
- * KisanTrust - Negotiation & Direct Deal Service (Stage 3)
+ * AgriLink - Negotiation & Direct Deal Service (Stage 3)
  * Manages multi-round price negotiations between Farmers and Verified Buyers.
  * Automatically transitions to an official TransactionRecord upon Deal Acceptance.
  */
@@ -8178,7 +8178,7 @@ class NegotiationService {
 
 // --- MODULE: src/services/poolingService.js ---
 /**
- * KisanTrust - Smart Village Pooling & Aggregation Service (Stage 4)
+ * AgriLink - Smart Village Pooling & Aggregation Service (Stage 4)
  * Enables smallholder farmers in the same village cluster to aggregate compatible produce,
  * unlock high-volume bulk buyer purchase orders, and save 50–60% on shared road freight.
  */
@@ -8338,7 +8338,7 @@ class PoolingService {
 
 // --- MODULE: src/services/logisticsService.js ---
 /**
- * KisanTrust - Logistics Decision Support & Freight Estimator (Stage 5)
+ * AgriLink - Logistics Decision Support & Freight Estimator (Stage 5)
  * Provides transparent transport options, transit time estimations, and pooled logistics savings.
  * Grounded in commercial road freight benchmarks across Western India / Maharashtra corridors.
  */
@@ -8472,7 +8472,7 @@ class LogisticsService {
 
 // --- MODULE: src/services/storageService.js ---
 /**
- * KisanTrust - Storage Feasibility & Post-Harvest Advisory Service (Stage 5)
+ * AgriLink - Storage Feasibility & Post-Harvest Advisory Service (Stage 5)
  * Analyzes crop shelf-life, temperature requirements, and price forecasts to determine
  * whether immediate sale, farm ventilated storage (Kanda Chawl), or commercial cold storage is optimal.
  */
@@ -8621,7 +8621,7 @@ class StorageService {
 
 // --- MODULE: src/services/transactionService.js ---
 /**
- * KisanTrust - Transaction & Digital Certificate Management Service
+ * AgriLink - Transaction & Digital Certificate Management Service
  * Enforces controlled 9-stage lifecycle transitions, payment tracking,
  * and generates downloadable verifiable digital receipts.
  */
@@ -8709,7 +8709,7 @@ class TransactionService {
                 userId: record.farmerId,
                 type: NOTIFICATION_TYPES.OFFER_ACCEPTED,
                 title: '💰 एस्क्रो पेमेंट जमा झाले!',
-                message: `खरेदीदार ${record.buyerName} यांनी ${record.cropType} (${record.quantityKg}kg) साठी ₹${totalAmount.toLocaleString('en-IN')} चे पेमेंट किसान ट्रस्ट एस्क्रो खात्यात सुरक्षितपणे जमा केले आहे.`,
+                message: `खरेदीदार ${record.buyerName} यांनी ${record.cropType} (${record.quantityKg}kg) साठी ₹${totalAmount.toLocaleString('en-IN')} चे पेमेंट अ‍ॅग्रीलिंक एस्क्रो खात्यात सुरक्षितपणे जमा केले आहे.`,
                 relatedEntityType: 'TRANSACTION',
                 relatedEntityId: transactionId
             });
@@ -8856,7 +8856,7 @@ class TransactionService {
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
-    <title>KisanTrust Digital Certificate - ${txn.receiptNumber}</title>
+    <title>AgriLink Digital Certificate - ${txn.receiptNumber}</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #fdfdfd; color: #333; padding: 30px; }
         .receipt-card { max-width: 720px; margin: auto; border: 2px solid #2E7D32; border-radius: 12px; padding: 24px; background: white; box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
@@ -8877,7 +8877,7 @@ class TransactionService {
     <div class="receipt-card">
         <div class="header">
             <div>
-                <div class="brand">🌱 KisanTrust</div>
+                <div class="brand">🌱 AgriLink</div>
                 <div class="tagline">Smart India Hackathon PS 6132 • AI Market Intelligence & Farm-to-Buyer Network</div>
             </div>
             <div class="badge">✓ VERIFIED TRANSACTION</div>
@@ -8925,7 +8925,7 @@ class TransactionService {
         </div>
 
         <div class="footer">
-            हे डिजिटल प्रमाणपत्र Smart India Hackathon PS 6132 अंतर्गत KisanTrust प्लॅटफॉर्मवर सुरक्षितरीत्या तयार करण्यात आले आहे.
+            हे डिजिटल प्रमाणपत्र Smart India Hackathon PS 6132 अंतर्गत AgriLink प्लॅटफॉर्मवर सुरक्षितरीत्या तयार करण्यात आले आहे.
         </div>
     </div>
     <script>window.print();</script>
@@ -8936,7 +8936,7 @@ class TransactionService {
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `KisanTrust_Receipt_${txn.receiptNumber}.html`;
+        a.download = `AgriLink_Receipt_${txn.receiptNumber}.html`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -8947,7 +8947,7 @@ class TransactionService {
 
 // --- MODULE: src/services/verificationService.js ---
 /**
- * KisanTrust - User Verification & Account Moderation Service
+ * AgriLink - User Verification & Account Moderation Service
  * Manages administrative verification queues, approval workflows, suspensions,
  * and internal administrative notes with full audit trail logging.
  */
@@ -9048,7 +9048,7 @@ class VerificationService {
             userId,
             type: NOTIFICATION_TYPES.PROFILE_VERIFIED,
             title: '🎉 आपले शेतकरी खाते प्रमाणित झाले आहे!',
-            message: 'अभिनंदन! आपले किसान ट्रस्ट शेतकरी खाते यशस्वीरीत्या सत्यापित झाले आहे. आता आपण डिजिटल लॉट तयार करून बाजारात थेट विक्री करू शकता.',
+            message: 'अभिनंदन! आपले अ‍ॅग्रीलिंक शेतकरी खाते यशस्वीरीत्या सत्यापित झाले आहे. आता आपण डिजिटल लॉट तयार करून बाजारात थेट विक्री करू शकता.',
             relatedEntityType: 'PROFILE',
             relatedEntityId: userId
         });
@@ -9436,7 +9436,7 @@ class VerificationService {
 
 // --- MODULE: src/services/lotModerationService.js ---
 /**
- * KisanTrust - Lot & Buyer Demand Moderation Service
+ * AgriLink - Lot & Buyer Demand Moderation Service
  * Performs automated pre-checks (duplicate detection, image validation, quantity thresholds)
  * and powers the Admin Review Queues to ensure only verified listings enter the marketplace.
  */
@@ -9669,7 +9669,7 @@ class LotModerationService {
         });
 
         const farmerName = lotData.farmerName || 'शेतकरी मित्र';
-        const politeMessage = `प्रिय ${farmerName}, आपल्या ${lotData.cropType} (${lotData.quantity}kg) लॉटच्या नोंदणीबाबत प्रशासकीय पुनरावलोकन पूर्ण झाले आहे.\n\n📝 प्रशासकीय शेरा (Admin Remarks): "${rejectionReason}"\n\n💡 आपण आपल्या उत्पादनाचे नवीन/स्पष्ट फोटो किंवा सुधारित माहितीसह पुन्हा नोंदणी करू शकता. किसान ट्रस्ट आपल्या मदतीसाठी सदैव तयार आहे.`;
+        const politeMessage = `प्रिय ${farmerName}, आपल्या ${lotData.cropType} (${lotData.quantity}kg) लॉटच्या नोंदणीबाबत प्रशासकीय पुनरावलोकन पूर्ण झाले आहे.\n\n📝 प्रशासकीय शेरा (Admin Remarks): "${rejectionReason}"\n\n💡 आपण आपल्या उत्पादनाचे नवीन/स्पष्ट फोटो किंवा सुधारित माहितीसह पुन्हा नोंदणी करू शकता. अ‍ॅग्रीलिंक आपल्या मदतीसाठी सदैव तयार आहे.`;
 
         const farmerId = lotData.farmerId || 'farmer_mh_001';
         await NotificationService.sendNotification({
@@ -9878,7 +9878,7 @@ class LotModerationService {
 
 // --- MODULE: src/services/analyticsService.js ---
 /**
- * KisanTrust - Platform Analytics & Operational Overview Service
+ * AgriLink - Platform Analytics & Operational Overview Service
  * Aggregates operational platform statistics, verification queues, and risk health metrics.
  */
 class AnalyticsService {
@@ -9970,7 +9970,7 @@ class AnalyticsService {
 
 // --- MODULE: src/services/trustScoreService.js ---
 /**
- * KisanTrust - Buyer Reliability & KisanTrust Score Service (Stage 6)
+ * AgriLink - Buyer Reliability & AgriLink Score Service (Stage 6)
  * Calculates a transparent, multi-factor reliability rating (0–100) for buyers
  * based on document verification, settlement history, dispute ratios, and farmer feedback.
  */
@@ -10006,11 +10006,11 @@ const TRUST_TIERS = {
 };
 class TrustScoreService {
     /**
-     * Calculates the KisanTrust Reliability Score for a buyer profile
+     * Calculates the AgriLink Reliability Score for a buyer profile
      * @param {Object} buyer BuyerProfile or buyer statistics
      * @returns {Object} Transparent score breakdown and tier
      */
-    static calculateKisanTrustScore(buyer) {
+    static calculateAgriLinkScore(buyer) {
         // Factor 1: Verification Status (Weight 20%)
         let verificationScore = 60;
         let verificationLabel = 'Standard Registration';
@@ -10088,7 +10088,7 @@ class TrustScoreService {
     }
 
     /**
-     * Calculates the KisanTrust Reliability Score for a farmer profile
+     * Calculates the AgriLink Reliability Score for a farmer profile
      * @param {Object} farmer FarmerProfile or farmer statistics
      * @returns {Object} Transparent farmer score breakdown and verification tier
      */
@@ -10156,7 +10156,7 @@ class TrustScoreService {
 
 // --- MODULE: src/services/disputeService.js ---
 /**
- * KisanTrust - Evidence-Assisted Dispute Support Service
+ * AgriLink - Evidence-Assisted Dispute Support Service
  * Enables farmers and buyers to log transparent disputes referencing certified
  * Digital Agricultural Lot quality scans and timestamps, with full administrative resolution workflows.
  */
@@ -10338,7 +10338,7 @@ class DisputeService {
 
 // --- MODULE: src/services/authService.js ---
 /**
- * KisanTrust - Authentication & RBAC User Profile Service
+ * AgriLink - Authentication & RBAC User Profile Service
  * Implements strict Role-Based Access Control (RBAC), multi-role demo profiles,
  * and secure credential handling across Farmers, Buyers, Customers, FPOs, and Administrators.
  */
@@ -10346,14 +10346,14 @@ class DisputeService {
 
 
 
-const STORAGE_KEY_USER = 'kisantrust_active_user';
+const STORAGE_KEY_USER = 'agrilink_active_user';
 
 // Pre-seeded multi-role demo accounts for comprehensive evaluation
 const DEMO_ACCOUNTS = {
     farmer: new User({
         uid: 'farmer_mh_001',
         displayName: 'रमेश मारुती पाटील (Ramesh Patil)',
-        email: 'ramesh.patil@kisantrust.org',
+        email: 'ramesh.patil@agrilink.org',
         phone: '+91 98224 56789',
         role: USER_ROLES.FARMER,
         accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -10364,7 +10364,7 @@ const DEMO_ACCOUNTS = {
     }),
     buyer: new User({
         uid: 'buyer_sahyadri',
-        displayName: 'अमित जोशी (Amit Joshi - KisanMitra Agro)',
+        displayName: 'अमित जोशी (Amit Joshi - AgriMitra Agro)',
         email: 'amit.joshi@sahyadriagro.com',
         phone: '+91 98230 44556',
         role: USER_ROLES.BUYER,
@@ -10389,7 +10389,7 @@ const DEMO_ACCOUNTS = {
     admin: new User({
         uid: 'admin_mh_001',
         displayName: 'पूजा देशमुख (Pooja Deshmukh - Admin)',
-        email: 'admin.moderation@kisantrust.org',
+        email: 'admin.moderation@agrilink.org',
         phone: '+91 98220 99887',
         role: USER_ROLES.ADMIN,
         accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -10401,7 +10401,7 @@ const DEMO_ACCOUNTS = {
     super_admin: new User({
         uid: 'admin_super',
         displayName: 'विक्रम शिंदे (Vikram Shinde - Super Admin)',
-        email: 'security.lead@kisantrust.org',
+        email: 'security.lead@agrilink.org',
         phone: '+91 98221 00112',
         role: USER_ROLES.SUPER_ADMIN,
         accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -10502,7 +10502,7 @@ class AuthServiceClass {
             user = new User({
                 uid: `user_${Date.now().toString().slice(-6)}`,
                 displayName: identifier.includes('@') ? identifier.split('@')[0] : identifier,
-                email: identifier.includes('@') ? identifier : `${identifier}@kisantrust.org`,
+                email: identifier.includes('@') ? identifier : `${identifier}@agrilink.org`,
                 phone: identifier.match(/^\d+$/) ? identifier : '+91 98000 00000',
                 role: USER_ROLES.FARMER,
                 accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -10563,7 +10563,7 @@ class AuthServiceClass {
         const newUser = new User({
             uid,
             displayName: data.name,
-            email: data.email || `${data.phone || 'user'}@kisantrust.org`,
+            email: data.email || `${data.phone || 'user'}@agrilink.org`,
             phone: data.phone || '',
             role,
             accountStatus: ACCOUNT_STATUS.ACTIVE,
@@ -10710,7 +10710,7 @@ const AuthService = new AuthServiceClass();
 
 // --- MAIN APPLICATION CONTROLLER ---
 /**
- * KisanTrust - Application Controller (Stage 7: Connected Ecosystem, Admin Portal & Trust System)
+ * AgriLink - Application Controller (Stage 7: Connected Ecosystem, Admin Portal & Trust System)
  * AI-Powered Market Intelligence and Trusted Farm-to-Buyer Network
  */
 
@@ -11138,11 +11138,11 @@ function readAdviceAloud() {
 
     let speechPrompt = '';
     if (isMarathi) {
-        speechPrompt = `किसान ट्रस्ट AI सल्ला: ${decisionBadge}. ${adviceText}`;
+        speechPrompt = `अ‍ॅग्रीलिंक AI सल्ला: ${decisionBadge}. ${adviceText}`;
     } else if (isHindi) {
-        speechPrompt = `किसान ट्रस्ट AI सलाह: ${decisionBadge}. ${adviceText}`;
+        speechPrompt = `अ‍ॅग्रीलिंक AI सलाह: ${decisionBadge}. ${adviceText}`;
     } else {
-        speechPrompt = `KisanTrust AI Advisory: ${decisionBadge}. ${adviceText}`;
+        speechPrompt = `AgriLink AI Advisory: ${decisionBadge}. ${adviceText}`;
     }
 
     speakText(speechPrompt, btn);
@@ -11258,15 +11258,15 @@ function shareLotOnWhatsApp() {
     const grade = AppState.currentQualityAnalysis?.overallGrade || 'Grade A';
     const freshness = AppState.currentQualityAnalysis?.freshnessScore || 94;
 
-    const message = `🌾 *किसान ट्रस्ट (KisanTrust) प्रमाणित शेती लॉट* 🌾\n\n` +
+    const message = `🌾 *अ‍ॅग्रीलिंक (AgriLink) प्रमाणित शेती लॉट* 🌾\n\n` +
         `📦 *पीक:* ${cropType} (${variety})\n` +
         `⚖️ *वजन:* ${quantity} kg\n` +
         `🌟 *प्रमाणित दर्जा:* ${grade} (${freshness}% ताजेपणा)\n` +
         `💰 *अंदाजे निव्वळ प्राप्ती:* ${netPrice} / kg\n` +
         `💵 *एकूण मूल्य:* ${lotValue}\n` +
         `🚚 *वाहतूक:* गाव पूलिंगद्वारे ६०% बचत उपलब्ध\n\n` +
-        `🛡️ *सत्यापित डिजिटल पावती पाहण्यासाठी लिंक:* https://kisantrust.org/verify/LOT-2026-089101\n` +
-        `_KisanTrust - Know Your Crop. Know Its Worth. Know Where to Sell._`;
+        `🛡️ *सत्यापित डिजिटल पावती पाहण्यासाठी लिंक:* https://agrilink.org/verify/LOT-2026-089101\n` +
+        `_AgriLink - Know Your Crop. Know Its Worth. Know Where to Sell._`;
 
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -12890,7 +12890,7 @@ async function renderTransactionsList() {
                             ⭐ शेतकऱ्याला रेटिंग द्या
                         </button>
                     ` : ''}
-                    <button class="btn btn-primary" onclick="alert('डिजिटल पावती डाउनलोड होत आहे: ' + '${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
+                    <button class="btn btn-primary" onclick="window.downloadReceiptHandler('${t.transactionId}')" style="padding:6px 12px; font-size:0.82rem;">
                         📄 पावती डाउनलोड करा
                     </button>
                 </div>
@@ -13775,7 +13775,7 @@ window.closeHowCalculatedModal = closeHowCalculatedModal;
 function attachAllEventListeners() {
     if (window._eventListenersAttached) return;
     window._eventListenersAttached = true;
-    console.log('🌾 KisanTrust Initializing Event Handlers...');
+    console.log('🌾 AgriLink Initializing Event Handlers...');
 
     // Navigation Tab Clicks
     document.querySelectorAll('.nav-tab-btn').forEach(btn => {
@@ -14931,7 +14931,7 @@ function attachAllEventListeners() {
 
     // Confirm Payment & Lock in Escrow
     document.getElementById('btnConfirmEscrowPayment')?.addEventListener('click', async () => {
-        showLoading('🔒 किसान ट्रस्ट एस्क्रो पेमेंट सुरक्षितपणे पडताळत आहे...');
+        showLoading('🔒 अ‍ॅग्रीलिंक एस्क्रो पेमेंट सुरक्षितपणे पडताळत आहे...');
         try {
             const lot = currentPaymentLotData || {
                 lotId: 'LOT-MH-2026-089',
@@ -15106,9 +15106,9 @@ window.closeDemandModal = function() { const m = document.getElementById('postDe
 
 
 // Global App Initialization
-async function initKisanTrustApp() {
+async function initAgriLinkApp() {
     try {
-        console.log('🌾 KisanTrust Initializing App...');
+        console.log('🌾 AgriLink Initializing App...');
         attachAllEventListeners();
 
         const harvestDateInput = document.getElementById('inputHarvestDate');
@@ -15144,17 +15144,26 @@ async function initKisanTrustApp() {
 
         syncAuthUI();
         renderDashboard();
-        console.log('✅ KisanTrust Fully Ready & Active');
+        console.log('✅ AgriLink Fully Ready & Active');
     } catch (err) {
-        console.error('KisanTrust Init Error:', err);
+        console.error('AgriLink Init Error:', err);
     }
 }
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initKisanTrustApp);
+    document.addEventListener('DOMContentLoaded', initAgriLinkApp);
 } else {
-    initKisanTrustApp();
+    initAgriLinkApp();
 }
+
+// Added for receipt printing feature
+window.downloadReceiptHandler = async function(txnId) {
+    const txns = await TransactionService.getTransactions();
+    const txn = txns.find(t => t.transactionId === txnId);
+    if (txn) {
+        TransactionService.downloadReceipt(txn);
+    }
+};
 
 
     // Expose Global Handlers on window
@@ -15193,12 +15202,12 @@ if (document.readyState === 'loading') {
     window.closeOfficialCertificate = closeOfficialCertificate;
     window.openHowCalculatedModal = openHowCalculatedModal;
     window.closeHowCalculatedModal = closeHowCalculatedModal;
-    window.initKisanTrustApp = initKisanTrustApp;
+    window.initAgriLinkApp = initAgriLinkApp;
 
     // Ensure initialization runs immediately
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initKisanTrustApp);
+        document.addEventListener('DOMContentLoaded', initAgriLinkApp);
     } else {
-        initKisanTrustApp();
+        initAgriLinkApp();
     }
 })();

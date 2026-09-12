@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Intelligent Selling Decision Recommendation Engine (Stage 4)
+ * AgriLink - Intelligent Selling Decision Recommendation Engine (Stage 4)
  * Deterministically evaluates whether the farmer should:
  * - SELL NOW (आत्ताच विका)
  * - WAIT (काही दिवस थांबा)

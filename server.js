@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Local Live Development & Backend Integration Server
+ * AgriLink - Local Live Development & Backend Integration Server
  * Smart India Hackathon 2026 (Problem Statement 6132)
  * 
  * Features:
@@ -209,7 +209,7 @@ const server = http.createServer(async (req, res) => {
 // Start Server & Auto-open Browser
 server.listen(PORT, async () => {
     console.log('\n===============================================================');
-    console.log('🌱 KISANTRUST UNIFIED BACKEND & NETLIFY FUNCTION SERVER ACTIVE');
+    console.log('🌱 AGRILINK UNIFIED BACKEND & NETLIFY FUNCTION SERVER ACTIVE');
     console.log('===============================================================');
     console.log(`📍 Web App URL       : http://localhost:${PORT}`);
     console.log(`🔥 Firebase Project  : ${FIREBASE_CONFIG.projectId}`);

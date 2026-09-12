@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Transaction Rating & Review Domain Models
+ * AgriLink - Transaction Rating & Review Domain Models
  * Implements transaction-specific rating records to prevent manipulation,
  * self-rating, and arbitrary external reviews.
  */

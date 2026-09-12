@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 4 Automated Verification Suite
+ * AgriLink - Phase 4 Automated Verification Suite
  * Tests Net Realization Engine, Raw Market Price vs Net Realization,
  * Multi-Opportunity Comparison (Local Mandi vs Distant Mandi vs Direct Buyer),
  * and Transparent Formula Explanations.
@@ -23,7 +23,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 4 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 4 Automated Verification Suite...\n');
 
 console.log('1. Testing Raw Market Price vs Estimated Net Realization:');
 const localMandiCalc = PriceCalculationService.calculateNetRealization({

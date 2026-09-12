@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Price Analysis Service (Stage 2 Foundation)
+ * AgriLink - Price Analysis Service (Stage 2 Foundation)
  * Unified architectural entry point for all price calculations, net realization analysis,
  * regional price spread comparison, and transparent formula explanations.
  */

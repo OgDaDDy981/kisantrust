@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Centralized Firebase Service
+ * AgriLink - Centralized Firebase Service
  * Manages Firestore collections, storage adapters, and seed datasets for the connected ecosystem.
  */
 
@@ -81,7 +81,7 @@ class FirebaseService {
                 personalDetails: {
                     fullName: 'रमेश मारुती पाटील (Ramesh Patil)',
                     mobileNumber: '+91 98224 56789',
-                    emailAddress: 'ramesh.patil@kisantrust.org',
+                    emailAddress: 'ramesh.patil@agrilink.org',
                     fullAddress: 'Gat No. 142, At Post Niphad',
                     pincode: '422303',
                     state: 'Maharashtra',
@@ -92,7 +92,7 @@ class FirebaseService {
                     primaryCrops: ['Tomato', 'Onion'],
                     farmSizeAcres: 4.5,
                     productionCapacityTons: 25,
-                    fpoMembership: 'KisanMitra Producer Co.'
+                    fpoMembership: 'AgriMitra Producer Co.'
                 },
                 verificationStatus: VERIFICATION_STATUS.VERIFIED,
                 farmerRating: 4.8,

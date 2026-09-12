@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Quality Grading & Multimodal Produce Verification Service
+ * AgriLink - Quality Grading & Multimodal Produce Verification Service
  * Strictly enforces AGMARKNET & NHB commercial produce standards via Gemini Multimodal Vision.
  * Genuinely verifies claimed commodity, detects random/unrelated objects, analyzes multi-angle photos
  * and internal cross-section cut slices.

@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Multi-Pathway Opportunity Comparison Service (Stage 5 / Phase 9)
+ * AgriLink - Multi-Pathway Opportunity Comparison Service (Stage 5 / Phase 9)
  * Enables farmers to evaluate and compare 4 selling routes side-by-side:
  * - Option A: Local Mandi
  * - Option B: Distant Major APMC
@@ -66,7 +66,7 @@ export class OpportunityComparisonService {
         }, farmerDistrict);
 
         const topBuyer = (matchedBuyers && matchedBuyers.length > 0) ? matchedBuyers[0] : {
-            buyerName: 'KisanMitra Agro Processing Hub',
+            buyerName: 'AgriMitra Agro Processing Hub',
             offeredPricePerKg: 37.50,
             pickupProvided: true,
             estimatedNetRealization: 37.20,
@@ -161,11 +161,11 @@ export class OpportunityComparisonService {
             storageHoldingCostPerKg: 0.00,
             netRealizationPerKg: buyerNetPerKg,
             totalLotPayout: buyerTotalPayout,
-            paymentTimeline: '12 Hours (KisanTrust Escrow)',
+            paymentTimeline: '12 Hours (AgriLink Escrow)',
             paymentTimelineMr: '१२ तास (किसानट्रस्ट बँक एस्क्रो)',
             riskLevel: 'LOW',
             riskLevelMr: 'कमी (निश्चित करार दर व बँक सुरक्षा)',
-            settlementMethod: 'KisanTrust Direct Escrow Settlement',
+            settlementMethod: 'AgriLink Direct Escrow Settlement',
             features: [
                 'शेतावर थेट पिकअप (शून्य वाहतूक खर्च)',
                 'कोणतीही मंडी सेस किंवा दलाली नाही',

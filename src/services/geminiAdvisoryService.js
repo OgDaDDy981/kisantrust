@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Gemini Advisory & Multilingual Explanation Service (Stage 4)
+ * AgriLink - Gemini Advisory & Multilingual Explanation Service (Stage 4)
  * Translates structured deterministic recommendation results into empathetic, actionable farmer advice.
  * Supported languages: Marathi (मराठी), Hindi (हिंदी), English.
  * 
@@ -44,7 +44,7 @@ export class GeminiAdvisoryService {
             totalLotValue: recommendation.totalExpectedNetPayout || (36 * (lot.quantity || 500)),
             bestMandi: recommendation.bestMandi?.marketName || 'Vashi APMC',
             mandiRate: recommendation.bestMandi?.rawModalPricePerKg || 34,
-            topBuyerName: recommendation.topBuyer?.buyerName || 'KisanMitra Agro Processing',
+            topBuyerName: recommendation.topBuyer?.buyerName || 'AgriMitra Agro Processing',
             buyerOfferedPrice: recommendation.topBuyer?.offeredPricePerKg || 37.5,
             pickupProvided: Boolean(recommendation.topBuyer?.pickupProvided ?? true),
             safeHoldingDaysRemaining: recommendation.spoilage?.safeHoldingDaysRemaining || 7,

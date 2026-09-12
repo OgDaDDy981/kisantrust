@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Storage Feasibility & Post-Harvest Advisory Service (Stage 5)
+ * AgriLink - Storage Feasibility & Post-Harvest Advisory Service (Stage 5)
  * Analyzes crop shelf-life, temperature requirements, and price forecasts to determine
  * whether immediate sale, farm ventilated storage (Kanda Chawl), or commercial cold storage is optimal.
  */

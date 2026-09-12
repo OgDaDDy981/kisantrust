@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Stage 4 Automated Verification Suite
+ * AgriLink - Stage 4 Automated Verification Suite
  * Decision Recommendation Engine, Price Prediction, Gemini Advisory, and Smart Village Pooling
  */
 
@@ -10,7 +10,7 @@ import { GeminiAdvisoryService } from '../src/services/geminiAdvisoryService.js'
 import { PoolingService } from '../src/services/poolingService.js';
 import { DigitalAgriculturalLot } from '../src/models/Lot.js';
 
-console.log('🌱 Starting KisanTrust Stage 4 Automated Verification Suite...\n');
+console.log('🌱 Starting AgriLink Stage 4 Automated Verification Suite...\n');
 
 let passedTests = 0;
 let failedTests = 0;

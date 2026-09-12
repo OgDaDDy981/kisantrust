@@ -1,7 +1,7 @@
 {
-  "name": "kisantrust",
+  "name": "agrilink",
   "version": "2.0.0",
-  "description": "KisanTrust - SIH26132 Strengthening Market Linkages and Price Discovery for Farmers",
+  "description": "AgriLink - SIH26132 Strengthening Market Linkages and Price Discovery for Farmers",
   "type": "module",
   "main": "bundle.js",
   "scripts": {
@@ -24,6 +24,6 @@
     "firebase",
     "firestore"
   ],
-  "author": "KisanTrust Team",
+  "author": "AgriLink Team",
   "license": "MIT"
 }

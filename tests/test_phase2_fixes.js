@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Phase 2 Comprehensive Verification Suite
+ * AgriLink - Phase 2 Comprehensive Verification Suite
  * Validates all implemented fixes across:
  * 1. Netlify Serverless Functions & Proxy API Endpoints
  * 2. Strict Gemini Multimodal Produce & Commodity Verification
@@ -37,7 +37,7 @@ function assert(condition, message) {
     }
 }
 
-console.log('🌱 Starting KisanTrust Phase 2 Comprehensive Verification Suite...\n');
+console.log('🌱 Starting AgriLink Phase 2 Comprehensive Verification Suite...\n');
 
 async function runPhase2Tests() {
     // =========================================================================

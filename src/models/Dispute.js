@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Dispute Domain Model (Stage 6 & Centralized System)
+ * AgriLink - Dispute Domain Model (Stage 6 & Centralized System)
  */
 
 export const DISPUTE_CATEGORIES = [
@@ -29,7 +29,7 @@ export class DisputeRecord {
         this.transactionId = data.transactionId || '';
         this.raisedBy = data.raisedBy || 'FARMER'; // 'FARMER' | 'BUYER'
         this.claimantName = data.claimantName || 'Ramesh Patil';
-        this.respondentName = data.respondentName || 'KisanMitra Agro Processing Hub';
+        this.respondentName = data.respondentName || 'AgriMitra Agro Processing Hub';
         
         this.category = data.category || 'QUALITY_MISMATCH';
         this.categoryLabel = DISPUTE_CATEGORIES.find(c => c.id === this.category)?.label || 'Quality Issue';

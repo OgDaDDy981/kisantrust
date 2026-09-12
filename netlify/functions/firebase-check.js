@@ -1,5 +1,5 @@
 /**
- * KisanTrust - Netlify Serverless Function: Firebase Connectivity Check
+ * AgriLink - Netlify Serverless Function: Firebase Connectivity Check
  */
 
 import https from 'https';
